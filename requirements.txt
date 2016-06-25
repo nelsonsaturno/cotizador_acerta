@@ -1,0 +1,5 @@
+Django==1.8.6
+django-bootstrap3==7.0.1
+django-jquery==1.12.2
+psycopg2==2.6.1
+wheel==0.24.0

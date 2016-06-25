@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+
+{% block extracss %}
+
+{% endblock extracss %}
+
+
+{% block sessions %}
+<div class="row">
+    <div class="col-xs-12" style="padding-top: 30px;">
+        <div class="row">
+            <div class="col-xs-10 col-sm-10 col-md-2"></div>
+            <div class="col-xs-12 col-sm-12 col-md-8 panel panel-default" style="border-width: 4px; border-color: 8CA5F0;">
+                <div class="panel-body">
+                    <div style="margin: 1% auto;">
+                        <div class="login-logo">
+                            <a href="#"><b> Cotizador Acerta</b></a>
+                        </div><!-- /.login-logo -->
+                        <div class="login-box-body">  
+                            <table style="width:100%">
+                              <tr>
+                                <th>Descp. de Cobertura</th>
+                                <th>Suma Asegurada<br>Por persona/Por accidente</th>
+                                <th>Deducible</th>
+                                <th>Prima</th>
+                              </tr>
+                              <tr>
+                                <td>Lesiones Corporales</td>
+                                <td>{{ cotizacion.lesiones_corporales }}</td>
+                                <td></td>
+                                <td>{{ cotizacion.prima_lesiones|floatformat:2 }}</td>
+                              </tr>
+                              <tr>
+                                <td>Daños a la Propiedad Ajena</td>
+                                <td>{{ cotizacion.danios_propiedad }}</td>
+                                <td></td>
+                                <td>{{ cotizacion.prima_daniosProp|floatformat:2 }}</td>
+                              </tr>
+                              <tr>
+                                <td>Gastos Médicos por Accidente</td>
+                                <td>{{ cotizacion.gastos_medicos }}</td>
+                                <td></td>
+                                <td>{{ cotizacion.prima_gastosMedicos|floatformat:2 }}</td>
+                              </tr>
+                              <tr>
+                                <td>Otros Daños</td>
+                                <td>Suma Asegurada</td>
+                                <td>{{ cotizacion.otros_danios|floatformat:2 }}</td>
+                                <td>{{ cotizacion.prima_otrosDanios|floatformat:2 }}</td>
+                              </tr>
+                              <tr>
+                                <td>Incendio y Rayo</td>
+                                <td>Suma Asegurada</td>
+                                <td>{{ cotizacion.incendio_rayo|floatformat:2 }}</td>
+                                <td>-</td>
+                              </tr>
+                              <tr>
+                                <td>Robo y Hurto</td>
+                                <td>Suma Asegurada</td>
+                                <td>{{ cotizacion.robo_hurto|floatformat:2 }}</td>
+                                <td>-</td>
+                              </tr>
+                              <tr>
+                                <td>Muerte Accidental</td>
+                                <td>{{ cotizacion.muerte_accidental }}</td>
+                                <td></td>
+                                <td>-</td>
+                              </tr>
+                              <tr>
+                                <td>Asistencia Legal</td>
+                                <td>Incluido</td>
+                                <td></td>
+                                <td>-</td>
+                              </tr>
+                              <tr>
+                                <td>Importación de Piezas</td>
+                                {% if cotizacion.importacion_piezas%}
+                                  <td>Incluido</td>
+                                  <td></td>
+                                  <td>{{ cotizacion.prima_importacion|floatformat:2 }}</td>
+                                {% else %}
+                                  <td>No Incluido</td>
+                                  <td></td>
+                                  <td>-</td>
+                                {% endif %}
+                              </tr>
+                              <tr>
+                                <td>Acerta Preferencial Plus</td>
+                                <td>Incluido</td>
+                                <td></td>
+                                <td>{{ cotizacion.prima_preferencialPlus|floatformat:2 }}</td>
+                              </tr>
+                            </table>
+                            <div class="text-right">
+                              <h5>Subtotal: ${{ cotizacion.subtotal|floatformat:2 }}</h5>
+                              <h5>Impuestos: ${{ cotizacion.impuestos|floatformat:2 }}</h5>
+                              <h5>Total a Pagar: ${{ cotizacion.total|floatformat:2 }}</h5>
+                              <h5>Prima Mensual: ${{ cotizacion.prima_mensual|floatformat:2 }}</h5>
+                              <h5>Prima Pago de Contado: ${{ cotizacion.prima_pagoContado|floatformat:2 }}</h5>
+                              <h5>Prima Pago ACH/Visa: ${{ cotizacion.prima_pagoVisa|floatformat:2 }}</h5>
+                            </div>
+                            <div class="text-center">
+                                <a class="btn btn-success btn-lg" href="{% url 'conductor' %}">Volver a Cotizar</a>
+                            </div>
+                        </div><!-- /.login-box-body -->
+                    </div><!-- /.login-box -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock sessions %}
