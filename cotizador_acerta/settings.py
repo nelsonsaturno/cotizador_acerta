@@ -155,3 +155,5 @@ STATICFILES_DIRS = (
 )
 
 MEDIA_URL = '/media/'
+
+EMAIL_HOST = 'smtp.gmail.com'

@@ -52,7 +52,11 @@
             <div class="col-md-12">
                 <div class="col-md-4"></div>
                 <div class="col-md-4 text-center">
-                    <h1 id="titulo-login" class="text-center"><strong>REGISTRO DE CORREDORES</strong></h1>
+                    {% if group == 'corredor' %}
+                        <h1 id="titulo-login" class="text-center"><strong>REGISTRO DE CORREDORES</strong></h1>
+                    {% else %}
+                        <h1 id="titulo-login" class="text-center"><strong>REGISTRO DE VENDEDORES</strong></h1>
+                    {% endif %}
                 </div>
                 <div class="col-md-4"></div>
             </div>
