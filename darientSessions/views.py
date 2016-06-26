@@ -17,13 +17,13 @@ from darientSessions.models import UserProfile
 from darientSessions.forms import UserCreateForm, LoginForm, UserEditForm
 
 
-class RegistroCorredor(LoginRequiredMixin,
-                       GroupRequiredMixin, generic.CreateView):
+# class RegistroCorredor(LoginRequiredMixin,
+#                        GroupRequiredMixin, generic.CreateView):
 
-    def post(self, request, *args, **kwargs):
-        form = UserCreateForm(request.POST)
-        if form.is_valid():
-            form.save()
+#     def post(self, request, *args, **kwargs):
+#         form = UserCreateForm(request.POST)
+#         if form.is_valid():
+#             form.save()
             # username = form.cleaned_data['username']
             # email = form.cleaned_data['email']
             # salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
@@ -38,18 +38,18 @@ class RegistroCorredor(LoginRequiredMixin,
             #     (username, request.get_host(), activation_key)
             # send_mail(email_subject, email_body, 'acerta@darient.com',
             #           [email], fail_silently=False)
-            return HttpResponseRedirect(
-                reverse_lazy('login'))
-        else:
-            context = {'form': form}
-            return render_to_response('register.html', context,
-                                      context_instance=RequestContext(request))
+    #         return HttpResponseRedirect(
+    #             reverse_lazy('login'))
+    #     else:
+    #         context = {'form': form}
+    #         return render_to_response('register.html', context,
+    #                                   context_instance=RequestContext(request))
 
-    def get(self, request, *args, **kwargs):
-        form = UserCreateForm()
-        context = {'form': form}
-        return render_to_response('register.html', context,
-                                  context_instance=RequestContext(request))
+    # def get(self, request, *args, **kwargs):
+    #     form = UserCreateForm()
+    #     context = {'form': form}
+    #     return render_to_response('register.html', context,
+    #                               context_instance=RequestContext(request))
 
 
 def user_registration(request):

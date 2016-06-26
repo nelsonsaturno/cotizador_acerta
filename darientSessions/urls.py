@@ -53,7 +53,7 @@ urlpatterns = patterns(
     #     name='generate_key'),
     url(
         r'^register/$',
-        RegistroCorredor.as_view(),
+        'darientSessions.views.user_registration',
         name='register'),
     # url(
     #     r'^editAccount/$',
