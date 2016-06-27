@@ -40,6 +40,28 @@ class ConductorVehiculo(models.Model):
     anio = models.PositiveSmallIntegerField(blank=False)
     valor = models.PositiveIntegerField(blank=False)
     importacion_piezas = models.BooleanField(default=False)
+    lesiones_corporales = models.CharField(max_length=30, blank=False, default='25,000.00/50,000.00',
+                                           choices=[('5,000.00/10,000.00', '5,000.00/10,000.00'),
+                                                    ('10,000.00/20,000.00','10,000.00/20,000.00'),
+                                                    ('20,000.00/40,000.00', '20,000.00/40,000.00'),
+                                                    ('25,000.00/50,000.00', '25,000.00/50,000.00'),
+                                                    ('50,000.00/100,000.00', '50,000.00/100,000.00'),
+                                                    ('100,000.00/300,000.00', '100,000.00/300,000.00')])
+    danios_propiedad = models.CharField(max_length=30, blank=False, default='50,000.00',
+                                        choices=[('10,000.00', '10,000.00'),
+                                                 ('15,000.00', '15,000.00'),
+                                                 ('20,000.00', '20,000.00'),
+                                                 ('25,000.00', '25,000.00'),
+                                                 ('50,000.00', '50,000.00'),
+                                                 ('100,000.00', '100,000.00')])
+    gastos_medicos = models.CharField(max_length=30, blank=False, default='2,000.00/10,000.00',
+                                      choices=[('500.00/2,500.00', '500.00/2,500.00'),
+                                               ('1,000.00/5,000.00', '1,000.00/5,000.00'),
+                                               ('2,000.00/10,000.00', '2,000.00/10,000.00'),
+                                               ('5,000.00/25,000.00', '5,000.00/25,000.00'),
+                                               ('10,000.00/50,000.00', '10,000.00/50,000.00'),
+                                               ('5,000.00/35,000.00', '5,000.00/35,000.00')])
+    muerte_accidental = models.CharField(max_length=30, blank=False, default='5,000.00/25,000.00')
 
 
 class Cotizacion(models.Model):
