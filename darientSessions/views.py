@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.views import generic
 from cotizador_acerta.views_mixins import *
-from darientSessions.models import UserProfile
+from darientSessions.models import UserProfile, CorredorVendedor
 from darientSessions.forms import UserCreateForm, LoginForm, UserEditForm
 
 
@@ -52,35 +52,49 @@ from darientSessions.forms import UserCreateForm, LoginForm, UserEditForm
     #                               context_instance=RequestContext(request))
 
 
-def user_registration(request, group):
-    if request.method == 'POST':
-        form = UserCreateForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
-            activation_key = hashlib.sha1(salt + email).hexdigest()
-            key_expires = datetime.datetime.today() + datetime.timedelta(2)
-            user = User.objects.get(username=username)
-            g = models.Group.objects.get(name=group)
-            g.user_set.add(user)
-            new_profile = UserProfile(user=user, activation_key=activation_key,
-                                      key_expires=key_expires)
-            new_profile.save()
-            return HttpResponseRedirect(
-                reverse_lazy('login'))
+def user_registration(request):
+    if request.user.is_authenticated():
+        # We obtain the user group by the user logged.
+        # Sellers will create by agents
+        # Agents will create by admins
+        group = "corredor"
+        if str(request.user.groups.first()) == "corredor":
+            group = "vendedor"
+        if request.method == 'POST':
+            form = UserCreateForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data['username']
+                email = form.cleaned_data['email']
+                salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+                activation_key = hashlib.sha1(salt + email).hexdigest()
+                key_expires = datetime.datetime.today() + datetime.timedelta(2)
+                user = User.objects.get(username=username)
+                # Add the user into the group: Seller or Agent.
+                g = models.Group.objects.get(name=group) 
+                g.user_set.add(user)
+                new_profile = UserProfile(user=user, activation_key=activation_key,
+                                          key_expires=key_expires)
+                new_profile.save()
+                # Add relationship Seller-Agent. If required.
+                if group == "vendedor":
+                    new_relat = CorredorVendedor(corredor=request.user,vendedor=user)
+                    new_relat.save()
+                return HttpResponseRedirect(
+                    reverse_lazy('login'))
+            else:
+                context = {'form': form, 'group':group}
+                return render_to_response('register.html', context,
+                                          context_instance=RequestContext(request))
         else:
+            form = UserCreateForm()
+            print(group)
             context = {'form': form, 'group':group}
             return render_to_response('register.html', context,
                                       context_instance=RequestContext(request))
     else:
-        form = UserCreateForm()
-        print(group)
-        context = {'form': form, 'group':group}
-        return render_to_response('register.html', context,
-                                  context_instance=RequestContext(request))
-
+        return HttpResponseRedirect(
+                reverse_lazy('login'))
 
 def authenticate_user(username=None, password=None):
         """ Authenticate a user based on email address as the user name. """

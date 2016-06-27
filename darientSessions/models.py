@@ -13,3 +13,14 @@ class UserProfile(models.Model):
 
     class Meta:
         verbose_name_plural = u'User profiles'
+
+
+class CorredorVendedor(models.Model):
+    corredor = models.ForeignKey(User, related_name='corredor')
+    vendedor = models.ForeignKey(User, related_name='vendedor')
+
+    def __str__(self):
+        return self.vendedor.username + ' created by' + self.corredor.username
+
+    class Meta:
+        verbose_name_plural = u'CorredorVendedors'
