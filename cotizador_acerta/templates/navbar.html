@@ -5,10 +5,16 @@
             <a href="#"><span><img src="{% static 'img/AcertaSeguros.png' %}"> &nbsp;</span></a>
         </li>
         <li>
-            <a href="#"></a>
+        	{% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
+            	<a href="{% url 'register'%}" style="color:gray; align:right">Registrar Corredor</a>
+            {% elif user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
+            	<a href="{% url 'register'%}" style="color:gray; align:right">Registrar Vendedor</a>
+            {% endif %}
         </li>
         <li>
-            <a href="{% url 'register'%}" style="color:gray; align:right">Registrar Vendedor</a>
+        	{% if user.is_authenticated %}
+            	<a href="{% url 'logout' %}" style="color:gray; align:right">Cerrar Sesión</a>
+            {% endif %}
         </li>
     </ul>
 </div>
