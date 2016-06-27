@@ -4,12 +4,14 @@
 }
 
 .nav li a:hover{
-    background: transparent !important;
+    background: transparent;
+    color: black;
+    border-bottom: 5px solid #E76C42;
 }
 
 .menu li a{
-    color: #ffffff;
-    font-size: 12px;
+    color: gray;
+    font-size: 16px;
     list-style-type: none;
     text-decoration: none;
     opacity: 1;

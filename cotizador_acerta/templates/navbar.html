@@ -2,18 +2,21 @@
 <div class="row" id="navbar">
     <ul class="nav navbar-nav menu">
         <li>
-            <a href="#"><span><img src="{% static 'img/AcertaSeguros.png' %}"> &nbsp;</span></a>
+            <a href="#" style="border-bottom:none"><span><img src="{% static 'img/AcertaSeguros.png' %}"> &nbsp;</span></a>
+        </li>
+        <li>
+            <a href="#" style="color:gray; border-bottom: 5px solid #E76C42;">{{ user.get_full_name|default:user.username }}</a>
         </li>
         <li>
         	{% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
-            	<a href="{% url 'register'%}" style="color:gray; align:right">Registrar Corredor</a>
+            	<a href="{% url 'register'%}">Registrar Corredor</a>
             {% elif user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
-            	<a href="{% url 'register'%}" style="color:gray; align:right">Registrar Vendedor</a>
+            	<a href="{% url 'register'%}">Registrar Vendedor</a>
             {% endif %}
         </li>
         <li>
         	{% if user.is_authenticated %}
-            	<a href="{% url 'logout' %}" style="color:gray; align:right">Cerrar Sesión</a>
+            	<a href="{% url 'logout' %}" style="color:#E76C42">Cerrar Sesión</a>
             {% endif %}
         </li>
     </ul>
