@@ -7,8 +7,8 @@ from cotizar.models import *
 class ConductorVehiculoForm(forms.ModelForm):
 
     class Meta:
-        model = Conductor
-        exclude = []
+        model = ConductorVehiculo
+        exclude = ['corredor',]
 
         labels = {
             'nombre': 'Nombre',
@@ -20,6 +20,11 @@ class ConductorVehiculoForm(forms.ModelForm):
             'telefono1': 'Teléfono Celular',
             'telefono2': 'Teléfono de Trabajo',
             'historial_transito': 'Historial de Tránsito',
+            'edad': 'Edad',
+            'marca': 'Marca',
+            'modelo': 'Modelo',
+            'anio': 'Año',
+            'valor': 'Valor',
         }
 
     # def clean_email(self):

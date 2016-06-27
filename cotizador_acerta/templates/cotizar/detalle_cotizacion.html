@@ -17,7 +17,7 @@
                         <div class="login-logo">
                             <a href="#"><b> Cotizador Acerta</b></a>
                         </div><!-- /.login-logo -->
-                        <div class="login-box-body">  
+                        <div class="login-box-body">
                             <table style="width:100%">
                               <tr>
                                 <th>Descp. de Cobertura</th>
@@ -42,6 +42,12 @@
                                 <td>{{ cotizacion.gastos_medicos }}</td>
                                 <td></td>
                                 <td>{{ cotizacion.prima_gastosMedicos|floatformat:2 }}</td>
+                              </tr>
+                              <tr>
+                                <td>Colisión y Vuelco</td>
+                                <td>Suma Asegurada</td>
+                                <td>{{ cotizacion.colision_vuelco|floatformat:2 }}</td>
+                                <td>{{ cotizacion.prima_colisionVuelco|floatformat:2 }}</td>
                               </tr>
                               <tr>
                                 <td>Otros Daños</td>

@@ -52,7 +52,7 @@ from darientSessions.forms import UserCreateForm, LoginForm, UserEditForm
     #                               context_instance=RequestContext(request))
 
 
-def user_registration(request):
+def user_registration(request, group):
     if request.method == 'POST':
         form = UserCreateForm(request.POST)
         if form.is_valid():
@@ -63,23 +63,21 @@ def user_registration(request):
             activation_key = hashlib.sha1(salt + email).hexdigest()
             key_expires = datetime.datetime.today() + datetime.timedelta(2)
             user = User.objects.get(username=username)
+            g = models.Group.objects.get(name=group)
+            g.user_set.add(user)
             new_profile = UserProfile(user=user, activation_key=activation_key,
                                       key_expires=key_expires)
             new_profile.save()
-            email_subject = 'Account confirmation'
-            email_body ="Hey %s, thanks for signing up. To activate your account, click this link within 48hours http://%s/user/accounts/confirm/%s" %\
-                (username, request.get_host(), activation_key)
-            send_mail(email_subject, email_body, 'acerta@darient.com',
-                      [email], fail_silently=False)
             return HttpResponseRedirect(
                 reverse_lazy('login'))
         else:
-            context = {'form': form}
+            context = {'form': form, 'group':group}
             return render_to_response('register.html', context,
                                       context_instance=RequestContext(request))
     else:
         form = UserCreateForm()
-        context = {'form': form}
+        print(group)
+        context = {'form': form, 'group':group}
         return render_to_response('register.html', context,
                                   context_instance=RequestContext(request))
 
@@ -102,7 +100,7 @@ def authenticate_user(username=None, password=None):
 def login_request(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(
-               reverse_lazy('conductor'))
+            reverse_lazy('vehiculo'))
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -118,7 +116,7 @@ def login_request(request):
             if user:
                 login(request, user)
                 return HttpResponseRedirect(
-                       reverse_lazy('conductor'))
+                    reverse_lazy('vehiculo'))
             else:
                 form.add_error(None, "Tu correo o contraseña no son correctos")
     else:

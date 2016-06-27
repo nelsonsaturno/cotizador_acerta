@@ -54,6 +54,7 @@ urlpatterns = patterns(
     url(
         r'^register/$',
         'darientSessions.views.user_registration',
+        {'group':'corredor'},
         name='register'),
     # url(
     #     r'^editAccount/$',

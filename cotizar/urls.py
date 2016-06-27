@@ -9,7 +9,7 @@ urlpatterns = patterns(
     url(r'^cotizar-ahora/conductor/$',
         Conductor.as_view(),
         name='conductor'),
-    url(r'^cotizar-ahora/vehiculo/(?P<pk>\d+)$',
+    url(r'^cotizar-ahora/vehiculo/$',
         Vehiculo.as_view(),
         name='vehiculo'),
     url(r'^cotizar-ahora/planes/(?P<pk>\d+)/(?P<pk2>\d+)/(?P<pk3>\d+)/(?P<pk4>\d+)$',

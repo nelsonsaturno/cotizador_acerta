@@ -24,6 +24,7 @@ class Modelo(models.Model):
 
 class ConductorVehiculo(models.Model):
 
+    corredor = models.ForeignKey(User, null=True)
     nombre = models.CharField(max_length=20, blank=False)
     apellido = models.CharField(max_length=20, blank=False)
     sexo = models.CharField(max_length=10, blank=False, choices=[('Masculino', 'Masculino'), ('Femenino', 'Femenino')])

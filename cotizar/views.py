@@ -5,8 +5,9 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views import generic
 from cotizar.forms import *
+from datetime import date
 from cotizador_acerta.views_mixins import LoginRequiredMixin
-from cotizar.models import Conductor as ModeloConductor, Cotizacion
+from cotizar.models import ConductorVehiculo, Cotizacion
 
 
 class CotizarAhora(LoginRequiredMixin, generic.TemplateView):
@@ -15,7 +16,7 @@ class CotizarAhora(LoginRequiredMixin, generic.TemplateView):
 
 class Conductor(LoginRequiredMixin, generic.CreateView):
     template_name = "cotizar/conductor.html"
-    form_class = ConductorForm
+    form_class = ConductorVehiculoForm
 
     def post(self, request, *args, **kwargs):
         form = ConductorForm(request.POST)
@@ -29,10 +30,10 @@ class Conductor(LoginRequiredMixin, generic.CreateView):
 
 class Vehiculo(LoginRequiredMixin, generic.CreateView):
     template_name = "cotizar/vehiculo.html"
-    form_class = VehiculoForm
+    form_class = ConductorVehiculoForm
 
     def crear_cotizacion(self, request, vehiculo):
-        conductor = ModeloConductor.objects.get(pk=vehiculo.conductor.pk)
+        conductor = vehiculo
         if conductor.sexo == 'Masculino':
             sexo = 1.01
         else:
@@ -63,7 +64,9 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         else:
             historial_transito = 1.20
 
-        if vehiculo.antiguedad == 'Menor':
+        antig = date.today().year - vehiculo.anio
+
+        if antig <= 3:
             antiguedad = 0.43
         else:
             antiguedad = 0.50
@@ -99,28 +102,53 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         prima_danios = float("{0:.2f}".format((1 - descuento) * 170.00))
         prima_gastos = float("{0:.2f}".format((1 - descuento) * 35.00))
 
-        if vehiculo.uso == 1:
+        if antig == 0:
             porcentaje_uso = 0.013
-        elif vehiculo.uso == 2:
+        elif antig == 1:
+            porcentaje_uso = 0.013
+        elif antig == 2:
             porcentaje_uso = 0.015
-        elif vehiculo.uso == 3:
+        elif antig == 3:
             porcentaje_uso = 0.017
-        elif vehiculo.uso == 4:
+        elif antig == 4:
             porcentaje_uso = 0.019
-        elif vehiculo.uso == 5:
+        elif antig == 5:
             porcentaje_uso = 0.022
-        elif vehiculo.uso == 6:
+        elif antig == 6:
             porcentaje_uso = 0.024
-        elif vehiculo.uso == 7:
+        elif antig == 7:
             porcentaje_uso = 0.027
-        elif vehiculo.uso == 8:
+        elif antig == 8:
             porcentaje_uso = 0.029
-        elif vehiculo.uso == 9:
+        else:
             porcentaje_uso = 0.033
+
+        if antig == 0:
+            base_colision = vehiculo.valor * 0.032
+        elif antig == 1:
+            base_colision = vehiculo.valor * 0.032
+        elif antig == 2:
+            base_colision = vehiculo.valor * 0.037
+        elif antig == 3:
+            base_colision = vehiculo.valor * 0.042
+        elif antig == 4:
+            base_colision = vehiculo.valor * 0.047
+        elif antig == 5:
+            base_colision = vehiculo.valor * 0.053
+        elif antig == 6:
+            base_colision = vehiculo.valor * 0.059
+        elif antig == 7:
+            base_colision = vehiculo.valor * 0.065
+        elif antig == 8:
+            base_colision = vehiculo.valor * 0.071
+        else:
+            base_colision = vehiculo.valor * 0.077
 
         deducibles = float(vehiculo.valor) * porcentaje_uso
         deducibles = float("{0:.2f}".format(deducibles))
         prima_otros = float("{0:.2f}".format(deducibles - (deducibles * descuento)))
+        prima_colision = float("{0:.2f}".format(base_colision * (1 - descuento)))
+        deducible_colision = base_colision * 1.25
         subtotal = prima_lesiones + prima_danios + prima_gastos + prima_otros + importacion_piezas + 75.00
         subtotal = float("{0:.2f}".format(subtotal))
         impuestos = float("{0:.2f}".format(subtotal * 0.06))
@@ -132,7 +160,6 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         user = User.objects.get(pk=request.user.id)
 
         cotizacion = Cotizacion(conductor=conductor,
-        						vehiculo=vehiculo,
         						corredor=user,
         						lesiones_corporales=lesiones_corporales,
         						danios_propiedad=danios_propiedad,
@@ -151,6 +178,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         						prima_pagoVisa=prima_ach,
         						descuento=descuento,
         						total=total,
+                                prima_colisionVuelco=prima_colision,
+                                colision_vuelco=deducible_colision,
         						impuestos=impuestos,
         						prima_importacion=importacion_piezas,
         						plan="Básico")
@@ -159,17 +188,15 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         return cotizacion
 
     def post(self, request, *args, **kwargs):
-        form = VehiculoForm(request.POST)
+        form = ConductorVehiculoForm(request.POST)
         if form.is_valid():
-            conductor = ModeloConductor.objects.get(pk=kwargs['pk'])
             vehiculo = form.save()
-            vehiculo.conductor = conductor
-            vehiculo.save()
             user = User.objects.get(pk=request.user.id)
+            vehiculo.corredor = user
+            vehiculo.save()
             cotizacion1 = self.crear_cotizacion(request, vehiculo)
             deducibles2 = float("{0:.2f}".format(cotizacion1.otros_danios * 1.20))
-            cotizacion2 = Cotizacion(conductor=conductor,
-            						 vehiculo=vehiculo,
+            cotizacion2 = Cotizacion(conductor=vehiculo,
             						 corredor=user,
             						 lesiones_corporales=cotizacion1.lesiones_corporales,
             						 danios_propiedad=cotizacion1.danios_propiedad,
@@ -204,8 +231,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             ###################################
             deducibles3 = float("{0:.2f}".format(cotizacion1.otros_danios * 1.60))
 
-            cotizacion3 = Cotizacion(conductor=conductor,
-            						 vehiculo=vehiculo,
+            cotizacion3 = Cotizacion(conductor=vehiculo,
             						 corredor=user,
             						 lesiones_corporales=cotizacion1.lesiones_corporales,
             						 danios_propiedad=cotizacion1.danios_propiedad,
@@ -242,8 +268,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             ###################################
             deducibles4 = float("{0:.2f}".format(cotizacion1.otros_danios * 2.00))
 
-            cotizacion4 = Cotizacion(conductor=conductor,
-            						 vehiculo=vehiculo,
+            cotizacion4 = Cotizacion(conductor=vehiculo,
             						 corredor=user,
             						 lesiones_corporales=cotizacion1.lesiones_corporales,
             						 danios_propiedad=cotizacion1.danios_propiedad,
