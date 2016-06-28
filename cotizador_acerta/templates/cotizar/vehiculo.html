@@ -9,54 +9,94 @@
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
 
+{% load static %}
 {% block extracss %}
+<link href="{% static 'fonts/MyriadPro-Bold_31631.ttf' %}" rel="stylesheet" media="screen">
 
+<style type="text/css">
+    #titulo-login {
+        font-family: Arial;
+        font-size: 25px;
+        color: #B5B6B8;
+    }
+    #link-acerta {
+        color: #E76C42;
+    }
+    input:focus {
+        border-color: #E76C42 !important;
+        color: #E76C42 !important;
+    }
+    input:focus::-webkit-input-placeholder {
+        color: #E76C42 !important;
+    }
+    input:focus::-moz-placeholder {
+        color: #E76C42 !important;
+    }
+    input:focus:-moz-placeholder {
+        color: #E76C42 !important;
+    }
+    input:focus:-ms-input-placeholder {
+        color: #E76C42 !important;
+    }
+    .login-box-body {
+        margin-left: 20%;
+        margin-right: 20%
+    }
+</style>
 {% endblock extracss %}
 
 
 {% block content %}
 <div class="row">
-    <div class="col-xs-12" style="padding-top: 100px;">
+    <div class="col-xs-12" style="padding-top: 10%">
         <div class="row">
-            <div class="col-xs-1 col-sm-2 col-md-4"></div>
-            <div class="col-xs-10 col-sm-8 col-md-4 panel panel-default" style="border-width: 4px; border-color: 8CA5F0;">
-                <div class="panel-body">
-                    <div style="margin: 7% auto;">
-                        {% bootstrap_form_errors form %}
-                        <div class="login-logo">
-                            <a href="#"><b> Cotizador Acerta</b></a>
-                        </div><!-- /.login-logo -->
-                        <div class="login-box-body">
-                            <form action="" method="post" role="form" class="form-horizontal">
-                                {% csrf_token %}
-                                <div class="col-md-6">
-                                    {% bootstrap_field form.nombre layout='horizontal' %}
-                                    {% bootstrap_field form.apellido layout='horizontal' %}
-                                    {% bootstrap_field form.sexo layout='horizontal' %}
-                                    {% bootstrap_field form.edad layout='horizontal' %}
-                                    {% bootstrap_field form.identificacion layout='horizontal' %}
-                                    {% bootstrap_field form.estado_civil layout='horizontal' %}
-                                    {% bootstrap_field form.correo layout='horizontal' %}
-                                    {% bootstrap_field form.telefono1 layout='horizontal' %}
-                                    {% bootstrap_field form.telefono2 layout='horizontal' %}
-                                    {% bootstrap_field form.historial_transito layout='horizontal' %}
-                                </div>
-                                <div class="col-md-6">
-                                    {% bootstrap_field form.marca layout='horizontal' %}
-                                    {% bootstrap_field form.modelo layout='horizontal' %}
-                                    {% bootstrap_field form.anio layout='horizontal' %}
-                                    {% bootstrap_field form.valor layout='horizontal' %}
-                                    {% bootstrap_field form.importacion_piezas layout='horizontal' %}
-                                </div>
-
-                                {% buttons submit='Crear' %}{% endbuttons %}
-                            </form>
-                            <div class="text-left">
-                            </div>
-                        </div><!-- /.login-box-body -->
-                    </div><!-- /.login-box -->
+            <div class="col-md-12">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 text-center">
+                    <h1 id="titulo-login" class="text-center"><strong>COTIZACIÓN DE PÓLIZA DE SEGUROS PARA AUTOMÓVILES</strong></h1>
                 </div>
+                <div class="col-md-2"></div>
             </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                {% bootstrap_form_errors form %}
+                <form action="" method="post" role="form" class="form-horizontal">
+                    {% csrf_token %}
+                    <div class="login-box-body">
+                        <div class="col-md-6">
+                            {% bootstrap_field form.nombre layout='horizontal' %}
+                            {% bootstrap_field form.apellido layout='horizontal' %}
+                            {% bootstrap_field form.sexo layout='horizontal' %}
+                            {% bootstrap_field form.edad layout='horizontal' %}
+                            {% bootstrap_field form.identificacion layout='horizontal' %}
+                            {% bootstrap_field form.estado_civil layout='horizontal' %}
+                            {% bootstrap_field form.correo layout='horizontal' %}
+                            {% bootstrap_field form.telefono1 layout='horizontal' %}
+                            {% bootstrap_field form.telefono2 layout='horizontal' %}
+                            {% bootstrap_field form.historial_transito layout='horizontal' %}
+                        </div>
+                        <div class="col-md-6">
+                            {% bootstrap_field form.lesiones_corporales layout='horizontal' %}
+                            {% bootstrap_field form.danios_propiedad layout='horizontal' %}
+                            {% bootstrap_field form.gastos_medicos layout='horizontal' %}
+                            {% bootstrap_field form.muerte_accidental layout='horizontal' %}
+                            {% bootstrap_field form.marca layout='horizontal' %}
+                            {% bootstrap_field form.modelo layout='horizontal' %}
+                            {% bootstrap_field form.anio layout='horizontal' %}
+                            {% bootstrap_field form.valor layout='horizontal' %}
+                            {% bootstrap_field form.importacion_piezas layout='horizontal' %}
+                            {% buttons %}
+                                <button type="submit" class="btn btn-success btn-block btn-flat">
+                                    ENTRAR
+                                </button>
+                            {% endbuttons %}
+                        </div>
+                        <br>
+
+                    </div><!-- /.login-box-body -->
+                </form>
+            </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 </div>
