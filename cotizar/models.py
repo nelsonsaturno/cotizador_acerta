@@ -17,6 +17,7 @@ class Modelo(models.Model):
     nombre = models.CharField(max_length=20, blank=False)
     marca = models.ForeignKey(Marca)
     descuento = models.FloatField(blank=False, default=1.00)
+    recargo = models.FloatField(blank=False, default=1.00)
 
     def __str__(self):
         return self.nombre

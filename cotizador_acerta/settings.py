@@ -90,26 +90,26 @@ WSGI_APPLICATION = 'cotizador_acerta.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'dfegmb1cg7i64l',
-#         'USER': 'xygjjzwmiompmc',
-#         'PASSWORD': 'IuzXK7d7orNXGRc9rng4xaQn_a',
-#         'HOST': 'ec2-54-225-117-56.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cotizador_acerta',
-        'USER': 'acerta',
-        'PASSWORD': 'acerta123',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': 'dfegmb1cg7i64l',
+        'USER': 'xygjjzwmiompmc',
+        'PASSWORD': 'IuzXK7d7orNXGRc9rng4xaQn_a',
+        'HOST': 'ec2-54-225-117-56.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'cotizador_acerta',
+#         'USER': 'acerta',
+#         'PASSWORD': 'acerta123',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 # Password validation
@@ -156,4 +156,10 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ns@darient.com'
+EMAIL_HOST_PASSWORD = 'nast5718'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

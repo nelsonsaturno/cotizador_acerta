@@ -8,6 +8,9 @@ from cotizar.forms import *
 from datetime import date
 from cotizador_acerta.views_mixins import LoginRequiredMixin
 from cotizar.models import ConductorVehiculo, Cotizacion
+from django.template import Context
+from django.template.loader import get_template
+from django.core.mail import EmailMessage
 
 
 class CotizarAhora(LoginRequiredMixin, generic.TemplateView):
@@ -88,9 +91,9 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         elif descuento > 0.625:
             descuento = 0.625
 
-        lesiones_corporales = '25,000.00/50,000.00'
-        danios_propiedad = '50,000.00'
-        gastos_medicos = '2,000.00/10,000.00'
+        # lesiones_corporales = '25,000.00/50,000.00'
+        # danios_propiedad = '50,000.00'
+        # gastos_medicos = '2,000.00/10,000.00'
         if vehiculo.importacion_piezas:
             importa = True
             importacion_piezas = float("{0:.2f}".format(vehiculo.valor * 0.0018))
@@ -98,9 +101,48 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             importa = False
             importacion_piezas = 0.00
 
-        prima_lesiones = float("{0:.2f}".format((1 - descuento) * 90.00))
-        prima_danios = float("{0:.2f}".format((1 - descuento) * 170.00))
-        prima_gastos = float("{0:.2f}".format((1 - descuento) * 35.00))
+        if (vehiculo.lesiones_corporales == '5,000.00/10,000.00'):
+            base_lesiones = 30
+        elif (vehiculo.lesiones_corporales == '10,000.00/20,000.00'):
+            base_lesiones = 60
+        elif (vehiculo.lesiones_corporales == '20,000.00/40,000.00'):
+            base_lesiones = 75
+        elif (vehiculo.lesiones_corporales == '25,000.00/50,000.00'):
+            base_lesiones = 90
+        elif (vehiculo.lesiones_corporales == '50,000.00/100,000.00'):
+            base_lesiones = 120
+        else:
+            base_lesiones = 150
+
+        if (vehiculo.danios_propiedad == '10,000.00'):
+            base_danios = 120
+        elif (vehiculo.danios_propiedad == '15,000.00'):
+            base_danios = 140
+        elif (vehiculo.danios_propiedad == '20,000.00'):
+            base_danios = 150
+        elif (vehiculo.danios_propiedad == '25,000.00'):
+            base_danios = 160
+        elif (vehiculo.danios_propiedad == '50,000.00'):
+            base_danios = 170
+        else:
+            base_danios = 180
+
+        if (vehiculo.gastos_medicos == '500.00/2,500.00'):
+            base_gastos = 15
+        elif (vehiculo.gastos_medicos == '1,000.00/5,000.00'):
+            base_gastos = 25
+        elif (vehiculo.gastos_medicos == '2,000.00/10,000.00'):
+            base_gastos = 35
+        elif (vehiculo.gastos_medicos == '5,000.00/25,000.00'):
+            base_gastos = 50
+        elif (vehiculo.gastos_medicos == '10,000.00/50,000.00'):
+            base_gastos = 75
+        else:
+            base_gastos = 80
+
+        prima_lesiones = float("{0:.2f}".format((1 - descuento) * base_lesiones))
+        prima_danios = float("{0:.2f}".format((1 - descuento) * base_danios))
+        prima_gastos = float("{0:.2f}".format((1 - descuento) * base_gastos))
 
         if antig == 0:
             porcentaje_uso = 0.013
@@ -149,7 +191,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         prima_otros = float("{0:.2f}".format(deducibles - (deducibles * descuento)))
         prima_colision = float("{0:.2f}".format(base_colision * (1 - descuento)))
         deducible_colision = base_colision * 1.25
-        subtotal = prima_lesiones + prima_danios + prima_gastos + prima_otros + importacion_piezas + 75.00
+        subtotal = prima_lesiones + prima_danios + prima_gastos + prima_otros + importacion_piezas + prima_colision + 75.00
         subtotal = float("{0:.2f}".format(subtotal))
         impuestos = float("{0:.2f}".format(subtotal * 0.06))
         total = float("{0:.2f}".format(subtotal + impuestos))
@@ -159,30 +201,31 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
 
         user = User.objects.get(pk=request.user.id)
 
-        cotizacion = Cotizacion(conductor=conductor,
-        						corredor=user,
-        						lesiones_corporales=lesiones_corporales,
-        						danios_propiedad=danios_propiedad,
-        						gastos_medicos=gastos_medicos,
-        						otros_danios=deducibles,
-        						incendio_rayo=deducibles,
-        						robo_hurto=deducibles,
-        						importacion_piezas=importa,
-        						prima_lesiones=prima_lesiones,
-        						prima_daniosProp=prima_danios,
-        						prima_gastosMedicos=prima_gastos,
-        						prima_otrosDanios=prima_otros,
-        						subtotal=subtotal,
-        						prima_mensual=prima_mensual,
-        						prima_pagoContado=prima_contado,
-        						prima_pagoVisa=prima_ach,
-        						descuento=descuento,
-        						total=total,
-                                prima_colisionVuelco=prima_colision,
-                                colision_vuelco=deducible_colision,
-        						impuestos=impuestos,
-        						prima_importacion=importacion_piezas,
-        						plan="Básico")
+        cotizacion = Cotizacion(
+            conductor=conductor,
+            corredor=user,
+            lesiones_corporales=vehiculo.lesiones_corporales,
+            danios_propiedad=vehiculo.danios_propiedad,
+            gastos_medicos=vehiculo.gastos_medicos,
+            otros_danios=deducibles,
+            incendio_rayo=deducibles,
+            robo_hurto=deducibles,
+            importacion_piezas=importa,
+            prima_lesiones=prima_lesiones,
+            prima_daniosProp=prima_danios,
+            prima_gastosMedicos=prima_gastos,
+            prima_otrosDanios=prima_otros,
+            subtotal=subtotal,
+            prima_mensual=prima_mensual,
+            prima_pagoContado=prima_contado,
+            prima_pagoVisa=prima_ach,
+            descuento=descuento,
+            total=total,
+            prima_colisionVuelco=prima_colision,
+            colision_vuelco=deducible_colision,
+            impuestos=impuestos,
+            prima_importacion=importacion_piezas,
+            plan="Básico")
         cotizacion.save()
 
         return cotizacion
@@ -196,23 +239,26 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             vehiculo.save()
             cotizacion1 = self.crear_cotizacion(request, vehiculo)
             deducibles2 = float("{0:.2f}".format(cotizacion1.otros_danios * 1.20))
-            cotizacion2 = Cotizacion(conductor=vehiculo,
-            						 corredor=user,
-            						 lesiones_corporales=cotizacion1.lesiones_corporales,
-            						 danios_propiedad=cotizacion1.danios_propiedad,
-            						 gastos_medicos=cotizacion1.gastos_medicos,
-            						 otros_danios=deducibles2,
-            						 incendio_rayo=deducibles2,
-            						 robo_hurto=deducibles2,
-            						 importacion_piezas=cotizacion1.importacion_piezas,
-            						 prima_lesiones=cotizacion1.prima_lesiones,
-            						 prima_daniosProp=cotizacion1.prima_daniosProp,
-            						 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
-            						 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.9,
-            						 descuento=cotizacion1.descuento,
-            						 prima_importacion=cotizacion1.prima_importacion,
-            						 plan="Premium")
-            subtotal2 = cotizacion2.prima_lesiones + cotizacion2.prima_daniosProp + cotizacion2.prima_gastosMedicos + cotizacion2.prima_otrosDanios + cotizacion2.prima_importacion + 75.00
+            cotizacion2 = Cotizacion(
+                conductor=vehiculo,
+                corredor=user,
+                lesiones_corporales=cotizacion1.lesiones_corporales,
+                danios_propiedad=cotizacion1.danios_propiedad,
+                gastos_medicos=cotizacion1.gastos_medicos,
+                otros_danios=deducibles2,
+                incendio_rayo=deducibles2,
+                robo_hurto=deducibles2,
+                importacion_piezas=cotizacion1.importacion_piezas,
+                prima_lesiones=cotizacion1.prima_lesiones,
+                prima_daniosProp=cotizacion1.prima_daniosProp,
+                prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
+                prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.9,
+                prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.9,
+                colision_vuelco=cotizacion1.colision_vuelco * 1.20,
+                descuento=cotizacion1.descuento,
+                prima_importacion=cotizacion1.prima_importacion,
+                plan="Premium")
+            subtotal2 = cotizacion2.prima_lesiones + cotizacion2.prima_daniosProp + cotizacion2.prima_gastosMedicos + cotizacion2.prima_otrosDanios + cotizacion2.prima_importacion + cotizacion2.prima_colisionVuelco + 75.00
             subtotal2 = float("{0:.2f}".format(subtotal2))
             impuestos2 = float("{0:.2f}".format(subtotal2 * 0.06))
             total2 = float("{0:.2f}".format(subtotal2 + impuestos2))
@@ -231,23 +277,26 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             ###################################
             deducibles3 = float("{0:.2f}".format(cotizacion1.otros_danios * 1.60))
 
-            cotizacion3 = Cotizacion(conductor=vehiculo,
-            						 corredor=user,
-            						 lesiones_corporales=cotizacion1.lesiones_corporales,
-            						 danios_propiedad=cotizacion1.danios_propiedad,
-            						 gastos_medicos=cotizacion1.gastos_medicos,
-            						 otros_danios=deducibles3,
-            						 incendio_rayo=deducibles3,
-            						 robo_hurto=deducibles3,
-            						 importacion_piezas=cotizacion1.importacion_piezas,
-            						 prima_lesiones=cotizacion1.prima_lesiones,
-            						 prima_daniosProp=cotizacion1.prima_daniosProp,
-            						 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
-            						 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.8,
-            						 descuento=cotizacion1.descuento,
-            						 prima_importacion=cotizacion1.prima_importacion,
-            						 plan="Gold")
-            subtotal3 = cotizacion3.prima_lesiones + cotizacion3.prima_daniosProp + cotizacion3.prima_gastosMedicos + cotizacion3.prima_otrosDanios + cotizacion3.prima_importacion + 75.00
+            cotizacion3 = Cotizacion(
+                conductor=vehiculo,
+                corredor=user,
+                lesiones_corporales=cotizacion1.lesiones_corporales,
+                danios_propiedad=cotizacion1.danios_propiedad,
+                gastos_medicos=cotizacion1.gastos_medicos,
+                otros_danios=deducibles3,
+                incendio_rayo=deducibles3,
+                robo_hurto=deducibles3,
+                importacion_piezas=cotizacion1.importacion_piezas,
+                prima_lesiones=cotizacion1.prima_lesiones,
+                prima_daniosProp=cotizacion1.prima_daniosProp,
+                prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
+                prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.8,
+                prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.8,
+                colision_vuelco=cotizacion1.colision_vuelco * 1.60,
+                descuento=cotizacion1.descuento,
+                prima_importacion=cotizacion1.prima_importacion,
+                plan="Gold")
+            subtotal3 = cotizacion3.prima_lesiones + cotizacion3.prima_daniosProp + cotizacion3.prima_gastosMedicos + cotizacion3.prima_otrosDanios + cotizacion3.prima_importacion + cotizacion3.prima_colisionVuelco + 75.00
             subtotal3 = float("{0:.2f}".format(subtotal3))
             impuestos3 = float("{0:.2f}".format(subtotal3 * 0.06))
             total3 = float("{0:.2f}".format(subtotal3 + impuestos3))
@@ -268,23 +317,26 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             ###################################
             deducibles4 = float("{0:.2f}".format(cotizacion1.otros_danios * 2.00))
 
-            cotizacion4 = Cotizacion(conductor=vehiculo,
-            						 corredor=user,
-            						 lesiones_corporales=cotizacion1.lesiones_corporales,
-            						 danios_propiedad=cotizacion1.danios_propiedad,
-            						 gastos_medicos=cotizacion1.gastos_medicos,
-            						 otros_danios=deducibles4,
-            						 incendio_rayo=deducibles4,
-            						 robo_hurto=deducibles4,
-            						 importacion_piezas=cotizacion1.importacion_piezas,
-            						 prima_lesiones=cotizacion1.prima_lesiones,
-            						 prima_daniosProp=cotizacion1.prima_daniosProp,
-            						 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
-            						 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.7,
-            						 descuento=cotizacion1.descuento,
-            						 prima_importacion=cotizacion1.prima_importacion,
-            						 plan="Silver")
-            subtotal4 = cotizacion4.prima_lesiones + cotizacion4.prima_daniosProp + cotizacion4.prima_gastosMedicos + cotizacion4.prima_otrosDanios + cotizacion4.prima_importacion + 75.00
+            cotizacion4 = Cotizacion(
+                conductor=vehiculo,
+                corredor=user,
+                lesiones_corporales=cotizacion1.lesiones_corporales,
+                danios_propiedad=cotizacion1.danios_propiedad,
+                gastos_medicos=cotizacion1.gastos_medicos,
+                otros_danios=deducibles4,
+                incendio_rayo=deducibles4,
+                robo_hurto=deducibles4,
+                importacion_piezas=cotizacion1.importacion_piezas,
+                prima_lesiones=cotizacion1.prima_lesiones,
+                prima_daniosProp=cotizacion1.prima_daniosProp,
+                prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
+                prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.7,
+                prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.7,
+                colision_vuelco=cotizacion1.colision_vuelco * 2.00,
+                descuento=cotizacion1.descuento,
+                prima_importacion=cotizacion1.prima_importacion,
+                plan="Silver")
+            subtotal4 = cotizacion4.prima_lesiones + cotizacion4.prima_daniosProp + cotizacion4.prima_gastosMedicos + cotizacion4.prima_otrosDanios + cotizacion4.prima_importacion + cotizacion4.prima_colisionVuelco + 75.00
             subtotal4 = float("{0:.2f}".format(subtotal4))
             impuestos4 = float("{0:.2f}".format(subtotal4 * 0.06))
             total4 = float("{0:.2f}".format(subtotal4 + impuestos4))
@@ -324,7 +376,7 @@ class VerPlanes(LoginRequiredMixin, generic.TemplateView):
         return self.render_to_response(context)
 
 
-class DetalleCotizacion(LoginRequiredMixin, generic.DetailView):
+class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
     template_name = "cotizar/detalle_cotizacion.html"
     model = Cotizacion
 
@@ -334,3 +386,19 @@ class DetalleCotizacion(LoginRequiredMixin, generic.DetailView):
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
         context['cotizacion'] = cotizacion
         return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
+        subject = "Acerta Seguros - Cotización de Vehículo"
+        to = [cotizacion.conductor.correo]
+        from_email = 'donotreply@cotizadoracerta.com'
+
+        ctx = {
+            'cotizacion': cotizacion,
+        }
+
+        message = get_template('cotizar/email.html').render(Context(ctx))
+        msg = EmailMessage(subject, message, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.send()
+        return HttpResponseRedirect(reverse_lazy('vehiculo'))

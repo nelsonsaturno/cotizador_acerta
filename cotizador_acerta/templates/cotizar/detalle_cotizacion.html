@@ -6,7 +6,7 @@
 {% endblock extracss %}
 
 
-{% block sessions %}
+{% block content %}
 <div class="row">
     <div class="col-xs-12" style="padding-top: 30px;">
         <div class="row">
@@ -106,8 +106,21 @@
                               <h5>Prima Pago de Contado: ${{ cotizacion.prima_pagoContado|floatformat:2 }}</h5>
                               <h5>Prima Pago ACH/Visa: ${{ cotizacion.prima_pagoVisa|floatformat:2 }}</h5>
                             </div>
-                            <div class="text-center">
+                            <br>
+                            <div class="col-md-12">
+                              <div class="col-md-4"></div>
+                              <div class="col-md-4 text-center">
                                 <a class="btn btn-success btn-lg" href="{% url 'conductor' %}">Volver a Cotizar</a>
+                              </div>
+                              <div class="col-md-4 text-right">
+                                <form action="" method="post" role="form" class="form-horizontal">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn btn-success btn-lg">
+                                    ENVIAR
+                                </button>
+                                </form>
+                              </div>
+
                             </div>
                         </div><!-- /.login-box-body -->
                     </div><!-- /.login-box -->
@@ -117,4 +130,4 @@
     </div>
 </div>
 
-{% endblock sessions %}
+{% endblock content %}
