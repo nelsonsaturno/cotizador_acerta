@@ -14,6 +14,35 @@ from django.core.mail import EmailMessage
 import json
 
 
+def CargarCarros(request):
+    file = open("carros.txt")
+    for line in file:
+        nline = line.split()
+        if nline[0] != "MODELO":
+            n = len(nline)
+            disc = int(nline[n-1][0] + nline[n-1][1])*0.01
+            recharg = int(nline[n-2][0] + nline[n-2][1])*0.01
+            brand = nline[n-3]
+            name=""
+            for i in range (n-4, -1, -1):
+                if name == "":
+                    name = str(nline[i])
+                else:
+                    name = str(nline[i]) + " " + name
+            result = Marca.objects.filter(nombre=brand)
+            if not result:
+                new_brand = Marca(nombre=brand)
+                new_brand.save()
+                new_model = Modelo(nombre=name,marca=new_brand,descuento=disc,recargo=recharg)
+                new_model.save()
+            else:
+                pass
+                new_model = Modelo(nombre=name,marca=result.first(),descuento=disc,recargo=recharg)
+                new_model.save()
+    return HttpResponseRedirect(
+                    reverse_lazy('login'))
+
+
 class CotizarAhora(LoginRequiredMixin, generic.TemplateView):
     template_name = "cotizar/cotiza_ahora.html"
 

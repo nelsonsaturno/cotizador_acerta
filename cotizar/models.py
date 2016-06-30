@@ -15,7 +15,7 @@ class Marca(models.Model):
 
 class Modelo(models.Model):
 
-    nombre = models.CharField(max_length=20, blank=False)
+    nombre = models.CharField(max_length=35, blank=False)
     marca = models.ForeignKey(Marca)
     descuento = models.FloatField(blank=False, default=1.00)
     recargo = models.FloatField(blank=False, default=1.00)
