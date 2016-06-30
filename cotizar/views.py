@@ -434,7 +434,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
 
         # Correo Corredor
         message_corredor = get_template('cotizar/email_corredores.html').render(Context(ctx))
-        msg = EmailMessage(subject, message_corredor, to=to, from_email=from_email)
+        msg = EmailMessage(subject, message_corredor, to=to_corredor, from_email=from_email)
         msg.content_subtype = 'html'
         msg.send()
 

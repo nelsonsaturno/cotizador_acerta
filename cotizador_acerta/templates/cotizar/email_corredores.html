@@ -296,6 +296,16 @@
                                                 <!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]-->A continuación le presentamos la siguiente cotización realizada para el cliente {{cotizacion.conductor.nombre}} {{ cotizacion.conductor.apellido }} para el vehiculo {{cotizacion.conductor.marca.nombre}} {{cotizacion.conductor.modelo.nombre}} {{cotizacion.conductor.anio}}, valorado en B/. {{cotizacion.conductor.valor}} <!--[if !mso]><!--></span><!--<![endif]-->
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td valign="middle" width="100%" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(63, 67, 69); line-height: 24px;" mc:edit="41">
+                                                <!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;">
+                                                Correo del cliente: {{ cotizacion.conductor.correo }}
+                                            </td>
+                                            <td valign="middle" width="100%" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(63, 67, 69); line-height: 24px;" mc:edit="41">
+                                                <!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;">
+                                                Teléfono celular: {{ cotizacion.conductor.telefono1 }}
+                                            </td>
+                                        </tr>
                                     </tbody></table>
                                 </td>
                             </tr>

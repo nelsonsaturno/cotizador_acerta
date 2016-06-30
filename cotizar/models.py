@@ -104,6 +104,9 @@ class ConductorVehiculo(models.Model):
                                         'Acerta Preferencial'),
                                        ('Uber', 'Acerta Uber')])
 
+    def __str__(self):
+        return self.correo
+
 
 class Cotizacion(models.Model):
 
