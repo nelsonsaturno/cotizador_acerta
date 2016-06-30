@@ -68,6 +68,7 @@
                             {% bootstrap_field form.apellido layout='horizontal' %}
                             {% bootstrap_field form.sexo layout='horizontal' %}
                             {% bootstrap_field form.edad layout='horizontal' %}
+                            {% bootstrap_field form.tipo_id layout='horizontal' %}
                             {% bootstrap_field form.identificacion layout='horizontal' %}
                             {% bootstrap_field form.estado_civil layout='horizontal' %}
                             {% bootstrap_field form.correo layout='horizontal' %}
@@ -80,14 +81,15 @@
                             {% bootstrap_field form.danios_propiedad layout='horizontal' %}
                             {% bootstrap_field form.gastos_medicos layout='horizontal' %}
                             {% bootstrap_field form.muerte_accidental layout='horizontal' %}
+                            {% bootstrap_field form.endoso layout='horizontal' %}
+                            {% bootstrap_field form.importacion_piezas layout='horizontal' %}
                             {% bootstrap_field form.marca layout='horizontal' %}
                             {% bootstrap_field form.modelo layout='horizontal' %}
                             {% bootstrap_field form.anio layout='horizontal' %}
                             {% bootstrap_field form.valor layout='horizontal' %}
-                            {% bootstrap_field form.importacion_piezas layout='horizontal' %}
                             {% buttons %}
                                 <button type="submit" class="btn btn-success btn-block btn-flat">
-                                    ENTRAR
+                                    CALCULAR
                                 </button>
                             {% endbuttons %}
                         </div>
@@ -102,3 +104,43 @@
 </div>
 
 {% endblock content %}
+
+{% block custom_script %}
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $( '#id_marca' ).prepend('<option value="" selected=selected disabled>Marca</option>');
+        $( '#id_modelo' ).empty();
+        $( '#id_modelo' ).append('<option value="" selected=selected disabled>Modelo</option>');
+    });
+
+    $( document ).on('change', '#id_marca', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: "{% url 'listModelsAjax' %}",
+            type: 'GET',
+            dataType: 'json',
+            data: {id: $( this ).val()}
+        })
+        .done(function(data) {
+            $( '#id_modelo' ).children().remove();
+            $.each(data, function(index, option) {
+                $( '#id_modelo' ).append('<option value="'+ option.id +'">'+ option.nombre + '</option>');
+            });
+            $( '#id_modelo' ).prepend('<option value="" selected=selected disabled>Modelo</option>');
+        })
+        .fail(function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Status: " + textStatus);
+            console.log("Error: " + errorThrown);
+            console.log("Http Request: " + XMLHttpRequest);
+            console.log("FAIL");
+            $( '#id_modelo' ).empty();
+            $( '#id_modelo' ).append('<option value="" selected=selected disabled>Modelo</option>');
+        });
+    });
+
+</script>
+
+{% endblock custom_script %}

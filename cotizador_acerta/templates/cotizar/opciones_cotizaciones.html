@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load humanize %}
 
 {% block extracss %}
 <style type="text/css">
@@ -39,7 +39,7 @@
     <div class="col-md-3"></div>
     <div class="col-md-3">
         <div class="panel panel-default">
-            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><strong>OPCIÓN 1 B/. {{ cotizaciones.0.total|floatformat:2 }}</strong></h4></div>
+            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><strong>OPCIÓN 1 B/. {{ cotizaciones.0.total|floatformat:2|intcomma }}</strong></h4></div>
             <div id="panel-body" class='panel-body'>
                 <table style='width:100%'>
                     <tr>
@@ -48,19 +48,19 @@
                     </tr>
                     <tr>
                         <th><strong>Otros daños</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.0.otros_danios|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.0.otros_danios|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Colisión y Vuelco</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.0.colision_vuelco|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.0.colision_vuelco|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Incendio y Rayo</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.0.incendio_rayo|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.0.incendio_rayo|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Robo y Hurto</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.0.robo_hurto|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.0.robo_hurto|floatformat:2|intcomma }}</strong></td>
                     </tr>
                 </table>
                 <br>
@@ -72,7 +72,7 @@
     </div>
     <div class="col-md-3">
         <div class="panel panel-default">
-            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><strong>OPCIÓN 2 B/. {{ cotizaciones.1.total|floatformat:2 }}</strong></div>
+            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><strong>OPCIÓN 2 B/. {{ cotizaciones.1.total|floatformat:2|intcomma }}</strong></div>
             <div id="panel-body" class='panel-body'>
                 <table style='width:100%'>
                     <tr>
@@ -81,19 +81,19 @@
                     </tr>
                     <tr>
                         <th><strong>Otros daños</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.1.otros_danios|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.1.otros_danios|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Colisión y Vuelco</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.1.colision_vuelco|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.1.colision_vuelco|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Incendio y Rayo</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.1.incendio_rayo|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.1.incendio_rayo|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Robo y Hurto</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.1.robo_hurto|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.1.robo_hurto|floatformat:2|intcomma }}</strong></td>
                     </tr>
                 </table>
                 <br>
@@ -109,7 +109,7 @@
     <div class="col-md-3"></div>
     <div class="col-md-3">
         <div class="panel panel-default">
-            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><strong>OPCIÓN 3 B/. {{ cotizaciones.2.total|floatformat:2 }}</strong></div>
+            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><strong>OPCIÓN 3 B/. {{ cotizaciones.2.total|floatformat:2|intcomma }}</strong></div>
             <div id="panel-body" class='panel-body'>
                 <table style='width:100%'>
                     <tr>
@@ -118,19 +118,19 @@
                     </tr>
                     <tr>
                         <th><strong>Otros daños</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.2.otros_danios|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.2.otros_danios|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Colisión y Vuelco</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.2.colision_vuelco|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.2.colision_vuelco|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Incendio y Rayo</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.2.incendio_rayo|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.2.incendio_rayo|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Robo y Hurto</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.2.robo_hurto|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.2.robo_hurto|floatformat:2|intcomma }}</strong></td>
                     </tr>
                 </table>
                 <br>
@@ -142,7 +142,7 @@
     </div>
     <div class="col-md-3">
         <div class="panel panel-default">
-            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><strong>OPCIÓN 4 B/. {{ cotizaciones.3.total|floatformat:2 }}</strong></div>
+            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><strong>OPCIÓN 4 B/. {{ cotizaciones.3.total|floatformat:2|intcomma }}</strong></div>
             <div id="panel-body" class='panel-body'>
                 <table style='width:100%'>
                     <tr>
@@ -151,19 +151,19 @@
                     </tr>
                     <tr>
                         <th><strong>Otros daños</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.3.otros_danios|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.3.otros_danios|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Colisión y Vuelco</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.3.colision_vuelco|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.3.colision_vuelco|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Incendio y Rayo</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.3.incendio_rayo|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.3.incendio_rayo|floatformat:2|intcomma }}</strong></td>
                     </tr>
                     <tr>
                         <th><strong>Robo y Hurto</strong></th>
-                        <td class='text-right'><strong>B/. {{ cotizaciones.3.robo_hurto|floatformat:2 }}</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.3.robo_hurto|floatformat:2|intcomma }}</strong></td>
                     </tr>
                 </table>
                 <br>

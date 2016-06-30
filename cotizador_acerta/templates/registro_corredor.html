@@ -55,7 +55,7 @@
                     {% if group == 'corredor' %}
                         <h1 id="titulo-login" class="text-center"><strong>REGISTRO DE CORREDORES</strong></h1>
                     {% else %}
-                        <h1 id="titulo-login" class="text-center"><strong>REGISTRO DE VENDEDORES</strong></h1>
+                        <h1 id="titulo-login" class="text-center"><strong>REGISTRO DE CORREDORES</strong></h1>
                     {% endif %}
                 </div>
                 <div class="col-md-4"></div>
@@ -69,10 +69,13 @@
 
                         {% bootstrap_field form.first_name layout='inline' %}
                         {% bootstrap_field form.last_name layout='inline' %}
+                        {% bootstrap_field form.ruc layout='inline' %}
+                        {% bootstrap_field form.licencia layout='inline' %}
                         {% bootstrap_field form.username show_help=False layout='inline' %}
                         {% bootstrap_field form.email layout='inline' %}
                         {% bootstrap_field form.password layout='inline' %}
                         {% bootstrap_field form.password2 layout='inline' %}
+
 
                         {% buttons %}
                             <div class="col-sm-4 col-md-12 text-center">

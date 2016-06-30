@@ -6,9 +6,6 @@ urlpatterns = patterns(
     url(r'^cotizar-ahora/$',
         CotizarAhora.as_view(),
         name='cotiza_ahora'),
-    url(r'^cotizar-ahora/conductor/$',
-        Conductor.as_view(),
-        name='conductor'),
     url(r'^cotizar-ahora/vehiculo/$',
         Vehiculo.as_view(),
         name='vehiculo'),
@@ -18,4 +15,5 @@ urlpatterns = patterns(
     url(r'^cotizar-ahora/detalle-cotizacion/(?P<pk>\d+)$',
         DetalleCotizacion.as_view(),
         name='detalle_cotizacion'),
+    url(r'^listModelsAjax/$', listModelsAjax.as_view(), name='listModelsAjax'),
 )

@@ -6,9 +6,12 @@ from cotizar.models import *
 
 class ConductorVehiculoForm(forms.ModelForm):
 
+    tipo_id = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
+                                widget=forms.RadioSelect(), label="")
+
     class Meta:
         model = ConductorVehiculo
-        exclude = ['corredor',]
+        exclude = ['corredor', ]
 
         labels = {
             'nombre': 'Nombre',
@@ -43,8 +46,6 @@ class ConductorVehiculoForm(forms.ModelForm):
             return conductor
 
 
-class CotizacionUpdateForm(forms.ModelForm):
+class CotizacionUpdateForm(forms.Form):
 
-    class Meta:
-        model = Cotizacion
-        exclude = ['conductor', 'vehiculo', 'corredor',]
+    cuotas = forms.IntegerField(min_value=1, max_value=12, label="Cuotas")

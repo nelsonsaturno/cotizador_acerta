@@ -13,8 +13,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User, Group
 from django.views import generic
 from cotizador_acerta.views_mixins import *
-from darientSessions.models import UserProfile, CorredorVendedor
-from darientSessions.forms import UserCreateForm, LoginForm, UserEditForm
+from darientSessions.models import *
+from darientSessions.forms import UserCreateForm, LoginForm, CorredorCreateForm
 
 
 # class RegistroCorredor(LoginRequiredMixin,
@@ -60,7 +60,10 @@ def user_registration(request):
         print request.user.groups.first()
         if (request.user.groups.first().name == "corredor") or (request.user.groups.first().name == "super_admin"):
             if request.method == 'POST':
-                form = UserCreateForm(request.POST)
+                if request.user.groups.first().name == "corredor":
+                    form = CorredorCreateForm(request.POST)
+                else:
+                    form = UserCreateForm(request.POST)
                 if form.is_valid():
                     form.save()
                     username = form.cleaned_data['username']
@@ -87,20 +90,39 @@ def user_registration(request):
                         new_relat = CorredorVendedor(corredor=request.user,
                                                      vendedor=user)
                         new_relat.save()
+                    if request.user.groups.first().name == "super_admin":
+                        datos_corredor = DatosCorredor(user=user,
+                                                       ruc=request.POST['ruc'],
+                                                       licencia=request.POST['licencia'])
+                        datos_corredor.save()
                     return HttpResponseRedirect(
                         reverse_lazy('login'))
                 else:
+                    if request.user.groups.first().name == "super_admin":
+                        form = CorredorCreateForm()
+                        context = {'form': form}
+                        return render_to_response(
+                            'registro_corredor.html', context,
+                            context_instance=RequestContext(request))
+                    else:
+                        form = UserCreateForm()
+                        context = {'form': form}
+                        return render_to_response(
+                            'register.html', context,
+                            context_instance=RequestContext(request))
+            else:
+                if request.user.groups.first().name == "super_admin":
+                    form = CorredorCreateForm()
                     context = {'form': form}
                     return render_to_response(
-                        'register.html',
-                        context,
+                        'registro_corredor.html', context,
                         context_instance=RequestContext(request))
-            else:
-                form = UserCreateForm()
-                context = {'form': form}
-                return render_to_response(
-                    'register.html', context,
-                    context_instance=RequestContext(request))
+                else:
+                    form = UserCreateForm()
+                    context = {'form': form}
+                    return render_to_response(
+                        'register.html', context,
+                        context_instance=RequestContext(request))
         else:
             return HttpResponseRedirect(
                 reverse_lazy('vehiculo'))

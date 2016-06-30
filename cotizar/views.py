@@ -1,34 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
 from cotizar.forms import *
 from datetime import date
 from cotizador_acerta.views_mixins import LoginRequiredMixin
-from cotizar.models import ConductorVehiculo, Cotizacion
+from cotizar.models import *
 from django.template import Context
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
+import json
 
 
 class CotizarAhora(LoginRequiredMixin, generic.TemplateView):
     template_name = "cotizar/cotiza_ahora.html"
-
-
-class Conductor(LoginRequiredMixin, generic.CreateView):
-    template_name = "cotizar/conductor.html"
-    form_class = ConductorVehiculoForm
-
-    def post(self, request, *args, **kwargs):
-        form = ConductorForm(request.POST)
-        if form.is_valid():
-            conductor = form.save()
-            conductor
-            return HttpResponseRedirect(reverse_lazy('vehiculo', kwargs={'pk': conductor.pk}))
-        else:
-            return render(request, self.template_name, {'form': form})
 
 
 class Vehiculo(LoginRequiredMixin, generic.CreateView):
@@ -62,7 +49,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
 
         if conductor.historial_transito < 4:
             historial_transito = 1
-        elif (conductor.historial_transito >= 4) and (conductor.historial_transito <= 7):
+        elif (conductor.historial_transito >= 4) and\
+             (conductor.historial_transito <= 7):
             historial_transito = 1.10
         else:
             historial_transito = 1.20
@@ -81,7 +69,9 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         else:
             edad = 1.00
 
-        desc_parametros = 1.00 - (sexo * estado_civil * valor * historial_transito * antiguedad * edad)
+        desc_parametros = 1.00 -\
+            (sexo * estado_civil * valor *
+             historial_transito * antiguedad * edad)
 
         descuento = min(vehiculo.modelo.descuento, desc_parametros)
         descuento = float("{0:.2f}".format(descuento))
@@ -96,7 +86,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         # gastos_medicos = '2,000.00/10,000.00'
         if vehiculo.importacion_piezas:
             importa = True
-            importacion_piezas = float("{0:.2f}".format(vehiculo.valor * 0.0018))
+            importacion_piezas = float(
+                "{0:.2f}".format(vehiculo.valor * 0.0018))
         else:
             importa = False
             importacion_piezas = 0.00
@@ -140,7 +131,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         else:
             base_gastos = 80
 
-        prima_lesiones = float("{0:.2f}".format((1 - descuento) * base_lesiones))
+        prima_lesiones = float(
+            "{0:.2f}".format((1 - descuento) * base_lesiones))
         prima_danios = float("{0:.2f}".format((1 - descuento) * base_danios))
         prima_gastos = float("{0:.2f}".format((1 - descuento) * base_gastos))
 
@@ -188,10 +180,14 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
 
         deducibles = float(vehiculo.valor) * porcentaje_uso
         deducibles = float("{0:.2f}".format(deducibles))
-        prima_otros = float("{0:.2f}".format(deducibles - (deducibles * descuento)))
-        prima_colision = float("{0:.2f}".format(base_colision * (1 - descuento)))
-        deducible_colision = base_colision * 1.25
-        subtotal = prima_lesiones + prima_danios + prima_gastos + prima_otros + importacion_piezas + prima_colision + 75.00
+        prima_otros = float(
+            "{0:.2f}".format(deducibles - (deducibles * descuento)))
+        prima_colision = float(
+            "{0:.2f}".format(base_colision * (1 - descuento)))
+        deducible_colision = base_colision * (1 + vehiculo.modelo.recargo)
+        subtotal = prima_lesiones +\
+            prima_danios + prima_gastos +\
+            prima_otros + importacion_piezas + prima_colision + 75.00
         subtotal = float("{0:.2f}".format(subtotal))
         impuestos = float("{0:.2f}".format(subtotal * 0.06))
         total = float("{0:.2f}".format(subtotal + impuestos))
@@ -200,6 +196,10 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         prima_ach = float("{0:.2f}".format(total - (total * 0.05)))
 
         user = User.objects.get(pk=request.user.id)
+        if request.POST['endoso'] == "Basico":
+            endoso = "Básico"
+        else:
+            endoso = request.POST['endoso']
 
         cotizacion = Cotizacion(
             conductor=conductor,
@@ -225,7 +225,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             colision_vuelco=deducible_colision,
             impuestos=impuestos,
             prima_importacion=importacion_piezas,
-            plan="Básico")
+            plan="Básico",
+            endoso=endoso)
         cotizacion.save()
 
         return cotizacion
@@ -233,12 +234,17 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
     def post(self, request, *args, **kwargs):
         form = ConductorVehiculoForm(request.POST)
         if form.is_valid():
+            if request.POST['endoso'] == "Basico":
+                endoso = "Básico"
+            else:
+                endoso = request.POST['endoso']
             vehiculo = form.save()
             user = User.objects.get(pk=request.user.id)
             vehiculo.corredor = user
             vehiculo.save()
             cotizacion1 = self.crear_cotizacion(request, vehiculo)
-            deducibles2 = float("{0:.2f}".format(cotizacion1.otros_danios * 1.20))
+            deducibles2 = float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 1.20))
             cotizacion2 = Cotizacion(
                 conductor=vehiculo,
                 corredor=user,
@@ -257,8 +263,14 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 colision_vuelco=cotizacion1.colision_vuelco * 1.20,
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
-                plan="Premium")
-            subtotal2 = cotizacion2.prima_lesiones + cotizacion2.prima_daniosProp + cotizacion2.prima_gastosMedicos + cotizacion2.prima_otrosDanios + cotizacion2.prima_importacion + cotizacion2.prima_colisionVuelco + 75.00
+                plan="Premium",
+                endoso=endoso)
+            subtotal2 = cotizacion2.prima_lesiones +\
+                cotizacion2.prima_daniosProp +\
+                cotizacion2.prima_gastosMedicos +\
+                cotizacion2.prima_otrosDanios +\
+                cotizacion2.prima_importacion +\
+                cotizacion2.prima_colisionVuelco + 75.00
             subtotal2 = float("{0:.2f}".format(subtotal2))
             impuestos2 = float("{0:.2f}".format(subtotal2 * 0.06))
             total2 = float("{0:.2f}".format(subtotal2 + impuestos2))
@@ -275,7 +287,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             cotizacion2.save()
 
             ###################################
-            deducibles3 = float("{0:.2f}".format(cotizacion1.otros_danios * 1.60))
+            deducibles3 = float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 1.60))
 
             cotizacion3 = Cotizacion(
                 conductor=vehiculo,
@@ -295,8 +308,14 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 colision_vuelco=cotizacion1.colision_vuelco * 1.60,
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
-                plan="Gold")
-            subtotal3 = cotizacion3.prima_lesiones + cotizacion3.prima_daniosProp + cotizacion3.prima_gastosMedicos + cotizacion3.prima_otrosDanios + cotizacion3.prima_importacion + cotizacion3.prima_colisionVuelco + 75.00
+                plan="Gold",
+                endoso=endoso)
+            subtotal3 = cotizacion3.prima_lesiones +\
+                cotizacion3.prima_daniosProp +\
+                cotizacion3.prima_gastosMedicos +\
+                cotizacion3.prima_otrosDanios +\
+                cotizacion3.prima_importacion +\
+                cotizacion3.prima_colisionVuelco + 75.00
             subtotal3 = float("{0:.2f}".format(subtotal3))
             impuestos3 = float("{0:.2f}".format(subtotal3 * 0.06))
             total3 = float("{0:.2f}".format(subtotal3 + impuestos3))
@@ -315,7 +334,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             ###################################
 
             ###################################
-            deducibles4 = float("{0:.2f}".format(cotizacion1.otros_danios * 2.00))
+            deducibles4 = float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 2.00))
 
             cotizacion4 = Cotizacion(
                 conductor=vehiculo,
@@ -335,8 +355,14 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 colision_vuelco=cotizacion1.colision_vuelco * 2.00,
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
-                plan="Silver")
-            subtotal4 = cotizacion4.prima_lesiones + cotizacion4.prima_daniosProp + cotizacion4.prima_gastosMedicos + cotizacion4.prima_otrosDanios + cotizacion4.prima_importacion + cotizacion4.prima_colisionVuelco + 75.00
+                plan="Silver",
+                endoso=endoso)
+            subtotal4 = cotizacion4.prima_lesiones +\
+                cotizacion4.prima_daniosProp +\
+                cotizacion4.prima_gastosMedicos +\
+                cotizacion4.prima_otrosDanios +\
+                cotizacion4.prima_importacion +\
+                cotizacion4.prima_colisionVuelco + 75.00
             subtotal4 = float("{0:.2f}".format(subtotal4))
             impuestos4 = float("{0:.2f}".format(subtotal4 * 0.06))
             total4 = float("{0:.2f}".format(subtotal4 + impuestos4))
@@ -354,10 +380,11 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
 
             ###################################
 
-            return HttpResponseRedirect(reverse_lazy('ver_planes', kwargs={'pk': cotizacion1.pk,
-            															   'pk2': cotizacion2.pk,
-            															   'pk3': cotizacion3.pk,
-            															   'pk4': cotizacion4.pk}))
+            return HttpResponseRedirect(
+                reverse_lazy('ver_planes', kwargs={'pk': cotizacion1.pk,
+                                                   'pk2': cotizacion2.pk,
+                                                   'pk3': cotizacion3.pk,
+                                                   'pk4': cotizacion4.pk}))
         else:
             return render(request, self.template_name, {'form': form})
 
@@ -372,7 +399,10 @@ class VerPlanes(LoginRequiredMixin, generic.TemplateView):
         cotizacion2 = Cotizacion.objects.get(pk=kwargs['pk2'])
         cotizacion3 = Cotizacion.objects.get(pk=kwargs['pk3'])
         cotizacion4 = Cotizacion.objects.get(pk=kwargs['pk4'])
-        context['cotizaciones'] = [cotizacion1, cotizacion2, cotizacion3, cotizacion4]
+        context['cotizaciones'] = [cotizacion1,
+                                   cotizacion2,
+                                   cotizacion3,
+                                   cotizacion4]
         return self.render_to_response(context)
 
 
@@ -385,20 +415,64 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
         context = self.get_context_data(object=self.object)
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
         context['cotizacion'] = cotizacion
+        context['form'] = CotizacionUpdateForm()
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
+        cuotas = request.POST['cuotas']
+        cotizacion.cuota = cuotas
+        cotizacion.save()
         subject = "Acerta Seguros - Cotización de Vehículo"
         to = [cotizacion.conductor.correo]
+        to_corredor = [request.user.email]
         from_email = 'donotreply@cotizadoracerta.com'
 
         ctx = {
             'cotizacion': cotizacion,
         }
 
+        # Correo Cliente
         message = get_template('cotizar/email.html').render(Context(ctx))
         msg = EmailMessage(subject, message, to=to, from_email=from_email)
         msg.content_subtype = 'html'
         msg.send()
+
+        # Correo Corredor
+        message_corredor = get_template('cotizar/email_corredores.html').render(Context(ctx))
+        msg = EmailMessage(subject, message_corredor, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.send()
+
+        # Correo Admin
+        if request.user.groups.first().name != "super_admin":
+            admin = User.objects.filter(groups__name__in=["super_admin"])
+            admins = []
+            for adm in admin:
+                admins.append(adm.email)
+            msg = EmailMessage(subject, message_corredor, to=admins, from_email=from_email)
+            msg.content_subtype = 'html'
+            msg.send()
+
         return HttpResponseRedirect(reverse_lazy('vehiculo'))
+
+
+class listModelsAjax(LoginRequiredMixin, generic.ListView):
+    model = Modelo
+    context_object_name = 'modelos'
+
+    def get_queryset(self, *args, **kwargs):
+        marca = get_object_or_404(Marca, pk__iexact=self.kwargs['pk'])
+        return Modelo.objects.filter(marca=marca)
+
+    def get(self, request, *args, **kwargs):
+        self.kwargs['pk'] = request.GET['id']
+        listModels = self.get_queryset()
+        models = []
+        for model in listModels:
+            models.append({
+                'id': model.pk,
+                'nombre': model.nombre,
+            })
+        data = json.dumps(models)
+        return HttpResponse(data, content_type='application/json')
