@@ -125,7 +125,7 @@
                               <h5>Subtotal: B/.{{ cotizacion.subtotal|floatformat:2|intcomma }}</h5>
                               <h5>Impuestos: B/.{{ cotizacion.impuestos|floatformat:2|intcomma }}</h5>
                               <h5>Total a Pagar: B/.{{ cotizacion.total|floatformat:2|intcomma }}</h5>
-                              <h5>Prima Mensual: B/.{{ cotizacion.prima_mensual|floatformat:2 }}</h5>
+                              <h5 id="prima-mensual" data-total="{{ cotizacion.total|floatformat:2 }}">Prima Mensual: B/.</h5>
                               <h5>Prima Pago de Contado: B/.{{ cotizacion.prima_pagoContado|floatformat:2|intcomma }}</h5>
                               <h5>Prima Pago ACH/Visa: B/.{{ cotizacion.prima_pagoVisa|floatformat:2|intcomma }}</h5>
                             </div>
@@ -153,3 +153,31 @@
 </div>
 
 {% endblock content %}
+
+{% block custom_script %}
+
+<script type="text/javascript">
+
+  function addThousandsSeparator(input) {
+      var output = input
+      if (parseFloat(input)) {
+          input = new String(input); // so you can perform string operations
+          var parts = input.split("."); // remove the decimal part
+          parts[0] = parts[0].split("").reverse().join("").replace(/(\d{3})(?!$)/g, "$1,").split("").reverse().join("");
+          output = parts.join(".");
+      }
+
+      return output;
+  }
+
+  $(document).on("change", "#id_cuotas", function(){
+      var cuotas = parseInt($(this).val());
+      var total = parseInt($("#prima-mensual").data("total"));
+      var mensualidad = total / cuotas;
+      $("#prima-mensual").empty();
+      $("#prima-mensual").append("Prima Mensual: B/. " + addThousandsSeparator(mensualidad.toFixed(2).toString()));
+  });
+
+</script>
+
+{% endblock custom_script %}

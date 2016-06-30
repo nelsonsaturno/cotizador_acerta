@@ -191,7 +191,6 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         subtotal = float("{0:.2f}".format(subtotal))
         impuestos = float("{0:.2f}".format(subtotal * 0.06))
         total = float("{0:.2f}".format(subtotal + impuestos))
-        prima_mensual = float("{0:.2f}".format(total * 0.10))
         prima_contado = float("{0:.2f}".format(total - (total * 0.10)))
         prima_ach = float("{0:.2f}".format(total - (total * 0.05)))
 
@@ -216,7 +215,6 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             prima_gastosMedicos=prima_gastos,
             prima_otrosDanios=prima_otros,
             subtotal=subtotal,
-            prima_mensual=prima_mensual,
             prima_pagoContado=prima_contado,
             prima_pagoVisa=prima_ach,
             descuento=descuento,
@@ -274,11 +272,9 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             subtotal2 = float("{0:.2f}".format(subtotal2))
             impuestos2 = float("{0:.2f}".format(subtotal2 * 0.06))
             total2 = float("{0:.2f}".format(subtotal2 + impuestos2))
-            prima_mensual2 = float("{0:.2f}".format(total2 * 0.10))
             prima_contado2 = float("{0:.2f}".format(total2 - (total2 * 0.10)))
             prima_ach2 = float("{0:.2f}".format(total2 - (total2 * 0.05)))
             cotizacion2.subtotal = subtotal2
-            cotizacion2.prima_mensual = prima_mensual2
             cotizacion2.prima_pagoContado = prima_contado2
             cotizacion2.prima_pagoVisa = prima_contado2
             cotizacion2.prima_pagoVisa = prima_ach2
@@ -319,11 +315,9 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             subtotal3 = float("{0:.2f}".format(subtotal3))
             impuestos3 = float("{0:.2f}".format(subtotal3 * 0.06))
             total3 = float("{0:.2f}".format(subtotal3 + impuestos3))
-            prima_mensual3 = float("{0:.2f}".format(total3 * 0.10))
             prima_contado3 = float("{0:.2f}".format(total3 - (total3 * 0.10)))
             prima_ach3 = float("{0:.2f}".format(total3 - (total3 * 0.05)))
             cotizacion3.subtotal = subtotal3
-            cotizacion3.prima_mensual = prima_mensual3
             cotizacion3.prima_pagoContado = prima_contado3
             cotizacion3.prima_pagoVisa = prima_contado3
             cotizacion3.prima_pagoVisa = prima_ach3
@@ -366,11 +360,9 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             subtotal4 = float("{0:.2f}".format(subtotal4))
             impuestos4 = float("{0:.2f}".format(subtotal4 * 0.06))
             total4 = float("{0:.2f}".format(subtotal4 + impuestos4))
-            prima_mensual4 = float("{0:.2f}".format(total4 * 0.10))
             prima_contado4 = float("{0:.2f}".format(total4 - (total4 * 0.10)))
             prima_ach4 = float("{0:.2f}".format(total4 - (total4 * 0.05)))
             cotizacion4.subtotal = subtotal4
-            cotizacion4.prima_mensual = prima_mensual4
             cotizacion4.prima_pagoContado = prima_contado4
             cotizacion4.prima_pagoVisa = prima_contado4
             cotizacion4.prima_pagoVisa = prima_ach4
@@ -422,6 +414,8 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
         cuotas = request.POST['cuotas']
         cotizacion.cuota = cuotas
+        cotizacion.prima_mensual = float(
+            "{0:.2f}".format(cotizacion.total / cuotas))
         cotizacion.save()
         subject = "Acerta Seguros - Cotización de Vehículo"
         to = [cotizacion.conductor.correo]
