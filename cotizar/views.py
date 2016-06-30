@@ -415,7 +415,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
         cuotas = request.POST['cuotas']
         cotizacion.cuota = cuotas
         cotizacion.prima_mensual = float(
-            "{0:.2f}".format(cotizacion.total / cuotas))
+            "{0:.2f}".format(cotizacion.total / float(cuotas)))
         cotizacion.save()
         subject = "Acerta Seguros - Cotización de Vehículo"
         to = [cotizacion.conductor.correo]
