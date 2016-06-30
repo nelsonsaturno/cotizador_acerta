@@ -33,11 +33,11 @@ def CargarCarros(request):
             if not result:
                 new_brand = Marca(nombre=brand)
                 new_brand.save()
-                new_model = Modelo(nombre=name,marca=new_brand,descuento=disc,recargo=recharg)
+                new_model = Modelo(nombre=name,marca=new_brand,descuento=1.00,recargo=recharg)
                 new_model.save()
             else:
                 pass
-                new_model = Modelo(nombre=name,marca=result.first(),descuento=disc,recargo=recharg)
+                new_model = Modelo(nombre=name,marca=result.first(),descuento=1.00,recargo=recharg)
                 new_model.save()
     return HttpResponseRedirect(
                     reverse_lazy('login'))
