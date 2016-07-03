@@ -20,11 +20,11 @@ def CargarCarros(request):
         nline = line.split()
         if nline[0] != "MODELO":
             n = len(nline)
-            disc = int(nline[n-1][0] + nline[n-1][1])*0.01
-            recharg = int(nline[n-2][0] + nline[n-2][1])*0.01
-            brand = nline[n-3]
-            name=""
-            for i in range (n-4, -1, -1):
+            disc = int(nline[n - 1][0] + nline[n - 1][1]) * 0.01
+            recharg = int(nline[n - 2][0] + nline[n - 2][1]) * 0.01
+            brand = nline[n - 3]
+            name = ""
+            for i in range(n - 4, -1, -1):
                 if name == "":
                     name = str(nline[i])
                 else:
@@ -33,7 +33,7 @@ def CargarCarros(request):
             if not result:
                 new_brand = Marca(nombre=brand)
                 new_brand.save()
-                if disc == 0.59:
+                if disc > 0.57:
                     new_model = Modelo(nombre=name,
                                        marca=new_brand,
                                        descuento=1.00,
@@ -45,11 +45,19 @@ def CargarCarros(request):
                                        recargo=recharg)
                 new_model.save()
             else:
-                pass
-                new_model = Modelo(nombre=name,marca=result.first(),descuento=1.00,recargo=recharg)
+                if disc > 0.57:
+                    new_model = Modelo(nombre=name,
+                                       marca=result.first(),
+                                       descuento=1.00,
+                                       recargo=recharg)
+                else:
+                    new_model = Modelo(nombre=name,
+                                       marca=result.first(),
+                                       descuento=disc,
+                                       recargo=recharg)
                 new_model.save()
     return HttpResponseRedirect(
-                    reverse_lazy('login'))
+        reverse_lazy('login'))
 
 
 class CotizarAhora(LoginRequiredMixin, generic.TemplateView):
