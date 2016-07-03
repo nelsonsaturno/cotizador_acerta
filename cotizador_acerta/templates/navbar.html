@@ -4,20 +4,20 @@
         <li>
             <a href="#" style="border-bottom:none"><span><img src="{% static 'img/AcertaSeguros.png' %}"> &nbsp;</span></a>
         </li>
-        <li>
-            <a href="#" style="color:gray; border-bottom: 5px solid #E76C42;">{{ user.get_full_name|default:user.username }}</a>
-        </li>
-        <li>
-        	{% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
-            	<a href="{% url 'register'%}">Registrar Corredor</a>
-            {% elif user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
-            	<a href="{% url 'register'%}">Registrar Vendedor</a>
-            {% endif %}
-        </li>
-        <li>
+        <li style="float: right;">
         	{% if user.is_authenticated %}
-            	<a href="{% url 'logout' %}" style="color:#E76C42">Cerrar Sesión</a>
+            	<a href="{% url 'logout' %}" style="color:#E76C42;">Cerrar Sesión</a>
             {% endif %}
+        </li>
+        <li style="float: right;">
+            {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
+                <a href="{% url 'register'%}">Registrar Corredor</a>
+            {% elif user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
+                <a href="{% url 'register'%}">Registrar Vendedor</a>
+            {% endif %}
+        </li>
+        <li style="float: right;">
+            <a href="#" style="color:gray; border-bottom: 5px solid #E76C42;">{{ user.get_full_name|default:user.username }}</a>
         </li>
     </ul>
 </div>
