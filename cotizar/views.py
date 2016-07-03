@@ -33,7 +33,16 @@ def CargarCarros(request):
             if not result:
                 new_brand = Marca(nombre=brand)
                 new_brand.save()
-                new_model = Modelo(nombre=name,marca=new_brand,descuento=1.00,recargo=recharg)
+                if disc == 0.59:
+                    new_model = Modelo(nombre=name,
+                                       marca=new_brand,
+                                       descuento=1.00,
+                                       recargo=recharg)
+                else:
+                    new_model = Modelo(nombre=name,
+                                       marca=new_brand,
+                                       descuento=disc,
+                                       recargo=recharg)
                 new_model.save()
             else:
                 pass
