@@ -11,7 +11,8 @@
 
 {% load static %}
 {% block extracss %}
-<link href="{% static 'fonts/MyriadPro-Bold_31631.ttf' %}" rel="stylesheet" media="screen">
+<link href="{% static 'plugins/iCheck/square/grey.css' %}" rel="stylesheet">
+<link href="{% static 'fonts/Myriad-Pro-Bold_31631.ttf' %}" rel="stylesheet" media="screen">
 
 <style type="text/css">
     #titulo-login {
@@ -42,6 +43,26 @@
         margin-left: 20%;
         margin-right: 20%
     }
+    .form-field {
+        margin:0px 0px 0px 20px;
+    }
+    #subtitulo {
+        font-family: Arial;
+        font-size: 13px;
+        color: #828489;
+    }
+    #subtitulo2 {
+        font-family: Arial;
+        font-size: 18px;
+        color: #B5B6B8;
+    }
+    .calculate {
+        color: #FFFFFF; 
+        background-color: #727270; 
+        float: right;
+        width: 65%;
+        text-align: center;
+    }
 </style>
 {% endblock extracss %}
 
@@ -54,7 +75,11 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8 text-center">
                     <h1 id="titulo-login" class="text-center"><strong>COTIZACIÓN DE PÓLIZA DE SEGUROS PARA AUTOMÓVILES</strong></h1>
+                    <h3 id="subtitulo" class="text-center">3 simples pasos para cotizar en línea la póliza</h3>
+                    <img src="{% static 'img/1-2-3_cotizador_acerta_1.png' %}">
+                    <h3 id="subtitulo2" class="text-center"><strong>INGRESA TODOS LOS DATOS</strong></h3>
                 </div>
+
                 <div class="col-md-2"></div>
             </div>
             <div class="col-md-2"></div>
@@ -63,33 +88,37 @@
                 <form action="" method="post" role="form" class="form-horizontal">
                     {% csrf_token %}
                     <div class="login-box-body">
-                        <div class="col-md-6">
-                            {% bootstrap_field form.nombre layout='horizontal' %}
-                            {% bootstrap_field form.apellido layout='horizontal' %}
-                            {% bootstrap_field form.sexo layout='horizontal' %}
-                            {% bootstrap_field form.edad layout='horizontal' %}
-                            {% bootstrap_field form.tipo_id layout='horizontal' %}
-                            {% bootstrap_field form.identificacion layout='horizontal' %}
-                            {% bootstrap_field form.estado_civil layout='horizontal' %}
-                            {% bootstrap_field form.correo layout='horizontal' %}
-                            {% bootstrap_field form.telefono1 layout='horizontal' %}
-                            {% bootstrap_field form.telefono2 layout='horizontal' %}
-                            {% bootstrap_field form.historial_transito layout='horizontal' %}
+                        <h3 id="subtitulo"><strong>Datos del Cliente</strong></h3>
+                        <div class="col-md-6" >
+                            <h3 id="subtitulo"><strong>Persona</strong></h3>
+                            {% bootstrap_field form.nombre layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.apellido layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.sexo layout='horizontal' show_label=False show_help=True field_class='form-field' %}
+                            {% bootstrap_field form.edad layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.tipo_id layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.identificacion layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.estado_civil layout='horizontal'  show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.correo layout='horizontal' show_label=False field_class='form-field'%}
+                            {% bootstrap_field form.telefono1 layout='horizontal' show_label=False field_class='form-field'%}
+                            {% bootstrap_field form.telefono2 layout='horizontal' show_label=False field_class='form-field'%}
+                            {% bootstrap_field form.historial_transito layout='horizontal' show_label=False field_class='form-field'%}
                         </div>
-                        <div class="col-md-6">
-                            {% bootstrap_field form.lesiones_corporales layout='horizontal' %}
-                            {% bootstrap_field form.danios_propiedad layout='horizontal' %}
-                            {% bootstrap_field form.gastos_medicos layout='horizontal' %}
-                            {% bootstrap_field form.muerte_accidental layout='horizontal' %}
-                            {% bootstrap_field form.endoso layout='horizontal' %}
-                            {% bootstrap_field form.importacion_piezas layout='horizontal' %}
-                            {% bootstrap_field form.marca layout='horizontal' %}
-                            {% bootstrap_field form.modelo layout='horizontal' %}
-                            {% bootstrap_field form.anio layout='horizontal' %}
-                            {% bootstrap_field form.valor layout='horizontal' %}
+                        <div class="col-md-6" style="position:relative;">
+                            <h3 id="subtitulo"><strong>Cobertura</strong></h3>
+                            {% bootstrap_field form.lesiones_corporales layout='horizontal' show_label=False field_class='form-field'%}
+                            {% bootstrap_field form.danios_propiedad layout='horizontal' show_label=False field_class='form-field'%}
+                            {% bootstrap_field form.gastos_medicos layout='horizontal' show_label=False field_class='form-field'%}
+                            {% bootstrap_field form.muerte_accidental layout='horizontal' show_label=False field_class='form-field'%}
+                            {% bootstrap_field form.endoso layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.importacion_piezas layout='horizontal' show_label=False field_class='form-field'%}
+                            <h3 id="subtitulo"><strong>Datos del Automóvil</strong></h3> 
+                            {% bootstrap_field form.marca layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.modelo layout='horizontal' show_label=False field_class='form-field'%}
+                            {% bootstrap_field form.anio layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.valor layout='horizontal' show_label=False field_class='form-field' %}
                             {% buttons %}
-                                <button type="submit" class="btn btn-success btn-block btn-flat">
-                                    CALCULAR
+                                <button type="submit" class="btn btn-lg calculate">
+                                    Calcular
                                 </button>
                             {% endbuttons %}
                         </div>
@@ -106,7 +135,7 @@
 {% endblock content %}
 
 {% block custom_script %}
-
+<script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
 <script type="text/javascript">
 
     $(document).ready(function(){
@@ -139,6 +168,14 @@
             $( '#id_modelo' ).empty();
             $( '#id_modelo' ).append('<option value="" selected=selected disabled>Modelo</option>');
         });
+    });
+
+    $(document).ready(function(){
+      $('input').iCheck({
+        checkboxClass: 'icheckbox_square-grey',
+        radioClass: 'iradio_square-grey',
+        increaseArea: '5%' // optional
+      });
     });
 
 </script>
