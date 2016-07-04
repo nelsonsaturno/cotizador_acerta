@@ -34,13 +34,13 @@
         color: #B5B6B8;
     }
     .select {
-        color: #FFFFFF; 
+        color: #FFFFFF;
         background-color: #727270;
         width: 65%;
         text-align: center;
     }
     .back {
-        color: #FFFFFF; 
+        color: #FFFFFF;
         background-color: #E76C42;
         width: 10%;
         height: 40px;
@@ -48,7 +48,18 @@
         margin:0 auto;
         display:block;
     }
-
+    .calculate {
+        color: #FFFFFF;
+        background-color: #727270;
+        text-align: center;
+    }
+    .calculate {
+      transition: all 0.8s ease;
+    }
+    .calculate:hover {
+      background: #E76C42;
+      color: #FFFFFF;
+    }
 </style>
 {% endblock extracss %}
 
@@ -94,9 +105,7 @@
                 </table>
                 <br>
                 <div class='text-center'>
-                    <button class="btn btn-lg select">
-                        <a id='opcion1' style="color:#ffffff;"href="{% url 'detalle_cotizacion' cotizaciones.0.pk %}">Seleccionar</a>
-                    </button>
+                    <a id='opcion1' class="btn btn-lg calculate" style="color:#ffffff;" href="{% url 'detalle_cotizacion' cotizaciones.0.pk cotizaciones.0.pk cotizaciones.1.pk cotizaciones.2.pk cotizaciones.3.pk %}">Seleccionar</a>
                 </div>
             </div>
         </div>
@@ -129,9 +138,7 @@
                 </table>
                 <br>
                 <div class='text-center'>
-                    <button class="btn btn-lg select">
-                        <a id='opcion1' style="color:#ffffff;"href="{% url 'detalle_cotizacion' cotizaciones.1.pk %}">Seleccionar</a>
-                    </button>
+                    <a id='opcion1' class="btn btn-lg calculate" style="color:#ffffff;" href="{% url 'detalle_cotizacion' cotizaciones.1.pk cotizaciones.0.pk cotizaciones.1.pk cotizaciones.2.pk cotizaciones.3.pk %}">Seleccionar</a>
                 </div>
             </div>
         </div>
@@ -168,9 +175,7 @@
                 </table>
                 <br>
                 <div class='text-center'>
-                    <button class="btn btn-lg select">
-                        <a id='opcion1' style="color:#ffffff;"href="{% url 'detalle_cotizacion' cotizaciones.2.pk %}">Seleccionar</a>
-                    </button>
+                    <a id='opcion1' class="btn btn-lg calculate" style="color:#ffffff;" href="{% url 'detalle_cotizacion' cotizaciones.2.pk cotizaciones.0.pk cotizaciones.1.pk cotizaciones.2.pk cotizaciones.3.pk %}">Seleccionar</a>
                 </div>
             </div>
         </div>
@@ -203,21 +208,18 @@
                 </table>
                 <br>
                 <div class='text-center'>
-                    <button class="btn btn-lg select">
-                        <a id='opcion1' style="color:#ffffff;"href="{% url 'detalle_cotizacion' cotizaciones.3.pk %}">Seleccionar</a>
-                    </button>
+                    <a id='opcion1' class="btn btn-lg calculate" style="color:#ffffff;" href="{% url 'detalle_cotizacion' cotizaciones.3.pk cotizaciones.0.pk cotizaciones.1.pk cotizaciones.2.pk cotizaciones.3.pk %}">Seleccionar</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-3"></div>
 </div><br>
-<div class="col-md-12">
-    <button class="btn btn-lg back">
-        <a id='opcion1' style="color:#ffffff;"href="{% url 'vehiculo'"><strong><  </strong> Volver
-        </a>
-    </button>
+<div class="col-md-4"></div>
+<div class="col-md-4 text-center">
+    <a class="btn btn-lg calculate" href="{% url 'vehiculo' %}"><span class="glyphicon glyphicon-chevron-left"></span>Volver</a>
 </div>
+<div class="col-md-4"></div>
 <br>
 <br>
 <br>

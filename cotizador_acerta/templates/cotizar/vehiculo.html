@@ -12,7 +12,6 @@
 {% load static %}
 {% block extracss %}
 <link href="{% static 'plugins/iCheck/square/grey.css' %}" rel="stylesheet">
-<link href="{% static 'fonts/Myriad-Pro-Bold_31631.ttf' %}" rel="stylesheet" media="screen">
 
 <style type="text/css">
     #titulo-login {
@@ -57,11 +56,18 @@
         color: #B5B6B8;
     }
     .calculate {
-        color: #FFFFFF; 
-        background-color: #727270; 
+        color: #FFFFFF;
+        background-color: #727270;
         float: right;
         width: 65%;
         text-align: center;
+    }
+    .calculate {
+      transition: all 0.8s ease;
+    }
+    .calculate:hover {
+      background: #E76C42;
+      color: #FFFFFF;
     }
 </style>
 {% endblock extracss %}
@@ -109,9 +115,26 @@
                             {% bootstrap_field form.danios_propiedad layout='horizontal' show_label=False field_class='form-field'%}
                             {% bootstrap_field form.gastos_medicos layout='horizontal' show_label=False field_class='form-field'%}
                             {% bootstrap_field form.muerte_accidental layout='horizontal' show_label=False field_class='form-field'%}
-                            {% bootstrap_field form.endoso layout='horizontal' show_label=False field_class='form-field' %}
+                            <!-- {% bootstrap_field form.endoso layout='horizontal' show_label=False field_class='form-field' %} -->
+                            <div class="form-group">
+                                <div class="form-field input-group">
+                                    <select class="form-control" id="id_endoso" name="endoso" required="required" title="">
+                                        <option value="" selected=selected disabled>Endoso</option>
+                                        <option value="Basico">Básico</option>
+                                        <option value="Especial">Acerta Especial</option>
+                                        <option value="Preferencial">Acerta Preferencial</option>
+                                        <option value="Uber">Acerta Uber</option>
+                                    </select>
+                                    <div class="input-group-btn">
+                                        <button class="endoso btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-question-sign" style="color: #E76C42;"></span></button>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-field">
+
+                                </div> -->
+                            </div>
                             {% bootstrap_field form.importacion_piezas layout='horizontal' show_label=False field_class='form-field'%}
-                            <h3 id="subtitulo"><strong>Datos del Automóvil</strong></h3> 
+                            <h3 id="subtitulo"><strong>Datos del Automóvil</strong></h3>
                             {% bootstrap_field form.marca layout='horizontal' show_label=False field_class='form-field' %}
                             {% bootstrap_field form.modelo layout='horizontal' show_label=False field_class='form-field'%}
                             {% bootstrap_field form.anio layout='horizontal' show_label=False field_class='form-field' %}
@@ -131,6 +154,26 @@
         </div>
     </div>
 </div>
+<br><br><br><br>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Endoso</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <div class="col-xs-9"></div>
+        <div class="col-xs-3 text-right">
+            <button type="button" class="btn calculate" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 {% endblock content %}
 
@@ -139,9 +182,33 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-        $( '#id_marca' ).prepend('<option value="" selected=selected disabled>Marca</option>');
+        $('.endoso').prop("disabled",true);
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-grey',
+            radioClass: 'iradio_square-grey',
+            increaseArea: '5%' // optional
+        });
+        $( '#id_marca' ).prepend('<option class="placeholder" value="" selected=selected disabled>Marca</option>');
+        $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" selected=selected disabled>Estado Civil</option>');
+        $( '#id_sexo' ).prepend('<option class="placeholder" value="" selected=selected disabled>Sexo</option>');
+        $( '#id_lesiones_corporales' ).prepend('<option class="placeholder" value="" selected=selected disabled>Lesiones Corporales</option>');
+        $( '#id_danios_propiedad' ).prepend('<option class="placeholder" value="" selected=selected disabled>Daños a propiedad ajena</option>');
+        $( '#id_gastos_medicos' ).prepend('<option class="placeholder" value="" selected=selected disabled>Gastos Médicos</option>');
+        $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" selected=selected disabled>Muerte Accidental</option>');
         $( '#id_modelo' ).empty();
-        $( '#id_modelo' ).append('<option value="" selected=selected disabled>Modelo</option>');
+        $( '#id_modelo' ).append('<option class="placeholder" value="" selected=selected disabled>Modelo</option>');
+    });
+
+    $( document ).on('change', '#id_lesiones_corporales', function(e) {
+        e.preventDefault();
+        var $index = $(this).children('option:selected').index();
+        console.log($index);
+        $("#id_danios_propiedad option:selected").prop('selected', false);
+        $("#id_danios_propiedad").eq($index).prop('selected', true);
+    });
+
+    $( document ).on('change', '#id_danios_propiedad', function(e) {
+        e.preventDefault();
     });
 
     $( document ).on('change', '#id_marca', function(e) {
@@ -161,21 +228,133 @@
             $( '#id_modelo' ).prepend('<option value="" selected=selected disabled>Modelo</option>');
         })
         .fail(function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Status: " + textStatus);
-            console.log("Error: " + errorThrown);
-            console.log("Http Request: " + XMLHttpRequest);
-            console.log("FAIL");
             $( '#id_modelo' ).empty();
             $( '#id_modelo' ).append('<option value="" selected=selected disabled>Modelo</option>');
         });
+        if ($( this ).val() != 95) {
+            $("#id_endoso option[value='Ford']").remove();
+            $('.endoso').prop("disabled",false);
+        } else {
+            $( "#id_endoso" ).append('<option value="Ford" selected=selected>Acerta Ford</option>');
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Ford');
+            $( '.modal-body' ).append();
+        }
+        if ($( this ).val() != 226) {
+            $("#id_endoso option[value='Toyota']").remove();
+            $('.endoso').prop("disabled",false);
+        } else {
+            $( "#id_endoso" ).append('<option value="Toyota" selected=selected>Acerta Toyota</option>');
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Toyota');
+            $( '.modal-body' ).append();
+        }
+        if ($( this ).val() != 216) {
+            $("#id_endoso option[value='Subaru']").remove();
+            $('.endoso').prop("disabled",false);
+        } else {
+            $( "#id_endoso" ).append('<option value="Subaru" selected=selected>Acerta Subaru</option>');
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Subaru');
+            $( '.modal-body' ).append();
+        }
+        if ($( this ).val() != 155) {
+            $("#id_endoso option[value='Lexus']").remove();
+            $('.endoso').prop("disabled",false);
+        } else {
+            $( "#id_endoso" ).append('<option value="Lexus" selected=selected>Acerta Lexus</option>');
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Lexus');
+            $( '.modal-body' ).append();
+        }
+        if ($( this ).val() != 190) {
+            $("#id_endoso option[value='Porsche']").remove();
+            $('.endoso').prop("disabled",false);
+        } else {
+            $( "#id_endoso" ).append('<option value="Porsche" selected=selected>Acerta Porsche</option>');
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Porsche');
+            $( '.modal-body' ).append();
+        }
+        if ($( this ).val() != 241) {
+            $("#id_endoso option[value='Volvo']").remove();
+            $('.endoso').prop("disabled",false);
+        } else {
+            $( "#id_endoso" ).append('<option value="Volvo" selected=selected>Acerta Volvo</option>');
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Volvo');
+            $( '.modal-body' ).append();
+        }
     });
 
-    $(document).ready(function(){
-      $('input').iCheck({
-        checkboxClass: 'icheckbox_square-grey',
-        radioClass: 'iradio_square-grey',
-        increaseArea: '5%' // optional
-      });
+    $( document ).on('change', '#id_endoso', function(e) {
+        $('.endoso').prop("disabled",false);
+        if ($('#id_endoso').val() == "Basico") {
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Básico');
+            $( '.modal-body' ).append();
+        }
+        if ($('#id_endoso').val() == "Especial") {
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Acerta Especial');
+            $( '.modal-body' ).append();
+        }
+        if ($('#id_endoso').val() == "Preferencial") {
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Acerta Preferencial');
+            $( '.modal-body' ).append();
+        }
+        if ($('#id_endoso').val() == "Uber") {
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Uber');
+            $( '.modal-body' ).append();
+        }
+        if ($('#id_endoso').val() == "Ford") {
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Ford');
+            $( '.modal-body' ).append();
+        }
+        if ($('#id_endoso').val() == "Toyota") {
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Toyota');
+            $( '.modal-body' ).append();
+        }
+        if ($('#id_endoso').val() == "Subaru") {
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Subaru');
+            $( '.modal-body' ).append();
+        }
+        if ($('#id_endoso').val() == "Lexus") {
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Lexus');
+            $( '.modal-body' ).append();
+        }
+        if ($('#id_endoso').val() == "Porsche") {
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Porsche');
+            $( '.modal-body' ).append();
+        }
+        if ($('#id_endoso').val() == "Volvo") {
+            $( '.modal-title' ).empty();
+            $( '.modal-body' ).empty();
+            $( '.modal-title' ).append('Endoso Volvo');
+            $( '.modal-body' ).append();
+        }
     });
 
 </script>

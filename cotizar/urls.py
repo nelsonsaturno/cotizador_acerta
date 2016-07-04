@@ -12,7 +12,7 @@ urlpatterns = patterns(
     url(r'^cotizar-ahora/planes/(?P<pk>\d+)/(?P<pk2>\d+)/(?P<pk3>\d+)/(?P<pk4>\d+)$',
         VerPlanes.as_view(),
         name='ver_planes'),
-    url(r'^cotizar-ahora/detalle-cotizacion/(?P<pk>\d+)$',
+    url(r'^cotizar-ahora/detalle-cotizacion/(?P<pk>\d+)/(?P<pk1>\d+)/(?P<pk2>\d+)/(?P<pk3>\d+)/(?P<pk4>\d+)$',
         DetalleCotizacion.as_view(),
         name='detalle_cotizacion'),
     url(r'^listModelsAjax/$', listModelsAjax.as_view(), name='listModelsAjax'),

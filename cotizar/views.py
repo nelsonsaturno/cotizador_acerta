@@ -20,11 +20,11 @@ def CargarCarros(request):
         nline = line.split()
         if nline[0] != "MODELO":
             n = len(nline)
-            disc = int(nline[n-1][0] + nline[n-1][1])*0.01
-            recharg = int(nline[n-2][0] + nline[n-2][1])*0.01
-            brand = nline[n-3]
-            name=""
-            for i in range (n-4, -1, -1):
+            disc = int(nline[n - 1][0] + nline[n - 1][1]) * 0.01
+            recharg = int(nline[n - 2][0] + nline[n - 2][1]) * 0.01
+            brand = nline[n - 3]
+            name = ""
+            for i in range(n - 4, -1, -1):
                 if name == "":
                     name = str(nline[i])
                 else:
@@ -33,14 +33,31 @@ def CargarCarros(request):
             if not result:
                 new_brand = Marca(nombre=brand)
                 new_brand.save()
-                new_model = Modelo(nombre=name,marca=new_brand,descuento=1.00,recargo=recharg)
+                if disc > 0.57:
+                    new_model = Modelo(nombre=name,
+                                       marca=new_brand,
+                                       descuento=1.00,
+                                       recargo=recharg)
+                else:
+                    new_model = Modelo(nombre=name,
+                                       marca=new_brand,
+                                       descuento=disc,
+                                       recargo=recharg)
                 new_model.save()
             else:
-                pass
-                new_model = Modelo(nombre=name,marca=result.first(),descuento=1.00,recargo=recharg)
+                if disc > 0.57:
+                    new_model = Modelo(nombre=name,
+                                       marca=result.first(),
+                                       descuento=1.00,
+                                       recargo=recharg)
+                else:
+                    new_model = Modelo(nombre=name,
+                                       marca=result.first(),
+                                       descuento=disc,
+                                       recargo=recharg)
                 new_model.save()
     return HttpResponseRedirect(
-                    reverse_lazy('login'))
+        reverse_lazy('login'))
 
 
 class CotizarAhora(LoginRequiredMixin, generic.TemplateView):
@@ -207,6 +224,13 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         else:
             base_colision = vehiculo.valor * 0.077
 
+        if vehiculo.endoso in ["Volvo", "Lexus"]:
+            prima_endoso = 125.00
+        elif vehiculo.endoso == "Porsche":
+            prima_endoso = 150.00
+        else:
+            prima_endoso = 75.00
+
         deducibles = float(vehiculo.valor) * porcentaje_uso
         deducibles = float("{0:.2f}".format(deducibles))
         prima_otros = float(
@@ -216,7 +240,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         deducible_colision = base_colision * (1 + vehiculo.modelo.recargo)
         subtotal = prima_lesiones +\
             prima_danios + prima_gastos +\
-            prima_otros + importacion_piezas + prima_colision + 75.00
+            prima_otros + importacion_piezas + prima_colision + prima_endoso
         subtotal = float("{0:.2f}".format(subtotal))
         impuestos = float("{0:.2f}".format(subtotal * 0.06))
         total = float("{0:.2f}".format(subtotal + impuestos))
@@ -253,7 +277,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             impuestos=impuestos,
             prima_importacion=importacion_piezas,
             plan="Básico",
-            endoso=endoso)
+            endoso=endoso,
+            prima_endoso=prima_endoso)
         cotizacion.save()
 
         return cotizacion
@@ -269,6 +294,12 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             user = User.objects.get(pk=request.user.id)
             vehiculo.corredor = user
             vehiculo.save()
+            if vehiculo.endoso in ["Volvo", "Lexus"]:
+                prima_endoso = 125.00
+            elif vehiculo.endoso == "Porsche":
+                prima_endoso = 150.00
+            else:
+                prima_endoso = 75.00
             cotizacion1 = self.crear_cotizacion(request, vehiculo)
             deducibles2 = float(
                 "{0:.2f}".format(cotizacion1.otros_danios * 1.20))
@@ -291,13 +322,14 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Premium",
-                endoso=endoso)
+                endoso=endoso,
+                prima_endoso=prima_endoso)
             subtotal2 = cotizacion2.prima_lesiones +\
                 cotizacion2.prima_daniosProp +\
                 cotizacion2.prima_gastosMedicos +\
                 cotizacion2.prima_otrosDanios +\
                 cotizacion2.prima_importacion +\
-                cotizacion2.prima_colisionVuelco + 75.00
+                cotizacion2.prima_colisionVuelco + prima_endoso
             subtotal2 = float("{0:.2f}".format(subtotal2))
             impuestos2 = float("{0:.2f}".format(subtotal2 * 0.06))
             total2 = float("{0:.2f}".format(subtotal2 + impuestos2))
@@ -334,13 +366,14 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Gold",
-                endoso=endoso)
+                endoso=endoso,
+                prima_endoso=prima_endoso)
             subtotal3 = cotizacion3.prima_lesiones +\
                 cotizacion3.prima_daniosProp +\
                 cotizacion3.prima_gastosMedicos +\
                 cotizacion3.prima_otrosDanios +\
                 cotizacion3.prima_importacion +\
-                cotizacion3.prima_colisionVuelco + 75.00
+                cotizacion3.prima_colisionVuelco + prima_endoso
             subtotal3 = float("{0:.2f}".format(subtotal3))
             impuestos3 = float("{0:.2f}".format(subtotal3 * 0.06))
             total3 = float("{0:.2f}".format(subtotal3 + impuestos3))
@@ -379,13 +412,14 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Silver",
-                endoso=endoso)
+                endoso=endoso,
+                prima_endoso=prima_endoso)
             subtotal4 = cotizacion4.prima_lesiones +\
                 cotizacion4.prima_daniosProp +\
                 cotizacion4.prima_gastosMedicos +\
                 cotizacion4.prima_otrosDanios +\
                 cotizacion4.prima_importacion +\
-                cotizacion4.prima_colisionVuelco + 75.00
+                cotizacion4.prima_colisionVuelco + prima_endoso
             subtotal4 = float("{0:.2f}".format(subtotal4))
             impuestos4 = float("{0:.2f}".format(subtotal4 * 0.06))
             total4 = float("{0:.2f}".format(subtotal4 + impuestos4))
@@ -437,6 +471,10 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
         context['cotizacion'] = cotizacion
         context['form'] = CotizacionUpdateForm()
+        context['pk1'] = kwargs['pk1']
+        context['pk2'] = kwargs['pk2']
+        context['pk3'] = kwargs['pk3']
+        context['pk4'] = kwargs['pk4']
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
@@ -459,11 +497,50 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
         message = get_template('cotizar/email.html').render(Context(ctx))
         msg = EmailMessage(subject, message, to=to, from_email=from_email)
         msg.content_subtype = 'html'
+        if cotizacion.endoso == "Ford":
+            msg.attach('ford.pdf',
+                       open('cotizador_acerta/static/pdf/ford.pdf',
+                            'rb').read(),
+                       'application/pdf')
+        if cotizacion.endoso == "Toyota":
+            msg.attach('ford.pdf',
+                       open('cotizador_acerta/static/pdf/toyota.pdf',
+                            'rb').read(),
+                       'application/pdf')
+        if cotizacion.endoso == "Lexus":
+            msg.attach('ford.pdf',
+                       open('cotizador_acerta/static/pdf/lexus.pdf',
+                            'rb').read(),
+                       'application/pdf')
+        if cotizacion.endoso == "Toyota":
+            msg.attach('ford.pdf',
+                       open('cotizador_acerta/static/pdf/toyota.pdf',
+                            'rb').read(),
+                       'application/pdf')
+        if cotizacion.endoso == "Subaru":
+            msg.attach('ford.pdf',
+                       open('cotizador_acerta/static/pdf/subaru.pdf',
+                            'rb').read(),
+                       'application/pdf')
+        if cotizacion.endoso == "Porsche":
+            msg.attach('ford.pdf',
+                       open('cotizador_acerta/static/pdf/porsche.pdf',
+                            'rb').read(),
+                       'application/pdf')
+        if cotizacion.endoso == "Volvo":
+            msg.attach('ford.pdf',
+                       open('cotizador_acerta/static/pdf/volvo.pdf',
+                            'rb').read(),
+                       'application/pdf')
         msg.send()
 
         # Correo Corredor
-        message_corredor = get_template('cotizar/email_corredores.html').render(Context(ctx))
-        msg = EmailMessage(subject, message_corredor, to=to_corredor, from_email=from_email)
+        message_corredor = get_template('cotizar/email_corredores.html')\
+            .render(Context(ctx))
+        msg = EmailMessage(subject,
+                           message_corredor,
+                           to=to_corredor,
+                           from_email=from_email)
         msg.content_subtype = 'html'
         msg.send()
 
@@ -473,7 +550,10 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
             admins = []
             for adm in admin:
                 admins.append(adm.email)
-            msg = EmailMessage(subject, message_corredor, to=admins, from_email=from_email)
+            msg = EmailMessage(subject,
+                               message_corredor,
+                               to=admins,
+                               from_email=from_email)
             msg.content_subtype = 'html'
             msg.send()
 

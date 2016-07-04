@@ -40,6 +40,19 @@
         margin-left: 20%;
         margin-right: 20%
     }
+    .calculate {
+        color: #FFFFFF;
+        background-color: #727270;
+        width: 65%;
+        text-align: center;
+    }
+    .calculate {
+      transition: all 0.8s ease;
+    }
+    .calculate:hover {
+      background: #E76C42;
+      color: #FFFFFF;
+    }
 </style>
 
 {% endblock extracss %}
@@ -52,11 +65,7 @@
             <div class="col-md-12">
                 <div class="col-md-4"></div>
                 <div class="col-md-4 text-center">
-                    {% if group == 'corredor' %}
-                        <h1 id="titulo-login" class="text-center"><strong>REGISTRO DE CORREDORES</strong></h1>
-                    {% else %}
-                        <h1 id="titulo-login" class="text-center"><strong>REGISTRO DE CORREDORES</strong></h1>
-                    {% endif %}
+                    <h1 id="titulo-login" class="text-center"><strong>REGISTRO DE CORREDORES</strong></h1>
                 </div>
                 <div class="col-md-4"></div>
             </div>
@@ -79,8 +88,8 @@
 
                         {% buttons %}
                             <div class="col-sm-4 col-md-12 text-center">
-                                <button type="submit" class="btn btn-success btn-block btn-flat">
-                                    ENTRAR
+                                <button type="submit" class="btn btn-lg calculate">
+                                    Registrar
                                 </button>
                             </div>
                         {% endbuttons %}
