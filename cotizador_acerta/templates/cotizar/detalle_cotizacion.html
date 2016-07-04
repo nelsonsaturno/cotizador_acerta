@@ -206,7 +206,7 @@
                       <h5>Subtotal: B/.{{ cotizacion.subtotal|floatformat:2|intcomma }}</h5>
                       <h5>Impuestos: B/.{{ cotizacion.impuestos|floatformat:2|intcomma }}</h5>
                       <h5><strong>Total a Pagar: B/.{{ cotizacion.total|floatformat:2|intcomma }}</strong></h5>
-                      <h5 id="prima-mensual" data-total="{{ cotizacion.total|floatformat:2 }}"><strong>Prima Mensual: B/.</strong></h5>
+                      <h5 id="prima-mensual" data-total="{{ cotizacion.total|floatformat:2 }}"><strong>Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</strong></h5>
                       <h5><strong>Prima Pago de Contado: B/.{{ cotizacion.prima_pagoContado|floatformat:2|intcomma }}</strong></h5>
                       <h5>Prima Pago ACH/Visa: B/.{{ cotizacion.prima_pagoVisa|floatformat:2|intcomma }}</h5>
                     </div>
@@ -220,7 +220,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-10 btn-group-lg">
           <div class="col-md-2">
-            <a class="btn btn-lg calculate" href="{% url 'vehiculo' %}"><span class="glyphicon glyphicon-chevron-left"></span>Volver</a>
+            <a class="btn btn-lg calculate" href="{% url 'ver_planes' pk1 pk2 pk3 pk4 %}"><span class="glyphicon glyphicon-chevron-left"></span>Volver</a>
           </div>
           <div class="col-md-2"></div>
           <div class="col-md-6 text-center btn-toolbar">

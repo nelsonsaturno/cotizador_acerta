@@ -471,6 +471,10 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
         context['cotizacion'] = cotizacion
         context['form'] = CotizacionUpdateForm()
+        context['pk1'] = kwargs['pk1']
+        context['pk2'] = kwargs['pk2']
+        context['pk3'] = kwargs['pk3']
+        context['pk4'] = kwargs['pk4']
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
