@@ -42,9 +42,9 @@ class ConductorVehiculo(models.Model):
                                               'Otro')])
     correo = models.EmailField(blank=False)
     telefono1 = models.CharField(max_length=20, blank=False)
-    telefono2 = models.CharField(max_length=20, blank=False, default=" ")
+    telefono2 = models.CharField(max_length=20, blank=False, default="")
     historial_transito = models.PositiveSmallIntegerField(blank=False)
-    edad = models.PositiveSmallIntegerField(blank=False, default=18)
+    edad = models.PositiveSmallIntegerField(blank=False)
     marca = models.ForeignKey(Marca, blank=False)
     modelo = models.ForeignKey(Modelo, blank=False)
     anio = models.PositiveSmallIntegerField(blank=False)
@@ -102,7 +102,19 @@ class ConductorVehiculo(models.Model):
                                         'Acerta Especial'),
                                        ('Preferencial',
                                         'Acerta Preferencial'),
-                                       ('Uber', 'Acerta Uber')])
+                                       ('Uber', 'Acerta Uber'),
+                                       ('Toyota',
+                                        'Acerta Toyota'),
+                                       ('Ford',
+                                        'Acerta Ford'),
+                                       ('Subaru',
+                                        'Acerta Subaru'),
+                                       ('Lexus',
+                                        'Acerta Lexus'),
+                                       ('Porsche',
+                                        'Acerta Porsche'),
+                                       ('Volvo',
+                                        'Acerta Volvo')])
 
     def __str__(self):
         return self.correo
@@ -175,8 +187,9 @@ class Cotizacion(models.Model):
     impuestos = models.FloatField(blank=False, default=0.00)
     prima_importacion = models.FloatField(blank=False, default=0.00)
     plan = models.CharField(max_length=10, default="Básico")
-    cuota = models.PositiveSmallIntegerField(blank=True, null=True,
-                                             validators=[MaxValueValidator(12)])
+    cuota = models.PositiveSmallIntegerField(
+        blank=True, null=True,
+        validators=[MaxValueValidator(12)])
     endoso = models.CharField(max_length=30, blank=False,
                               default='Basico',
                               choices=[('Basico',
@@ -185,4 +198,17 @@ class Cotizacion(models.Model):
                                         'Acerta Especial'),
                                        ('Preferencial',
                                         'Acerta Preferencial'),
-                                       ('Uber', 'Acerta Uber')])
+                                       ('Uber', 'Acerta Uber'),
+                                       ('Toyota',
+                                        'Acerta Toyota'),
+                                       ('Ford',
+                                        'Acerta Ford'),
+                                       ('Subaru',
+                                        'Acerta Subaru'),
+                                       ('Lexus',
+                                        'Acerta Lexus'),
+                                       ('Porsche',
+                                        'Acerta Porsche'),
+                                       ('Volvo',
+                                        'Acerta Volvo')])
+    prima_endoso = models.FloatField(blank=False, default=0.00)
