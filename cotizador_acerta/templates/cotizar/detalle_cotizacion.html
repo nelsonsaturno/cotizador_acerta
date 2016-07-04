@@ -29,6 +29,9 @@
         border-color: #C6C6C6;
         border-radius: 2px;
     }
+    .panel-body {
+      line-height: 30px;
+    }
     .panel-heading {
         height: 40px;
         font-size: 20px;
@@ -39,21 +42,20 @@
         font-size: 15px;
         color: #828489;
     }
-    #subtitulo2 {
-        font-family: Arial;
-        font-size: 18px;
-        color: #B5B6B8;
+    .text-right {
+        text-align: left;
+        line-height: 30px;
     }
     .select {
         color: #FFFFFF; 
         background-color: #727270;
-        width: 65%;
         text-align: center;
+        float: right;
     }
     .back {
         color: #FFFFFF; 
         background-color: #E76C42;
-        width: 10%;
+        width: 20%;
         height: 40px;
         text-align: center;
         float: left;
@@ -163,10 +165,11 @@
                                 <td>{{ cotizacion.prima_preferencialPlus|floatformat:2|intcomma }}</td>
                               </tr>
                             </table>
+                            <h5 style="text-align: left;"><strong>Endoso:</strong> {{ cotizacion.endoso }}</h5>
                             {% bootstrap_form_errors form %}
                             <form action="" method="post" role="form" class="form-horizontal">
-                            <div class="col-md-5"></div>
-                            <div class="col-md-3">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-2">
                                 <h5><br></h5>
                                 <h5><br></h5>
                                 <h5><br></h5>
@@ -175,30 +178,23 @@
                                 <h5><br></h5>
                                 <h5><br></h5>
                             </div>
-                            <div class="col-md-4 text-right">
-                              <h5><strong>Endoso:</strong> {{ cotizacion.endoso }}</h5>
-                              <h5>Subtotal: B/.{{ cotizacion.subtotal|floatformat:2|intcomma }}</h5>
-                              <h5>Impuestos: B/.{{ cotizacion.impuestos|floatformat:2|intcomma }}</h5>
-                              <h5>Total a Pagar: B/.{{ cotizacion.total|floatformat:2|intcomma }}</h5>
-                              <h5 id="prima-mensual" data-total="{{ cotizacion.total|floatformat:2 }}">Prima Mensual: B/.</h5>
-                              <h5>Prima Pago de Contado: B/.{{ cotizacion.prima_pagoContado|floatformat:2|intcomma }}</h5>
-                              <h5>Prima Pago ACH/Visa: B/.{{ cotizacion.prima_pagoVisa|floatformat:2|intcomma }}</h5>
+                            <div class="col-md-3 text-right">
+                              <h5>Subtotal:</h5>
+                              <h5>Impuestos:</h5>
+                              <h5><strong>Total a Pagar:</strong></h5>
+                              <h5>Prima Mensual:</h5>
+                              <h5>Prima Pago de Contado:</h5>
+                              <h5>Prima Pago ACH/Visa:</h5>
+                            </div>
+                            <div class="col-md-3" style="text-align:left;">
+                              <h5>B/.  {{ cotizacion.subtotal|floatformat:2|intcomma }}</h5>
+                              <h5>B/.  {{ cotizacion.impuestos|floatformat:2|intcomma }}</h5>
+                              <h5><strong>B/.  {{ cotizacion.total|floatformat:2|intcomma }}</strong></h5>
+                              <h5 id="prima-mensual" data-total="{{ cotizacion.total|floatformat:2 }}">B/.  </h5>
+                              <h5>B/.  {{ cotizacion.prima_pagoContado|floatformat:2|intcomma }}</h5>
+                              <h5>B/.  {{ cotizacion.prima_pagoVisa|floatformat:2|intcomma }}</h5>
                             </div>
                             <br>
-                            <div class="col-md-12">
-                              <div class="col-md-4"></div>
-                              <div class="col-md-4 text-center">
-                                <a class="btn btn-success btn-lg" href="{% url 'vehiculo' %}">Volver a Cotizar</a>
-                              </div>
-                              <div class="col-md-4 text-right">
-                                  {% csrf_token %}
-                                  <button type="submit" class="btn btn-success btn-lg">
-                                    ENVIAR
-                                </button>
-                                </form>
-                              </div>
-
-                            </div>
                         </div><!-- /.login-box-body -->
                     </div><!-- /.login-box -->
                 </div>
@@ -207,15 +203,22 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-2" style="padding-top: 2px; padding-bottom: 5%;">
+    <div class="col-md-2" style="padding-top: 1px; padding-bottom: 1%;">
     </div>
-    <div class="col-md-8 text-center" style="padding-top: 2px; padding-bottom: 5%;">
+    <div class="col-md-4 text-center" style="padding-top: 1px; padding-bottom: 1%;">
         <button class="btn btn-lg back">
           <a id='opcion1' style="color:#ffffff;"href="{% url 'vehiculo'"><strong><  </strong> Volver
           </a>
       </button>
     </div>
-    <div class="col-md-2" style="padding-top: 2px; padding-bottom: 5%;"></div>
+    <div class="col-md-4 text-center" style="padding-top: 1px; padding-bottom: 1%;">
+      {% csrf_token %}
+      <button type="submit" class="btn select btn-lg" style="margin-left: 20px;">
+        ENVIAR
+      </button>
+      <a class="btn select btn-lg" href="{% url 'vehiculo' %}">Nueva Cotización</a>
+    </div>
+    <div class="col-md-2" style="padding-top: 1px; padding-bottom: 10%;"></div>
 </div>
 {% endblock content %}
 
@@ -240,7 +243,7 @@
       var total = parseInt($("#prima-mensual").data("total"));
       var mensualidad = total / cuotas;
       $("#prima-mensual").empty();
-      $("#prima-mensual").append("Prima Mensual: B/. " + addThousandsSeparator(mensualidad.toFixed(2).toString()));
+      $("#prima-mensual").append("B/.  " + addThousandsSeparator(mensualidad.toFixed(2).toString()));
   });
 
 </script>
