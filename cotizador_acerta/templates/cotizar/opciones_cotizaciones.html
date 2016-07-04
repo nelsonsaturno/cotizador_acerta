@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load humanize %}
+{% load static %}
 
 {% block extracss %}
 <style type="text/css">
@@ -19,7 +20,33 @@
     }
     .panel-heading {
         height: 40px;
+        font-size: 20px;
         line-height: 20px !important;
+    }
+    #subtitulo {
+        font-family: Arial;
+        font-size: 15px;
+        color: #828489;
+    }
+    #subtitulo2 {
+        font-family: Arial;
+        font-size: 18px;
+        color: #B5B6B8;
+    }
+    .select {
+        color: #FFFFFF; 
+        background-color: #727270;
+        width: 65%;
+        text-align: center;
+    }
+    .back {
+        color: #FFFFFF; 
+        background-color: #E76C42;
+        width: 10%;
+        height: 40px;
+        text-align: center;
+        margin:0 auto;
+        display:block;
     }
 
 </style>
@@ -31,7 +58,9 @@
     <div class="col-md-2" style="padding-top: 10%"></div>
     <div class="col-md-8 text-center" style="padding-top: 10%">
         <h1 id="titulo" class="text-center"><strong>COTIZACIÓN DE PÓLIZA DE SEGUROS PARA AUTOMÓVIL</strong></h1>
-        <h3>3 simples pasos para cotizar en línea la póliza</h3><br>
+        <h3 id="subtitulo" class="text-center">3 simples pasos para cotizar en línea la póliza</h3>
+        <img src="{% static 'img/1-2-3_cotizador_acerta_2.png' %}">
+        <h3 id="subtitulo" class="text-center">Elige la cobertura</h3><br>
     </div>
     <div class="col-md-2" style="padding-top: 10%"></div>
 </div>
@@ -43,8 +72,8 @@
             <div id="panel-body" class='panel-body'>
                 <table style='width:100%'>
                     <tr>
-                        <td>Cobertura</td>
-                        <td class='text-right'>Deducible</td>
+                        <td id="subtitulo">Cobertura</td>
+                        <td class='text-right' id="subtitulo">Deducible</td>
                     </tr>
                     <tr>
                         <th><strong>Otros daños</strong></th>
@@ -65,7 +94,9 @@
                 </table>
                 <br>
                 <div class='text-center'>
-                    <a id='opcion1' class='btn btn-lg' href="{% url 'detalle_cotizacion' cotizaciones.0.pk %}">Seleccionar</a>
+                    <button class="btn btn-lg select">
+                        <a id='opcion1' style="color:#ffffff;"href="{% url 'detalle_cotizacion' cotizaciones.0.pk %}">Seleccionar</a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -76,8 +107,8 @@
             <div id="panel-body" class='panel-body'>
                 <table style='width:100%'>
                     <tr>
-                        <td>Cobertura</td>
-                        <td class='text-right'>Deducible</td>
+                        <td id="subtitulo">Cobertura</td>
+                        <td class='text-right' id="subtitulo">Deducible</td>
                     </tr>
                     <tr>
                         <th><strong>Otros daños</strong></th>
@@ -98,7 +129,9 @@
                 </table>
                 <br>
                 <div class='text-center'>
-                    <a id='opcion1' class='btn btn-lg' href="{% url 'detalle_cotizacion' cotizaciones.1.pk %}">Seleccionar</a>
+                    <button class="btn btn-lg select">
+                        <a id='opcion1' style="color:#ffffff;"href="{% url 'detalle_cotizacion' cotizaciones.1.pk %}">Seleccionar</a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -113,8 +146,8 @@
             <div id="panel-body" class='panel-body'>
                 <table style='width:100%'>
                     <tr>
-                        <td>Cobertura</td>
-                        <td class='text-right'>Deducible</td>
+                        <td id="subtitulo">Cobertura</td>
+                        <td class='text-right' id="subtitulo">Deducible</td>
                     </tr>
                     <tr>
                         <th><strong>Otros daños</strong></th>
@@ -135,7 +168,9 @@
                 </table>
                 <br>
                 <div class='text-center'>
-                    <a id='opcion1' class='btn btn-lg' href="{% url 'detalle_cotizacion' cotizaciones.2.pk %}">Seleccionar</a>
+                    <button class="btn btn-lg select">
+                        <a id='opcion1' style="color:#ffffff;"href="{% url 'detalle_cotizacion' cotizaciones.2.pk %}">Seleccionar</a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -146,8 +181,8 @@
             <div id="panel-body" class='panel-body'>
                 <table style='width:100%'>
                     <tr>
-                        <td>Cobertura</td>
-                        <td class='text-right'>Deducible</td>
+                        <td id="subtitulo">Cobertura</td>
+                        <td class='text-right' id="subtitulo">Deducible</td>
                     </tr>
                     <tr>
                         <th><strong>Otros daños</strong></th>
@@ -168,12 +203,23 @@
                 </table>
                 <br>
                 <div class='text-center'>
-                    <a id='opcion1' class='btn btn-lg' href="{% url 'detalle_cotizacion' cotizaciones.3.pk %}">Seleccionar</a>
+                    <button class="btn btn-lg select">
+                        <a id='opcion1' style="color:#ffffff;"href="{% url 'detalle_cotizacion' cotizaciones.3.pk %}">Seleccionar</a>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-3"></div>
-</div><br><br>
+</div><br>
+<div class="col-md-12">
+    <button class="btn btn-lg back">
+        <a id='opcion1' style="color:#ffffff;"href="{% url 'vehiculo'"><strong><  </strong> Volver
+        </a>
+    </button>
+</div>
+<br>
+<br>
+<br>
 
 {% endblock content %}
