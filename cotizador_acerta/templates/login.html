@@ -42,6 +42,18 @@
         margin-left: 20%;
         margin-right: 20%
     }
+    .calculate {
+        color: #FFFFFF;
+        background-color: #727270;
+        text-align: center;
+    }
+    .calculate {
+      transition: all 0.8s ease;
+    }
+    .calculate:hover {
+      background: #E76C42;
+      color: #FFFFFF;
+    }
 </style>
 
 {% endblock extracss %}
@@ -72,8 +84,8 @@
                         </div><br>
 
                         {% buttons %}
-                            <div class="col-sm-4 col-md-12 text-center">
-                                <button type="submit" class="btn btn-success btn-block btn-flat">
+                            <div class="col-sm-4 col-md-8 text-center">
+                                <button type="submit" class="btn btn-lg calculate">
                                     ENTRAR
                                 </button>
                             </div>
