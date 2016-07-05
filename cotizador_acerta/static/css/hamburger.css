@@ -1,0 +1,157 @@
+header {
+  background: #F3F3F3;
+  padding: 15px 5px;
+  position: relative;
+  z-index: 1;
+  border-bottom: 6px solid #E76C42;
+}
+
+#menu {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+#menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+#menu ul li {
+  display: inline-block;
+  position: relative;
+}
+
+#menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.7em;
+}
+#menu ul li.on-hidden { display: none; }
+
+#on-hidden-menu {
+  display: block;
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  margin-top: 15px;
+  min-width: 280px;
+}
+
+#on-hidden-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  overflow: hidden;
+  height: 0;
+}
+
+#on-hidden-menu li {
+  background: #30424d;
+  border-bottom: 1px solid #273640;
+  opacity: 0;
+  -moz-transition: all .4s ease-in-out .2s;
+  -o-transition: all .4s ease-in-out .2s;
+  -webkit-transition: all .4s ease-in-out .2s;
+  transition: all .4s ease-in-out .2s;
+  position: relative;
+}
+
+#on-hidden-menu li a {
+  color: rgba(255,255,255,.9);
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+}
+
+#on-hidden-menu li a:hover { background: #354C5A; }
+
+#on-hidden-menu.open ul {
+  display: block;
+  height: 100%;
+}
+
+#on-hidden-menu.open ul li { opacity: 1; }
+
+#on-hidden-menu.open ul li:last-child { border-bottom-left-radius: 5px; }
+#on-hidden-menu .toggle {
+  width: 32px;
+  position: absolute;
+  top: -42px;
+  right: 10px;
+  height: 32px;
+  background-color: #f73a14;
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+#on-hidden-menu .toggle:before, #on-hidden-menu .toggle:after, #on-hidden-menu .toggle span:before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 5px;
+  position: absolute;
+  top: 17px;
+  left: 5px;
+  -moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+#on-hidden-menu .toggle:after {
+  left: 13px;
+  -moz-transition-delay: .1s;
+  -o-transition-delay: .1s;
+  -webkit-transition-delay: .1s;
+  transition-delay: .1s;
+}
+
+#on-hidden-menu .toggle span:before {
+  left: 21px;
+  -moz-transition-delay: .2s;
+  -o-transition-delay: .2s;
+  -webkit-transition-delay: .2s;
+  transition-delay: .2s;
+}
+
+#on-hidden-menu.open .toggle:before, #on-hidden-menu.open .toggle:after {
+  width: 20px;
+  -moz-transform: rotate(225deg);
+  -ms-transform: rotate(225deg);
+  -o-transform: rotate(225deg);
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
+  top: 14px;
+  height: 3px;
+}
+
+#on-hidden-menu.open .toggle:after {
+  -moz-transform: rotate(-225deg);
+  -ms-transform: rotate(-225deg);
+  -o-transform: rotate(-225deg);
+  -webkit-transform: rotate(-225deg);
+  transform: rotate(-225deg);
+  left: 5px;
+  -moz-transition-delay: .0s;
+  -o-transition-delay: .0s;
+  -webkit-transition-delay: .0s;
+  transition-delay: .0s;
+}
+
+#on-hidden-menu.open .toggle span:before {
+  top: 14px;
+  left: 13px;
+  width: 2px;
+  height: 2px;
+  -moz-transition-delay: .0s;
+  -o-transition-delay: .0s;
+  -webkit-transition-delay: .0s;
+  transition-delay: .0s;
+}

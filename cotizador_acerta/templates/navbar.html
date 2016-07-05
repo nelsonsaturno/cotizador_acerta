@@ -1,12 +1,20 @@
 {% load static %}
+<!--Using jQuery and jQuery UI for display effects-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!--Using the hamburger menu display code-->
+<script src="{% static 'js/hamburger.js' %}"></script>
+
+<!--Using Media Queries, if the viewport is smaller than 700px use another stylesheet-->
+<link rel="stylesheet" type="text/css" media="all" href="{% static 'css/hamburger.css' %}">
 <div id="navbar">
-    <ul class="nav navbar-nav menu">
+    <ul class="nav navbar-nav menu hidden-xs">
         <li>
             <a href="{% url 'login' %}" style="border-bottom:none"><span><img src="{% static 'img/AcertaSeguros.png' %}"> &nbsp;</span></a>
         </li>
         <li style="float: right;">
-        	{% if user.is_authenticated %}
-            	<a href="{% url 'logout' %}">Cerrar Sesión</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Cerrar Sesión</a>
             {% endif %}
         </li>
         <li style="float: right;">
@@ -21,3 +29,32 @@
         </li>
     </ul>
 </div>
+<header class="hidden-md hidden-lg">
+  <nav id="menu">
+    <ul>
+      <li><a href="#">Back</a></li>
+    </ul>
+  </nav>
+  <div id="on-hidden-menu">
+    <div class="toggle">
+        <span></span>
+    </div>
+    <ul>
+        <li class="on-hidden">
+            <a href="#">{{ user.get_full_name|default:user.username }}</a>
+        </li>
+        <li class="on-hidden">
+            {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
+                <a href="{% url 'register'%}">Registrar Corredor</a>
+            {% elif user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
+                <a href="{% url 'register'%}">Registrar Vendedor</a>
+            {% endif %}
+        </li>
+      <li class="on-hidden">
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout' %}">Cerrar Sesión</a>
+            {% endif %}
+        </li>
+    </ul>
+  </div>
+</header>
