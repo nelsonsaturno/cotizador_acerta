@@ -1,12 +1,67 @@
 {% load static %}
-<!--Using jQuery and jQuery UI for display effects-->
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="{% static 'css/sidemenu.css' %}" media="screen" charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/hamburger.css' %}" media="screen" charset="utf-8" />
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/tapclick.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/SideMenu.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/demo.js' %}"></script>
+<script type="text/javascript">
 
-<!--Using the hamburger menu display code-->
-<script src="{% static 'js/hamburger.js' %}"></script>
 
-<!--Using Media Queries, if the viewport is smaller than 700px use another stylesheet-->
-<link rel="stylesheet" type="text/css" media="all" href="{% static 'css/hamburger.css' %}">
+
+        // Creating the master menu (SideMenu)
+        sideMenu = new SideMenu([
+          new SMLinkItem("Registrar Usuario", "{% url 'register'%}")
+        ]);
+
+        sideMenu.addItem(new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"));
+
+        // Adding new item
+        sideMenu.addItem(
+            new SMButtonItem("Close", function () {
+                sideMenu.close();
+            })
+        );
+
+        // CUSTOM ITEM
+        // This is a custom item example
+        // all created custom items extend from SMItem Class.
+
+        SMUserAccountItem = (function (name, src) {
+          SMItem.call(this); // Call SMItem constructor
+          // this._el is jQuery item object that works how wrapper
+          $(this.el).addClass('sm-item-useraccount')
+            .append(
+            this.photo = $('<img/>')
+              .addClass('sm-useraccount-photo')
+              .attr({ src: src }).get(0)
+            )
+            .append(
+              this.name = $('<div/>')
+                .addClass('sm-useraccount-name')
+                .text(name).get(0)
+            );
+        });
+
+        // Extend prototype from SMItem
+        SMUserAccountItem.prototype = Object.create(SMItem.prototype); 
+        SMUserAccountItem.prototype.constructor = SMUserAccountItem;
+
+        // Adding custom item
+        sideMenu.addItem(new SMUserAccountItem(
+          "{{ user.get_full_name|default:user.username }}",
+          "https://tracker.moodle.org/secure/attachment/30912/f3.png"
+        ), 0 /* index cero, first element */ );
+
+
+        // Finally add SideMenu object to DOM tree target.
+        $(function(){
+            sideMenu.appendTo(document.getElementById('menu'));
+        });
+    </script>
 <div id="navbar">
     <ul class="nav navbar-nav menu hidden-xs">
         <li>
@@ -30,31 +85,17 @@
     </ul>
 </div>
 <header class="hidden-md hidden-lg">
-  <nav id="menu">
+  <nav id="menu2">
     <ul>
       <li><a href="#">Back</a></li>
+      {% if user.is_authenticated %}
+        <li style="float: right;"><button id="open-demo"><span class="glyphicon glyphicon-align-justify"></span></button></li>
+        {% endif %}
     </ul>
   </nav>
   <div id="on-hidden-menu">
     <div class="toggle">
-        <span></span>
     </div>
-    <ul>
-        <li class="on-hidden">
-            <a href="#">{{ user.get_full_name|default:user.username }}</a>
-        </li>
-        <li class="on-hidden">
-            {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
-                <a href="{% url 'register'%}">Registrar Corredor</a>
-            {% elif user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
-                <a href="{% url 'register'%}">Registrar Vendedor</a>
-            {% endif %}
-        </li>
-      <li class="on-hidden">
-            {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}">Cerrar Sesión</a>
-            {% endif %}
-        </li>
-    </ul>
   </div>
 </header>
+<div id="menu" class="sm-main"></div>
