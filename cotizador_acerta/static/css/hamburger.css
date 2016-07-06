@@ -81,19 +81,17 @@ header {
 #on-hidden-menu .toggle{
   width: 50px;
   position: absolute;
-  top: -50px;
+  top: -56px;
   right: 10px;
   height: 50px;
   background-color: transparent;
-  border: solid 1px black;
   z-index: 1;
   cursor: pointer;
   border-radius: 30px;
 }
 
-.glyphicon {
+.menu-img {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    font-size: 25px;
+    top: 0px;
+    right: 0px;
 }

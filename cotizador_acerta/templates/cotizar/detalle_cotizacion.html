@@ -76,6 +76,7 @@
       text-align: center;
       float: right;
       margin-left: 10px;
+      transition: all 0.8s ease;
     }
     .calculate:hover {
       background: #E76C42;
@@ -93,27 +94,44 @@
         text-align: center;
         margin-left: 10px;
     }
+    @media only screen and (max-width: 420px) {
+        #titulo-login {
+            font-family: Arial;
+            font-size: 15px;
+            color: #B5B6B8;
+        }
+        .calculate {
+          color: #FFFFFF;
+          background-color: #727270;
+          text-align: center;
+          margin: 0 auto;
+          transition: all 0.8s ease;
+        }
+        .box {
+          font-size: 10px;
+        }
+    }
 </style>
 {% endblock extracss %}
 
 
 {% block content %}
 <div class="row">
-    <div class="col-xs-12" style="padding-top: 10%">
+    <div class="col-xs-12" style="padding-top: 0%">
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-2"></div>
                 <div class="col-md-8 text-center">
                     <h1 id="titulo-login" class="text-center"><strong>COTIZACIÓN DE PÓLIZA DE SEGUROS PARA AUTOMÓVILES</strong></h1>
                     <h3 id="subtitulo" class="text-center">3 simples pasos para cotizar en línea la póliza</h3>
-                    <img src="{% static 'img/1-2-3_cotizador_acerta_3.png' %}">
+                    <img src="{% static 'img/1-2-3_cotizador_acerta_3.png' %}" class="col-xs-12">
                     <h3 id="subtitulo2" class="text-center"><strong>COTIZA</strong></h3>
                     <br>
                 </div>
                 <div class="col-md-2"></div>
             </div>
             <div class="col-md-2"></div>
-            <div class="col-md-8">
+            <div class="col-md-8 col-xs-12">
                 <div class="box">
                 <!-- <div class="box-header">
                   <h3 class="box-title">Responsive Hover Table</h3>
@@ -209,8 +227,9 @@
                     </table>
                     {% bootstrap_form_errors form %}
                     <form action="" method="post" role="form" class="form-horizontal">
-                    <div class="col-md-5"></div>
-                    <div class="col-md-2">
+                    <div class="col-md-5 hidden-xs"></div>
+                    <div class="row hidden-md hidden-lg"></div>
+                    <div class="col-md-2 col-xs-12">
                         <h5><br></h5>
                         <h5><br></h5>
                         <h5><br></h5>
@@ -219,7 +238,9 @@
                         <h5><br></h5>
                         <h5><br></h5>
                     </div>
-                    <div class="col-md-3 text-right" style="text-align:left;">
+                    <div class="row hidden-md hidden-lg"></div>
+                    <div class="col-xs-1 hidden-md hidden-lg"></div>
+                    <div class="col-md-3 col-xs-6 text-right" style="text-align:left;">
                       <h5><strong>Endoso:</strong></h5>
                       <h5>Subtotal:</h5>
                       <h5>Impuestos:</h5>
@@ -228,7 +249,7 @@
                       <h5><strong>Prima Pago de Contado:</strong></h5>
                       <h5>Prima Pago ACH/Visa:</h5>
                     </div>
-                    <div class="col-md-2 text-right" style="text:align:left;">
+                    <div class="col-md-2 col-xs-4 text-right" style="text:align:left;">
                       <h5><strong>{{ cotizacion.endoso }}</strong></h5>
                       <h5>B/.{{ cotizacion.subtotal|floatformat:2|intcomma }}</h5>
                       <h5>B/.{{ cotizacion.impuestos|floatformat:2|intcomma }}</h5>
@@ -249,21 +270,17 @@
           <div class="col-md-2">
             <a class="btn btn-lg back" href="{% url 'ver_planes' pk1 pk2 pk3 pk4 %}"><span class="glyphicon glyphicon-chevron-left"></span>Volver</a>
           </div>
-          <div class="col-md-2"></div>
-          <div class="col-md-6 text-center btn-toolbar">
-          <div class="col-md-2"></div>
-            <div class="col-md-4">
-                <a class="btn btn-lg calculate" href="{% url 'vehiculo' %}">Nueva Cotización</a>
-            </div>
-            <div class="col-md-3">
-                <a class="btn btn-lg back" href="{% url 'vehiculo' %}" style="margin-left:10px;">Guardar</a>
-            </div>
-            <div class="col-md-2">
+          <div class="row hidden-md hidden-lg"></div>
+          <div class="col-xs-2 hidden-md hidden-lg"></div>
+            <div class="col-md-8 col-xs-10">
               {% csrf_token %}
               <button type="submit" class="btn btn-lg calculate">
                 Enviar
               </button>
               </form>
+            <div class="row hidden-md hidden-lg"></div>
+                <a class="btn btn-lg back" href="{% url 'vehiculo' %}" style="margin-left:10px; float: right;">Guardar</a>
+                <a class="btn btn-lg calculate" href="{% url 'vehiculo' %}">Nueva Cotización</a>
             </div>
             <br><br><br><br>
           </div>
