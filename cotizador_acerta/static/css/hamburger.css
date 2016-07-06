@@ -1,14 +1,14 @@
 header {
   background: #F3F3F3;
-  padding: 30px 5px;
+  padding: 32px 5px;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   border-bottom: 10px solid #E76C42;
 }
 
 #menu2 {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
 }
 

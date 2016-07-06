@@ -6,6 +6,7 @@
     font-size: small;
     color: #FFFFFF;
     background: #727270;
+    z-index: 2;
 }
 
 .icono{
