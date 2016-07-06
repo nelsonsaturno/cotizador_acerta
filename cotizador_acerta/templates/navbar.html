@@ -7,21 +7,20 @@
 <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/tapclick.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/SideMenu.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/demo.js' %}"></script>
 <script type="text/javascript">
 
 
 
         // Creating the master menu (SideMenu)
         sideMenu = new SideMenu([
-          new SMLinkItem("Registrar Usuario", "{% url 'register'%}")
+          new SMLinkItem("Registrar Corredor/Vendedor", "{% url 'register'%}")
         ]);
 
         sideMenu.addItem(new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"));
 
         // Adding new item
         sideMenu.addItem(
-            new SMButtonItem("Close", function () {
+            new SMButtonItem("Cerrar", function () {
                 sideMenu.close();
             })
         );
@@ -61,6 +60,20 @@
         $(function(){
             sideMenu.appendTo(document.getElementById('menu'));
         });
+
+        $(function(){
+            $("#open-demo").click(function () {
+                 sideMenu.open();
+             });
+
+            $(".row").click(function () {
+                 sideMenu.close();
+             });
+
+            $("#close-demo").click(function () {
+                 sideMenu.close();
+             });
+        });
     </script>
 <div id="navbar">
     <ul class="nav navbar-nav menu hidden-xs">
@@ -87,15 +100,14 @@
 <header class="hidden-md hidden-lg">
   <nav id="menu2">
     <ul>
-      <li><a href="#">Back</a></li>
-      {% if user.is_authenticated %}
-        <li style="float: right;"><button id="open-demo"><span class="glyphicon glyphicon-align-justify"></span></button></li>
-        {% endif %}
     </ul>
   </nav>
   <div id="on-hidden-menu">
-    <div class="toggle">
-    </div>
-  </div>
+  <div class="toggle">
+      {% if user.is_authenticated %}
+        <a id="open-demo"><span class="glyphicon glyphicon-menu-hamburger" style="color:black;"></span></a>
+      {% endif %}
+</div>
+</div>
 </header>
 <div id="menu" class="sm-main"></div>

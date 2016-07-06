@@ -19,6 +19,13 @@
         font-size: 25px;
         color: #B5B6B8;
     }
+    @media only screen and (max-width: 420px) {
+        #titulo-login {
+            font-family: Arial;
+            font-size: 15px;
+            color: #B5B6B8;
+        }
+    }
     #link-acerta {
         color: #E76C42;
     }
@@ -82,7 +89,7 @@
                 <div class="col-md-8 text-center">
                     <h1 id="titulo-login" class="text-center"><strong>COTIZACIÓN DE PÓLIZA DE SEGUROS PARA AUTOMÓVILES</strong></h1>
                     <h3 id="subtitulo" class="text-center">3 simples pasos para cotizar en línea la póliza</h3>
-                    <img src="{% static 'img/1-2-3_cotizador_acerta_1.png' %}">
+                    <img class="col-xs-12" src="{% static 'img/1-2-3_cotizador_acerta_1.png' %}">
                     <h3 id="subtitulo2" class="text-center"><strong>INGRESA TODOS LOS DATOS</strong></h3>
                 </div>
 
@@ -117,7 +124,7 @@
                             {% bootstrap_field form.muerte_accidental layout='horizontal' show_label=False field_class='form-field'%}
                             <!-- {% bootstrap_field form.endoso layout='horizontal' show_label=False field_class='form-field' %} -->
                             <div class="form-group">
-                                <div class="form-field input-group">
+                                <div class="form-field input-group col-xs-12">
                                     <select class="form-control" id="id_endoso" name="endoso" required="required" title="">
                                         <option value="" selected=selected disabled>Endoso</option>
                                         <option value="Basico">Básico</option>
