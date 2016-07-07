@@ -76,13 +76,21 @@
       background: #E76C42;
       color: #FFFFFF;
     }
+    .first {
+        padding-top: 10%;
+    }
+    @media only screen and (max-width: 420px) {
+        .first {
+          padding-top: 20%;
+        }
+    }
 </style>
 {% endblock extracss %}
 
 
 {% block content %}
 <div class="row">
-    <div class="col-xs-12" style="padding-top: 10%">
+    <div class="col-xs-12 first">
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-2"></div>
