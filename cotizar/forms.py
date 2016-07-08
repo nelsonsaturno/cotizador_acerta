@@ -27,6 +27,7 @@ class ConductorVehiculoForm(forms.ModelForm):
             'marca': 'Marca',
             'modelo': 'Modelo',
             'anio': 'Año',
+            'cero_km': '0 Kms',
             'valor': 'Valor',
         }
 

@@ -101,7 +101,11 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         else:
             historial_transito = 1.20
 
-        antig = date.today().year - vehiculo.anio
+        # No kilometers.
+        if vehiculo.cero_km or vehiculo.anio == date.today().year + 1:
+            antig = 0
+        else:
+            antig = date.today().year - vehiculo.anio
 
         if antig <= 3:
             antiguedad = 0.43

@@ -2,6 +2,8 @@
 {# Load the tag library #}
 {% load bootstrap3 %}
 
+{% load l10n %}
+
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
@@ -51,6 +53,10 @@
     }
     .form-field {
         margin:0px 0px 0px 20px;
+    }
+    .km-field {
+        margin:0px 0px 0px 20px;
+        display: none;
     }
     #subtitulo {
         font-family: Arial;
@@ -160,6 +166,7 @@
                             {% bootstrap_field form.marca layout='horizontal' show_label=False field_class='form-field' %}
                             {% bootstrap_field form.modelo layout='horizontal' show_label=False field_class='form-field'%}
                             {% bootstrap_field form.anio layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.cero_km layout='horizontal' show_label=False field_class='km-field' %}
                             {% bootstrap_field form.valor layout='horizontal' show_label=False field_class='form-field' %}
                             {% buttons %}
                                 <button type="submit" class="btn btn-lg calculate">
@@ -376,6 +383,20 @@
             $( '.modal-body' ).empty();
             $( '.modal-title' ).append('Endoso Volvo');
             $( '.modal-body' ).append();
+        }
+    });
+
+    $(document).on("change", "#id_anio", function(){
+        var anio = parseInt($(this).val());
+        var today = new Date();
+        var year1 = today.getFullYear() -1;
+        var year = today.getFullYear();
+        var year2 = today.getFullYear() +1;
+        if (anio == year || anio == year1 || anio == year2) {
+            $(".km-field").css('display','block');
+        }
+        else {
+            $(".km-field").css('display','none');
         }
     });
 

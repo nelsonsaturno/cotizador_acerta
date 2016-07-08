@@ -3,6 +3,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
+from datetime import date
+
+
+# Redefined django field.
+class PositiveSmallIntegerField(models.PositiveSmallIntegerField):
+    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
+        self.min_value, self.max_value = min_value, max_value
+        models.PositiveSmallIntegerField.__init__(self, verbose_name, name, **kwargs)
+    def formfield(self, **kwargs):
+        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
+        defaults.update(kwargs)
+        return super(PositiveSmallIntegerField, self).formfield(**defaults)
 
 
 class Marca(models.Model):
@@ -47,7 +59,9 @@ class ConductorVehiculo(models.Model):
     edad = models.PositiveSmallIntegerField(blank=False)
     marca = models.ForeignKey(Marca, blank=False)
     modelo = models.ForeignKey(Modelo, blank=False)
-    anio = models.PositiveSmallIntegerField(blank=False)
+    anio = PositiveSmallIntegerField(blank=False, min_value=1900,
+                                     max_value=date.today().year+1)
+    cero_km = models.BooleanField(default=False)
     valor = models.PositiveIntegerField(blank=False)
     importacion_piezas = models.BooleanField(default=False)
     lesiones_corporales = models.CharField(max_length=30, blank=False,
