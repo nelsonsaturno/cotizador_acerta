@@ -6,6 +6,11 @@
     </h1>
 {% endblock titulo %}
 
+{% block extracss %}
+
+
+{% endblock extracss %}
+
 {% block content %}
 
             <!-- Info boxes -->
@@ -15,7 +20,18 @@
                 <a href="{% url 'list_sexo' %}">
                     <span class="info-box-icon bg-aqua"><i class="fa fa-female"></i><i class="fa fa-male"></i></span>
                     <div class="info-box-content">
-                      <span class="info-box-text">Factor Sexo</span>
+                      <span class="info-box-text" style="color: black;">Factor Sexo</span>
+                      <!-- <span class="info-box-number">90<small>%</small></span> -->
+                    </div><!-- /.info-box-content -->
+                </a>
+              </div><!-- /.info-box -->
+            </div><!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <a href="{% url 'list_historial_transito' %}">
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-car"></i></span>
+                    <div class="info-box-content">
+                      <span class="info-box-text" style="color: black;">Historial de<br> Tránsito</span>
                       <!-- <span class="info-box-number">90<small>%</small></span> -->
                     </div><!-- /.info-box-content -->
                 </a>

@@ -12,4 +12,10 @@ urlpatterns = patterns(
     url(r'^admin-sexo/(?P<pk>\d+)$',
         AdminSexo.as_view(),
         name='admin_sexo'),
+    url(r'^list_historial_transito/$',
+        ListHistorialTransito.as_view(),
+        name='list_historial_transito'),
+    url(r'^admin-historial-transito/(?P<pk>\d+)$',
+        AdminHistorialTransito.as_view(),
+        name='admin_historial_transito'),
 )

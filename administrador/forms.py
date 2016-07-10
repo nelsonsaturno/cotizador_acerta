@@ -8,20 +8,16 @@ class SexoForm(forms.ModelForm):
 
     class Meta:
         model = Sexo
-        exclude = []
+        exclude = ['sexo']
 
         labels = {
             'sexo': 'Sexo',
             'factor': 'Factor',
         }
 
-    # def save(self, commit=True):
-    #     sexo = super(SexoForm, self).save(commit=False)
-    #     if commit:
-    #         sexo.save()
-    #         return sexo
-    #     else:
-    #         return sexo
+    def save(self, commit=True):
+        sexo = super(SexoForm, self).save()
+        return sexo
 
 
 class Estado_CivilForm(forms.ModelForm):
@@ -78,12 +74,8 @@ class Historial_TransitoForm(forms.ModelForm):
         }
 
     def save(self, commit=True):
-        historial = super(Historial_TransitoForm, self).save(commit=False)
-        if commit:
-            historial.save()
-            return historial
-        else:
-            return historial
+        historial = super(Historial_TransitoForm, self).save()
+        return historial
 
 
 class AntiguedadForm(forms.ModelForm):
