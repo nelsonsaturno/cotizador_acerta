@@ -162,5 +162,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'app51812519@heroku.com'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = 'ohbb0q9f2218'
 DEFAULT_FROM_EMAIL = 'donotreply@acertaseguros.com'

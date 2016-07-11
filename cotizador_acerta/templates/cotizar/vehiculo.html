@@ -233,7 +233,7 @@
         var $index = $(this).children('option:selected').index();
         console.log($index);
         $("#id_danios_propiedad option:selected").prop('selected', false);
-        $("#id_danios_propiedad").eq($index).prop('selected', true);
+        $("#id_danios_propiedad option").eq($index).prop('selected', 'selected');
     });
 
     $( document ).on('change', '#id_danios_propiedad', function(e) {
