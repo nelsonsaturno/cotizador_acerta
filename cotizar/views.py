@@ -83,12 +83,12 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 estado_civil=conductor.estado_civil
             )
 
-        valor = Valor.objects.filter(inferior__gte=vehiculo.valor,
-                                     superior__lte=vehiculo.valor).first()
+        valor = Valor.objects.filter(inferior__lte=vehiculo.valor,
+                                     superior__gte=vehiculo.valor).first()
 
         historial_transito = Historial_Transito.objects.filter(
-            inferior__gte=vehiculo.historial_transito,
-            superior__lte=vehiculo.historial_transito
+            inferior__lte=vehiculo.historial_transito,
+            superior__gte=vehiculo.historial_transito
         ).first()
 
         # No kilometers.
@@ -103,8 +103,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         else:
             antiguedad = vejez.factor_mayor
 
-        edad = Edad.objects.filter(inferior__gte=conductor.edad,
-                                   superior__lte=conductor.edad).first()
+        edad = Edad.objects.filter(inferior__lte=conductor.edad,
+                                   superior__gte=conductor.edad).first()
 
         desc_parametros = 1.00 -\
             (sexo.factor * estado_civil.factor * valor.factor *
@@ -137,19 +137,6 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         )
         base_danios = base_danios.factor
 
-        if (vehiculo.gastos_medicos == '500.00/2,500.00'):
-            base_gastos = 15
-        elif (vehiculo.gastos_medicos == '1,000.00/5,000.00'):
-            base_gastos = 25
-        elif (vehiculo.gastos_medicos == '2,000.00/10,000.00'):
-            base_gastos = 35
-        elif (vehiculo.gastos_medicos == '5,000.00/25,000.00'):
-            base_gastos = 50
-        elif (vehiculo.gastos_medicos == '10,000.00/50,000.00'):
-            base_gastos = 75
-        else:
-            base_gastos = 80
-
         base_gastos = GastosMedicos.objects.get(
             gastos_medicos=vehiculo.gastos_medicos
         )
@@ -179,7 +166,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         base_colision = vehiculo.valor * colision.factor
 
         prima_endoso = Endoso.objects.get(endoso=vehiculo.endoso)
-        prima_endoso = prima_endoso.endoso
+        prima_endoso = prima_endoso.factor
+        print prima_endoso
 
         deducibles = float(vehiculo.valor) * porcentaje_uso
         deducibles = float("{0:.2f}".format(deducibles))
