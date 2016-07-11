@@ -2,7 +2,7 @@
 
 {% block titulo %}
     <h1>
-        Editar Factor: <strong>Sexo</strong>
+        Editar Factor: <strong>Importación de Piezas</strong>
     </h1>
 {% endblock titulo %}
 
@@ -16,22 +16,19 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                   <tr>
-                    <th>Sexo</th>
-                    <th>Factor</th>
+                    <th>Factor de Importación</th>
                   </tr>
                 </thead>
                 <tbody>
-                    {% for sexo in sexos %}
+                    {% for importacion in importaciones %}
                         <tr>
-                            <td><a href="{% url 'admin_sexo' sexo.pk %}">{{ sexo.sexo }}</a></td>
-                            <td>{{ sexo.factor|floatformat:2 }}</td>
+                            <td><a href="{% url 'admin_importacion' importacion.pk %}">{{ importacion.factor|floatformat:4 }}</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Sexo</th>
-                    <th>Factor</th>
+                    <th>Factor de Importación</th>
                   </tr>
                 </tfoot>
               </table>

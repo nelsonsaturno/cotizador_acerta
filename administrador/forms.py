@@ -91,12 +91,8 @@ class AntiguedadForm(forms.ModelForm):
         }
 
     def save(self, commit=True):
-        antiguedad = super(AntiguedadForm, self).save(commit=False)
-        if commit:
-            antiguedad.save()
-            return antiguedad
-        else:
-            return antiguedad
+        antiguedad = super(AntiguedadForm, self).save()
+        return antiguedad
 
 
 class EdadForm(forms.ModelForm):
@@ -112,12 +108,8 @@ class EdadForm(forms.ModelForm):
         }
 
     def save(self, commit=True):
-        edad = super(EdadForm, self).save(commit=False)
-        if commit:
-            edad.save()
-            return edad
-        else:
-            return edad
+        edad = super(EdadForm, self).save()
+        return edad
 
 
 class Tiempo_UsoForm(forms.ModelForm):
@@ -132,12 +124,8 @@ class Tiempo_UsoForm(forms.ModelForm):
         }
 
     def save(self, commit=True):
-        tiempo = super(Tiempo_UsoForm, self).save(commit=False)
-        if commit:
-            tiempo.save()
-            return tiempo
-        else:
-            return tiempo
+        tiempo = super(Tiempo_UsoForm, self).save()
+        return tiempo
 
 
 class ColisionForm(forms.ModelForm):
@@ -152,12 +140,8 @@ class ColisionForm(forms.ModelForm):
         }
 
     def save(self, commit=True):
-        tiempo = super(ColisionForm, self).save(commit=False)
-        if commit:
-            tiempo.save()
-            return tiempo
-        else:
-            return tiempo
+        colision = super(ColisionForm, self).save()
+        return colision
 
 
 class ImportacionForm(forms.ModelForm):
@@ -171,28 +155,69 @@ class ImportacionForm(forms.ModelForm):
         }
 
     def save(self, commit=True):
-        importacion = super(ImportacionForm, self).save(commit=False)
-        if commit:
-            importacion.save()
-            return importacion
-        else:
-            return importacion
+        importacion = super(ImportacionForm, self).save()
+        return importacion
 
 
-class Acerta_PreferencialForm(forms.ModelForm):
+class EndosoForm(forms.ModelForm):
 
     class Meta:
-        model = Acerta_Preferencial
+        model = Endoso
         exclude = []
 
         labels = {
+            'endoso': 'Endoso',
             'factor': 'Factor',
         }
 
     def save(self, commit=True):
-        preferencial = super(Acerta_PreferencialForm, self).save(commit=False)
-        if commit:
-            preferencial.save()
-            return preferencial
-        else:
-            return preferencial
+        endoso = super(EndosoForm, self).save()
+        return endoso
+
+
+class LesionesCorporalesForm(forms.ModelForm):
+
+    class Meta:
+        model = LesionesCorporales
+        exclude = []
+
+        labels = {
+            'lesiones_corporales': 'Cobertura',
+            'factor': 'Factor',
+        }
+
+    def save(self, commit=True):
+        lesiones = super(LesionesCorporalesForm, self).save()
+        return lesiones
+
+
+class DaniosPropiedadForm(forms.ModelForm):
+
+    class Meta:
+        model = DaniosPropiedad
+        exclude = []
+
+        labels = {
+            'danios_propiedad': 'Cobertura',
+            'factor': 'Factor',
+        }
+
+    def save(self, commit=True):
+        danios = super(DaniosPropiedadForm, self).save()
+        return danios
+
+
+class GastosMedicosForm(forms.ModelForm):
+
+    class Meta:
+        model = GastosMedicos
+        exclude = []
+
+        labels = {
+            'gastos_medicos': 'Cobertura',
+            'factor': 'Factor',
+        }
+
+    def save(self, commit=True):
+        gastos = super(GastosMedicosForm, self).save()
+        return gastos

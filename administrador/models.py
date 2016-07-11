@@ -24,8 +24,8 @@ class Estado_Civil(models.Model):
 
 class Valor(models.Model):
 
-    inferior = models.FloatField(blank=False, default=0.0)
-    superior = models.FloatField(blank=False, default=0.0)
+    inferior = models.FloatField(blank=False, default=0.0, unique=True)
+    superior = models.FloatField(blank=False, default=0.0, unique=True)
     factor = models.FloatField(blank=False, default=0.0)
 
 
@@ -57,13 +57,15 @@ class Edad(models.Model):
 
     inferior = models.IntegerField(blank=False, default=0, unique=True,
                                    choices=[
-                                       (1, 1),
-                                       (26, 26)
+                                       (18, 18),
+                                       (26, 26),
+                                       (66, 66)
                                    ])
     superior = models.IntegerField(blank=False, default=0, unique=True,
                                    choices=[
                                        (25, 25),
-                                       (65, 65)
+                                       (65, 65),
+                                       (110, 110)
                                    ])
     factor = models.FloatField(blank=False, default=0.0)
 
@@ -107,6 +109,82 @@ class Importacion(models.Model):
     factor = models.FloatField(blank=False, default=0.0)
 
 
-class Acerta_Preferencial(models.Model):
+class Endoso(models.Model):
 
+    endoso = models.CharField(max_length=30, blank=False, unique=True,
+                              default='Basico',
+                              choices=[('Basico',
+                                       'Básico'),
+                                       ('Especial',
+                                        'Acerta Especial'),
+                                       ('Preferencial',
+                                        'Acerta Preferencial'),
+                                       ('Uber', 'Acerta Uber'),
+                                       ('Toyota',
+                                        'Acerta Toyota'),
+                                       ('Ford',
+                                        'Acerta Ford'),
+                                       ('Subaru',
+                                        'Acerta Subaru'),
+                                       ('Lexus',
+                                        'Acerta Lexus'),
+                                       ('Porsche',
+                                        'Acerta Porsche'),
+                                       ('Volvo',
+                                        'Acerta Volvo')])
+
+    factor = models.FloatField(blank=False, default=0.0)
+
+
+class LesionesCorporales(models.Model):
+
+    lesiones_corporales = models.CharField(max_length=30, blank=False,
+                                           unique=True,
+                                           default='25,000.00/50,000.00',
+                                           choices=[('5,000.00/10,000.00',
+                                                     '5,000.00/10,000.00'),
+                                                    ('10,000.00/20,000.00',
+                                                     '10,000.00/20,000.00'),
+                                                    ('20,000.00/40,000.00',
+                                                     '20,000.00/40,000.00'),
+                                                    ('25,000.00/50,000.00',
+                                                     '25,000.00/50,000.00'),
+                                                    ('50,000.00/100,000.00',
+                                                     '50,000.00/100,000.00'),
+                                                    ('100,000.00/300,000.00',
+                                                     '100,000.00/300,000.00')])
+    factor = models.FloatField(blank=False, default=0.0)
+
+
+class DaniosPropiedad(models.Model):
+
+    danios_propiedad = models.CharField(max_length=30, blank=False,
+                                        unique=True,
+                                        default='50,000.00',
+                                        choices=[('10,000.00', '10,000.00'),
+                                                 ('15,000.00', '15,000.00'),
+                                                 ('20,000.00', '20,000.00'),
+                                                 ('25,000.00', '25,000.00'),
+                                                 ('50,000.00', '50,000.00'),
+                                                 ('100,000.00', '100,000.00')])
+    factor = models.FloatField(blank=False, default=0.0)
+
+
+class GastosMedicos(models.Model):
+
+    gastos_medicos = models.CharField(max_length=30, blank=False,
+                                      unique=True,
+                                      default='2,000.00/10,000.00',
+                                      choices=[('500.00/2,500.00',
+                                                '500.00/2,500.00'),
+                                               ('1,000.00/5,000.00',
+                                                '1,000.00/5,000.00'),
+                                               ('2,000.00/10,000.00',
+                                                '2,000.00/10,000.00'),
+                                               ('5,000.00/25,000.00',
+                                                '5,000.00/25,000.00'),
+                                               ('10,000.00/50,000.00',
+                                                '10,000.00/50,000.00'),
+                                               ('5,000.00/35,000.00',
+                                                '5,000.00/35,000.00')])
     factor = models.FloatField(blank=False, default=0.0)

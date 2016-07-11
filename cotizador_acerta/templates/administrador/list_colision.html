@@ -2,7 +2,7 @@
 
 {% block titulo %}
     <h1>
-        Editar Factor: <strong>Sexo</strong>
+        Editar Factor: <strong>Colisión y Vuelco</strong>
     </h1>
 {% endblock titulo %}
 
@@ -16,21 +16,21 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                   <tr>
-                    <th>Sexo</th>
+                    <th>Tiempo de Uso (años)</th>
                     <th>Factor</th>
                   </tr>
                 </thead>
                 <tbody>
-                    {% for sexo in sexos %}
+                    {% for colision in colisiones %}
                         <tr>
-                            <td><a href="{% url 'admin_sexo' sexo.pk %}">{{ sexo.sexo }}</a></td>
-                            <td>{{ sexo.factor|floatformat:2 }}</td>
+                            <td><a href="{% url 'admin_colision' colision.pk %}">{{ colision.tiempo }}</a></td>
+                            <td>{{ colision.factor|floatformat:3 }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Sexo</th>
+                    <th>Tiempo de Uso</th>
                     <th>Factor</th>
                   </tr>
                 </tfoot>
