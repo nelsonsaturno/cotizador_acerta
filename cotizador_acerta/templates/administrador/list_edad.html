@@ -2,7 +2,7 @@
 
 {% block titulo %}
     <h1>
-        Editar Factor: <strong>Sexo</strong>
+        Editar Factor: <strong>Edad de Conductor</strong>
     </h1>
 {% endblock titulo %}
 
@@ -10,27 +10,30 @@
 
     <div class="row">
         <div class="col-md-3 col-sm-hidden col-xs-hidden"></div>
-        <div class="col-md-6 col-xs-12 col-sm-12">
+        <div class="col-md-6 col-sm-12 col-xs-12">
           <div class="box">
             <div class="box-body">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                   <tr>
-                    <th>Sexo</th>
+                    <th>Límite Inferior</th>
+                    <th>Límite Superior</th>
                     <th>Factor</th>
                   </tr>
                 </thead>
                 <tbody>
-                    {% for sexo in sexos %}
+                    {% for edad in edades %}
                         <tr>
-                            <td><a href="{% url 'admin_sexo' sexo.pk %}">{{ sexo.sexo }}</a></td>
-                            <td>{{ sexo.factor|floatformat:2 }}</td>
+                            <td><a href="{% url 'admin_edad' edad.pk %}">{{ edad.inferior }}</a></td>
+                            <td><a href="{% url 'admin_edad' edad.pk %}">{{ edad.superior }}</a></td>
+                            <td>{{ edad.factor|floatformat:2 }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th>Sexo</th>
+                    <th>Límite Inferior</th>
+                    <th>Límite Superior</th>
                     <th>Factor</th>
                   </tr>
                 </tfoot>

@@ -2,17 +2,27 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import date
 
 
 # Redefined django field.
 class PositiveSmallIntegerField(models.PositiveSmallIntegerField):
-    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
+    def __init__(self,
+                 verbose_name=None,
+                 name=None, min_value=None,
+                 max_value=None,
+                 **kwargs):
         self.min_value, self.max_value = min_value, max_value
-        models.PositiveSmallIntegerField.__init__(self, verbose_name, name, **kwargs)
+        models.PositiveSmallIntegerField.__init__(self,
+                                                  verbose_name, name,
+                                                  **kwargs)
+
     def formfield(self, **kwargs):
-        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
+        defaults = {
+            'min_value': self.min_value,
+            'max_value': self.max_value
+        }
         defaults.update(kwargs)
         return super(PositiveSmallIntegerField, self).formfield(**defaults)
 
@@ -54,13 +64,17 @@ class ConductorVehiculo(models.Model):
                                               'Otro')])
     correo = models.EmailField(blank=False)
     telefono1 = models.CharField(max_length=20, blank=False)
-    telefono2 = models.CharField(max_length=20, blank=False, default="")
-    historial_transito = models.PositiveSmallIntegerField(blank=False)
+    telefono2 = models.CharField(max_length=20, blank=True, default="")
+    historial_transito = models.PositiveSmallIntegerField(
+        blank=False,
+        validators=[MaxValueValidator(10), MinValueValidator(0)]
+    )
     edad = models.PositiveSmallIntegerField(blank=False)
     marca = models.ForeignKey(Marca, blank=False)
     modelo = models.ForeignKey(Modelo, blank=False)
-    anio = PositiveSmallIntegerField(blank=False, min_value=1900,
-                                     max_value=date.today().year+1)
+    anio = PositiveSmallIntegerField(blank=False,
+                                     min_value=1900,
+                                     max_value=date.today().year + 1)
     cero_km = models.BooleanField(default=False)
     valor = models.PositiveIntegerField(blank=False)
     importacion_piezas = models.BooleanField(default=False)
@@ -203,7 +217,7 @@ class Cotizacion(models.Model):
     plan = models.CharField(max_length=10, default="Básico")
     cuota = models.PositiveSmallIntegerField(
         blank=True, null=True,
-        validators=[MaxValueValidator(12)])
+        validators=[MaxValueValidator(10)])
     endoso = models.CharField(max_length=30, blank=False,
                               default='Basico',
                               choices=[('Basico',

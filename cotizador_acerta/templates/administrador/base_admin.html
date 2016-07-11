@@ -36,9 +36,9 @@
         <!-- Logo -->
         <a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>A</b>LT</span>
+          <span class="logo-mini"><b>AS</b></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Admin</b>LTE</span>
+          <span class="logo-lg"><b>Admin</b> Acerta</span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
@@ -239,46 +239,14 @@
               </li> -->
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="user-image" alt="User Image">
-                  <span class="hidden-xs">Alexander Pierce</span>
+                <a href="#" class="dropdown-toggle">
+                  <span class="hidden-xs">{{ user.get_full_name|default:user.username }}</span>
                 </a>
-                <ul class="dropdown-menu">
-                  <!-- User image -->
-                  <li class="user-header">
-                    <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle" alt="User Image">
-                    <p>
-                      Alexander Pierce - Web Developer
-                      <small>Member since Nov. 2012</small>
-                    </p>
-                  </li>
-                  <!-- Menu Body -->
-                  <li class="user-body">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </li>
-                  <!-- Menu Footer-->
-                  <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                    </div>
-                  </li>
-                </ul>
               </li>
               <!-- Control Sidebar Toggle Button -->
-              <li>
+              <!-- <li>
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-              </li>
+              </li> -->
             </ul>
           </div>
 
@@ -289,7 +257,7 @@
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- Sidebar user panel -->
-          <div class="user-panel">
+          <!-- <div class="user-panel">
             <div class="pull-left image">
               <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
@@ -297,7 +265,7 @@
               <p>Alexander Pierce</p>
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
-          </div>
+          </div> -->
           <!-- search form -->
           <!-- <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
@@ -320,7 +288,7 @@
                 <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
               </ul> -->
             </li>
-            <li class="treeview">
+            <!-- <li class="treeview">
               <a href="#">
                 <i class="fa fa-files-o"></i>
                 <span>Layout Options</span>
@@ -438,11 +406,11 @@
                 <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
               </ul>
             </li>
-            <!-- <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li> -->
+            <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
             <li class="header">LABELS</li>
             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li> -->
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -463,23 +431,20 @@
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.3.0
-        </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+      <footer class="main-footer text-center">
+        <a id="link-footer" href="#">Términos y condiciones</a> - Acerta Seguros - Panamá - Todos los derechos reservados
       </footer>
 
       <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        <!-- Create the tabs -->
+      <!-- <aside class="control-sidebar control-sidebar-dark">
+        Create the tabs
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
           <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
           <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
         </ul>
-        <!-- Tab panes -->
+        Tab panes
         <div class="tab-content">
-          <!-- Home tab content -->
+          Home tab content
           <div class="tab-pane" id="control-sidebar-home-tab">
             <h3 class="control-sidebar-heading">Recent Activity</h3>
             <ul class="control-sidebar-menu">
@@ -519,7 +484,7 @@
                   </div>
                 </a>
               </li>
-            </ul><!-- /.control-sidebar-menu -->
+            </ul>/.control-sidebar-menu
 
             <h3 class="control-sidebar-heading">Tasks Progress</h3>
             <ul class="control-sidebar-menu">
@@ -567,11 +532,11 @@
                   </div>
                 </a>
               </li>
-            </ul><!-- /.control-sidebar-menu -->
+            </ul>/.control-sidebar-menu
 
-          </div><!-- /.tab-pane -->
+          </div>/.tab-pane
 
-          <!-- Settings tab content -->
+          Settings tab content
           <div class="tab-pane" id="control-sidebar-settings-tab">
             <form method="post">
               <h3 class="control-sidebar-heading">General Settings</h3>
@@ -583,7 +548,7 @@
                 <p>
                   Some information about this general settings option
                 </p>
-              </div><!-- /.form-group -->
+              </div>/.form-group
 
               <div class="form-group">
                 <label class="control-sidebar-subheading">
@@ -593,7 +558,7 @@
                 <p>
                   Other sets of options are available
                 </p>
-              </div><!-- /.form-group -->
+              </div>/.form-group
 
               <div class="form-group">
                 <label class="control-sidebar-subheading">
@@ -603,7 +568,7 @@
                 <p>
                   Allow the user to show his name in blog posts
                 </p>
-              </div><!-- /.form-group -->
+              </div>/.form-group
 
               <h3 class="control-sidebar-heading">Chat Settings</h3>
 
@@ -612,25 +577,25 @@
                   Show me as online
                   <input type="checkbox" class="pull-right" checked>
                 </label>
-              </div><!-- /.form-group -->
+              </div>/.form-group
 
               <div class="form-group">
                 <label class="control-sidebar-subheading">
                   Turn off notifications
                   <input type="checkbox" class="pull-right">
                 </label>
-              </div><!-- /.form-group -->
+              </div>/.form-group
 
               <div class="form-group">
                 <label class="control-sidebar-subheading">
                   Delete chat history
                   <a href="javascript::;" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
                 </label>
-              </div><!-- /.form-group -->
+              </div>/.form-group
             </form>
-          </div><!-- /.tab-pane -->
+          </div>/.tab-pane
         </div>
-      </aside><!-- /.control-sidebar -->
+      </aside> --><!-- /.control-sidebar -->
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>

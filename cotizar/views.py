@@ -8,6 +8,7 @@ from cotizar.forms import *
 from datetime import date
 from cotizador_acerta.views_mixins import LoginRequiredMixin
 from cotizar.models import *
+from administrador.models import *
 from django.template import Context
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
@@ -70,36 +71,25 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
 
     def crear_cotizacion(self, request, vehiculo):
         conductor = vehiculo
-        if conductor.sexo == 'Masculino':
-            sexo = 1.01
-        else:
-            sexo = 0.95
 
-        if conductor.estado_civil == 'Soltero(a)':
-            estado_civil = 1.09
-        if conductor.estado_civil == 'Casado(a)':
-            estado_civil = 0.97
-        if conductor.estado_civil == 'Otro':
-            estado_civil = 0.99
+        sexo = Sexo.objects.get(sexo=conductor.sexo)
+
         if conductor.edad >= 30:
-            estado_civil = 0.97
-
-        if vehiculo.valor <= 17000:
-            valor = 1.20
-        elif (vehiculo.valor > 17000) and (vehiculo.valor <= 25000):
-            valor = 1.10
-        elif (vehiculo.valor > 25000) and (vehiculo.valor <= 70000):
-            valor = 0.96
+            estado_civil = Estado_Civil.objects.get(
+                estado_civil='Casado(a)'
+            )
         else:
-            valor = 0.99
+            estado_civil = Estado_Civil.objects.get(
+                estado_civil=conductor.estado_civil
+            )
 
-        if conductor.historial_transito < 4:
-            historial_transito = 1
-        elif (conductor.historial_transito >= 4) and\
-             (conductor.historial_transito <= 7):
-            historial_transito = 1.10
-        else:
-            historial_transito = 1.20
+        valor = Valor.objects.filter(inferior__lte=vehiculo.valor,
+                                     superior__gte=vehiculo.valor).first()
+
+        historial_transito = Historial_Transito.objects.filter(
+            inferior__lte=vehiculo.historial_transito,
+            superior__gte=vehiculo.historial_transito
+        ).first()
 
         # No kilometers.
         if vehiculo.cero_km or vehiculo.anio == date.today().year + 1:
@@ -107,21 +97,18 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         else:
             antig = date.today().year - vehiculo.anio
 
-        if antig <= 3:
-            antiguedad = 0.43
+        vejez = Antiguedad.objects.all().first()
+        if antig <= vejez.limite:
+            antiguedad = vejez.factor_menor
         else:
-            antiguedad = 0.50
+            antiguedad = vejez.factor_mayor
 
-        if conductor.edad <= 25:
-            edad = 1.10
-        elif (conductor.edad >= 26) and (conductor.edad <= 65):
-            edad = 0.98
-        else:
-            edad = 1.00
+        edad = Edad.objects.filter(inferior__lte=conductor.edad,
+                                   superior__gte=conductor.edad).first()
 
         desc_parametros = 1.00 -\
-            (sexo * estado_civil * valor *
-             historial_transito * antiguedad * edad)
+            (sexo.factor * estado_civil.factor * valor.factor *
+             historial_transito.factor * antiguedad * edad.factor)
 
         descuento = min(vehiculo.modelo.descuento, desc_parametros)
         descuento = float("{0:.2f}".format(descuento))
@@ -131,109 +118,56 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         elif descuento > 0.625:
             descuento = 0.625
 
-        # lesiones_corporales = '25,000.00/50,000.00'
-        # danios_propiedad = '50,000.00'
-        # gastos_medicos = '2,000.00/10,000.00'
+        factor_importacion = Importacion.objects.all().first()
         if vehiculo.importacion_piezas:
             importa = True
             importacion_piezas = float(
-                "{0:.2f}".format(vehiculo.valor * 0.0018))
+                "{0:.2f}".format(vehiculo.valor * factor_importacion.factor))
         else:
             importa = False
             importacion_piezas = 0.00
 
-        if (vehiculo.lesiones_corporales == '5,000.00/10,000.00'):
-            base_lesiones = 30
-        elif (vehiculo.lesiones_corporales == '10,000.00/20,000.00'):
-            base_lesiones = 60
-        elif (vehiculo.lesiones_corporales == '20,000.00/40,000.00'):
-            base_lesiones = 75
-        elif (vehiculo.lesiones_corporales == '25,000.00/50,000.00'):
-            base_lesiones = 90
-        elif (vehiculo.lesiones_corporales == '50,000.00/100,000.00'):
-            base_lesiones = 120
-        else:
-            base_lesiones = 150
+        base_lesiones = LesionesCorporales.objects.get(
+            lesiones_corporales=vehiculo.lesiones_corporales
+        )
+        base_lesiones = base_lesiones.factor
 
-        if (vehiculo.danios_propiedad == '10,000.00'):
-            base_danios = 120
-        elif (vehiculo.danios_propiedad == '15,000.00'):
-            base_danios = 140
-        elif (vehiculo.danios_propiedad == '20,000.00'):
-            base_danios = 150
-        elif (vehiculo.danios_propiedad == '25,000.00'):
-            base_danios = 160
-        elif (vehiculo.danios_propiedad == '50,000.00'):
-            base_danios = 170
-        else:
-            base_danios = 180
+        base_danios = DaniosPropiedad.objects.get(
+            danios_propiedad=vehiculo.danios_propiedad
+        )
+        base_danios = base_danios.factor
 
-        if (vehiculo.gastos_medicos == '500.00/2,500.00'):
-            base_gastos = 15
-        elif (vehiculo.gastos_medicos == '1,000.00/5,000.00'):
-            base_gastos = 25
-        elif (vehiculo.gastos_medicos == '2,000.00/10,000.00'):
-            base_gastos = 35
-        elif (vehiculo.gastos_medicos == '5,000.00/25,000.00'):
-            base_gastos = 50
-        elif (vehiculo.gastos_medicos == '10,000.00/50,000.00'):
-            base_gastos = 75
-        else:
-            base_gastos = 80
+        base_gastos = GastosMedicos.objects.get(
+            gastos_medicos=vehiculo.gastos_medicos
+        )
+        base_gastos = base_gastos.factor
 
         prima_lesiones = float(
             "{0:.2f}".format((1 - descuento) * base_lesiones))
         prima_danios = float("{0:.2f}".format((1 - descuento) * base_danios))
         prima_gastos = float("{0:.2f}".format((1 - descuento) * base_gastos))
 
-        if antig == 0:
-            porcentaje_uso = 0.013
-        elif antig == 1:
-            porcentaje_uso = 0.013
-        elif antig == 2:
-            porcentaje_uso = 0.015
-        elif antig == 3:
-            porcentaje_uso = 0.017
-        elif antig == 4:
-            porcentaje_uso = 0.019
-        elif antig == 5:
-            porcentaje_uso = 0.022
-        elif antig == 6:
-            porcentaje_uso = 0.024
-        elif antig == 7:
-            porcentaje_uso = 0.027
-        elif antig == 8:
-            porcentaje_uso = 0.029
+        if antig <= 1:
+            porcentaje_uso = Tiempo_Uso.objects.get(tiempo=1)
+        elif antig >= 9:
+            porcentaje_uso = Tiempo_Uso.objects.get(tiempo=9)
         else:
-            porcentaje_uso = 0.033
+            porcentaje_uso = Tiempo_Uso.objects.get(tiempo=antig)
 
-        if antig == 0:
-            base_colision = vehiculo.valor * 0.032
-        elif antig == 1:
-            base_colision = vehiculo.valor * 0.032
-        elif antig == 2:
-            base_colision = vehiculo.valor * 0.037
-        elif antig == 3:
-            base_colision = vehiculo.valor * 0.042
-        elif antig == 4:
-            base_colision = vehiculo.valor * 0.047
-        elif antig == 5:
-            base_colision = vehiculo.valor * 0.053
-        elif antig == 6:
-            base_colision = vehiculo.valor * 0.059
-        elif antig == 7:
-            base_colision = vehiculo.valor * 0.065
-        elif antig == 8:
-            base_colision = vehiculo.valor * 0.071
-        else:
-            base_colision = vehiculo.valor * 0.077
+        porcentaje_uso = porcentaje_uso.factor
 
-        if vehiculo.endoso in ["Volvo", "Lexus"]:
-            prima_endoso = 125.00
-        elif vehiculo.endoso == "Porsche":
-            prima_endoso = 150.00
+        if antig <= 1:
+            colision = Colision.objects.get(tiempo=1)
+        elif antig >= 9:
+            colision = Colision.objects.get(tiempo=9)
         else:
-            prima_endoso = 75.00
+            colision = Colision.objects.get(tiempo=antig)
+
+        base_colision = vehiculo.valor * colision.factor
+
+        prima_endoso = Endoso.objects.get(endoso=vehiculo.endoso)
+        prima_endoso = prima_endoso.factor
+        print prima_endoso
 
         deducibles = float(vehiculo.valor) * porcentaje_uso
         deducibles = float("{0:.2f}".format(deducibles))
@@ -506,33 +440,31 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                        open('cotizador_acerta/static/pdf/ford.pdf',
                             'rb').read(),
                        'application/pdf')
+
         if cotizacion.endoso == "Toyota":
-            msg.attach('ford.pdf',
+            msg.attach('toyota.pdf',
                        open('cotizador_acerta/static/pdf/toyota.pdf',
                             'rb').read(),
                        'application/pdf')
+
         if cotizacion.endoso == "Lexus":
-            msg.attach('ford.pdf',
+            msg.attach('lexus.pdf',
                        open('cotizador_acerta/static/pdf/lexus.pdf',
                             'rb').read(),
                        'application/pdf')
-        if cotizacion.endoso == "Toyota":
-            msg.attach('ford.pdf',
-                       open('cotizador_acerta/static/pdf/toyota.pdf',
-                            'rb').read(),
-                       'application/pdf')
+
         if cotizacion.endoso == "Subaru":
-            msg.attach('ford.pdf',
+            msg.attach('subaru.pdf',
                        open('cotizador_acerta/static/pdf/subaru.pdf',
                             'rb').read(),
                        'application/pdf')
         if cotizacion.endoso == "Porsche":
-            msg.attach('ford.pdf',
+            msg.attach('porsche.pdf',
                        open('cotizador_acerta/static/pdf/porsche.pdf',
                             'rb').read(),
                        'application/pdf')
         if cotizacion.endoso == "Volvo":
-            msg.attach('ford.pdf',
+            msg.attach('volvo.pdf',
                        open('cotizador_acerta/static/pdf/volvo.pdf',
                             'rb').read(),
                        'application/pdf')
