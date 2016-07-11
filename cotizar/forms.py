@@ -49,4 +49,4 @@ class ConductorVehiculoForm(forms.ModelForm):
 
 class CotizacionUpdateForm(forms.Form):
 
-    cuotas = forms.IntegerField(min_value=1, max_value=12, label="Cuotas")
+    cuotas = forms.IntegerField(min_value=1, max_value=10, label="Cuotas")
