@@ -21,7 +21,7 @@ class AdminRequiredMixin(object):
         if request.user.is_authenticated():
             user = request.user
             if hasattr(self, 'group'):
-                if 'all_admins' in self.group:
+                if 'super_admin' in self.group:
                     all_admins = [
                         'super_admin', 'admin_customer',
                         'admin_mail', 'admin_order'

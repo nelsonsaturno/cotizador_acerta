@@ -5,21 +5,21 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views import generic
 from administrador.forms import *
-from cotizador_acerta.views_mixins import LoginRequiredMixin
+from cotizador_acerta.views_mixins import LoginRequiredMixin, GroupRequiredMixin
 from administrador.models import *
 
 
-class Dashboard(LoginRequiredMixin, generic.TemplateView):
+class Dashboard(LoginRequiredMixin, GroupRequiredMixin, generic.TemplateView):
     template_name = "administrador/dashboard.html"
 
 
-class ListSexo(LoginRequiredMixin, generic.ListView):
+class ListSexo(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_sexo.html"
     model = Sexo
     context_object_name = 'sexos'
 
 
-class AdminSexo(LoginRequiredMixin, generic.UpdateView):
+class AdminSexo(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/sexo_form.html"
     model = Sexo
     form_class = SexoForm
@@ -37,13 +37,13 @@ class AdminSexo(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListHistorialTransito(LoginRequiredMixin, generic.ListView):
+class ListHistorialTransito(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_historial_transito.html"
     model = Historial_Transito
     context_object_name = 'historiales'
 
 
-class AdminHistorialTransito(LoginRequiredMixin, generic.UpdateView):
+class AdminHistorialTransito(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/historial_transito_form.html"
     model = Historial_Transito
     form_class = Historial_TransitoForm
@@ -61,13 +61,13 @@ class AdminHistorialTransito(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListEstadoCivil(LoginRequiredMixin, generic.ListView):
+class ListEstadoCivil(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_estado_civil.html"
     model = Estado_Civil
     context_object_name = 'estados'
 
 
-class AdminEstadoCivil(LoginRequiredMixin, generic.UpdateView):
+class AdminEstadoCivil(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/estado_civil_form.html"
     model = Estado_Civil
     form_class = Estado_CivilForm
@@ -85,13 +85,13 @@ class AdminEstadoCivil(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListValor(LoginRequiredMixin, generic.ListView):
+class ListValor(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_valor.html"
     model = Valor
     context_object_name = 'valores'
 
 
-class AdminValor(LoginRequiredMixin, generic.UpdateView):
+class AdminValor(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/valor_form.html"
     model = Valor
     form_class = ValorForm
@@ -109,13 +109,13 @@ class AdminValor(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListAntiguedad(LoginRequiredMixin, generic.ListView):
+class ListAntiguedad(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_antiguedad.html"
     model = Antiguedad
     context_object_name = 'antiguedades'
 
 
-class AdminAntiguedad(LoginRequiredMixin, generic.UpdateView):
+class AdminAntiguedad(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/antiguedad_form.html"
     model = Antiguedad
     form_class = ValorForm
@@ -133,13 +133,13 @@ class AdminAntiguedad(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListEdad(LoginRequiredMixin, generic.ListView):
+class ListEdad(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_edad.html"
     model = Edad
     context_object_name = 'edades'
 
 
-class AdminEdad(LoginRequiredMixin, generic.UpdateView):
+class AdminEdad(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/edad_form.html"
     model = Edad
     form_class = EdadForm
@@ -157,13 +157,13 @@ class AdminEdad(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListTiempoUso(LoginRequiredMixin, generic.ListView):
+class ListTiempoUso(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_tiempo_uso.html"
     model = Tiempo_Uso
     context_object_name = 'tiempos'
 
 
-class AdminTiempoUso(LoginRequiredMixin, generic.UpdateView):
+class AdminTiempoUso(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/tiempo_uso_form.html"
     model = Tiempo_Uso
     form_class = Tiempo_UsoForm
@@ -181,13 +181,13 @@ class AdminTiempoUso(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListColision(LoginRequiredMixin, generic.ListView):
+class ListColision(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_colision.html"
     model = Colision
     context_object_name = 'colisiones'
 
 
-class AdminColision(LoginRequiredMixin, generic.UpdateView):
+class AdminColision(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/colision_form.html"
     model = Colision
     form_class = ColisionForm
@@ -205,13 +205,13 @@ class AdminColision(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListImportacion(LoginRequiredMixin, generic.ListView):
+class ListImportacion(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_importacion.html"
     model = Importacion
     context_object_name = 'importaciones'
 
 
-class AdminImportacion(LoginRequiredMixin, generic.UpdateView):
+class AdminImportacion(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/importacion_form.html"
     model = Importacion
     form_class = ImportacionForm
@@ -229,13 +229,13 @@ class AdminImportacion(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListEndoso(LoginRequiredMixin, generic.ListView):
+class ListEndoso(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_endoso.html"
     model = Endoso
     context_object_name = 'endosos'
 
 
-class AdminEndoso(LoginRequiredMixin, generic.UpdateView):
+class AdminEndoso(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/endoso_form.html"
     model = Endoso
     form_class = EndosoForm
@@ -253,13 +253,13 @@ class AdminEndoso(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListLesiones(LoginRequiredMixin, generic.ListView):
+class ListLesiones(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_lesiones.html"
     model = LesionesCorporales
     context_object_name = 'lesiones'
 
 
-class AdminLesiones(LoginRequiredMixin, generic.UpdateView):
+class AdminLesiones(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/lesiones_form.html"
     model = LesionesCorporales
     form_class = LesionesCorporalesForm
@@ -277,13 +277,13 @@ class AdminLesiones(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListDanios(LoginRequiredMixin, generic.ListView):
+class ListDanios(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_danios.html"
     model = DaniosPropiedad
     context_object_name = 'danios'
 
 
-class AdminDanios(LoginRequiredMixin, generic.UpdateView):
+class AdminDanios(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/danios_form.html"
     model = DaniosPropiedad
     form_class = DaniosPropiedadForm
@@ -301,13 +301,13 @@ class AdminDanios(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy(self.success_url)
 
 
-class ListGastos(LoginRequiredMixin, generic.ListView):
+class ListGastos(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
     template_name = "administrador/list_gastos.html"
     model = GastosMedicos
     context_object_name = 'gastos'
 
 
-class AdminGastos(LoginRequiredMixin, generic.UpdateView):
+class AdminGastos(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/gastos_form.html"
     model = GastosMedicos
     form_class = GastosMedicosForm
