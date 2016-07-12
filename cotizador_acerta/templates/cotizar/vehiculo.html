@@ -294,6 +294,12 @@
             $( '#id_gastos_medicos' ).prepend('<option class="placeholder" value="" disabled>Gastos Médicos</option>');
             $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" disabled>Muerte Accidental</option>');
             $( '#id_modelo' ).prepend('<option class="placeholder" value="" disabled>Modelo</option>');
+            document.getElementById("id_valor_text").value = $("#id_valor").val()+".00";
+            if (/^([0-9]{1,2}\-[0-9]{2,4}\-[0-9]{4})$/.test($("#id_tipo_id").val())) {
+            }
+            else {
+
+            }
         {% endif %}
     });
 
