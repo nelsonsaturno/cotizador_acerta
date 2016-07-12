@@ -382,13 +382,14 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                                                    'pk4': cotizacion4.pk}))
         else:
             return render(request, self.template_name, {'form': form,
-                                                        'error': 1})
+                                                        'update': 1})
 
 
 class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
     template_name = "cotizar/vehiculo.html"
     form_class = ConductorVehiculoForm
     model = ConductorVehiculo
+    context_object_name = "vehiculo"
 
     def get_context_data(self, **kwargs):
         context = super(VolverVehiculo, self).get_context_data(**kwargs)
@@ -546,7 +547,7 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         cotizacion.save()
 
         return cotizacion
-        
+
 
     def post(self, request, *args, **kwargs):
         form = ConductorVehiculoForm(request.POST)

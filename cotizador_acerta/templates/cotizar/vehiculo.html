@@ -169,7 +169,7 @@
                             {% bootstrap_field form.cero_km layout='horizontal' show_label=False field_class='km-field' %}
                             {% bootstrap_field form.valor layout='horizontal' show_label=False field_class='form-field' %}
                             {% buttons %}
-                                <button type="submit" class="btn btn-lg calculate">
+                                <button id="id_submit" type="submit" class="btn btn-lg calculate">
                                     Calcular
                                 </button>
                             {% endbuttons %}
@@ -218,26 +218,45 @@
         });
 
         {% if not update %}
-        $('.endoso').prop("disabled",true);
-        $( '#id_marca' ).prepend('<option class="placeholder" value="" selected=selected disabled>Marca</option>');
-        $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" selected=selected disabled>Estado Civil</option>');
-        $( '#id_sexo' ).prepend('<option class="placeholder" value="" selected=selected disabled>Sexo</option>');
-        $( '#id_lesiones_corporales' ).prepend('<option class="placeholder" value="" selected=selected disabled>Lesiones Corporales</option>');
-        $( '#id_danios_propiedad' ).prepend('<option class="placeholder" value="" selected=selected disabled>Daños a propiedad ajena</option>');
-        $( '#id_gastos_medicos' ).prepend('<option class="placeholder" value="" selected=selected disabled>Gastos Médicos</option>');
-        $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" selected=selected disabled>Muerte Accidental</option>');
-        $( '#id_modelo' ).empty();
-        $( '#id_modelo' ).append('<option class="placeholder" value="" selected=selected disabled>Modelo</option>');
+            $('.endoso').prop("disabled",true);
+            $( '#id_marca' ).prepend('<option class="placeholder" value="" selected=selected disabled>Marca</option>');
+            $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" selected=selected disabled>Estado Civil</option>');
+            $( '#id_sexo' ).prepend('<option class="placeholder" value="" selected=selected disabled>Sexo</option>');
+            $( '#id_lesiones_corporales' ).prepend('<option class="placeholder" value="" selected=selected disabled>Lesiones Corporales</option>');
+            $( '#id_danios_propiedad' ).prepend('<option class="placeholder" value="" selected=selected disabled>Daños a propiedad ajena</option>');
+            $( '#id_gastos_medicos' ).prepend('<option class="placeholder" value="" selected=selected disabled>Gastos Médicos</option>');
+            $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" selected=selected disabled>Muerte Accidental</option>');
+            $( '#id_modelo' ).empty();
+            $( '#id_modelo' ).append('<option class="placeholder" value="" selected=selected disabled>Modelo</option>');
+        {% else %}
+            {% if vehiculo %}
+                console.log({{vehiculo.endoso}});
+            {% else %}
+                console.log({{form.endoso}});
+            {% endif %}
+            $( '#id_marca' ).prepend('<option class="placeholder" value="" disabled>Marca</option>');
+            $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" disabled>Estado Civil</option>');
+            $( '#id_sexo' ).prepend('<option class="placeholder" value="" disabled>Sexo</option>');
+            $( '#id_lesiones_corporales' ).prepend('<option class="placeholder" value="" disabled>Lesiones Corporales</option>');
+            $( '#id_danios_propiedad' ).prepend('<option class="placeholder" value="" disabled>Daños a propiedad ajena</option>');
+            $( '#id_gastos_medicos' ).prepend('<option class="placeholder" value="" disabled>Gastos Médicos</option>');
+            $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" disabled>Muerte Accidental</option>');
+            $( '#id_modelo' ).prepend('<option class="placeholder" value="" disabled>Modelo</option>');
         {% endif %}
     });
 
     $(document).on("change", "#id_identificacion", function(e){
         e.preventDefault();
-        console.log("entrando");
        if( $("#id_tipo_id_0").is(':checked') ){
-            $("#id_identificacion").rules("add", { regex: "(\d{1,2}\-\d{2,4}\-\d{4})$" })
-       } else {
-            $("#id_identificacion").rules("remove", { regex: "(\d{1,2}\-\d{2,4}\-\d{4})$" })
+            var cedula = new RegExp('^([0-9]{1,2}\-[0-9]{2,4}\-[0-9]{4})$');
+            if (cedula.test($(this).val())) {
+                $('#id_submit').prop('disabled', false);
+                $(".cedula-validacion").remove();
+            } else {
+                $(".cedula-validacion").remove();
+                $('#id_submit').prop('disabled', true);
+                $(this).parent().after("<div class='cedula-validacion' style='color:red; margin-bottom: 20px;'>Introduzca una cédula válida</div>");
+            }
        }
     });
 
@@ -419,10 +438,6 @@
             $('#id_cero_km').prop('checked', false);
         }
     });
-
-
-
-
 
 </script>
 
