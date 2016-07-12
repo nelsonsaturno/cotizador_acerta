@@ -54,6 +54,10 @@
     .form-field {
         margin:0px 0px 0px 20px;
     }
+    .form-field-value {
+        margin:0px 0px 0px 20px;
+        display:none;
+    }
     .km-field {
         margin:0px 0px 0px 20px;
         display: none;
@@ -178,7 +182,8 @@
                             {% bootstrap_field form.modelo layout='horizontal' show_label=False field_class='form-field'%}
                             {% bootstrap_field form.anio layout='horizontal' show_label=False field_class='form-field' %}
                             {% bootstrap_field form.cero_km layout='horizontal' show_label=False field_class='km-field' %}
-                            {% bootstrap_field form.valor layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.valor layout='horizontal' show_label=False field_class='form-field-value' %}
+                            {% bootstrap_field form.valor_text layout='horizontal' show_label=False field_class='form-field' %}
                             {% buttons %}
                                 <button id="id_submit" type="submit" class="btn btn-lg calculate">
                                     Calcular
@@ -259,6 +264,7 @@
 
 {% block custom_script %}
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
+<script src="{% static 'js/jquery.mask.min.js' %}"></script>
 <script type="text/javascript">
 
     $(document).ready(function(){
@@ -312,6 +318,22 @@
             $(".cedula-validacion").remove();
             $('#id_submit').prop('disabled', false);
        }
+    });
+
+    $(document).on("change", "#id_valor_text", function(e){
+        e.preventDefault();
+        var valor = /^[0-9]{1,3}(,[0-9]{3})*\.[0-9]{2}$/;
+        var value = $(this).val();
+        if (valor.test($(this).val())) {
+            $('#id_submit').prop('disabled', false);
+            $(".valor-validacion").remove();
+            var split = value.split('.')[0].replace(/,/g,"");
+            document.getElementById("id_valor").value = split;
+        } else {
+            $(".valor-validacion").remove();
+            $('#id_submit').prop('disabled', true);
+            $(this).parent().after("<div class='valor-validacion' style='color:red; margin-bottom: 20px;'>Introduzca un valor correcto</div>");
+        }
     });
 
     $( document ).on('change', '#id_lesiones_corporales', function(e) {
@@ -952,6 +974,10 @@
             $(".km-field > div > label > .icheckbox_square-grey").removeClass("checked");
             $('#id_cero_km').prop('checked', false);
         }
+    });
+
+    $(document).ready(function(){
+        $('#id_valor_text').mask("000,000,000.00" , {reverse: true});
     });
 
 </script>

@@ -8,6 +8,7 @@ class ConductorVehiculoForm(forms.ModelForm):
 
     tipo_id = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
                                 widget=forms.RadioSelect(), label="")
+    valor_text = forms.CharField(label="Valor",help_text='Ex: 99,999.99')
 
     class Meta:
         model = ConductorVehiculo
