@@ -394,9 +394,16 @@
         var year2 = today.getFullYear() +1;
         if (anio == year || anio == year1 || anio == year2) {
             $(".km-field").css('display','block');
+            $(".km-field > div > label > .icheckbox_square-grey").attr("aria-checked", "false");
+            $(".km-field > div > label > .icheckbox_square-grey").removeClass("checked");
+            $('#id_cero_km').attr('checked', false);
+            $('#id_cero_km').prop('checked', false);
         }
         else {
             $(".km-field").css('display','none');
+            $(".km-field > div > label > .icheckbox_square-grey").attr("aria-checked", "false");
+            $(".km-field > div > label > .icheckbox_square-grey").removeClass("checked");
+            $('#id_cero_km').prop('checked', false);
         }
     });
 

@@ -239,6 +239,11 @@
               </li> -->
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
+                <a href="{% url 'vehiculo' %}" class="dropdown-toggle">
+                  <span>Volver al Cotizador</span>
+                </a>
+              </li>
+              <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle">
                   <span class="hidden-xs">{{ user.get_full_name|default:user.username }}</span>
                 </a>

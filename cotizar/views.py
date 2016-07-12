@@ -96,6 +96,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             antig = 0
         else:
             antig = date.today().year - vehiculo.anio
+        print antig
 
         vejez = Antiguedad.objects.all().first()
         if antig <= vejez.limite:
