@@ -12,6 +12,7 @@ from administrador.models import *
 from django.template import Context
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
+from django.views.defaults import page_not_found
 import json
 
 
@@ -96,6 +97,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             antig = 0
         else:
             antig = date.today().year - vehiculo.anio
+        print antig
 
         vejez = Antiguedad.objects.all().first()
         if antig <= vejez.limite:
@@ -379,7 +381,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                                                    'pk3': cotizacion3.pk,
                                                    'pk4': cotizacion4.pk}))
         else:
-            return render(request, self.template_name, {'form': form})
+            return render(request, self.template_name, {'form': form,
+                                                        'error': 1})
 
 
 class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
@@ -717,6 +720,14 @@ class VerPlanes(LoginRequiredMixin, generic.TemplateView):
         cotizacion2 = Cotizacion.objects.get(pk=kwargs['pk2'])
         cotizacion3 = Cotizacion.objects.get(pk=kwargs['pk3'])
         cotizacion4 = Cotizacion.objects.get(pk=kwargs['pk4'])
+        if cotizacion1.corredor.pk != request.user.pk:
+            return page_not_found(request)
+        elif cotizacion2.corredor.pk != request.user.pk:
+            return page_not_found(request)
+        elif cotizacion3.corredor.pk != request.user.pk:
+            return page_not_found(request)
+        elif cotizacion4.corredor.pk != request.user.pk:
+            return page_not_found(request)
         context['cotizaciones'] = [cotizacion1,
                                    cotizacion2,
                                    cotizacion3,
@@ -732,6 +743,8 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
+        if cotizacion.corredor.pk != request.user.pk:
+            return page_not_found(request)
         context['cotizacion'] = cotizacion
         context['form'] = CotizacionUpdateForm()
         context['pk1'] = kwargs['pk1']

@@ -12,9 +12,24 @@
 
 
         // Creating the master menu (SideMenu)
-        sideMenu = new SideMenu([
-          new SMLinkItem("Registrar Corredor/Vendedor", "{% url 'register'%}")
-        ]);
+
+        {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
+            sideMenu = new SideMenu([
+              new SMLinkItem("Registrar Corredor", "{% url 'register'%}")
+            ]);
+        {% elif user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
+            sideMenu = new SideMenu([
+              new SMLinkItem("Registrar Vendedor", "{% url 'register'%}")
+            ]);
+        {% endif %}
+
+        {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
+
+          sideMenu = new SideMenu([
+            new SMLinkItem("Administrar Parámetros", "{% url 'dashboard'%}")
+          ]);
+
+        {% endif %}
 
         sideMenu.addItem(new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"));
 
@@ -46,7 +61,7 @@
         });
 
         // Extend prototype from SMItem
-        SMUserAccountItem.prototype = Object.create(SMItem.prototype); 
+        SMUserAccountItem.prototype = Object.create(SMItem.prototype);
         SMUserAccountItem.prototype.constructor = SMUserAccountItem;
 
         // Adding custom item
@@ -74,7 +89,12 @@
                  sideMenu.close();
              });
         });
-    </script>
+
+        $( document ).on('click', '#actions', function(e) {
+            e.preventDefault();
+            $(".dropdown-menu").toggle("show");
+        });
+</script>
 <div id="navbar">
     <ul class="nav navbar-nav menu hidden-xs">
         <li>
@@ -85,13 +105,26 @@
                 <a href="{% url 'logout' %}">Cerrar Sesión</a>
             {% endif %}
         </li>
-        <li style="float: right;">
-            {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
-                <a href="{% url 'register'%}">Registrar Corredor</a>
-            {% elif user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
-                <a href="{% url 'register'%}">Registrar Vendedor</a>
-            {% endif %}
-        </li>
+        {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
+          <li style="float: right;">
+              <a id="actions" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones &nbsp;<span class="caret"></span></a>
+              <ul class="dropdown-menu" style="position: absolute;">
+                <li>
+                  <a href="{% url 'register'%}">Registrar Corredor</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                  <a href="{% url 'dashboard' %}">Administrador</a>
+                </li>
+              </ul>
+          </li>
+
+        {% endif %}
+        {% if user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
+          <li style="float: right;">
+              <a href="{% url 'register'%}">Registrar Vendedor</a>
+          </li>
+        {% endif %}
         <li style="float: right;">
             <a href="#">{{ user.get_full_name|default:user.username }}</a>
         </li>

@@ -231,6 +231,16 @@
         {% endif %}
     });
 
+    $(document).on("change", "#id_identificacion", function(e){
+        e.preventDefault();
+        console.log("entrando");
+       if( $("#id_tipo_id_0").is(':checked') ){
+            $("#id_identificacion").rules("add", { regex: "(\d{1,2}\-\d{2,4}\-\d{4})$" })
+       } else {
+            $("#id_identificacion").rules("remove", { regex: "(\d{1,2}\-\d{2,4}\-\d{4})$" })
+       }
+    });
+
     $( document ).on('change', '#id_lesiones_corporales', function(e) {
         e.preventDefault();
         var $index = $(this).children('option:selected').index();
@@ -397,11 +407,22 @@
         var year2 = today.getFullYear() +1;
         if (anio == year || anio == year1 || anio == year2) {
             $(".km-field").css('display','block');
+            $(".km-field > div > label > .icheckbox_square-grey").attr("aria-checked", "false");
+            $(".km-field > div > label > .icheckbox_square-grey").removeClass("checked");
+            $('#id_cero_km').attr('checked', false);
+            $('#id_cero_km').prop('checked', false);
         }
         else {
             $(".km-field").css('display','none');
+            $(".km-field > div > label > .icheckbox_square-grey").attr("aria-checked", "false");
+            $(".km-field > div > label > .icheckbox_square-grey").removeClass("checked");
+            $('#id_cero_km').prop('checked', false);
         }
     });
+
+
+
+
 
 </script>
 
