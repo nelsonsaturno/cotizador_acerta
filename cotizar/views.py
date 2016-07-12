@@ -382,6 +382,331 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             return render(request, self.template_name, {'form': form})
 
 
+class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
+    template_name = "cotizar/vehiculo.html"
+    form_class = ConductorVehiculoForm
+    model = ConductorVehiculo
+
+    def get_context_data(self, **kwargs):
+        context = super(VolverVehiculo, self).get_context_data(**kwargs)
+        context['update'] = True
+        return context
+
+    def crear_cotizacion(self, request, vehiculo):
+        conductor = vehiculo
+
+        sexo = Sexo.objects.get(sexo=conductor.sexo)
+
+        if conductor.edad >= 30:
+            estado_civil = Estado_Civil.objects.get(
+                estado_civil='Casado(a)'
+            )
+        else:
+            estado_civil = Estado_Civil.objects.get(
+                estado_civil=conductor.estado_civil
+            )
+
+        valor = Valor.objects.filter(inferior__lte=vehiculo.valor,
+                                     superior__gte=vehiculo.valor).first()
+
+        historial_transito = Historial_Transito.objects.filter(
+            inferior__lte=vehiculo.historial_transito,
+            superior__gte=vehiculo.historial_transito
+        ).first()
+
+        # No kilometers.
+        if vehiculo.cero_km or vehiculo.anio == date.today().year + 1:
+            antig = 0
+        else:
+            antig = date.today().year - vehiculo.anio
+
+        vejez = Antiguedad.objects.all().first()
+        if antig <= vejez.limite:
+            antiguedad = vejez.factor_menor
+        else:
+            antiguedad = vejez.factor_mayor
+
+        edad = Edad.objects.filter(inferior__lte=conductor.edad,
+                                   superior__gte=conductor.edad).first()
+
+        desc_parametros = 1.00 -\
+            (sexo.factor * estado_civil.factor * valor.factor *
+             historial_transito.factor * antiguedad * edad.factor)
+
+        descuento = min(vehiculo.modelo.descuento, desc_parametros)
+        descuento = float("{0:.2f}".format(descuento))
+
+        if descuento < 0.3:
+            descuento = 0.3
+        elif descuento > 0.625:
+            descuento = 0.625
+
+        factor_importacion = Importacion.objects.all().first()
+        if vehiculo.importacion_piezas:
+            importa = True
+            importacion_piezas = float(
+                "{0:.2f}".format(vehiculo.valor * factor_importacion.factor))
+        else:
+            importa = False
+            importacion_piezas = 0.00
+
+        base_lesiones = LesionesCorporales.objects.get(
+            lesiones_corporales=vehiculo.lesiones_corporales
+        )
+        base_lesiones = base_lesiones.factor
+
+        base_danios = DaniosPropiedad.objects.get(
+            danios_propiedad=vehiculo.danios_propiedad
+        )
+        base_danios = base_danios.factor
+
+        base_gastos = GastosMedicos.objects.get(
+            gastos_medicos=vehiculo.gastos_medicos
+        )
+        base_gastos = base_gastos.factor
+
+        prima_lesiones = float(
+            "{0:.2f}".format((1 - descuento) * base_lesiones))
+        prima_danios = float("{0:.2f}".format((1 - descuento) * base_danios))
+        prima_gastos = float("{0:.2f}".format((1 - descuento) * base_gastos))
+
+        if antig <= 1:
+            porcentaje_uso = Tiempo_Uso.objects.get(tiempo=1)
+        elif antig >= 9:
+            porcentaje_uso = Tiempo_Uso.objects.get(tiempo=9)
+        else:
+            porcentaje_uso = Tiempo_Uso.objects.get(tiempo=antig)
+
+        porcentaje_uso = porcentaje_uso.factor
+
+        if antig <= 1:
+            colision = Colision.objects.get(tiempo=1)
+        elif antig >= 9:
+            colision = Colision.objects.get(tiempo=9)
+        else:
+            colision = Colision.objects.get(tiempo=antig)
+
+        base_colision = vehiculo.valor * colision.factor
+
+        prima_endoso = Endoso.objects.get(endoso=vehiculo.endoso)
+        prima_endoso = prima_endoso.factor
+        print prima_endoso
+
+        deducibles = float(vehiculo.valor) * porcentaje_uso
+        deducibles = float("{0:.2f}".format(deducibles))
+        prima_otros = float(
+            "{0:.2f}".format(deducibles - (deducibles * descuento)))
+        prima_colision = float(
+            "{0:.2f}".format(base_colision * (1 - descuento)))
+        deducible_colision = base_colision * (1 + vehiculo.modelo.recargo)
+        subtotal = prima_lesiones +\
+            prima_danios + prima_gastos +\
+            prima_otros + importacion_piezas + prima_colision + prima_endoso
+        subtotal = float("{0:.2f}".format(subtotal))
+        impuestos = float("{0:.2f}".format(subtotal * 0.06))
+        total = float("{0:.2f}".format(subtotal + impuestos))
+        prima_contado = float("{0:.2f}".format(total - (total * 0.10)))
+        prima_ach = float("{0:.2f}".format(total - (total * 0.05)))
+
+        user = User.objects.get(pk=request.user.id)
+        if request.POST['endoso'] == "Basico":
+            endoso = "Básico"
+        else:
+            endoso = request.POST['endoso']
+
+        cotizacion = Cotizacion(
+            conductor=conductor,
+            corredor=user,
+            lesiones_corporales=vehiculo.lesiones_corporales,
+            danios_propiedad=vehiculo.danios_propiedad,
+            gastos_medicos=vehiculo.gastos_medicos,
+            otros_danios=deducibles,
+            incendio_rayo=deducibles,
+            robo_hurto=deducibles,
+            importacion_piezas=importa,
+            prima_lesiones=prima_lesiones,
+            prima_daniosProp=prima_danios,
+            prima_gastosMedicos=prima_gastos,
+            prima_otrosDanios=prima_otros,
+            subtotal=subtotal,
+            prima_pagoContado=prima_contado,
+            prima_pagoVisa=prima_ach,
+            descuento=descuento,
+            total=total,
+            prima_colisionVuelco=prima_colision,
+            colision_vuelco=deducible_colision,
+            impuestos=impuestos,
+            prima_importacion=importacion_piezas,
+            plan="Básico",
+            endoso=endoso,
+            prima_endoso=prima_endoso)
+        cotizacion.save()
+
+        return cotizacion
+        
+
+    def post(self, request, *args, **kwargs):
+        form = ConductorVehiculoForm(request.POST)
+        if form.is_valid():
+            self.object = form.save()
+            if request.POST['endoso'] == "Basico":
+                endoso = "Básico"
+            else:
+                endoso = request.POST['endoso']
+            vehiculo = self.object
+            user = User.objects.get(pk=request.user.id)
+            vehiculo.corredor = user
+            vehiculo.save()
+            if vehiculo.endoso in ["Volvo", "Lexus"]:
+                prima_endoso = 125.00
+            elif vehiculo.endoso == "Porsche":
+                prima_endoso = 150.00
+            else:
+                prima_endoso = 75.00
+            cotizacion1 = self.crear_cotizacion(request, vehiculo)
+            deducibles2 = float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 1.20))
+            cotizacion2 = Cotizacion(
+                conductor=vehiculo,
+                corredor=user,
+                lesiones_corporales=cotizacion1.lesiones_corporales,
+                danios_propiedad=cotizacion1.danios_propiedad,
+                gastos_medicos=cotizacion1.gastos_medicos,
+                otros_danios=deducibles2,
+                incendio_rayo=deducibles2,
+                robo_hurto=deducibles2,
+                importacion_piezas=cotizacion1.importacion_piezas,
+                prima_lesiones=cotizacion1.prima_lesiones,
+                prima_daniosProp=cotizacion1.prima_daniosProp,
+                prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
+                prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.9,
+                prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.9,
+                colision_vuelco=cotizacion1.colision_vuelco * 1.20,
+                descuento=cotizacion1.descuento,
+                prima_importacion=cotizacion1.prima_importacion,
+                plan="Premium",
+                endoso=endoso,
+                prima_endoso=prima_endoso)
+            subtotal2 = cotizacion2.prima_lesiones +\
+                cotizacion2.prima_daniosProp +\
+                cotizacion2.prima_gastosMedicos +\
+                cotizacion2.prima_otrosDanios +\
+                cotizacion2.prima_importacion +\
+                cotizacion2.prima_colisionVuelco + prima_endoso
+            subtotal2 = float("{0:.2f}".format(subtotal2))
+            impuestos2 = float("{0:.2f}".format(subtotal2 * 0.06))
+            total2 = float("{0:.2f}".format(subtotal2 + impuestos2))
+            prima_contado2 = float("{0:.2f}".format(total2 - (total2 * 0.10)))
+            prima_ach2 = float("{0:.2f}".format(total2 - (total2 * 0.05)))
+            cotizacion2.subtotal = subtotal2
+            cotizacion2.prima_pagoContado = prima_contado2
+            cotizacion2.prima_pagoVisa = prima_contado2
+            cotizacion2.prima_pagoVisa = prima_ach2
+            cotizacion2.total = total2
+            cotizacion2.impuestos = impuestos2
+            cotizacion2.save()
+
+            ###################################
+            deducibles3 = float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 1.60))
+
+            cotizacion3 = Cotizacion(
+                conductor=vehiculo,
+                corredor=user,
+                lesiones_corporales=cotizacion1.lesiones_corporales,
+                danios_propiedad=cotizacion1.danios_propiedad,
+                gastos_medicos=cotizacion1.gastos_medicos,
+                otros_danios=deducibles3,
+                incendio_rayo=deducibles3,
+                robo_hurto=deducibles3,
+                importacion_piezas=cotizacion1.importacion_piezas,
+                prima_lesiones=cotizacion1.prima_lesiones,
+                prima_daniosProp=cotizacion1.prima_daniosProp,
+                prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
+                prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.8,
+                prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.8,
+                colision_vuelco=cotizacion1.colision_vuelco * 1.60,
+                descuento=cotizacion1.descuento,
+                prima_importacion=cotizacion1.prima_importacion,
+                plan="Gold",
+                endoso=endoso,
+                prima_endoso=prima_endoso)
+            subtotal3 = cotizacion3.prima_lesiones +\
+                cotizacion3.prima_daniosProp +\
+                cotizacion3.prima_gastosMedicos +\
+                cotizacion3.prima_otrosDanios +\
+                cotizacion3.prima_importacion +\
+                cotizacion3.prima_colisionVuelco + prima_endoso
+            subtotal3 = float("{0:.2f}".format(subtotal3))
+            impuestos3 = float("{0:.2f}".format(subtotal3 * 0.06))
+            total3 = float("{0:.2f}".format(subtotal3 + impuestos3))
+            prima_contado3 = float("{0:.2f}".format(total3 - (total3 * 0.10)))
+            prima_ach3 = float("{0:.2f}".format(total3 - (total3 * 0.05)))
+            cotizacion3.subtotal = subtotal3
+            cotizacion3.prima_pagoContado = prima_contado3
+            cotizacion3.prima_pagoVisa = prima_contado3
+            cotizacion3.prima_pagoVisa = prima_ach3
+            cotizacion3.total = total3
+            cotizacion3.impuestos = impuestos3
+            cotizacion3.save()
+
+            ###################################
+
+            ###################################
+            deducibles4 = float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 2.00))
+
+            cotizacion4 = Cotizacion(
+                conductor=vehiculo,
+                corredor=user,
+                lesiones_corporales=cotizacion1.lesiones_corporales,
+                danios_propiedad=cotizacion1.danios_propiedad,
+                gastos_medicos=cotizacion1.gastos_medicos,
+                otros_danios=deducibles4,
+                incendio_rayo=deducibles4,
+                robo_hurto=deducibles4,
+                importacion_piezas=cotizacion1.importacion_piezas,
+                prima_lesiones=cotizacion1.prima_lesiones,
+                prima_daniosProp=cotizacion1.prima_daniosProp,
+                prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
+                prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.7,
+                prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.7,
+                colision_vuelco=cotizacion1.colision_vuelco * 2.00,
+                descuento=cotizacion1.descuento,
+                prima_importacion=cotizacion1.prima_importacion,
+                plan="Silver",
+                endoso=endoso,
+                prima_endoso=prima_endoso)
+            subtotal4 = cotizacion4.prima_lesiones +\
+                cotizacion4.prima_daniosProp +\
+                cotizacion4.prima_gastosMedicos +\
+                cotizacion4.prima_otrosDanios +\
+                cotizacion4.prima_importacion +\
+                cotizacion4.prima_colisionVuelco + prima_endoso
+            subtotal4 = float("{0:.2f}".format(subtotal4))
+            impuestos4 = float("{0:.2f}".format(subtotal4 * 0.06))
+            total4 = float("{0:.2f}".format(subtotal4 + impuestos4))
+            prima_contado4 = float("{0:.2f}".format(total4 - (total4 * 0.10)))
+            prima_ach4 = float("{0:.2f}".format(total4 - (total4 * 0.05)))
+            cotizacion4.subtotal = subtotal4
+            cotizacion4.prima_pagoContado = prima_contado4
+            cotizacion4.prima_pagoVisa = prima_contado4
+            cotizacion4.prima_pagoVisa = prima_ach4
+            cotizacion4.total = total4
+            cotizacion4.impuestos = impuestos4
+            cotizacion4.save()
+
+            ###################################
+
+            return HttpResponseRedirect(
+                reverse_lazy('ver_planes', kwargs={'pk': cotizacion1.pk,
+                                                   'pk2': cotizacion2.pk,
+                                                   'pk3': cotizacion3.pk,
+                                                   'pk4': cotizacion4.pk}))
+        else:
+            return render(request, self.template_name, {'form': form})
+
+
 class VerPlanes(LoginRequiredMixin, generic.TemplateView):
     template_name = "cotizar/opciones_cotizaciones.html"
     model = Cotizacion

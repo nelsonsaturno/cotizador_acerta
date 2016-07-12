@@ -211,12 +211,14 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-        $('.endoso').prop("disabled",true);
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-grey',
             radioClass: 'iradio_square-grey',
             increaseArea: '5%' // optional
         });
+
+        {% if not update %}
+        $('.endoso').prop("disabled",true);
         $( '#id_marca' ).prepend('<option class="placeholder" value="" selected=selected disabled>Marca</option>');
         $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" selected=selected disabled>Estado Civil</option>');
         $( '#id_sexo' ).prepend('<option class="placeholder" value="" selected=selected disabled>Sexo</option>');
@@ -226,6 +228,7 @@
         $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" selected=selected disabled>Muerte Accidental</option>');
         $( '#id_modelo' ).empty();
         $( '#id_modelo' ).append('<option class="placeholder" value="" selected=selected disabled>Modelo</option>');
+        {% endif %}
     });
 
     $( document ).on('change', '#id_lesiones_corporales', function(e) {
