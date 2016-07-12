@@ -308,6 +308,9 @@
                 $('#id_submit').prop('disabled', true);
                 $(this).parent().after("<div class='cedula-validacion' style='color:red; margin-bottom: 20px;'>Introduzca una cédula válida</div>");
             }
+       } else {
+            $(".cedula-validacion").remove();
+            $('#id_submit').prop('disabled', false);
        }
     });
 
