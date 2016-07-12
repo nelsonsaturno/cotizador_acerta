@@ -118,7 +118,7 @@ class ListAntiguedad(LoginRequiredMixin, GroupRequiredMixin, generic.ListView):
 class AdminAntiguedad(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     template_name = "administrador/antiguedad_form.html"
     model = Antiguedad
-    form_class = ValorForm
+    form_class = AntiguedadForm
     context_object_name = "antiguedad"
     success_url = 'list_antiguedad'
 
