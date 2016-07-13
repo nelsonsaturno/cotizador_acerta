@@ -165,11 +165,11 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         else:
             colision = Colision.objects.get(tiempo=antig)
 
-        base_colision = vehiculo.valor * colision.factor
+        base_colision = float("{0:.2f}".format(
+            vehiculo.valor * colision.factor))
 
         prima_endoso = Endoso.objects.get(endoso=vehiculo.endoso)
         prima_endoso = prima_endoso.factor
-        print prima_endoso
 
         deducibles = float(vehiculo.valor) * porcentaje_uso
         deducibles = float("{0:.2f}".format(deducibles))
@@ -177,7 +177,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             "{0:.2f}".format(deducibles - (deducibles * descuento)))
         prima_colision = float(
             "{0:.2f}".format(base_colision * (1 - descuento)))
-        deducible_colision = base_colision * (1 + vehiculo.modelo.recargo)
+        deducible_colision = float("{0:.0f}".format(int(
+            base_colision * (1 + vehiculo.modelo.recargo))))
         subtotal = prima_lesiones +\
             prima_danios + prima_gastos +\
             prima_otros + importacion_piezas + prima_colision + prima_endoso
@@ -258,7 +259,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.9,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.9,
-                colision_vuelco=cotizacion1.colision_vuelco * 1.20,
+                colision_vuelco=float(
+                    "{0:.0f}".format(int(cotizacion1.colision_vuelco * 1.20))),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Premium",
@@ -302,7 +304,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.8,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.8,
-                colision_vuelco=cotizacion1.colision_vuelco * 1.60,
+                colision_vuelco=float(
+                    "{0:.0f}".format(int(cotizacion1.colision_vuelco * 1.60))),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Gold",
@@ -348,7 +351,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.7,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.7,
-                colision_vuelco=cotizacion1.colision_vuelco * 2.00,
+                colision_vuelco=float(
+                    "{0:.0f}".format(int(cotizacion1.colision_vuelco * 2.00))),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Silver",
@@ -490,11 +494,11 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         else:
             colision = Colision.objects.get(tiempo=antig)
 
-        base_colision = vehiculo.valor * colision.factor
+        base_colision = float("{0:.2f}".format(
+            vehiculo.valor * colision.factor))
 
         prima_endoso = Endoso.objects.get(endoso=vehiculo.endoso)
         prima_endoso = prima_endoso.factor
-        print prima_endoso
 
         deducibles = float(vehiculo.valor) * porcentaje_uso
         deducibles = float("{0:.2f}".format(deducibles))
@@ -502,7 +506,8 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
             "{0:.2f}".format(deducibles - (deducibles * descuento)))
         prima_colision = float(
             "{0:.2f}".format(base_colision * (1 - descuento)))
-        deducible_colision = base_colision * (1 + vehiculo.modelo.recargo)
+        deducible_colision = float("{0:.0f}".format(
+            int(base_colision * (1 + vehiculo.modelo.recargo))))
         subtotal = prima_lesiones +\
             prima_danios + prima_gastos +\
             prima_otros + importacion_piezas + prima_colision + prima_endoso
@@ -548,7 +553,6 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
 
         return cotizacion
 
-
     def post(self, request, *args, **kwargs):
         form = ConductorVehiculoForm(request.POST)
         if form.is_valid():
@@ -585,7 +589,8 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.9,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.9,
-                colision_vuelco=cotizacion1.colision_vuelco * 1.20,
+                colision_vuelco=float("{0:.0f}".format(
+                    int(cotizacion1.colision_vuelco * 1.20))),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Premium",
@@ -629,7 +634,8 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.8,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.8,
-                colision_vuelco=cotizacion1.colision_vuelco * 1.60,
+                colision_vuelco=float("{0:.0f}".format(
+                    int(cotizacion1.colision_vuelco * 1.60))),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Gold",
@@ -675,7 +681,8 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.7,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.7,
-                colision_vuelco=cotizacion1.colision_vuelco * 2.00,
+                colision_vuelco=float("{0:.0f}".format(
+                    int(cotizacion1.colision_vuelco * 2.00))),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Silver",
