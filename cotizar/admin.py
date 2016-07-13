@@ -9,8 +9,6 @@ class ModeloAdmin(admin.ModelAdmin):
         'marca',
         'descuento',
         'recargo',
-        'created_at',
-        'updated_at'
     )
     search_fields = (
         'id',
@@ -18,8 +16,6 @@ class ModeloAdmin(admin.ModelAdmin):
         'marca',
         'descuento',
         'recargo',
-        'created_at',
-        'updated_at'
     )
 
 admin.site.register(ConductorVehiculo)
