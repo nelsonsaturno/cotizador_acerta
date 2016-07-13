@@ -8,7 +8,7 @@ class ConductorVehiculoForm(forms.ModelForm):
 
     tipo_id = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
                                 widget=forms.RadioSelect(), label="")
-    valor_text = forms.CharField(label="Valor",help_text='Ex: 99,999.99')
+    valor_text = forms.CharField(label="Valor", help_text='Ex: 99,999.99')
 
     class Meta:
         model = ConductorVehiculo
@@ -32,12 +32,18 @@ class ConductorVehiculoForm(forms.ModelForm):
             'valor': 'Valor',
         }
 
-    # def clean_email(self):
-    #     email = self.cleaned_data.get('email')
-    #     username = self.cleaned_data.get('username')
-    #     if User.objects.filter(email=email).exclude(username=username).count() != 0:
-    #         raise forms.ValidationError(u'Email addresses must be unique.')
-    #     return email
+    def clean_edad(self):
+        edad = self.cleaned_data.get('edad')
+        if edad < 18:
+            raise forms.ValidationError(u'La edad minima debe ser 18 años.')
+        return edad
+
+    def clean_historial_transito(self):
+        historial = self.cleaned_data.get('historial_transito')
+        if historial > 10:
+            raise forms.ValidationError(
+                u'El máximo historial de tránsito es 10.')
+        return historial
 
     def save(self, commit=True):
         conductor = super(ConductorVehiculoForm, self).save(commit=False)
