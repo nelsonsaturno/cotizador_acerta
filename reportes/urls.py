@@ -1,9 +1,10 @@
-from django.conf.urls import url
+from django.conf.urls import url, patterns
 from reportes.views import *
 
-urlpattern = [
+urlpatterns = patterns(
+    '',
     url(
-        r'^$',
+        r'^corredores/$',
         CorredorListView.as_view(),
         name='corredor-list'),
-]
+)
