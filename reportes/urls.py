@@ -5,6 +5,6 @@ urlpatterns = patterns(
     '',
     url(
         r'^corredores/$',
-        CorredorListView.as_view(),
-        name='corredor-list'),
+        CorredorVendedorListView.as_view(),
+        name='corredor-vendedor-list'),
 )
