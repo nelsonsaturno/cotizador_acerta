@@ -39,7 +39,7 @@
 				      <td>{{ user.user.last_name }}</td>
 				      <td>{{ user.user.email }}</td>
 				      <td>{{ user.licencia }}</td>
-				      <td><a href="#">View</a></td>
+				      <td><a href="{% url 'corredor-vendedor-detail' user.user.pk %}">View</a></td>
 				    </tr>
 			    {% endfor %}</tbody>
 			    <tfoot>
