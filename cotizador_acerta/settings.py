@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'cotizar',
     'administrador',
+    'reportes',
 ]
 
 MIDDLEWARE_CLASSES = [

@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^', include('darientSessions.urls')),
     url(r'^', include('cotizar.urls')),
     url(r'^administrador/', include('administrador.urls')),
+    url(r'^resporte/', include('reportes.urls')),
 ]
