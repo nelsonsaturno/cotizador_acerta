@@ -325,7 +325,7 @@
         e.preventDefault();
        if( $("#id_tipo_id_0").is(':checked') ){
             $(".cedula-help").remove();
-            $("#id_identificacion").parent().before("<div class='cedula-help' style='color: #727270; margin-top: 6px; margin-bottom: 6px;'>Cédula. Ej: 12-123-1234</div>");
+            $("#id_identificacion").parent().after("<div class='cedula-help' style='color: #727270; margin-top: 6px; margin-bottom: 6px;'>Cédula. Ej: 12-123-1234</div>");
        } else {
             $(".cedula-help").remove();
        }
