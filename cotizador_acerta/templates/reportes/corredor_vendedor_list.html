@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "administrador/base_admin.html" %}
 {% load static %}
-
+{% block title %}<title>Corredores y Vendedores</title>{% endblock title %}
 {% block extracss %}
 <link href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}" rel="stylesheet">
 <style type="text/css">
@@ -15,7 +15,7 @@
 
 {% block content %}
 
-<div class="row" style="padding-top:10%;">
+<div class="row">
 	<div class="col-md-12">
 		<div class="box box-default color-palette-box">
 			<div class="box-header">
@@ -39,7 +39,7 @@
 				      <td>{{ user.user.last_name }}</td>
 				      <td>{{ user.user.email }}</td>
 				      <td>{{ user.licencia }}</td>
-				      <td><a href="{% url 'corredor-vendedor-detail' user.user.pk %}">View</a></td>
+				      <td><a href="{% url 'corredor_vendedor_detail' user.user.pk %}">Ver</a></td>
 				    </tr>
 			    {% endfor %}</tbody>
 			    <tfoot>
@@ -51,7 +51,7 @@
 	</div>
 </div>
 
-<div class="row" style="padding-top:10%;">
+<div class="row">
 	<div class="col-md-12">
 		<div class="box box-default color-palette-box">
 			<div class="box-header">
@@ -69,13 +69,13 @@
 			    </tr>
 			    </thead>
 			    <tbody>
-			    {% for user in vendedores %}		    		
+			    {% for user in vendedores %}
 			    	<tr role="row">
 				      <td class="sorting_1"> {{ user.vendedor.first_name }}</td>
 				      <td>{{ user.vendedor.last_name }}</td>
 				      <td>{{ user.vendedor.email }}</td>
 				      <td>{{ user.corredor.first_name }} {{ user.corredor.last_name }}</td>
-				      <td><a href="#">View</a></td>
+				      <td><a href="{% url 'corredor_vendedor_detail' user.vendedor.pk %}">Ver</a></td>
 				    </tr>
 			    {% endfor %}</tbody>
 			    <tfoot>
@@ -91,9 +91,11 @@
 
 {% block custom_script %}
 <script type="text/javascript">
-	$(function () {
-		$("#example1").DataTable();
-		$("#example2").DataTable();
+	$(document).ready(function(){
+		$(function () {
+			$("#example1").DataTable();
+			$("#example2").DataTable();
+		});
 	});
 </script>
 {% endblock custom_script %}

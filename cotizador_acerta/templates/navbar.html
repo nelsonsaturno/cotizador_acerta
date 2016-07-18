@@ -17,9 +17,15 @@
             sideMenu = new SideMenu([
               new SMLinkItem("Registrar Corredor", "{% url 'register'%}")
             ]);
+            sideMenu = new SideMenu([
+              new SMLinkItem("Corredores y Vendedores", "{% url 'corredor-vendedor-list'%}")
+            ]);
         {% elif user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
             sideMenu = new SideMenu([
               new SMLinkItem("Registrar Vendedor", "{% url 'register'%}")
+            ]);
+            sideMenu = new SideMenu([
+              new SMLinkItem("Mis Vendedores", "{% url 'vendedor_list'%}")
             ]);
         {% endif %}
 
@@ -31,14 +37,20 @@
 
         {% endif %}
 
-        sideMenu.addItem(new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"));
+        {% if user.is_authenticated %}
+          sideMenu = new SideMenu([
+            new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}")
+          ]);
 
-        // Adding new item
-        sideMenu.addItem(
-            new SMButtonItem("Cerrar", function () {
-                sideMenu.close();
-            })
-        );
+          sideMenu.addItem(new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"));
+
+          // Adding new item
+          sideMenu.addItem(
+              new SMButtonItem("Cerrar", function () {
+                  sideMenu.close();
+              })
+          );
+        {% endif %}
 
         // CUSTOM ITEM
         // This is a custom item example
@@ -105,26 +117,48 @@
                 <a href="{% url 'logout' %}">Cerrar Sesión</a>
             {% endif %}
         </li>
-        {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
           <li style="float: right;">
               <a id="actions" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones &nbsp;<span class="caret"></span></a>
               <ul class="dropdown-menu" style="position: absolute;">
-                <li>
-                  <a href="{% url 'register'%}">Registrar Corredor</a>
-                </li>
-                <li role="separator" class="divider"></li>
-                <li>
-                  <a href="{% url 'dashboard' %}">Administrador</a>
-                </li>
+                {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
+                  <li>
+                    <a href="{% url 'register'%}">Registrar Corredor</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="{% url 'dashboard' %}">Administrador</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="{% url 'corredor-vendedor-list' %}">Corredores y Vendedores</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                {% endif %}
+                {% if user.is_authenticated and user.groups.all.0.name == 'admin' %}
+                  <li>
+                    <a href="{% url 'register'%}">Registrar Corredor</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="{% url 'corredor-vendedor-list' %}">Corredores y Vendedores</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                {% endif %}
+                {% if user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
+                  <li style="float: right;">
+                      <a href="{% url 'register'%}">Registrar Vendedor</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li style="float: right;">
+                      <a href="{% url 'vendedor_list' %}">Mis Vendedores</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                {% endif %}
+                  <li style="float: right;">
+                      <a href="{% url 'cotizaciones_list' %}">Mis Cotizaciones</a>
+                  </li>
               </ul>
           </li>
-
-        {% endif %}
-        {% if user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
-          <li style="float: right;">
-              <a href="{% url 'register'%}">Registrar Vendedor</a>
-          </li>
-        {% endif %}
         <li style="float: right;">
             <a href="#">{{ user.get_full_name|default:user.username }}</a>
         </li>

@@ -17,7 +17,7 @@ class UserProfile(models.Model):
 
 class CorredorVendedor(models.Model):
     corredor = models.ForeignKey(User, related_name='corredor')
-    vendedor = models.ForeignKey(User, related_name='vendedor')
+    vendedor = models.ForeignKey(User, related_name='vendedor', unique=True)
 
     def __str__(self):
         return self.vendedor.username + ' created by ' + self.corredor.username

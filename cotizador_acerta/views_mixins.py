@@ -15,29 +15,29 @@ class LoginRequiredMixin(object):
             LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
+# class AdminRequiredMixin(object):
+#     @method_decorator(login_required(login_url=LOGIN_URL))
+#     def dispatch(self, request, *args, **kwargs):
+#         if request.user.is_authenticated():
+#             user = request.user
+#             if hasattr(self, 'group'):
+#                 if 'super_admin' in self.group:
+#                     all_admins = [
+#                         'super_admin', 'admin_customer',
+#                         'admin_mail', 'admin_order'
+#                     ]
+#                     groups = user.groups.filter(name__in=all_admins)
+#                 else:
+#                     groups = user.groups.filter(name__in=self.group)
+
+#                 if not groups:
+#                     return page_not_found(request)
+
+#         return super(
+#             GroupRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
 class AdminRequiredMixin(object):
-    @method_decorator(login_required(login_url=LOGIN_URL))
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
-            user = request.user
-            if hasattr(self, 'group'):
-                if 'super_admin' in self.group:
-                    all_admins = [
-                        'super_admin', 'admin_customer',
-                        'admin_mail', 'admin_order'
-                    ]
-                    groups = user.groups.filter(name__in=all_admins)
-                else:
-                    groups = user.groups.filter(name__in=self.group)
-
-                if not groups:
-                    return page_not_found(request)
-
-        return super(
-            GroupRequiredMixin, self).dispatch(request, *args, **kwargs)
-
-
-class GroupRequiredMixin(object):
     @method_decorator(login_required(login_url=LOGIN_URL))
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
@@ -51,4 +51,58 @@ class GroupRequiredMixin(object):
                 return page_not_found(request)
 
         return super(
+            AdminRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class GroupRequiredMixin(object):
+    @method_decorator(login_required(login_url=LOGIN_URL))
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            user = request.user
+            all_admins = [
+                'super_admin',
+                'admin'
+            ]
+            groups = user.groups.filter(name__in=all_admins)
+
+            if not groups:
+                return page_not_found(request)
+
+        return super(
             GroupRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class CorredorRequiredMixin(object):
+    @method_decorator(login_required(login_url=LOGIN_URL))
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            user = request.user
+            all_admins = [
+                'corredor'
+            ]
+            groups = user.groups.filter(name__in=all_admins)
+
+            if not groups:
+                return page_not_found(request)
+
+        return super(
+            CorredorRequiredMixin, self).dispatch(request, *args, **kwargs)
+
+
+class DetailRequiredMixin(object):
+    @method_decorator(login_required(login_url=LOGIN_URL))
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            user = request.user
+            all_admins = [
+                'corredor',
+                'super_admin',
+                'admin'
+            ]
+            groups = user.groups.filter(name__in=all_admins)
+
+            if not groups:
+                return page_not_found(request)
+
+        return super(
+            DetailRequiredMixin, self).dispatch(request, *args, **kwargs)

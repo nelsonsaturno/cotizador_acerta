@@ -27,9 +27,10 @@ def user_registration(request):
            or (request.user.groups.first().name == "super_admin"):
             if request.method == 'POST':
                 if request.user.groups.first().name == "corredor":
-                    form = CorredorCreateForm(request.POST)
-                else:
                     form = UserCreateForm(request.POST)
+                else:
+                    form = CorredorCreateForm(request.POST)
+
                 if form.is_valid():
                     form.save()
                     username = form.cleaned_data['username']
