@@ -13,43 +13,60 @@
 
         // Creating the master menu (SideMenu)
 
-        {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
-            sideMenu = new SideMenu([
-              new SMLinkItem("Registrar Corredor", "{% url 'register'%}")
-            ]);
-            sideMenu = new SideMenu([
-              new SMLinkItem("Corredores y Vendedores", "{% url 'corredor-vendedor-list'%}")
-            ]);
-        {% elif user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
-            sideMenu = new SideMenu([
-              new SMLinkItem("Registrar Vendedor", "{% url 'register'%}")
-            ]);
-            sideMenu = new SideMenu([
-              new SMLinkItem("Mis Vendedores", "{% url 'vendedor_list'%}")
-            ]);
-        {% endif %}
-
-        {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
-
-          sideMenu = new SideMenu([
-            new SMLinkItem("Administrar Parámetros", "{% url 'dashboard'%}")
-          ]);
-
-        {% endif %}
-
         {% if user.is_authenticated %}
-          sideMenu = new SideMenu([
-            new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}")
-          ]);
 
-          sideMenu.addItem(new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"));
+          var group = "{{ user.groups.all.0.name }}";
 
-          // Adding new item
-          sideMenu.addItem(
-              new SMButtonItem("Cerrar", function () {
-                  sideMenu.close();
-              })
-          );
+          if (group == "super_admin") {
+              sideMenu = new SideMenu([
+                new SMLinkItem("Registrar Corredor", "{% url 'register'%}"),
+                new SMLinkItem("Corredores y Vendedores", "{% url 'corredor-vendedor-list'%}"),
+                new SMLinkItem("Administrar Parámetros", "{% url 'dashboard'%}"),
+                new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}"),
+                new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"),
+                new SMButtonItem("Cerrar", function (e) {
+                    sideMenu.close();
+                })
+              ]);
+          }
+
+          if (group == "admin") {
+
+              sideMenu = new SideMenu([
+                new SMLinkItem("Registrar Corredor", "{% url 'register'%}"),
+                new SMLinkItem("Corredores y Vendedores", "{% url 'corredor-vendedor-list'%}"),
+                new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}"),
+                new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"),
+                new SMButtonItem("Cerrar", function (e) {
+                    sideMenu.close();
+                })
+              ]);
+          }
+
+          if (group == "corredor") {
+
+              sideMenu = new SideMenu([
+                new SMLinkItem("Registrar Vendedor", "{% url 'register'%}"),
+                new SMLinkItem("Mis Vendedores", "{% url 'vendedor_list'%}"),
+                new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}"),
+                new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"),
+                new SMButtonItem("Cerrar", function (e) {
+                    sideMenu.close();
+                })
+              ]);
+          }
+
+          if (group == "vendedor") {
+
+              sideMenu = new SideMenu([
+                new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}"),
+                new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"),
+                new SMButtonItem("Cerrar", function (e) {
+                    sideMenu.close();
+                })
+              ]);
+          }
+
         {% endif %}
 
         // CUSTOM ITEM
@@ -96,6 +113,10 @@
             $(".row").click(function () {
                  sideMenu.close();
              });
+
+            $(".sm-item-button").click(function(){
+              sideMenu.close();
+            });
 
             $("#close-demo").click(function () {
                  sideMenu.close();
