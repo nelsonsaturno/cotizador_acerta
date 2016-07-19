@@ -773,6 +773,8 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
         form = CotizacionUpdateForm(request.POST)
         if form.is_valid():
