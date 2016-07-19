@@ -87,17 +87,22 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         valor = Valor.objects.filter(inferior__lte=vehiculo.valor,
                                      superior__gte=vehiculo.valor).first()
 
-        historial_transito = Historial_Transito.objects.filter(
-            inferior__lte=vehiculo.historial_transito,
-            superior__gte=vehiculo.historial_transito
-        ).first()
+        if vehiculo.historial_transito == 0:
+            historial_transito = Historial_Transito.objects.filter(
+                inferior__lte=1,
+                superior__gte=vehiculo.historial_transito
+            ).first()
+        else:
+            historial_transito = Historial_Transito.objects.filter(
+                inferior__lte=vehiculo.historial_transito,
+                superior__gte=vehiculo.historial_transito
+            ).first()
 
         # No kilometers.
         if vehiculo.cero_km or vehiculo.anio == date.today().year + 1:
             antig = 0
         else:
             antig = date.today().year - vehiculo.anio
-        print antig
 
         vejez = Antiguedad.objects.all().first()
         if antig <= vejez.limite:
@@ -769,95 +774,98 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
 
     def post(self, request, *args, **kwargs):
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
-        cuotas = request.POST['cuotas']
-        cotizacion.cuota = int(cuotas)
-        cotizacion.prima_mensual = float(
-            "{0:.2f}".format(cotizacion.total / float(cotizacion.cuota)))
-        cotizacion.is_active = True
-        cotizacion.save()
-        cotizaciones = [kwargs['pk1'], kwargs['pk2'],
-                        kwargs['pk3'], kwargs['pk4']]
-        for cotiz in cotizaciones:
-            if cotiz != kwargs['pk']:
-                cotizac = Cotizacion.objects.get(pk=cotiz)
-                cotizac.delete()
+        form = CotizacionUpdateForm(request.POST)
+        if form.is_valid():
+            cuotas = request.POST['cuotas']
+            cotizacion.cuota = int(cuotas)
+            cotizacion.prima_mensual = float(
+                "{0:.2f}".format(cotizacion.total / float(cotizacion.cuota)))
+            cotizacion.is_active = True
+            cotizacion.save()
+            cotizaciones = [kwargs['pk1'], kwargs['pk2'],
+                            kwargs['pk3'], kwargs['pk4']]
+            for cotiz in cotizaciones:
+                if cotiz != kwargs['pk']:
+                    cotizac = Cotizacion.objects.get(pk=cotiz)
+                    cotizac.delete()
 
-        if request.POST['guardar'] == "guardalo":
-            print "si senor"
-            return HttpResponseRedirect(reverse_lazy('vehiculo'))
-        else:
-            subject = "Acerta Seguros - Cotización de Vehículo"
-            to = [cotizacion.conductor.correo]
-            to_corredor = [request.user.email]
-            from_email = 'donotreply@cotizadoracerta.com'
+            if request.POST['guardar'] == "guardalo":
+                return HttpResponseRedirect(reverse_lazy('vehiculo'))
+            else:
+                subject = "Acerta Seguros - Cotización de Vehículo"
+                to = [cotizacion.conductor.correo]
+                to_corredor = [request.user.email]
+                from_email = 'donotreply@cotizadoracerta.com'
 
-            ctx = {
-                'cotizacion': cotizacion,
-            }
+                ctx = {
+                    'cotizacion': cotizacion,
+                }
 
-            # Correo Cliente
-            message = get_template('cotizar/email.html').render(Context(ctx))
-            msg = EmailMessage(subject, message, to=to, from_email=from_email)
-            msg.content_subtype = 'html'
-            if cotizacion.endoso == "Ford":
-                msg.attach('ford.pdf',
-                           open('cotizador_acerta/static/pdf/ford.pdf',
-                                'rb').read(),
-                           'application/pdf')
+                # Correo Cliente
+                message = get_template('cotizar/email.html').render(Context(ctx))
+                msg = EmailMessage(subject, message, to=to, from_email=from_email)
+                msg.content_subtype = 'html'
+                if cotizacion.endoso == "Ford":
+                    msg.attach('ford.pdf',
+                               open('cotizador_acerta/static/pdf/ford.pdf',
+                                    'rb').read(),
+                               'application/pdf')
 
-            if cotizacion.endoso == "Toyota":
-                msg.attach('toyota.pdf',
-                           open('cotizador_acerta/static/pdf/toyota.pdf',
-                                'rb').read(),
-                           'application/pdf')
+                if cotizacion.endoso == "Toyota":
+                    msg.attach('toyota.pdf',
+                               open('cotizador_acerta/static/pdf/toyota.pdf',
+                                    'rb').read(),
+                               'application/pdf')
 
-            if cotizacion.endoso == "Lexus":
-                msg.attach('lexus.pdf',
-                           open('cotizador_acerta/static/pdf/lexus.pdf',
-                                'rb').read(),
-                           'application/pdf')
+                if cotizacion.endoso == "Lexus":
+                    msg.attach('lexus.pdf',
+                               open('cotizador_acerta/static/pdf/lexus.pdf',
+                                    'rb').read(),
+                               'application/pdf')
 
-            if cotizacion.endoso == "Subaru":
-                msg.attach('subaru.pdf',
-                           open('cotizador_acerta/static/pdf/subaru.pdf',
-                                'rb').read(),
-                           'application/pdf')
-            if cotizacion.endoso == "Porsche":
-                msg.attach('porsche.pdf',
-                           open('cotizador_acerta/static/pdf/porsche.pdf',
-                                'rb').read(),
-                           'application/pdf')
-            if cotizacion.endoso == "Volvo":
-                msg.attach('volvo.pdf',
-                           open('cotizador_acerta/static/pdf/volvo.pdf',
-                                'rb').read(),
-                           'application/pdf')
-            msg.send()
+                if cotizacion.endoso == "Subaru":
+                    msg.attach('subaru.pdf',
+                               open('cotizador_acerta/static/pdf/subaru.pdf',
+                                    'rb').read(),
+                               'application/pdf')
+                if cotizacion.endoso == "Porsche":
+                    msg.attach('porsche.pdf',
+                               open('cotizador_acerta/static/pdf/porsche.pdf',
+                                    'rb').read(),
+                               'application/pdf')
+                if cotizacion.endoso == "Volvo":
+                    msg.attach('volvo.pdf',
+                               open('cotizador_acerta/static/pdf/volvo.pdf',
+                                    'rb').read(),
+                               'application/pdf')
+                msg.send()
 
-            # Correo Corredor
-            message_corredor = get_template('cotizar/email_corredores.html')\
-                .render(Context(ctx))
-            msg = EmailMessage(subject,
-                               message_corredor,
-                               to=to_corredor,
-                               from_email=from_email)
-            msg.content_subtype = 'html'
-            msg.send()
-
-            # Correo Admin
-            if request.user.groups.first().name != "super_admin":
-                admin = User.objects.filter(groups__name__in=["super_admin"])
-                admins = []
-                for adm in admin:
-                    admins.append(adm.email)
+                # Correo Corredor
+                message_corredor = get_template('cotizar/email_corredores.html')\
+                    .render(Context(ctx))
                 msg = EmailMessage(subject,
                                    message_corredor,
-                                   to=admins,
+                                   to=to_corredor,
                                    from_email=from_email)
                 msg.content_subtype = 'html'
                 msg.send()
 
-        return HttpResponseRedirect(reverse_lazy('vehiculo'))
+                # Correo Admin
+                if request.user.groups.first().name != "super_admin":
+                    admin = User.objects.filter(groups__name__in=["super_admin"])
+                    admins = []
+                    for adm in admin:
+                        admins.append(adm.email)
+                    msg = EmailMessage(subject,
+                                       message_corredor,
+                                       to=admins,
+                                       from_email=from_email)
+                    msg.content_subtype = 'html'
+                    msg.send()
+
+            return HttpResponseRedirect(reverse_lazy('vehiculo'))
+        else:
+            return render(request, self.template_name, {'form': form})
 
 
 class listModelsAjax(LoginRequiredMixin, generic.ListView):
