@@ -865,7 +865,13 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
 
             return HttpResponseRedirect(reverse_lazy('vehiculo'))
         else:
-            return render(request, self.template_name, {'form': form})
+            context['cotizacion'] = cotizacion
+            context['form'] = form
+            context['pk1'] = kwargs['pk1']
+            context['pk2'] = kwargs['pk2']
+            context['pk3'] = kwargs['pk3']
+            context['pk4'] = kwargs['pk4']
+            return render(request, self.template_name, context)
 
 
 class listModelsAjax(LoginRequiredMixin, generic.ListView):
