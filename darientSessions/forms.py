@@ -96,33 +96,10 @@ class CorredorCreateForm(forms.ModelForm):
         return username
 
     def save(self, commit=True):
-        user = super(UserCreateForm, self).save(commit=False)
+        user = super(CorredorCreateForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
         user.is_active = 0
         user.set_password(self.cleaned_data["password"])
-        if commit:
-            user.save()
-        else:
-            return user
-
-
-class UserEditForm(forms.ModelForm):
-    email = forms.EmailField(required=True)
-
-    class Meta:
-        model = User
-        exclude = ("username",)
-
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        username = self.cleaned_data.get('username')
-        if (User.objects.filter(email=email).exclude(username=username).count() != 0):
-            raise forms.ValidationError(u'Email addresses must be unique.')
-        return email
-
-    def save(self, commit=True):
-        user = super(UserEditForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
         if commit:
             user.save()
         else:
