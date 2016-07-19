@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{% static 'dist/css/skins/_all-skins.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/skins/_all-skins.css' %}">
     {% endblock css %}
     {% block extracss %}{% endblock extracss %}
 
@@ -37,7 +37,7 @@
       <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="{% url 'cotizaciones_list' %}" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>AS</b></span>
           <!-- logo for regular state and mobile devices -->
@@ -300,7 +300,7 @@
             {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
               <li class="treeview">
                 <a href="{% url 'dashboard' %}">
-                  <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                  <i class="fa fa-dashboard"></i> <span>Factores</span>
                 </a>
                 <!-- <ul class="treeview-menu">
                   <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
