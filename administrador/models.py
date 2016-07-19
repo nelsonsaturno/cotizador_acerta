@@ -33,7 +33,7 @@ class Historial_Transito(models.Model):
 
     inferior = models.IntegerField(blank=False, default=0, unique=True,
                                    choices=[
-                                       (1, 1),
+                                       (0, 0),
                                        (4, 4),
                                        (8, 8)
                                    ])

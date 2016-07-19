@@ -417,10 +417,16 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         valor = Valor.objects.filter(inferior__lte=vehiculo.valor,
                                      superior__gte=vehiculo.valor).first()
 
-        historial_transito = Historial_Transito.objects.filter(
-            inferior__lte=vehiculo.historial_transito,
-            superior__gte=vehiculo.historial_transito
-        ).first()
+        if vehiculo.historial_transito == 0:
+            historial_transito = Historial_Transito.objects.filter(
+                inferior__lte=1,
+                superior__gte=vehiculo.historial_transito
+            ).first()
+        else:
+            historial_transito = Historial_Transito.objects.filter(
+                inferior__lte=vehiculo.historial_transito,
+                superior__gte=vehiculo.historial_transito
+            ).first()
 
         # No kilometers.
         if vehiculo.cero_km or vehiculo.anio == date.today().year + 1:
