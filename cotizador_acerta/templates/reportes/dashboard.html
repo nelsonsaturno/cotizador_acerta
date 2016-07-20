@@ -20,12 +20,12 @@
 	<!-- Widget: user widget style 1 -->
 		<div class="box box-widget widget-user-2">
 		<!-- Add the bg color to the header using any of the bg-* classes -->
-			<div class="widget-user-header bg-orange">
+			<div class="widget-user-header bg-blue">
 			<!-- /.widget-user-image -->
 				{% if  usuario.groups.first.name != 'super_admin' %}
 					<h3 class="widget-user-username">{{ usuario.get_full_name|default:usuario.username }}</h3>
 				{% else %}
-					<h3 class="widget-user-username">Sr. SUPERADMIN Acerta</h3>
+					<h3 class="widget-user-username">Sr. ADMIN Acerta</h3>
 				{% endif %}
 				{% if usuario.groups.first.name == 'corredor' %}
 					<h5 class="widget-user-desc">Corredor Acerta</h5>
@@ -38,12 +38,14 @@
 			<div class="box-footer no-padding">
 				<ul class="nav nav-stacked">
 					{% if usuario.groups.first.name == 'corredor' %}
-						<li><a href="#">Licencia <span class="pull-right badge bg-orange">{{corredor.licencia}}</spana></a></li>
+						<li><a href="#">Licencia <span class="pull-right badge bg-blue">{{corredor.licencia}}</spana></a></li>
 					{% endif %}
-					<li><a href="#">Correo <span class="pull-right badge bg-orange">{{usuario.email}}</span></a></li>
-					{% if  usuario.groups.first.name != 'super_admin'%}
-						<li><a href="#">Cotizaciones <span class="pull-right badge bg-red">{{ num_cot }}</span></a></li>
-					{% endif %}
+					<li><a href="#">Correo <span class="pull-right badge bg-blue">{{usuario.email}}</span></a></li>
+					<li><a href="#">Cotizaciones <span class="pull-right badge bg-black">{{ num_cot }}</span></a></li>
+					<li><a href="#">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot }}</span></a></li>
+					<li><a href="#">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot }}</span></a></li>
+					<li><a href="#">Cotizaciones Aceptadas<span class="pull-right badge bg-green">{{ num_cot }}</span></a></li>
+					<li><a href="#">Cotizaciones Rechazadas<span class="pull-right badge bg-red">{{ num_cot }}</span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -86,7 +88,8 @@
 		</div>
 	</div>
 </div>
-
+{% endif %}
+{% if usuario.groups.first.name == 'corredor' %}
 <div class="row">
 	<div class="col-md-12">
 		<div class="box box-default color-palette-box">
@@ -106,13 +109,15 @@
 			    </thead>
 			    <tbody>
 			    {% for user in vendedores %}
-			    	<tr role="row">
-				      <td class="sorting_1"> {{ user.vendedor.first_name }}</td>
-				      <td>{{ user.vendedor.last_name }}</td>
-				      <td>{{ user.vendedor.email }}</td>
-				      <td>{{ user.corredor.first_name }} {{ user.corredor.last_name }}</td>
-				      <td><span class="pull-right badge bg-red">100</span></td>
-				    </tr>
+			    	{% if user.corredor.pk == usuario.pk %}
+				    	<tr role="row">
+					      <td class="sorting_1"> {{ user.vendedor.first_name }}</td>
+					      <td>{{ user.vendedor.last_name }}</td>
+					      <td>{{ user.vendedor.email }}</td>
+					      <td>{{ user.corredor.first_name }} {{ user.corredor.last_name }}</td>
+					      <td><span class="pull-right badge bg-red">100</span></td>
+					    </tr>
+			    	{% endif %}
 			    {% endfor %}</tbody>
 			    <tfoot>
 			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Correo</th><th rowspan="1" colspan="1">Corredor Asociado</th><th rowspan="1" colspan="1">Cotizaciones</th>

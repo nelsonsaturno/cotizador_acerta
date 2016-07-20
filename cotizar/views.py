@@ -784,9 +784,9 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 "{0:.2f}".format(cotizacion.total / float(cotizacion.cuota)))
             cotizacion.is_active = True
             if request.POST['guardar'] == "guardalo":
-                cotizacion.status = 'Enviada'
-            else:
                 cotizacion.status = 'Guardada'
+            else:
+                cotizacion.status = 'Enviada'
             cotizacion.save()
             cotizaciones = [kwargs['pk1'], kwargs['pk2'],
                             kwargs['pk3'], kwargs['pk4']]
