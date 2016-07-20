@@ -83,3 +83,36 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
             return page_not_found(request)
         context['cotizacion'] = cotizacion
         return self.render_to_response(context)
+
+
+class DashboardView(LoginRequiredMixin,
+                                 DetailRequiredMixin, TemplateView):
+    template_name = 'reportes/dashboard.html'
+
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(pk=kwargs['pk'])
+        context = self.get_context_data(**kwargs)
+        if request.user.groups.first().name == 'corredor':
+            vendedor = CorredorVendedor.objects.filter(vendedor=user)
+            if len(vendedor) == 0:
+                return page_not_found(request)
+            if vendedor[0].corredor.pk != request.user.pk:
+                return page_not_found(request)
+        elif request.user.groups.first().name == 'super_admin':
+            corredores = DatosCorredor.objects.all()
+            for corredor in corredores:
+                cotizaciones = Cotizacion.objects.filter(
+                    corredor=corredor.user, is_active=True)
+                context[corredor.user.username] = len(cotizaciones)
+            context['corredores'] = corredores
+            vendedores = CorredorVendedor.objects.all()
+            context['vendedores'] = vendedores
+        context['usuario'] = user
+        if user.groups.first().name == 'corredor':
+            context['corredor'] = DatosCorredor.objects.get(user=user)
+        cotizaciones = Cotizacion.objects.filter(corredor=user, is_active=True)
+
+        num_cot = len(cotizaciones)
+        context['cotizaciones'] = cotizaciones
+        context['num_cot'] = num_cot
+        return self.render_to_response(context)

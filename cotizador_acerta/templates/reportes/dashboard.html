@@ -1,0 +1,134 @@
+{% extends "administrador/base_admin.html" %}
+{% load static %}
+{% block title %}<title>Dashboard</title>{% endblock title %}
+{% block extracss %}
+<link href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}" rel="stylesheet">
+<style type="text/css">
+	.box {
+        border-top: 3px solid #F3F3F3 !important;
+        border-left: 2px solid #F3F3F3 !important;
+        border-right: 2px solid #F3F3F3 !important;
+        border-bottom: 2px solid #F3F3F3 !important;
+    }
+</style>
+{% endblock extracss %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12" style="padding-left: 2%;">
+	<!-- Widget: user widget style 1 -->
+		<div class="box box-widget widget-user-2">
+		<!-- Add the bg color to the header using any of the bg-* classes -->
+			<div class="widget-user-header bg-orange">
+			<!-- /.widget-user-image -->
+				{% if  usuario.groups.first.name != 'super_admin' %}
+					<h3 class="widget-user-username">{{ usuario.get_full_name|default:usuario.username }}</h3>
+				{% else %}
+					<h3 class="widget-user-username">Sr. SUPERADMIN Acerta</h3>
+				{% endif %}
+				{% if usuario.groups.first.name == 'corredor' %}
+					<h5 class="widget-user-desc">Corredor Acerta</h5>
+				{% elif usuario.groups.first.name == 'super_admin' %}
+					<h5 class="widget-user-desc">Administrador Acerta</h5>
+				{% else %}
+					<h5 class="widget-user-desc">Vendedor Acerta</h5>
+				{% endif %}
+			</div>
+			<div class="box-footer no-padding">
+				<ul class="nav nav-stacked">
+					{% if usuario.groups.first.name == 'corredor' %}
+						<li><a href="#">Licencia <span class="pull-right badge bg-orange">{{corredor.licencia}}</spana></a></li>
+					{% endif %}
+					<li><a href="#">Correo <span class="pull-right badge bg-orange">{{usuario.email}}</span></a></li>
+					{% if  usuario.groups.first.name != 'super_admin'%}
+						<li><a href="#">Cotizaciones <span class="pull-right badge bg-red">{{ num_cot }}</span></a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	<!-- /.widget-user -->
+	</div>
+</div>
+{% if usuario.groups.first.name == 'super_admin' %}
+<div class="row">
+	<div class="col-md-12">
+		<div class="box box-default color-palette-box">
+			<div class="box-header">
+				<h3 class="box-title"> Corredores ACERTA</h3>
+			</div>
+			<div class="box-body">
+			  <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+			    <thead>
+			    <tr role="row">
+				    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 181px;">Nombre</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Apellido: activate to sort column ascending" style="width: 224px;">Apellido</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Correo: activate to sort column ascending" style="width: 198px;">Correo</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Licencia: activate to sort column ascending" style="width: 155px;">Licencia</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones</th>
+			    </tr>
+			    </thead>
+			    <tbody>
+			    {% for user in corredores %}
+			    	<tr role="row">
+				      <td class="sorting_1"> {{ user.user.first_name }}</td>
+				      <td>{{ user.user.last_name }}</td>
+				      <td>{{ user.user.email }}</td>
+				      <td>{{ user.licencia }}</td>
+				      <td><span class="pull-right badge bg-red">{{user.user.username}}</span></td>
+				    </tr>
+			    {% endfor %}</tbody>
+			    <tfoot>
+			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Correo</th><th rowspan="1" colspan="1">Licencia</th><th rowspan="1" colspan="1">Cotizaciones</th></tr>
+			    </tfoot>
+			  </table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="box box-default color-palette-box">
+			<div class="box-header">
+				<h3 class="box-title"> Vendedores ACERTA</h3>
+			</div>
+			<div class="box-body">
+			  <table id="example2" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+			    <thead>
+			    <tr role="row">
+				    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 181px;">Nombre</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Apellido: activate to sort column ascending" style="width: 224px;">Apellido</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Correo: activate to sort column ascending" style="width: 198px;">Correo</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Detalles: activate to sort column ascending" style="width: 112px;">Corredor Asociado</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Detalles: activate to sort column ascending" style="width: 112px;">Cotizaciones</th>
+			    </tr>
+			    </thead>
+			    <tbody>
+			    {% for user in vendedores %}
+			    	<tr role="row">
+				      <td class="sorting_1"> {{ user.vendedor.first_name }}</td>
+				      <td>{{ user.vendedor.last_name }}</td>
+				      <td>{{ user.vendedor.email }}</td>
+				      <td>{{ user.corredor.first_name }} {{ user.corredor.last_name }}</td>
+				      <td><span class="pull-right badge bg-red">100</span></td>
+				    </tr>
+			    {% endfor %}</tbody>
+			    <tfoot>
+			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Correo</th><th rowspan="1" colspan="1">Corredor Asociado</th><th rowspan="1" colspan="1">Cotizaciones</th>
+			    </tr>
+			    </tfoot>
+			  </table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endblock content %}
+
+{% block custom_script %}
+<script>
+</script>
+
+{% endblock custom_script %}
+

@@ -242,3 +242,8 @@ class Cotizacion(models.Model):
                                        ('Volvo',
                                         'Acerta Volvo')])
     prima_endoso = models.FloatField(blank=False, default=0.00)
+    status = models.CharField(max_length=30, default='Enviada',
+                              choices=[('Enviada', 'Enviada'),
+                                       ('Guardada', 'Guardada'),
+                                       ('Aprobada', 'Aprobada'),
+                                       ('Rechazada', 'Rechazada')])
