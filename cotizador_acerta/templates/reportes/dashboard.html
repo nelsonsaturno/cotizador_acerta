@@ -41,11 +41,11 @@
 						<li><a href="#">Licencia <span class="pull-right badge bg-blue">{{corredor.licencia}}</spana></a></li>
 					{% endif %}
 					<li><a href="#">Correo <span class="pull-right badge bg-blue">{{usuario.email}}</span></a></li>
-					<li><a href="#">Cotizaciones <span class="pull-right badge bg-black">{{ num_cot }}</span></a></li>
-					<li><a href="#">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot_env }}</span></a></li>
-					<li><a href="#">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot_guard }}</span></a></li>
-					<li><a href="#">Cotizaciones Aceptadas<span class="pull-right badge bg-green">{{ num_cot_apr }}</span></a></li>
-					<li><a href="#">Cotizaciones Rechazadas<span class="pull-right badge bg-red">{{ num_cot_rch }}</span></a></li>
+					<li><a href="{% url 'cotizaciones_list' %}">Cotizaciones <span class="pull-right badge bg-black">{{ num_cot }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-specific' 0 %}">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot_env }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-specific' 1 %}">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot_guard }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-specific' 2 %}">Cotizaciones Aceptadas<span class="pull-right badge bg-green">{{ num_cot_apr }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-specific' 3 %}">Cotizaciones Rechazadas<span class="pull-right badge bg-red">{{ num_cot_rch }}</span></a></li>
 				</ul>
 			</div>
 		</div>

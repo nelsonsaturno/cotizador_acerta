@@ -27,4 +27,8 @@ urlpatterns = patterns(
         r'^dashboard/$',
         DashboardView.as_view(),
         name='dashboard'),
+    url(
+        r'^cotizaciones/(?P<status>\d+)/$',
+        CotizacionesSpecificDetailView.as_view(),
+        name='cotizaciones-specific'),
 )

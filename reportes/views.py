@@ -5,6 +5,8 @@ from darientSessions.models import *
 from cotizar.models import *
 from django.contrib.auth.models import User
 from django.views.defaults import page_not_found
+from reportes.forms import *
+from datetime import *
 
 
 class CorredorVendedorListView(LoginRequiredMixin,
@@ -122,4 +124,30 @@ class DashboardView(LoginRequiredMixin,
         context['num_cot_guard'] = len(guardadas)
         context['num_cot_apr'] = len(aceptadas)
         context['num_cot_rch'] = len(rechazadas)
+        return self.render_to_response(context)
+
+
+
+class CotizacionesSpecificDetailView(LoginRequiredMixin,
+                                 DetailRequiredMixin, FormView):
+    template_name = 'reportes/cotizador_specific_detail.html'
+    form_class = DateCotizationForm
+
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(pk=request.user.pk)
+        context = self.get_context_data(**kwargs)
+        if kwargs['status'] == '0':
+            status = 'Enviada'
+        elif kwargs['status'] == '1':
+            status = 'Guardada'
+        elif kwargs['status'] == '2':
+            status = 'Aprobada'
+        else:
+            status = 'Rechazada'
+        start = date.today() - timedelta(days=30)
+        end = date.today()
+        cotizaciones = Cotizacion.objects.filter(corredor=user, status=status)
+        context['cotizaciones'] = cotizaciones
+        context['status'] = status
+        context['form'] = DateCotizationForm()
         return self.render_to_response(context)
