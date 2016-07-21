@@ -47,12 +47,6 @@ class UserCreateForm(forms.ModelForm):
             raise forms.ValidationError(u'Este correo ya existe.')
         return email
 
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(username=username).count() != 0:
-            raise forms.ValidationError(u'')
-        return username
-
     def save(self, commit=True):
         user = super(UserCreateForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
@@ -112,12 +106,6 @@ class CorredorCreateForm(forms.ModelForm):
         if User.objects.filter(email=email).exclude(username=username).count() != 0:
             raise forms.ValidationError(u'Este correo ya existe.')
         return email
-
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(username=username).count() != 0:
-            raise forms.ValidationError(u'')
-        return username
 
     def save(self, commit=True):
         user = super(CorredorCreateForm, self).save(commit=False)

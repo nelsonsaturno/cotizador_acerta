@@ -68,10 +68,10 @@
                     <div class="box-header with-border">
                         <h1 id="titulo-login" class="text-center"><strong>REGISTRO DE CORREDORES</strong></h1>
                     </div>
-                    {% bootstrap_form_errors form %}
                     <div class="box-body">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
+                            {% bootstrap_form_errors form %}
                             <form action="" method="post" role="form" class="form-horizontal">
                                 {% csrf_token %}
 
