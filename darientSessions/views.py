@@ -245,7 +245,7 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     model = User
     form_class = UserEditForm
     context_object_name = "usuario"
-    success_url = 'corredor-vendedor-list'
+    success_url = 'corredor_vendedor_detail'
 
     def form_valid(self, form):
         """
@@ -257,7 +257,5 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
         corredor.licencia = form.cleaned_data['licencia']
         corredor.ruc = form.cleaned_data['ruc']
         corredor.save()
-        return HttpResponseRedirect(self.get_success_url())
-
-    def get_success_url(self):
-        return reverse_lazy(self.success_url)
+        return HttpResponseRedirect(
+            reverse_lazy(self.success_url, kwargs={'pk': corredor.pk}))
