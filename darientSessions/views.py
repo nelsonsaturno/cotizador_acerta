@@ -258,4 +258,4 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
         corredor.ruc = form.cleaned_data['ruc']
         corredor.save()
         return HttpResponseRedirect(
-            reverse_lazy(self.success_url, kwargs={'pk': corredor.pk}))
+            reverse_lazy(self.success_url, kwargs={'pk': user.pk}))
