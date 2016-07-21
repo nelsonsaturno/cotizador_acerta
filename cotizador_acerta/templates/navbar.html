@@ -93,11 +93,13 @@
         SMUserAccountItem.prototype = Object.create(SMItem.prototype);
         SMUserAccountItem.prototype.constructor = SMUserAccountItem;
 
-        // Adding custom item
-        sideMenu.addItem(new SMUserAccountItem(
-          "{{ user.get_full_name|default:user.username }}",
-          "https://tracker.moodle.org/secure/attachment/30912/f3.png"
-        ), 0 /* index cero, first element */ );
+        {% if user.is_authenticated %}
+          // Adding custom item
+          sideMenu.addItem(new SMUserAccountItem(
+            "{{ user.get_full_name|default:user.username }}",
+            "https://tracker.moodle.org/secure/attachment/30912/f3.png"
+          ), 0 /* index cero, first element */ );
+        {% endif %}
 
 
         // Finally add SideMenu object to DOM tree target.

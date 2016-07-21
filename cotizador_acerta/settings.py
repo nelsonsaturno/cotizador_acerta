@@ -32,6 +32,11 @@ ALLOWED_HOSTS = []
 # Utilizado para redirigir en caso de no estar loggeado
 LOGIN_URL = reverse_lazy('login')
 
+# Handle session is not Json Serializable
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+# Auto logout delay in minutes
+AUTO_LOGOUT_DELAY = 120  # equivalent to 5 minutes
+
 BOOTSTRAP3 = {
     # Class to indicate error (better to set this in your Django form)
     'success_css_class': '',
@@ -64,6 +69,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'cotizador_acerta.middleware.AutoLogout',
 ]
 
 ROOT_URLCONF = 'cotizador_acerta.urls'

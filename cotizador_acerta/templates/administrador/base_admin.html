@@ -245,21 +245,16 @@
                   <span>Volver al Cotizador</span>
                 </a>
               </li>
-              <li class="dropdown tasks-menu">
+              <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <span class="hidden-xs">{{ user.get_full_name|default:user.username }}</span>
-                  <span class="hidden-xs fa fa-angle-down"></span>
+                  <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><!-- Task item -->
-                    <a href="{% url 'logout' %}">
-                      <h5>
-                        Cerrar Sesión
-                      </h5>
-                    </a>
-                  </li><!-- end task item -->
+                  <li class="footer"><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
                 </ul>
               </li>
+
               <!-- User Account: style can be found in dropdown.less -->
               <!-- Control Sidebar Toggle Button -->
               <!-- <li>
@@ -327,6 +322,15 @@
                   <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                 </ul> -->
               </li>
+              <li class="treeview">
+                <a href="{% url 'register' %}">
+                  <i class="fa fa-user-plus"></i> <span>Registrar Corredor</span>
+                </a>
+                <!-- <ul class="treeview-menu">
+                  <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                  <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                </ul> -->
+              </li>
             {% endif %}
             {% if user.is_authenticated and user.groups.all.0.name == 'admin' %}
               <li class="treeview">
@@ -338,11 +342,29 @@
                   <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                 </ul> -->
               </li>
+              <li class="treeview">
+                <a href="{% url 'register' %}">
+                  <i class="fa fa-user-plus"></i> <span>Registrar Corredor</span>
+                </a>
+                <!-- <ul class="treeview-menu">
+                  <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                  <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                </ul> -->
+              </li>
             {% endif %}
             {% if user.is_authenticated and user.groups.all.0.name == 'corredor' %}
               <li class="treeview">
                 <a href="{% url 'vendedor_list' %}">
                   <i class="fa fa-users"></i> <span>Mis Vendedores</span>
+                </a>
+                <!-- <ul class="treeview-menu">
+                  <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                  <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                </ul> -->
+              </li>
+              <li class="treeview">
+                <a href="{% url 'register' %}">
+                  <i class="fa fa-user-plus"></i> <span>Registrar Vendedor</span>
                 </a>
                 <!-- <ul class="treeview-menu">
                   <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
