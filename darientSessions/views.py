@@ -20,9 +20,8 @@ from darientSessions.forms import UserCreateForm, LoginForm, CorredorCreateForm
 def user_registration(request):
     if request.user.is_authenticated():
         # We obtain the user group by the user logged.
-        # Sellers will create by agents
-        # Agents will create by admins
-        print request.user.groups.first()
+        # Sellers will created by agents
+        # Agents will created by admins
         if (request.user.groups.first().name == "corredor")\
            or (request.user.groups.first().name == "super_admin"):
             if request.method == 'POST':
@@ -65,14 +64,13 @@ def user_registration(request):
                     return HttpResponseRedirect(
                         reverse_lazy('login'))
                 else:
+                    print form
                     if request.user.groups.first().name == "super_admin":
-                        form = CorredorCreateForm()
                         context = {'form': form}
                         return render_to_response(
                             'registro_corredor.html', context,
                             context_instance=RequestContext(request))
                     else:
-                        form = UserCreateForm()
                         context = {'form': form}
                         return render_to_response(
                             'register.html', context,
@@ -127,7 +125,6 @@ def login_request(request):
                 user = authenticate(username=user_auth.username,
                                     password=password)
             else:
-                form.add_error(None, "Tu correo o contraseña no son correctos")
                 user = None
             if user:
                 login(request, user)

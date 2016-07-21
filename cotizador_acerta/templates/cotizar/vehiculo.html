@@ -158,8 +158,16 @@
                             {% bootstrap_field form.danios_propiedad layout='horizontal' show_label=False field_class='form-field'%}
                             {% bootstrap_field form.gastos_medicos layout='horizontal' show_label=False field_class='form-field'%}
                             {% bootstrap_field form.muerte_accidental layout='horizontal' show_label=False field_class='form-field'%}
+                            {% bootstrap_field form.importacion_piezas layout='horizontal' show_label=False field_class='form-field'%}
+                            <h3 id="subtitulo"><strong>Datos del Automóvil</strong></h3>
+                            {% bootstrap_field form.marca layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.modelo layout='horizontal' show_label=False field_class='form-field'%}
+                            {% bootstrap_field form.anio layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.cero_km layout='horizontal' show_label=False field_class='km-field' %}
+                            {% bootstrap_field form.valor layout='horizontal' show_label=False field_class='form-field-value' %}
+                            {% bootstrap_field form.valor_text layout='horizontal' show_label=False field_class='form-field' %}
                             <!-- {% bootstrap_field form.endoso layout='horizontal' show_label=False field_class='form-field' %} -->
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top: -3%">
                                 <div class="form-field input-group col-xs-12">
                                     <select class="form-control" id="id_endoso" name="endoso" required="required" title="">
                                         <option value="" selected=selected disabled>Endoso</option>
@@ -176,14 +184,6 @@
 
                                 </div> -->
                             </div>
-                            {% bootstrap_field form.importacion_piezas layout='horizontal' show_label=False field_class='form-field'%}
-                            <h3 id="subtitulo"><strong>Datos del Automóvil</strong></h3>
-                            {% bootstrap_field form.marca layout='horizontal' show_label=False field_class='form-field' %}
-                            {% bootstrap_field form.modelo layout='horizontal' show_label=False field_class='form-field'%}
-                            {% bootstrap_field form.anio layout='horizontal' show_label=False field_class='form-field' %}
-                            {% bootstrap_field form.cero_km layout='horizontal' show_label=False field_class='km-field' %}
-                            {% bootstrap_field form.valor layout='horizontal' show_label=False field_class='form-field-value' %}
-                            {% bootstrap_field form.valor_text layout='horizontal' show_label=False field_class='form-field' %}
                             {% buttons %}
                                 <button id="id_submit" type="submit" class="btn btn-lg calculate">
                                     Calcular
@@ -313,7 +313,7 @@
             } else {
                 $(".cedula-validacion").remove();
                 $('#id_submit').prop('disabled', true);
-                $(this).parent().after("<div class='cedula-validacion' style='color:red; margin-bottom: 20px;'>Introduzca una cédula válida</div>");
+                $(this).parent().after("<div class='form-field cedula-validacion' style='color:red; margin-top: 5%; margin-bottom: -4%;'>Introduzca una cédula válida</div>");
             }
        } else {
             $(".cedula-validacion").remove();
@@ -325,10 +325,15 @@
         e.preventDefault();
        if( $("#id_tipo_id_0").is(':checked') ){
             $(".cedula-help").remove();
-            $("#id_identificacion").parent().after("<div class='cedula-help' style='color: #727270; margin-top: 6px; margin-bottom: 6px;'>Cédula. Ej: 12-123-1234</div>");
+            $("#id_identificacion").parent().after("<div class='form-field cedula-help' style='color: #727270; margin-top: 5%; margin-bottom: -4%;'>Cédula. Ej: 12-123-1234</div>");
        } else {
             $(".cedula-help").remove();
        }
+    });
+
+    $("#id_identificacion").focusout(function(e){
+        e.preventDefault();
+        $(".cedula-help").remove();
     });
 
     $(document).on("change", "#id_valor_text", function(e){
