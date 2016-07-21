@@ -9,7 +9,7 @@ from cotizador_acerta.views_mixins import *
 from administrador.models import *
 
 
-class Dashboard(LoginRequiredMixin, AdminRequiredMixin, generic.TemplateView):
+class Factores(LoginRequiredMixin, AdminRequiredMixin, generic.TemplateView):
     template_name = "administrador/dashboard.html"
 
 

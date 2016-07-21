@@ -42,10 +42,10 @@
 					{% endif %}
 					<li><a href="#">Correo <span class="pull-right badge bg-blue">{{usuario.email}}</span></a></li>
 					<li><a href="#">Cotizaciones <span class="pull-right badge bg-black">{{ num_cot }}</span></a></li>
-					<li><a href="#">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot }}</span></a></li>
-					<li><a href="#">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot }}</span></a></li>
-					<li><a href="#">Cotizaciones Aceptadas<span class="pull-right badge bg-green">{{ num_cot }}</span></a></li>
-					<li><a href="#">Cotizaciones Rechazadas<span class="pull-right badge bg-red">{{ num_cot }}</span></a></li>
+					<li><a href="#">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot_env }}</span></a></li>
+					<li><a href="#">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot_guard }}</span></a></li>
+					<li><a href="#">Cotizaciones Aceptadas<span class="pull-right badge bg-green">{{ num_cot_apr }}</span></a></li>
+					<li><a href="#">Cotizaciones Rechazadas<span class="pull-right badge bg-red">{{ num_cot_rch }}</span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -65,9 +65,10 @@
 			    <tr role="row">
 				    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 181px;">Nombre</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Apellido: activate to sort column ascending" style="width: 224px;">Apellido</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Correo: activate to sort column ascending" style="width: 198px;">Correo</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Licencia: activate to sort column ascending" style="width: 155px;">Licencia</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Enviadas</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Guardadas</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Aceptadas</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Rechazadas</th>
 			    </tr>
 			    </thead>
 			    <tbody>
@@ -75,13 +76,14 @@
 			    	<tr role="row">
 				      <td class="sorting_1"> {{ user.user.first_name }}</td>
 				      <td>{{ user.user.last_name }}</td>
-				      <td>{{ user.user.email }}</td>
-				      <td>{{ user.licencia }}</td>
-				      <td><span class="pull-right badge bg-red">{{user.user.username}}</span></td>
+				      <td><span class="pull-right badge bg-orange">111</span></td>
+				      <td><span class="pull-right badge bg-blue">111</span></td>
+				      <td><span class="pull-right badge bg-green">111</span></td>
+				      <td><span class="pull-right badge bg-red">111</span></td>
 				    </tr>
 			    {% endfor %}</tbody>
 			    <tfoot>
-			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Correo</th><th rowspan="1" colspan="1">Licencia</th><th rowspan="1" colspan="1">Cotizaciones</th></tr>
+			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Cotizaciones Enviadas</th><th rowspan="1" colspan="1">Cotizaciones Guardadas</th><th rowspan="1" colspan="1">Cotizaciones Aceptadas</th><th rowspan="1" colspan="1">Cotizaciones Rechazadas</th></tr>
 			    </tfoot>
 			  </table>
 			</div>
@@ -94,7 +96,7 @@
 	<div class="col-md-12">
 		<div class="box box-default color-palette-box">
 			<div class="box-header">
-				<h3 class="box-title"> Vendedores ACERTA</h3>
+				<h3 class="box-title"> Vendedores ACERTA Asociados</h3>
 			</div>
 			<div class="box-body">
 			  <table id="example2" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
@@ -102,9 +104,11 @@
 			    <tr role="row">
 				    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 181px;">Nombre</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Apellido: activate to sort column ascending" style="width: 224px;">Apellido</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Correo: activate to sort column ascending" style="width: 198px;">Correo</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Detalles: activate to sort column ascending" style="width: 112px;">Corredor Asociado</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Detalles: activate to sort column ascending" style="width: 112px;">Cotizaciones</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Enviadas</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Guardadas</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Aceptadas</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Rechazadas</th>
 			    </tr>
 			    </thead>
 			    <tbody>
@@ -113,14 +117,16 @@
 				    	<tr role="row">
 					      <td class="sorting_1"> {{ user.vendedor.first_name }}</td>
 					      <td>{{ user.vendedor.last_name }}</td>
-					      <td>{{ user.vendedor.email }}</td>
 					      <td>{{ user.corredor.first_name }} {{ user.corredor.last_name }}</td>
+					      <td><span class="pull-right badge bg-orange">100</span></td>
+					      <td><span class="pull-right badge bg-blue">100</span></td>
+					      <td><span class="pull-right badge bg-green">100</span></td>
 					      <td><span class="pull-right badge bg-red">100</span></td>
 					    </tr>
 			    	{% endif %}
 			    {% endfor %}</tbody>
 			    <tfoot>
-			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Correo</th><th rowspan="1" colspan="1">Corredor Asociado</th><th rowspan="1" colspan="1">Cotizaciones</th>
+			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Corredor Asociado</th><th rowspan="1" colspan="1">Cotizaciones Enviadas</th><th rowspan="1" colspan="1">Cotizaciones Guardadas</th><th rowspan="1" colspan="1">Cotizaciones Aceptadas</th><th rowspan="1" colspan="1">Cotizaciones Rechazadas</th>
 			    </tr>
 			    </tfoot>
 			  </table>
@@ -132,8 +138,13 @@
 {% endblock content %}
 
 {% block custom_script %}
-<script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(function () {
+			$("#example1").DataTable();
+			$("#example2").DataTable();
+		});
+	});
 </script>
-
 {% endblock custom_script %}
 

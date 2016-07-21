@@ -90,7 +90,7 @@ class DashboardView(LoginRequiredMixin,
     template_name = 'reportes/dashboard.html'
 
     def get(self, request, *args, **kwargs):
-        user = User.objects.get(pk=kwargs['pk'])
+        user =  User.objects.get(pk=request.user.pk)
         context = self.get_context_data(**kwargs)
         if request.user.groups.first().name == 'corredor':
             vendedor = CorredorVendedor.objects.filter(vendedor=user)
@@ -111,8 +111,15 @@ class DashboardView(LoginRequiredMixin,
         if user.groups.first().name == 'corredor':
             context['corredor'] = DatosCorredor.objects.get(user=user)
         cotizaciones = Cotizacion.objects.filter(corredor=user, is_active=True)
-
+        enviadas = Cotizacion.objects.filter(corredor=user, is_active=True, status='Enviada')
+        guardadas = Cotizacion.objects.filter(corredor=user, is_active=True, status='Guardada')
+        aceptadas = Cotizacion.objects.filter(corredor=user, is_active=True, status='Aprobada')
+        rechazadas = Cotizacion.objects.filter(corredor=user, is_active=True, status='Rechazada')
         num_cot = len(cotizaciones)
         context['cotizaciones'] = cotizaciones
         context['num_cot'] = num_cot
+        context['num_cot_env'] = len(enviadas)
+        context['num_cot_guard'] = len(guardadas)
+        context['num_cot_apr'] = len(aceptadas)
+        context['num_cot_rch'] = len(rechazadas)
         return self.render_to_response(context)

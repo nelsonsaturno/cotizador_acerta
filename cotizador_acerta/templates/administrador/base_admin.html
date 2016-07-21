@@ -297,10 +297,19 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">NAVEGACIÓN PRINCIPAL</li>
+            <li class="treeview">
+                <a href="{% url 'dashboard' %}">
+                  <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                </a>
+                <!-- <ul class="treeview-menu">
+                  <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                  <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                </ul> -->
+              </li>
             {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
               <li class="treeview">
-                <a href="{% url 'dashboard' %}">
-                  <i class="fa fa-dashboard"></i> <span>Factores</span>
+                <a href="{% url 'factores' %}">
+                  <i class="fa fa-cog"></i> <span>Factores</span>
                 </a>
                 <!-- <ul class="treeview-menu">
                   <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
