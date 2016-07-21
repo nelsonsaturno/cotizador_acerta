@@ -268,7 +268,6 @@
                       <h5><strong>Prima Mensual:</strong></h5>
                       <h5><strong>Prima Pago de Contado:</strong></h5>
                       <h5>Prima Pago ACH/Visa:</h5>
-                      <h5>Descuento</h5>
                     </div>
                     <div class="col-md-2 col-xs-4 text-right" style="text:align:left;">
                       <h5><strong>{{ cotizacion.endoso }}</strong></h5>
@@ -278,7 +277,6 @@
                       <h5 id="prima-mensual" data-total="{{ cotizacion.total|floatformat:2 }}"><strong>B/. {{ cotizacion.prima_mensual|floatformat:2 }}</strong></h5>
                       <h5><strong>B/.{{ cotizacion.prima_pagoContado|floatformat:2|intcomma }}</strong></h5>
                       <h5>B/.{{ cotizacion.prima_pagoVisa|floatformat:2|intcomma }}</h5>
-                      <h5>{{ cotizacion.descuento|floatformat:2|intcomma }}</h5>
                     </div>
                     <br>
                     </div><!-- /.box-body -->

@@ -43,14 +43,14 @@ urlpatterns = patterns(
     url(r'^$',
         'darientSessions.views.login_request',
         name='login'),
-    # url(
-    #     r'^accounts/confirm/(?P<activation_key>\w+)/$',
-    #     'darientSessions.views.register_confirm',
-    #     name='register_confirm'),
-    # url(
-    #     r'^accounts/generateKey/(?P<pk>\d+)/$',
-    #     'darientSessions.views.generate_key',
-    #     name='generate_key'),
+    url(
+        r'^accounts/confirm/(?P<activation_key>\w+)/$',
+        'darientSessions.views.register_confirm',
+        name='register_confirm'),
+    url(
+        r'^accounts/generateKey/(?P<pk>\d+)/$',
+        'darientSessions.views.generate_key',
+        name='generate_key'),
     url(
         r'^register/$',
         'darientSessions.views.user_registration',

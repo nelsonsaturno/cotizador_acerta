@@ -20,9 +20,8 @@ from darientSessions.forms import UserCreateForm, LoginForm, CorredorCreateForm
 def user_registration(request):
     if request.user.is_authenticated():
         # We obtain the user group by the user logged.
-        # Sellers will create by agents
-        # Agents will create by admins
-        print request.user.groups.first()
+        # Sellers will created by agents
+        # Agents will created by admins
         if (request.user.groups.first().name == "corredor")\
            or (request.user.groups.first().name == "super_admin"):
             if request.method == 'POST':
@@ -40,6 +39,15 @@ def user_registration(request):
                     key_expires = datetime.datetime.today() +\
                         datetime.timedelta(2)
                     user = User.objects.get(username=username)
+                    new_profile = UserProfile(user=user,
+                                              activation_key=activation_key,
+                                              key_expires=key_expires)
+                    new_profile.save()
+                    email_subject = 'Bienvenido(a) a Acerta Seguros'
+                    email_body ="Hola %s, Ahora formas parte de nuestro equipo. Tienes 48 horas para activar tu cuenta siguiendo este link http://%s/accounts/confirm/%s" %\
+                        (user.first_name, request.get_host(), activation_key)
+                    send_mail(email_subject, email_body, request.user.email,
+                              [email], fail_silently=False)
                     # Add the user into the group: Seller or Agent.
                     if request.user.groups.first().name == "super_admin":
                         group = Group.objects.get(name='corredor')
@@ -48,10 +56,6 @@ def user_registration(request):
                         group = Group.objects.get(name='vendedor')
                         user.groups.add(group)
 
-                    new_profile = UserProfile(user=user,
-                                              activation_key=activation_key,
-                                              key_expires=key_expires)
-                    new_profile.save()
                     # Add relationship Seller-Agent. If required.
                     if group.name == "vendedor":
                         new_relat = CorredorVendedor(corredor=request.user,
@@ -65,14 +69,13 @@ def user_registration(request):
                     return HttpResponseRedirect(
                         reverse_lazy('login'))
                 else:
+                    print form
                     if request.user.groups.first().name == "super_admin":
-                        form = CorredorCreateForm()
                         context = {'form': form}
                         return render_to_response(
                             'registro_corredor.html', context,
                             context_instance=RequestContext(request))
                     else:
-                        form = UserCreateForm()
                         context = {'form': form}
                         return render_to_response(
                             'register.html', context,
@@ -124,17 +127,19 @@ def login_request(request):
             password = form.cleaned_data['password']
             user_auth = authenticate_user(username, password)
             if user_auth is not None:
-                user = authenticate(username=user_auth.username,
-                                    password=password)
-            else:
-                form.add_error(None, "Tu correo o contraseña no son correctos")
-                user = None
-            if user:
-                login(request, user)
-                return HttpResponseRedirect(
-                    reverse_lazy('vehiculo'))
-            else:
-                form.add_error(None, "Tu correo o contraseña no son correctos")
+                if user_auth.is_active:
+                    user = authenticate(username=user_auth.username,
+                                        password=password)
+                    if user:
+                        login(request, user)
+                        return HttpResponseRedirect(
+                            reverse_lazy('vehiculo'))
+                    else:
+                        form.add_error(
+                            None, "Tu correo o contraseña no son correctos")
+                else:
+                    form.add_error(None, "Aún no has confirmado tu correo.")
+                    user = None
     else:
         form = LoginForm()
     context = {'form': form, 'host': request.get_host()}
@@ -166,28 +171,31 @@ def editAccount(request):
 def register_confirm(request, activation_key):
 
     if request.user.is_authenticated():
-        HttpResponseRedirect(reverse_lazy('login'))
+        return HttpResponseRedirect(reverse_lazy('vehiculo'))
 
     user_profile = get_object_or_404(UserProfile,
                                      activation_key=activation_key)
     user = user_profile.user
 
+    if user.is_active:
+        return HttpResponseRedirect(reverse_lazy('vehiculo'))
+
     if user_profile.key_expires < timezone.now():
-        return HttpResponseRedirect(reverse_lazy('login',
+        return HttpResponseRedirect(reverse_lazy('generate_key',
                                                  kwargs={'pk': user.pk}))
 
     user.is_active = True
     user.save()
-    return HttpResponseRedirect(
-           reverse_lazy('login'))
+    return render_to_response('cuenta_activada.html')
 
 
 def generate_key(request, pk):
 
     if request.user.is_authenticated():
-        HttpResponseRedirect(reverse_lazy('login'))
+        HttpResponseRedirect(reverse_lazy('vehiculo'))
 
     user = User.objects.get(pk=pk)
+    admin = User.objects.filter(groups__name__in=["super_admin"])
     UserProfile.objects.filter(user=user).delete()
     salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
     activation_key = hashlib.sha1(salt + user.email).hexdigest()
@@ -195,10 +203,27 @@ def generate_key(request, pk):
     new_profile = UserProfile(user=user, activation_key=activation_key,
                               key_expires=key_expires)
     new_profile.save()
-    email_subject = 'Account confirmation'
-    email_body = "Hey %s, thanks for signing up. To activate your account, click this link within 48hours http://%s/user/accounts/confirm/%s" % \
-        (user.username, request.get_host(), activation_key)
-    send_mail(email_subject, email_body, 'ns@darient.com',
+    email_subject = 'Bienvenido(a) a Acerta Seguros'
+    email_body ="Hola %s, Ahora formas parte de nuestro equipo. Tienes 48 horas para activar tu cuenta siguiendo este link http://%s/accounts/confirm/%s" %\
+        (user.first_name, request.get_host(), activation_key)
+    send_mail(email_subject, email_body, admin[0].email,
               [user.email], fail_silently=False)
-    return HttpResponseRedirect(
-           reverse_lazy('login'))
+    return render_to_response('reenvio_activacion.html')
+
+
+# class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
+#     template_name = "update_user_form.html"
+#     model = Sexo
+#     form_class = SexoForm
+#     context_object_name = "sexo"
+#     success_url = 'list_sexo'
+
+#     def form_valid(self, form):
+#         """
+#         If the form is valid, redirect to the supplied URL.
+#         """
+#         self.object = form.save()
+#         return HttpResponseRedirect(self.get_success_url())
+
+#     def get_success_url(self):
+#         return reverse_lazy(self.success_url)
