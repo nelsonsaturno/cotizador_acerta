@@ -14,7 +14,7 @@ from django.contrib.auth.models import User, Group
 from django.views import generic
 from cotizador_acerta.views_mixins import *
 from darientSessions.models import *
-from darientSessions.forms import UserCreateForm, LoginForm, CorredorCreateForm
+from darientSessions.forms import UserCreateForm, LoginForm, CorredorCreateForm, UserEditForm
 
 
 def user_registration(request):
@@ -211,19 +211,24 @@ def generate_key(request, pk):
     return render_to_response('reenvio_activacion.html')
 
 
-# class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
-#     template_name = "update_user_form.html"
-#     model = Sexo
-#     form_class = SexoForm
-#     context_object_name = "sexo"
-#     success_url = 'list_sexo'
+class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
+    template_name = "update_user_form.html"
+    model = User
+    form_class = UserEditForm
+    context_object_name = "usuario"
+    success_url = 'corredor-vendedor-list'
 
-#     def form_valid(self, form):
-#         """
-#         If the form is valid, redirect to the supplied URL.
-#         """
-#         self.object = form.save()
-#         return HttpResponseRedirect(self.get_success_url())
+    def form_valid(self, form):
+        """
+        If the form is valid, redirect to the supplied URL.
+        """
+        self.object = form.save()
+        user = User.objects.get(email=form.cleaned_data['email'])
+        corredor = DatosCorredor.objects.get(user=user)
+        corredor.licencia = form.cleaned_data['licencia']
+        corredor.ruc = form.cleaned_data['ruc']
+        corredor.save()
+        return HttpResponseRedirect(self.get_success_url())
 
-#     def get_success_url(self):
-#         return reverse_lazy(self.success_url)
+    def get_success_url(self):
+        return reverse_lazy(self.success_url)

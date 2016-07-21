@@ -130,12 +130,18 @@ class LoginForm(forms.Form):
 
 class UserEditForm(forms.ModelForm):
 
+    licencia = forms.CharField(required=True,
+                               label="",
+                               widget=forms.TextInput(attrs={'placeholder': 'Nro. de Licencia'}))
+    ruc = forms.CharField(required=True,
+                          label="",
+                          widget=forms.TextInput(attrs={'placeholder': 'RUC'}))
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "username")
+        fields = ("first_name", "last_name", "email")
 
         error_messages = {
-            'username': {
+            'email': {
                 'required': "El correo es requerido."
             }
         }
@@ -151,21 +157,9 @@ class UserEditForm(forms.ModelForm):
             'last_name': 'Apellido',
         }
 
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(email=email).exclude(username=username).count() != 0:
-            raise forms.ValidationError(u'Este correo ya existe.')
-        return email
-
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(username=username).count() != 0:
-            raise forms.ValidationError(u'Username must be unique.')
-        return username
-
     def save(self, commit=True):
-        user = super(UserCreateForm, self).save(commit=False)
+        user = super(UserEditForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
+        user.username = self.cleaned_data['email']
         user.save()
         return user

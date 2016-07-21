@@ -36,6 +36,7 @@
 					{% endif %}
 					<li><a href="#">Correo <span class="pull-right badge bg-orange">{{usuario.email}}</span></a></li>
 					<li><a href="#">Cotizaciones <span class="pull-right badge bg-red">{{ num_cot }}</span></a></li>
+					<li><a href="{% url 'edit-user' usuario.pk %}">Editar <span class="pull-right badge bg-orange"></span></a></li>
 				</ul>
 			</div>
 		</div>
