@@ -1,5 +1,6 @@
 from django.conf.urls import url, patterns
 from darientSessions.views import *
+from django.contrib.auth.views import password_reset
 
 urlpatterns = patterns(
     '',
@@ -9,7 +10,7 @@ urlpatterns = patterns(
         {
             'post_reset_redirect': 'password_reset_done',
             'template_name': 'registrations/password_reset_form.html',
-            'html_email_template_name': 'registrations/password_reset_email.html',
+            'html_email_template_name': 'registrations/html_password_reset_email.html',
         },
         name="password_reset"
     ),
