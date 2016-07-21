@@ -142,7 +142,7 @@ class UserEditForm(forms.ModelForm):
         fields = ("first_name", "last_name", "email", "username")
 
         error_messages = {
-            'email': {
+            'username': {
                 'required': "El correo es requerido."
             }
         }
