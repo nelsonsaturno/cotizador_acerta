@@ -3,9 +3,9 @@ from administrador.views import *
 
 urlpatterns = patterns(
     '',
-    url(r'^dashboard/$',
-        Dashboard.as_view(),
-        name='dashboard'),
+    url(r'^factores/$',
+        Factores.as_view(),
+        name='factores'),
     url(r'^list_sexo/$',
         ListSexo.as_view(),
         name='list_sexo'),

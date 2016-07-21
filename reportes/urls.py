@@ -23,4 +23,8 @@ urlpatterns = patterns(
         r'^cotizaciones/detalle/(?P<pk>\d+)/$',
         CotizacionesDetailView.as_view(),
         name='cotizaciones_details'),
+    url(
+        r'^dashboard/$',
+        DashboardView.as_view(),
+        name='dashboard'),
 )
