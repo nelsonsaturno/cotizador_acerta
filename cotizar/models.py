@@ -247,3 +247,5 @@ class Cotizacion(models.Model):
                                        ('Guardada', 'Guardada'),
                                        ('Aprobada', 'Aprobada'),
                                        ('Rechazada', 'Rechazada')])
+    created_at = models.DateTimeField(auto_now_add = True)
+    modified_at = models.DateTimeField(auto_now = True)
