@@ -9,7 +9,7 @@ urlpatterns = patterns(
         {
             'post_reset_redirect': 'password_reset_done',
             'template_name': 'registrations/password_reset_form.html',
-            'email_template_name': 'registrations/password_reset_email.html',
+            'html_email_template_name': 'registrations/password_reset_email.html',
         },
         name="password_reset"
     ),

@@ -1,3 +1,5 @@
+
+
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
@@ -159,7 +161,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                     <table width="352" border="0" cellpadding="0" cellspacing="0" align="center" style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="fullCenter">
                                         <tr>
                                             <td valign="middle" width="100%" style="text-align: center; font-family: Helvetica, Arial, sans-serif; font-size: 19px; color: rgb(255, 255, 255); line-height: 26px; font-weight: bold; text-transform: uppercase;"class="fullCenter" >
-                                                <!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight: normal;"><!--<![endif]--><singleline>Recupera tu contraseña!</singleline><!--[if !mso]><!--></span><!--<![endif]-->
+                                                <!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight: normal;"><!--<![endif]--><singleline>Bienvenido a Seguros Acerta!</singleline><!--[if !mso]><!--></span><!--<![endif]-->
                                             </td>
                                         </tr>
                                         <tr>
@@ -200,6 +202,18 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                     </table>
 <br><br>
                                     <!-- Avatar -->
+                                    <table width="352" border="0" cellpadding="0" cellspacing="0" align="center" class="mobile" bgcolor="#83af9a"object="drag-module-small" style="background-color: #E76C42;">
+                                        <tr>
+                                            <td width="352" valign="middle" class="avatar125" align="center">
+
+                                                <table width="265" border="0" cellpadding="0" cellspacing="0" align="center" style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="fullCenter">
+                                                    <tr>
+                                                        <td width="100%" align="center"><div style="width:110px; height:110px; border-radius:50%; font-size:300%; color:#fff; line-height:110px; text-align:center; background:#989898; font-family: 'proxima_novalight', Helvetica;">{{ iniciales }}</div></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
 
                                     <table width="352" border="0" cellpadding="0" cellspacing="0" align="center" class="mobile" bgcolor="#83af9a"object="drag-module-small" style="background-color: #E76C42;">
                                         <tr>
@@ -249,7 +263,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                                 <table width="265" border="0" cellpadding="0" cellspacing="0" align="center" style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="fullCenter">
                                                     <tr>
                                                         <td valign="middle" width="100%" style="text-align: center; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(255, 255, 255); line-height: 24px;"class="fullCenter" >
-                                                            <!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]--><singleline>Debes hacer click en el siguiente botón para poder reestablecer tu contraseña. Luego prueba iniciando sesión en </singleline><!--[if !mso]><!--></span><!--<![endif]-->
+                                                            <!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]--><singleline>Bienvenido a la plataforma para corredores de Acerta Seguros. Para activar tu cuenta debes hacer click en el siguiente botón en las proximas 48 horas.</singleline><!--[if !mso]><!--></span><!--<![endif]-->
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -282,9 +296,8 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                                             <table border="0" cellpadding="0" cellspacing="0" align="center">
                                                                 <tr>
                                                                     <td align="center" height="45"bgcolor="#ffffff" style="border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; padding-left: 30px; padding-right: 30px; font-weight: bold; font-family: Helvetica, Arial, sans-serif; color: rgb(56, 56, 56); text-transform: uppercase; background-color: #989898;">
-                                                                        <multiline><!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight: normal;"><!--<![endif]-->{% block reset_link %}
-
-                                                                            <a href="{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uid token %}" style="color: #ffffff; font-size: 15px; text-decoration: none; line-height: 35px; width: 100%;">Reestablecer</a>{% endblock %}
+                                                                        <multiline><!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight: normal;"><!--<![endif]-->
+                                                                            <a href="{{ link }}" style="color: #ffffff; font-size: 15px; text-decoration: none; line-height: 35px; width: 100%;">Activa tu cuenta</a>
                                                                         <!--[if !mso]><!--></span><!--<![endif]--></multiline>
                                                                     </td>
                                                                 </tr>
@@ -317,8 +330,7 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
                                                 <table width="265" border="0" cellpadding="0" cellspacing="0" align="center" style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="fullCenter">
                                                     <tr>
                                                         <td valign="middle" width="100%" style="text-align: center; font-family: Helvetica, Arial, sans-serif; font-size: 15px; color: rgb(255, 255, 255); line-height: 24px;"class="fullCenter" >
-                                                            <multiline><!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]-->Recuerda! Tienes 48 horas para activar tu cuenta.<!--[if !mso]><!--></span><!--<![endif]-->
-                                                            <!--[if !mso]><!--><!--<![endif]--></multiline>
+
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -393,5 +405,3 @@ p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; mar
 <div style="display: none" id="element_01404779558070004"></div><!-- End Notification 6 -->
 </div>
 </body></html>  <style>body{ background: none !important; } </style>
-
-
