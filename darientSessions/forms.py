@@ -136,9 +136,10 @@ class UserEditForm(forms.ModelForm):
     ruc = forms.CharField(required=True,
                           label="",
                           widget=forms.TextInput(attrs={'placeholder': 'RUC'}))
+
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email")
+        fields = ("first_name", "last_name", "email", "username")
 
         error_messages = {
             'email': {
@@ -156,6 +157,13 @@ class UserEditForm(forms.ModelForm):
             'first_name': 'Nombre',
             'last_name': 'Apellido',
         }
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(email=email).exclude(username=username).count() != 0:
+            raise forms.ValidationError(u'Este correo ya existe.')
+        return email
 
     def save(self, commit=True):
         user = super(UserEditForm, self).save(commit=False)
