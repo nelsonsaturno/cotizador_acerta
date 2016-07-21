@@ -6,7 +6,7 @@ from cotizar.models import *
 from django.contrib.auth.models import User
 from django.views.defaults import page_not_found
 from reportes.forms import *
-from datetime import *
+import datetime
 from time import *
 
 
@@ -89,11 +89,11 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
 
 
 class DashboardView(LoginRequiredMixin,
-                                 DetailRequiredMixin, TemplateView):
+                    DetailRequiredMixin, TemplateView):
     template_name = 'reportes/dashboard.html'
 
     def get(self, request, *args, **kwargs):
-        user =  User.objects.get(pk=request.user.pk)
+        user = User.objects.get(pk=request.user.pk)
         context = self.get_context_data(**kwargs)
         if request.user.groups.first().name == 'corredor':
             vendedor = CorredorVendedor.objects.filter(vendedor=user)
@@ -128,9 +128,8 @@ class DashboardView(LoginRequiredMixin,
         return self.render_to_response(context)
 
 
-
 class CotizacionesSpecificDetailView(LoginRequiredMixin,
-                                 DetailRequiredMixin, FormView):
+                                     DetailRequiredMixin, TemplateView):
     template_name = 'reportes/cotizador_specific_detail.html'
     form_class = DateCotizationForm
 
@@ -145,10 +144,15 @@ class CotizacionesSpecificDetailView(LoginRequiredMixin,
             status = 'Aprobada'
         else:
             status = 'Rechazada'
-        start = date.today() - timedelta(days=30)
-        print(start)
-        end = date.today()
-        cotizaciones = Cotizacion.objects.filter(corredor=user, status=status, is_active=True, created_at__lte=end, created_at__gte=start) 
+        start = datetime.date.today() - timedelta(days=30)
+        end = datetime.date.today()
+        print start
+        print end
+        cotizaciones = Cotizacion.objects.filter(
+            corredor=user, status=status,
+            is_active=True, created_at__lte=end,
+            created_at__gte=start)
+        print cotizaciones
         context['cotizaciones'] = cotizaciones
         context['status'] = status
         context['form'] = DateCotizationForm()
@@ -166,10 +170,23 @@ class CotizacionesSpecificDetailView(LoginRequiredMixin,
             status = 'Aprobada'
         else:
             status = 'Rechazada'
-        start = form.cleaned_data['start_date']
-        end = form.cleaned_data['end_date']
-        cotizaciones = Cotizacion.objects.filter(corredor=user, status=status, is_active=True, created_at__lte=end, created_at__gte=start)         
+        if form.is_valid():
+            start = form.cleaned_data['start_date']
+            end = form.cleaned_data['end_date']
+        else:
+            start = date.today() - timedelta(days=30)
+            end = date.today()
+        cotizaciones = Cotizacion.objects.filter(
+            corredor=user, status=status,
+            is_active=True, created_at__lte=end,
+            created_at__gte=start)
         context['cotizaciones'] = cotizaciones
         context['status'] = status
         context['form'] = form
-        return self.render_to_response(context)
+        if request.POST['start_date'] == '':
+            form.add_error(
+                None, "El campo de fecha de inicio es requerido.")
+        if request.POST['end_date'] == '':
+            form.add_error(
+                None, "El campo de fecha final es requerido.")
+        return render(request, self.template_name, context)

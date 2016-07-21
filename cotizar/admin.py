@@ -18,7 +18,24 @@ class ModeloAdmin(admin.ModelAdmin):
         'recargo',
     )
 
+
+class CotizacionAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'corredor',
+        'conductor',
+        'status',
+        'created_at',
+    )
+    search_fields = (
+        'id',
+        'corredor',
+        'conductor',
+        'status',
+        'created_at',
+    )
+
 admin.site.register(ConductorVehiculo)
 admin.site.register(Marca)
 admin.site.register(Modelo, ModeloAdmin)
-admin.site.register(Cotizacion)
+admin.site.register(Cotizacion, CotizacionAdmin)

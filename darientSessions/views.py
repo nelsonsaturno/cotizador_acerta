@@ -156,6 +156,9 @@ def login_request(request):
                 else:
                     form.add_error(None, "Aún no has confirmado tu correo.")
                     user = None
+            else:
+                form.add_error(
+                    None, "Tu correo o contraseña no son correctos")
     else:
         form = LoginForm()
     context = {'form': form, 'host': request.get_host()}
@@ -211,7 +214,6 @@ def generate_key(request, pk):
         HttpResponseRedirect(reverse_lazy('vehiculo'))
 
     user = User.objects.get(pk=pk)
-    admin = User.objects.filter(groups__name__in=["super_admin"])
     UserProfile.objects.filter(user=user).delete()
     salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
     activation_key = hashlib.sha1(salt + user.email).hexdigest()
@@ -220,10 +222,22 @@ def generate_key(request, pk):
                               key_expires=key_expires)
     new_profile.save()
     email_subject = 'Bienvenido(a) a Acerta Seguros'
-    email_body ="Hola %s, Ahora formas parte de nuestro equipo. Tienes 48 horas para activar tu cuenta siguiendo este link http://%s/accounts/confirm/%s" %\
-        (user.first_name, request.get_host(), activation_key)
-    send_mail(email_subject, email_body, admin[0].email,
-              [user.email], fail_silently=False)
+    to = [user.email]
+    link = 'http://' + request.get_host() + '/accounts/confirm/' + activation_key
+    if user.first_name and user.last_name:
+        iniciales = user.first_name[0] + user.last_name[0]
+    else:
+        iniciales = user.username[:2]
+    ctx = {
+        'user': user,
+        'link': link,
+        'iniciales': iniciales.upper(),
+    }
+    from_email = 'noreply@acertaseguros.com'
+    message = get_template('email_confirmation.html').render(Context(ctx))
+    msg = EmailMessage(email_subject, message, to=to, from_email=from_email)
+    msg.content_subtype = 'html'
+    msg.send()
     return render_to_response('reenvio_activacion.html')
 
 
