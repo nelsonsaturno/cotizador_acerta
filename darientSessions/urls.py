@@ -66,4 +66,8 @@ urlpatterns = patterns(
             'next_page': '/'
         },
         name='logout'),
+    url(
+        r'^edituser/(?P<pk>\d+)$',
+        EditUser.as_view(),
+        name='edit-user'),
 )
