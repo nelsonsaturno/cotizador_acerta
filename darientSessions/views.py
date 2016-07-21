@@ -211,19 +211,19 @@ def generate_key(request, pk):
     return render_to_response('reenvio_activacion.html')
 
 
-class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
-    template_name = "update_user_form.html"
-    model = Sexo
-    form_class = SexoForm
-    context_object_name = "sexo"
-    success_url = 'list_sexo'
+# class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
+#     template_name = "update_user_form.html"
+#     model = Sexo
+#     form_class = SexoForm
+#     context_object_name = "sexo"
+#     success_url = 'list_sexo'
 
-    def form_valid(self, form):
-        """
-        If the form is valid, redirect to the supplied URL.
-        """
-        self.object = form.save()
-        return HttpResponseRedirect(self.get_success_url())
+#     def form_valid(self, form):
+#         """
+#         If the form is valid, redirect to the supplied URL.
+#         """
+#         self.object = form.save()
+#         return HttpResponseRedirect(self.get_success_url())
 
-    def get_success_url(self):
-        return reverse_lazy(self.success_url)
+#     def get_success_url(self):
+#         return reverse_lazy(self.success_url)
