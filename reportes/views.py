@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.views.generic import *
 from cotizador_acerta.views_mixins import *
 from darientSessions.models import *
@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.views.defaults import page_not_found
 from reportes.forms import *
 from datetime import *
+from time import *
 
 
 class CorredorVendedorListView(LoginRequiredMixin,
@@ -145,9 +146,30 @@ class CotizacionesSpecificDetailView(LoginRequiredMixin,
         else:
             status = 'Rechazada'
         start = date.today() - timedelta(days=30)
+        print(start)
         end = date.today()
-        cotizaciones = Cotizacion.objects.filter(corredor=user, status=status)
+        cotizaciones = Cotizacion.objects.filter(corredor=user, status=status, is_active=True, created_at__lte=end, created_at__gte=start) 
         context['cotizaciones'] = cotizaciones
         context['status'] = status
         context['form'] = DateCotizationForm()
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(pk=request.user.pk)
+        context = self.get_context_data(**kwargs)
+        form = DateCotizationForm(request.POST)
+        if kwargs['status'] == '0':
+            status = 'Enviada'
+        elif kwargs['status'] == '1':
+            status = 'Guardada'
+        elif kwargs['status'] == '2':
+            status = 'Aprobada'
+        else:
+            status = 'Rechazada'
+        start = form.cleaned_data['start_date']
+        end = form.cleaned_data['end_date']
+        cotizaciones = Cotizacion.objects.filter(corredor=user, status=status, is_active=True, created_at__lte=end, created_at__gte=start)         
+        context['cotizaciones'] = cotizaciones
+        context['status'] = status
+        context['form'] = form
         return self.render_to_response(context)

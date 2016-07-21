@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'cotizar',
     'administrador',
     'reportes',
+    'bootstrap3_datetime',
 ]
 
 MIDDLEWARE_CLASSES = [

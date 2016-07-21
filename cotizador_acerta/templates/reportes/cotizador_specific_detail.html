@@ -24,27 +24,58 @@
 </style>
 {% endblock extracss %}
 
+{% block extrahead %}
+  {{form.media}}
+{% endblock extrahead %}
+
 {% block content %}
 {% bootstrap_form_errors form %}
-<form action="" method="post" role="form" class="form-horizontal">
-    {% csrf_token %}
-    <div class="login-box-body">
-        <h3 id="subtitulo"><strong>Elija las fechas a consultar</strong></h3>
-        <div class="col-md-4" >
-        {% bootstrap_field form.start_date layout='horizontal' show_label=False field_class='form-field' %}
+<form method="post" role="form">
+            
+            <div id="div_start_date"
+                 class="form-group">
+                <label for="id_start_date">Start date:</label>
+                
+        <div class="input-group date col-md-3" id="id_start_date_picker">
+            <input class="form-control" id="id_start_date" name="start_date" type="text"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
         </div>
-        <div class="col-md-4" >
+        <div class="col-md-9"></div>
+                <div class="text-muted pull-right">
+                    <small></small>
+                </div>
+                <div class="help-block">
+                    
+                </div>
+            </div>
+            
+            <div id="div_end_date"
+                 class="form-group">
+                <label for="id_end_date">End date:</label>
+                
+        <div class="input-group date col-md-3" id="id_end_date_picker">
+            <input class="form-control" id="id_end_date" name="end_date" type="text"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
         </div>
-        <div class="col-md-4" >
-        {% bootstrap_field form.end_date layout='horizontal' show_label=False field_class='form-field' %}
-        </div>
-      {% buttons %}
-          <button id="id_submit" type="submit" class="btn btn-lg calculate">
-              Filtrar
-          </button>
-      {% endbuttons %}
-    </div>
-</form>
+        <div class="col-md-9"></div>
+                <div class="text-muted pull-right">
+                    <small></small>
+                </div>
+                <div class="help-block">
+                    
+                </div>
+            </div>
+            
+            
+            <input type='hidden' name='csrfmiddlewaretoken' value='cYh7UOek7Bc1N6hasllE6C8GZVKthrGy' />
+            <div class="form-group">
+                <input type="submit" value="Filtrar" class="btn btn-primary" />
+            </div>
+        </form>
 <div class="row">
   <div class="col-xs-12" style="padding-right: 2%;">
     <div class="box box-default color-palette-box">
@@ -95,6 +126,16 @@
 {% endblock content %}
 
 {% block custom_script %}
+<script>
+    $(function() {
+        $("#id_start_date_picker").datetimepicker({"pickTime": false, "language": "en-us", "format": "YYYY-MM-DD"});
+    });
+</script>
+<script>
+    $(function() {
+        $("#id_end_date_picker").datetimepicker({"pickTime": false, "language": "en-us", "format": "YYYY-MM-DD"});
+    });
+</script>
 <script>
   $(document).ready(function(){
     $(function () {

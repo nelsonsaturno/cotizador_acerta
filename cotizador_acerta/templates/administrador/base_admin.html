@@ -21,8 +21,12 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{% static 'css/skins/_all-skins.css' %}">
+    <link rel="stylesheet"
+              href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.css">
     {% endblock css %}
+    <script src="{% static 'plugins/jQuery/jQuery-2.1.4.min.js' %}"></script>
     {% block extracss %}{% endblock extracss %}
+    {% block extrahead %}{% endblock extrahead %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -705,7 +709,6 @@
     </div><!-- ./wrapper -->
     {% block script %}
     <!-- jQuery 2.1.4 -->
-    <script src="{% static 'plugins/jQuery/jQuery-2.1.4.min.js' %}"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <!-- DataTables -->
