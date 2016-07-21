@@ -68,25 +68,31 @@
                     <div class="box-header with-border">
                         <h1 id="titulo-login" class="text-center"><strong>ACTUALIZAR DATOS DE CORREDOR</strong></h1>
                     </div>
-                    {% bootstrap_form_errors form %}
                     <div class="box-body">
-                        <form action="" method="post" role="form" class="form-horizontal">
-                            {% csrf_token %}
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            {% bootstrap_form_errors form %}
+                            <form action="" method="post" role="form" class="form-horizontal">
+                                {% csrf_token %}
 
-                            {% bootstrap_field form.first_name show_label=False %}
-                            {% bootstrap_field form.last_name show_label=False %}
-                            {% bootstrap_field form.ruc show_label=False %}
-                            {% bootstrap_field form.licencia show_label=False %}
-                            {% bootstrap_field form.email show_label=False %}
+                                {% bootstrap_field form.first_name show_label=False %}
+                                {% bootstrap_field form.last_name show_label=False %}
+                                {% bootstrap_field form.ruc show_label=False %}
+                                {% bootstrap_field form.licencia show_label=False %}
+                                {% bootstrap_field form.email show_label=False %}
 
-                            {% buttons %}
-                                <div class="col-sm-4 col-md-12 text-center">
-                                    <button id="id_submit" type="submit" class="btn btn-lg calculate">
-                                        Actualizar
-                                    </button>
-                                </div>
-                            {% endbuttons %}
-                        </form>
+                                {% buttons %}
+                                    <div class="col-md-3"></div>
+                                    <div class="col-sm-4 col-md-6 text-center">
+                                        <button id="id_submit" type="submit" class="btn btn-lg calculate">
+                                            Actualizar
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                {% endbuttons %}
+                            </form>
+                        </div>
+                        <div class="col-md-1"></div>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div>
@@ -94,14 +100,9 @@
         </div>
     </div>
 </div>
+
 {% endblock content %}
 {% block custom_script %}
-<script type="text/javascript">
-    $(document).on("click", "#id_submit", function(e){
-        console.log("entrando");
-        $("#id_username").val($("#id_email").val());
-    });
-</script>
 {% endblock custom_script %}
 
 
