@@ -8,13 +8,15 @@ from django.shortcuts import render_to_response, render, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth import *
 from django.core.urlresolvers import reverse_lazy
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.utils import timezone
 from django.contrib.auth.models import User, Group
 from django.views import generic
 from cotizador_acerta.views_mixins import *
 from darientSessions.models import *
-from darientSessions.forms import UserCreateForm, LoginForm, CorredorCreateForm, UserEditForm
+from darientSessions.forms import *
+from django.template import Context
+from django.template.loader import get_template
 
 
 def user_registration(request):
@@ -43,11 +45,24 @@ def user_registration(request):
                                               activation_key=activation_key,
                                               key_expires=key_expires)
                     new_profile.save()
+
                     email_subject = 'Bienvenido(a) a Acerta Seguros'
-                    email_body ="Hola %s, Ahora formas parte de nuestro equipo. Tienes 48 horas para activar tu cuenta siguiendo este link http://%s/accounts/confirm/%s" %\
-                        (user.first_name, request.get_host(), activation_key)
-                    send_mail(email_subject, email_body, request.user.email,
-                              [email], fail_silently=False)
+                    to = [email]
+                    link = 'http://' + request.get_host() + '/accounts/confirm/' + activation_key
+                    if user.first_name and user.last_name:
+                        iniciales = user.first_name[0] + user.last_name[0]
+                    else:
+                        iniciales = user.username[:2]
+                    ctx = {
+                        'user': user,
+                        'link': link,
+                        'iniciales': iniciales.upper(),
+                    }
+                    from_email = 'noreply@acertaseguros.com'
+                    message = get_template('email_confirmation.html').render(Context(ctx))
+                    msg = EmailMessage(email_subject, message, to=to, from_email=from_email)
+                    msg.content_subtype = 'html'
+                    msg.send()
                     # Add the user into the group: Seller or Agent.
                     if request.user.groups.first().name == "super_admin":
                         group = Group.objects.get(name='corredor')
@@ -140,6 +155,9 @@ def login_request(request):
                 else:
                     form.add_error(None, "Aún no has confirmado tu correo.")
                     user = None
+            else:
+                form.add_error(
+                    None, "Tu correo o contraseña no son correctos")
     else:
         form = LoginForm()
     context = {'form': form, 'host': request.get_host()}
@@ -195,7 +213,6 @@ def generate_key(request, pk):
         HttpResponseRedirect(reverse_lazy('vehiculo'))
 
     user = User.objects.get(pk=pk)
-    admin = User.objects.filter(groups__name__in=["super_admin"])
     UserProfile.objects.filter(user=user).delete()
     salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
     activation_key = hashlib.sha1(salt + user.email).hexdigest()
@@ -204,10 +221,22 @@ def generate_key(request, pk):
                               key_expires=key_expires)
     new_profile.save()
     email_subject = 'Bienvenido(a) a Acerta Seguros'
-    email_body ="Hola %s, Ahora formas parte de nuestro equipo. Tienes 48 horas para activar tu cuenta siguiendo este link http://%s/accounts/confirm/%s" %\
-        (user.first_name, request.get_host(), activation_key)
-    send_mail(email_subject, email_body, admin[0].email,
-              [user.email], fail_silently=False)
+    to = [user.email]
+    link = 'http://' + request.get_host() + '/accounts/confirm/' + activation_key
+    if user.first_name and user.last_name:
+        iniciales = user.first_name[0] + user.last_name[0]
+    else:
+        iniciales = user.username[:2]
+    ctx = {
+        'user': user,
+        'link': link,
+        'iniciales': iniciales.upper(),
+    }
+    from_email = 'noreply@acertaseguros.com'
+    message = get_template('email_confirmation.html').render(Context(ctx))
+    msg = EmailMessage(email_subject, message, to=to, from_email=from_email)
+    msg.content_subtype = 'html'
+    msg.send()
     return render_to_response('reenvio_activacion.html')
 
 
@@ -216,7 +245,7 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     model = User
     form_class = UserEditForm
     context_object_name = "usuario"
-    success_url = 'corredor-vendedor-list'
+    success_url = 'corredor_vendedor_detail'
 
     def form_valid(self, form):
         """
@@ -228,7 +257,5 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
         corredor.licencia = form.cleaned_data['licencia']
         corredor.ruc = form.cleaned_data['ruc']
         corredor.save()
-        return HttpResponseRedirect(self.get_success_url())
-
-    def get_success_url(self):
-        return reverse_lazy(self.success_url)
+        return HttpResponseRedirect(
+            reverse_lazy(self.success_url, kwargs={'pk': user.pk}))

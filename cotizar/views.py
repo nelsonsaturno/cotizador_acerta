@@ -801,7 +801,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 subject = "Acerta Seguros - Cotización de Vehículo"
                 to = [cotizacion.conductor.correo]
                 to_corredor = [request.user.email]
-                from_email = 'donotreply@cotizadoracerta.com'
+                from_email = request.user.email
 
                 ctx = {
                     'cotizacion': cotizacion,
@@ -852,7 +852,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 msg = EmailMessage(subject,
                                    message_corredor,
                                    to=to_corredor,
-                                   from_email=from_email)
+                                   from_email='noreply@acertaseguros.com')
                 msg.content_subtype = 'html'
                 msg.send()
 
@@ -865,7 +865,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                     msg = EmailMessage(subject,
                                        message_corredor,
                                        to=admins,
-                                       from_email=from_email)
+                                       from_email='noreply@acertaseguros.com')
                     msg.content_subtype = 'html'
                     msg.send()
 

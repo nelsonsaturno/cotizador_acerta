@@ -7,10 +7,10 @@ from bootstrap3_datetime.widgets import DateTimePicker
 
 class DateCotizationForm(forms.Form):
     start_date = forms.DateField(
-        label='Fecha inicial',
+        label='Fecha inicial', required=True,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False}))
     end_date = forms.DateField(
-        label='Fecha final',
+        label='Fecha final', required=True,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False}))
