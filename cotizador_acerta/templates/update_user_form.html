@@ -36,6 +36,9 @@
     input:focus:-ms-input-placeholder {
         color: #E76C42 !important;
     }
+    .form-field {
+        padding:0px 10px 0px 10px;
+    }
     .login-box-body {
         margin-left: 20%;
         margin-right: 20%
@@ -73,11 +76,11 @@
                         <form action="" method="post" role="form" class="form-horizontal">
                             {% csrf_token %}
 
-                            {% bootstrap_field form.first_name show_label=False %}
-                            {% bootstrap_field form.last_name show_label=False %}
-                            {% bootstrap_field form.ruc show_label=False %}
-                            {% bootstrap_field form.licencia show_label=False %}
-                            {% bootstrap_field form.email show_label=False %}
+                            {% bootstrap_field form.first_name show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.last_name show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.ruc show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.licencia show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.email show_label=False field_class='form-field' %}
 
                             {% buttons %}
                                 <div class="col-sm-4 col-md-12 text-center">
