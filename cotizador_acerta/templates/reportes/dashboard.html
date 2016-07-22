@@ -25,7 +25,7 @@
 				{% if  usuario.groups.first.name != 'super_admin' %}
 					<h3 class="widget-user-username">{{ usuario.get_full_name|default:usuario.username }}</h3>
 				{% else %}
-					<h3 class="widget-user-username">Sr. ADMIN Acerta</h3>
+					<h3 class="widget-user-username">ADMIN ACERTA</h3>
 				{% endif %}
 				{% if usuario.groups.first.name == 'corredor' %}
 					<h5 class="widget-user-desc">Corredor Acerta</h5>
@@ -41,30 +41,55 @@
 						<li><a href="#">Licencia <span class="pull-right badge bg-blue">{{corredor.licencia}}</spana></a></li>
 					{% endif %}
 					<li><a href="#">Correo <span class="pull-right badge bg-blue">{{usuario.email}}</span></a></li>
-					<li><a href="{% url 'cotizaciones_list' %}">Cotizaciones <span class="pull-right badge bg-black">{{ num_cot }}</span></a></li>
-					<li><a href="{% url 'cotizaciones-specific' 0 %}">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot_env }}</span></a></li>
-					<li><a href="{% url 'cotizaciones-specific' 1 %}">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot_guard }}</span></a></li>
-					<li><a href="{% url 'cotizaciones-specific' 2 %}">Cotizaciones Aceptadas<span class="pull-right badge bg-green">{{ num_cot_apr }}</span></a></li>
-					<li><a href="{% url 'cotizaciones-specific' 3 %}">Cotizaciones Rechazadas<span class="pull-right badge bg-red">{{ num_cot_rch }}</span></a></li>
+					<li><a href="#">Cotizaciones <span class="pull-right badge bg-black">{{ num_cot }}</span></a></li>
+					<li><a href="#">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot_env }}</span></a></li>
+					<li><a href="#">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot_guard }}</span></a></li>
+					<li><a href="#">Cotizaciones Aceptadas<span class="pull-right badge bg-green">{{ num_cot_apr }}</span></a></li>
+					<li><a href="#">Cotizaciones Rechazadas<span class="pull-right badge bg-red">{{ num_cot_rch }}</span></a></li>
 				</ul>
 			</div>
 		</div>
 	<!-- /.widget-user -->
 	</div>
 </div>
+<div class="box">
+    <div class="box-header">
+      <h3 class="box-title">Cotizaciones Propias</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover" style="width:100%">
+          <tr>
+            <th align="center">Cotizaciones</th>
+            <th align="center">Cotizaciones Enviadas</th>
+            <th align="center">Cotizaciones Guardadas</th>
+            <th align="center">Cotizaciones Aprobadas</th>
+            <th align="center">Cotizaciones Rechazadas</th>
+          </tr>
+          <tr style="text-align: center;">
+            <td align="center"><a href="{% url 'cotizaciones_list' %}"><span class="badge bg-black center">{{cot}}</span></a></td>
+            <td align="center"><a href="{% url 'cotizaciones-specific' 0 usuario.pk %}"><span class="badge bg-orange">{{ cot_env }}</span></td>
+            <td align="center"><a href="{% url 'cotizaciones-specific' 1 usuario.pk %}"><span class="badge bg-blue">{{ cot_guard }}</span></a></td>
+            <td align="center"><a href="{% url 'cotizaciones-specific' 2 usuario.pk %}"><span class="badge bg-green">{{ cot_apr }}</span></a></td>
+            <td align="center"><a href="{% url 'cotizaciones-specific' 3 usuario.pk %}"><span class="badge bg-red">{{ cot_rch }}</span></a></td>
+          </tr>
+        </table>
+    </div>
+</div>
+<br>
 {% if usuario.groups.first.name == 'super_admin' %}
 <div class="row">
 	<div class="col-md-12">
 		<div class="box box-default color-palette-box">
 			<div class="box-header">
-				<h3 class="box-title"> Corredores ACERTA</h3>
+				<h3 class="box-title"> Cotizaciones de Corredores ACERTA</h3>
 			</div>
 			<div class="box-body">
-			  <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+			  <table id="example2" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
 			    <thead>
 			    <tr role="row">
 				    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 181px;">Nombre</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Apellido: activate to sort column ascending" style="width: 224px;">Apellido</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Enviadas</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Guardadas</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Aceptadas</th>
@@ -74,16 +99,17 @@
 			    <tbody>
 			    {% for user in corredores %}
 			    	<tr role="row">
-				      <td class="sorting_1"> {{ user.user.first_name }}</td>
-				      <td>{{ user.user.last_name }}</td>
-				      <td><span class="pull-right badge bg-orange">111</span></td>
-				      <td><span class="pull-right badge bg-blue">111</span></td>
-				      <td><span class="pull-right badge bg-green">111</span></td>
-				      <td><span class="pull-right badge bg-red">111</span></td>
+				      <td class="sorting_1"> {{ user.0.user.first_name }}</td>
+				      <td>{{ user.0.user.last_name }}</td>
+				      <td><span class="pull-right badge bg-black">{{ user.1 }}</span></td>
+				      <td><a href="{% url 'cotizaciones-specific' 0 user.0.user.pk %}"><span class="pull-right badge bg-orange">{{ user.2 }}</span></a></td>
+				      <td><a href="{% url 'cotizaciones-specific' 1 user.0.user.pk %}"><span class="pull-right badge bg-blue">{{ user.3 }}</span></a></td>
+				      <td><a href="{% url 'cotizaciones-specific' 2 user.0.user.pk %}"><span class="pull-right badge bg-green">{{ user.4 }}</span></a></td>
+				      <td><a href="{% url 'cotizaciones-specific' 3 user.0.user.pk %}"><span class="pull-right badge bg-red">{{ user.5 }}</span></a></td>
 				    </tr>
 			    {% endfor %}</tbody>
 			    <tfoot>
-			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Cotizaciones Enviadas</th><th rowspan="1" colspan="1">Cotizaciones Guardadas</th><th rowspan="1" colspan="1">Cotizaciones Aceptadas</th><th rowspan="1" colspan="1">Cotizaciones Rechazadas</th></tr>
+			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Cotizaciones</th><th rowspan="1" colspan="1">Cotizaciones Enviadas</th><th rowspan="1" colspan="1">Cotizaciones Guardadas</th><th rowspan="1" colspan="1">Cotizaciones Aceptadas</th><th rowspan="1" colspan="1">Cotizaciones Rechazadas</th></tr>
 			    </tfoot>
 			  </table>
 			</div>
@@ -96,15 +122,16 @@
 	<div class="col-md-12">
 		<div class="box box-default color-palette-box">
 			<div class="box-header">
-				<h3 class="box-title"> Vendedores ACERTA Asociados</h3>
+				<h3 class="box-title"> Cotizaciones de Vendedores ACERTA Asociados</h3>
 			</div>
 			<div class="box-body">
-			  <table id="example2" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+			  <table id="example3" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
 			    <thead>
 			    <tr role="row">
 				    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 181px;">Nombre</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Apellido: activate to sort column ascending" style="width: 224px;">Apellido</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Detalles: activate to sort column ascending" style="width: 112px;">Corredor Asociado</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Enviadas</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Guardadas</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones Aceptadas</th>
@@ -115,18 +142,19 @@
 			    {% for user in vendedores %}
 			    	{% if user.corredor.pk == usuario.pk %}
 				    	<tr role="row">
-					      <td class="sorting_1"> {{ user.vendedor.first_name }}</td>
-					      <td>{{ user.vendedor.last_name }}</td>
-					      <td>{{ user.corredor.first_name }} {{ user.corredor.last_name }}</td>
-					      <td><span class="pull-right badge bg-orange">100</span></td>
-					      <td><span class="pull-right badge bg-blue">100</span></td>
-					      <td><span class="pull-right badge bg-green">100</span></td>
-					      <td><span class="pull-right badge bg-red">100</span></td>
+					      <td class="sorting_1"> {{ user.0.vendedor.first_name }}</td>
+					      <td>{{ user.0.vendedor.last_name }}</td>
+					      <td>{{ user.0.corredor.first_name }} {{ user.corredor.last_name }}</td>
+					      <td><span class="pull-right badge bg-black">{{ user.1 }}</span></td>
+					      <td><a href="{% url 'cotizaciones-specific' 0 user.0.vendedor.pk %}"><span class="pull-right badge bg-orange">{{ user.2 }}</span></a></td>
+					      <td><a href="{% url 'cotizaciones-specific' 1 user.0.vendedor.pk %}"><span class="pull-right badge bg-blue">{{ user.3 }}</span></a></td>
+					      <td><a href="{% url 'cotizaciones-specific' 2 user.0.vendedor.pk %}"><span class="pull-right badge bg-green">{{ user.4 }}</span></a></td>
+					      <td><a href="{% url 'cotizaciones-specific' 3 user.0.vendedor.pk %}"><span class="pull-right badge bg-red">{{ user.5 }}</span></a></td>
 					    </tr>
 			    	{% endif %}
 			    {% endfor %}</tbody>
 			    <tfoot>
-			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Corredor Asociado</th><th rowspan="1" colspan="1">Cotizaciones Enviadas</th><th rowspan="1" colspan="1">Cotizaciones Guardadas</th><th rowspan="1" colspan="1">Cotizaciones Aceptadas</th><th rowspan="1" colspan="1">Cotizaciones Rechazadas</th>
+			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Corredor Asociado</th><th rowspan="1" colspan="1">Cotizaciones</th><th rowspan="1" colspan="1">Cotizaciones Enviadas</th><th rowspan="1" colspan="1">Cotizaciones Guardadas</th><th rowspan="1" colspan="1">Cotizaciones Aceptadas</th><th rowspan="1" colspan="1">Cotizaciones Rechazadas</th>
 			    </tr>
 			    </tfoot>
 			  </table>
@@ -143,6 +171,7 @@
 		$(function () {
 			$("#example1").DataTable();
 			$("#example2").DataTable();
+			$("#example3").DataTable();
 		});
 	});
 </script>

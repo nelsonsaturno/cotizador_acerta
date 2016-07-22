@@ -28,7 +28,7 @@ urlpatterns = patterns(
         DashboardView.as_view(),
         name='dashboard'),
     url(
-        r'^cotizaciones/(?P<status>\d+)/$',
+        r'^cotizaciones/(?P<status>\d+)/(?P<pk>\d+)/$',
         CotizacionesSpecificDetailView.as_view(),
         name='cotizaciones-specific'),
 )

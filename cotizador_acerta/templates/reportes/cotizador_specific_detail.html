@@ -11,7 +11,7 @@
 
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
-{% block title %}<title>Mis Cotizaciones</title>{% endblock title %}
+{% block title %}<title>Cotizaciones</title>{% endblock title %}
 {% block extracss %}
 <link href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}" rel="stylesheet">
 <style type="text/css">
@@ -94,7 +94,13 @@
   <div class="col-xs-12" style="padding-right: 2%;">
     <div class="box box-default color-palette-box">
       <div class="box-header">
-        <h3 class="box-title">Mis Cotizaciones {{status}}s </h3>
+        {% if propia == 'si' %}
+          <h3 class="box-title">Mis Cotizaciones {{status}}s </h3>
+        {% else %}
+          {{propia}}
+          <h3 class="box-title">Cotizaciones {{status}}s de Corredor/Vendedor</h3>
+          
+        {% endif %}
       </div>
       <div class="box-body">
         <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">

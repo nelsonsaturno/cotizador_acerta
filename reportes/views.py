@@ -95,21 +95,61 @@ class DashboardView(LoginRequiredMixin,
     def get(self, request, *args, **kwargs):
         user = User.objects.get(pk=request.user.pk)
         context = self.get_context_data(**kwargs)
+        corredorCot = []
+        vendedorCot = []
+        # (Cotizaciones, Enviadas, Guardadas, Aprobadas, Rechazadas)
+        numCot = [0, 0, 0, 0, 0]
+        # Corredor view.
         if request.user.groups.first().name == 'corredor':
-            vendedor = CorredorVendedor.objects.filter(vendedor=user)
+            vendedor = CorredorVendedor.objects.filter(corredor=user)
             if len(vendedor) == 0:
                 return page_not_found(request)
             if vendedor[0].corredor.pk != request.user.pk:
                 return page_not_found(request)
+            vendedores = CorredorVendedor.objects.filter(corredor=user)
+            # Find out the seller's cotizations
+            for vendedor in vendedores:
+                cotizaciones = Cotizacion.objects.filter(
+                    corredor=vendedor.user, is_active=True)
+                numCot[0] += len(cotizaciones)
+                cotizaciones1 = cotizaciones.filter(status='Enviada')
+                numCot[1] += len(cotizaciones1)
+                cotizaciones2 = cotizaciones.filter(status='Guardada')
+                numCot[2] += len(cotizaciones2)
+                cotizaciones3 = cotizaciones.filter(status='Aprobada')
+                numCot[3] += len(cotizaciones3)
+                cotizaciones4 = cotizaciones.filter(status='Rechazada')
+                numCot[4] += len(cotizaciones4)
+                vendedorCot.append([vendedor,
+                                    len(cotizaciones),
+                                    len(cotizaciones1),
+                                    len(cotizaciones2),
+                                    len(cotizaciones3),
+                                    len(cotizaciones4)])
+            context['vendedores'] = vendedorCot
+        # Admin view
         elif request.user.groups.first().name == 'super_admin':
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
                 cotizaciones = Cotizacion.objects.filter(
                     corredor=corredor.user, is_active=True)
-                context[corredor.user.username] = len(cotizaciones)
-            context['corredores'] = corredores
-            vendedores = CorredorVendedor.objects.all()
-            context['vendedores'] = vendedores
+                numCot[0] += len(cotizaciones)
+                cotizaciones1 = cotizaciones.filter(status='Enviada')
+                numCot[1] += len(cotizaciones1)
+                cotizaciones2 = cotizaciones.filter(status='Guardada')
+                numCot[2] += len(cotizaciones2)
+                cotizaciones3 = cotizaciones.filter(status='Aprobada')
+                numCot[3] += len(cotizaciones3)
+                cotizaciones4 = cotizaciones.filter(status='Rechazada')
+                numCot[4] += len(cotizaciones4)
+                corredorCot.append([corredor,
+                                    len(cotizaciones),
+                                    len(cotizaciones1),
+                                    len(cotizaciones2),
+                                    len(cotizaciones3),
+                                    len(cotizaciones4)])
+            context['corredores'] = corredorCot
+        #Session User.
         context['usuario'] = user
         if user.groups.first().name == 'corredor':
             context['corredor'] = DatosCorredor.objects.get(user=user)
@@ -118,13 +158,18 @@ class DashboardView(LoginRequiredMixin,
         guardadas = Cotizacion.objects.filter(corredor=user, is_active=True, status='Guardada')
         aceptadas = Cotizacion.objects.filter(corredor=user, is_active=True, status='Aprobada')
         rechazadas = Cotizacion.objects.filter(corredor=user, is_active=True, status='Rechazada')
-        num_cot = len(cotizaciones)
+        num_cot = len(cotizaciones) + numCot[0]
         context['cotizaciones'] = cotizaciones
+        context['cot'] = len(cotizaciones)
+        context['cot_env'] = len(enviadas)
+        context['cot_guard'] = len(guardadas)
+        context['cot_apr'] = len(aceptadas)
+        context['cot_rch'] = len(rechazadas)
         context['num_cot'] = num_cot
-        context['num_cot_env'] = len(enviadas)
-        context['num_cot_guard'] = len(guardadas)
-        context['num_cot_apr'] = len(aceptadas)
-        context['num_cot_rch'] = len(rechazadas)
+        context['num_cot_env'] = len(enviadas) + numCot[1]
+        context['num_cot_guard'] = len(guardadas) + numCot[2]
+        context['num_cot_apr'] = len(aceptadas) + numCot[3]
+        context['num_cot_rch'] = len(rechazadas) + numCot[4]
         return self.render_to_response(context)
 
 
@@ -134,7 +179,7 @@ class CotizacionesSpecificDetailView(LoginRequiredMixin,
     form_class = DateCotizationForm
 
     def get(self, request, *args, **kwargs):
-        user = User.objects.get(pk=request.user.pk)
+        user = User.objects.get(pk=kwargs['pk'])
         context = self.get_context_data(**kwargs)
         if kwargs['status'] == '0':
             status = 'Enviada'
@@ -152,14 +197,17 @@ class CotizacionesSpecificDetailView(LoginRequiredMixin,
             corredor=user, status=status,
             is_active=True, created_at__lte=end,
             created_at__gte=start)
-        print cotizaciones
+        if int(kwargs['pk']) == int(request.user.pk):
+            context['propia'] = 'si'
+        else:
+            context['propia'] = 'no'
         context['cotizaciones'] = cotizaciones
         context['status'] = status
         context['form'] = DateCotizationForm()
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
-        user = User.objects.get(pk=request.user.pk)
+        user = User.objects.get(pk=kwargs['pk'])
         context = self.get_context_data(**kwargs)
         form = DateCotizationForm(request.POST)
         if kwargs['status'] == '0':
@@ -180,6 +228,10 @@ class CotizacionesSpecificDetailView(LoginRequiredMixin,
             corredor=user, status=status,
             is_active=True, created_at__lte=end,
             created_at__gte=start)
+        if int(kwargs['pk']) == int(request.user.pk):
+            context['propia'] = 'si'
+        else:
+            context['propia'] = 'no'
         context['cotizaciones'] = cotizaciones
         context['status'] = status
         context['form'] = form
