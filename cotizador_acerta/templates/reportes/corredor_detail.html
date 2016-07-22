@@ -56,6 +56,7 @@
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Apellido: activate to sort column ascending" style="width: 224px;">Marca</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Correo: activate to sort column ascending" style="width: 198px;">Modelo</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Detalles: activate to sort column ascending" style="width: 112px;">Total</th>
+				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Detalles: activate to sort column ascending" style="width: 112px;">Status</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Detalles: activate to sort column ascending" style="width: 112px;">Detalles</th>
 			    </tr>
 			    </thead>
@@ -66,12 +67,19 @@
 				      <td>{{ cotizacion.conductor.marca.nombre }}</td>
 				      <td>{{ cotizacion.conductor.modelo.nombre }}</td>
 				      <td> B/. {{ cotizacion.total }}</td>
+				      {% if cotizacion.status == 'Enviada' or cotizacion.status == 'Guardada' %}
+				      	<td><span class="badge bg-orange">{{ cotizacion.status }}</span></td>
+					  {% elif cotizacion.status == 'Aprobada' %}
+				      	<td><span class="badge bg-green">{{ cotizacion.status }}</span></td>
+					  {% else %}
+				      	<td><span class="pullbadge bg-red">{{ cotizacion.status }}</span></td>
+				      {% endif %}
 				      <td><a href="{% url 'cotizaciones_details' cotizacion.pk %}">Ver</a></td>
 				    </tr>
 			    {% endfor %}
 			    </tbody>
 			    <tfoot>
-			    <tr><th rowspan="1" colspan="1">Conductor</th><th rowspan="1" colspan="1">Marca</th><th rowspan="1" colspan="1">Modelo</th><th rowspan="1" colspan="1">Total</th><th rowspan="1" colspan="1">Detalles</th>
+			    <tr><th rowspan="1" colspan="1">Conductor</th><th rowspan="1" colspan="1">Marca</th><th rowspan="1" colspan="1">Modelo</th><th rowspan="1" colspan="1">Total</th><th rowspan="1" colspan="1">Status</th<th rowspan="1" colspan="1">Detalles</th>
 			    </tr>
 			    </tfoot>
 			  </table>
