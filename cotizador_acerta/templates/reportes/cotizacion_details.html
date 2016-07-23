@@ -27,12 +27,22 @@
 {% endblock extracss %}
 
 {% block titulo %}
-    <h1>
+    <h1 class="col-md-8">
         COTIZACIÓN
+    </h1>
+    <h1 class="col-md-4">
+    {% if cotizacion.status == 'Aprobada' %}
+      <span class="pullbadge bg-green col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
+    {% elif cotizacion.status == 'Rechazada' %}
+      <span class="pullbadge bg-red" style="text-align: center;">{{cotizacion.status}}</span>
+    {% else %}
+      <span class="pullbadge bg-orange col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
+    {% endif %}
     </h1>
 {% endblock titulo %}
 
 {% block content %}
+<br>
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">

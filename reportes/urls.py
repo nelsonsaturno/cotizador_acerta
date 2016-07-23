@@ -31,4 +31,8 @@ urlpatterns = patterns(
         r'^cotizaciones/(?P<status>\d+)/(?P<pk>\d+)/$',
         CotizacionesSpecificDetailView.as_view(),
         name='cotizaciones-specific'),
+    url(
+        r'^cotizaciones/general/(?P<status>\d+)/(?P<pk>\d+)/$',
+        CotizacionesGeneralDetailView.as_view(),
+        name='cotizaciones-general'),
 )

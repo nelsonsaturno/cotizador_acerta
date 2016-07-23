@@ -47,6 +47,7 @@
 
               sideMenu = new SideMenu([
                 new SMLinkItem("Registrar Vendedor", "{% url 'register'%}"),
+                new SMLinkItem("Administrador", "{% url 'dashboard'%}"),
                 new SMLinkItem("Mis Vendedores", "{% url 'vendedor_list'%}"),
                 new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}"),
                 new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"),
@@ -59,6 +60,7 @@
           if (group == "vendedor") {
 
               sideMenu = new SideMenu([
+                new SMLinkItem("Administrador", "{% url 'dashboard'%}"),
                 new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}"),
                 new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"),
                 new SMButtonItem("Cerrar", function (e) {
@@ -171,6 +173,9 @@
                       <a href="{% url 'register'%}">Registrar Vendedor</a>
                   </li>
                   <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="{% url 'dashboard' %}">Administrador</a>
+                  </li>
                   <li style="float: right;">
                       <a href="{% url 'vendedor_list' %}">Mis Vendedores</a>
                   </li>

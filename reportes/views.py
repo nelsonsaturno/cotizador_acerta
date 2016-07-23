@@ -88,8 +88,7 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
         return self.render_to_response(context)
 
 
-class DashboardView(LoginRequiredMixin,
-                    DetailRequiredMixin, TemplateView):
+class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'reportes/dashboard.html'
 
     def get(self, request, *args, **kwargs):
@@ -110,7 +109,7 @@ class DashboardView(LoginRequiredMixin,
             # Find out the seller's cotizations
             for vendedor in vendedores:
                 cotizaciones = Cotizacion.objects.filter(
-                    corredor=vendedor.user, is_active=True)
+                    corredor=vendedor.vendedor, is_active=True)
                 numCot[0] += len(cotizaciones)
                 cotizaciones1 = cotizaciones.filter(status='Enviada')
                 numCot[1] += len(cotizaciones1)
@@ -173,8 +172,7 @@ class DashboardView(LoginRequiredMixin,
         return self.render_to_response(context)
 
 
-class CotizacionesSpecificDetailView(LoginRequiredMixin,
-                                     DetailRequiredMixin, TemplateView):
+class CotizacionesSpecificDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'reportes/cotizador_specific_detail.html'
     form_class = DateCotizationForm
 
@@ -187,13 +185,19 @@ class CotizacionesSpecificDetailView(LoginRequiredMixin,
             status = 'Guardada'
         elif kwargs['status'] == '2':
             status = 'Aprobada'
-        else:
+        elif kwargs['status'] == '3':
             status = 'Rechazada'
+        else:
+            status = 'all'
         start = datetime.date.today() - timedelta(days=30)
         end = datetime.date.today()
-        print start
-        print end
-        cotizaciones = Cotizacion.objects.filter(
+        if status == 'all':
+            cotizaciones = Cotizacion.objects.filter(
+            corredor=user,
+            is_active=True, created_at__lte=end,
+            created_at__gte=start)
+        else:
+            cotizaciones = Cotizacion.objects.filter(
             corredor=user, status=status,
             is_active=True, created_at__lte=end,
             created_at__gte=start)
@@ -216,15 +220,23 @@ class CotizacionesSpecificDetailView(LoginRequiredMixin,
             status = 'Guardada'
         elif kwargs['status'] == '2':
             status = 'Aprobada'
-        else:
+        elif kwargs['status'] == '3':
             status = 'Rechazada'
+        else:
+            status = 'all'
         if form.is_valid():
             start = form.cleaned_data['start_date']
             end = form.cleaned_data['end_date']
         else:
             start = date.today() - timedelta(days=30)
             end = date.today()
-        cotizaciones = Cotizacion.objects.filter(
+        if status == 'all':
+            cotizaciones = Cotizacion.objects.filter(
+            corredor=user,
+            is_active=True, created_at__lte=end,
+            created_at__gte=start)
+        else:
+            cotizaciones = Cotizacion.objects.filter(
             corredor=user, status=status,
             is_active=True, created_at__lte=end,
             created_at__gte=start)
@@ -232,6 +244,136 @@ class CotizacionesSpecificDetailView(LoginRequiredMixin,
             context['propia'] = 'si'
         else:
             context['propia'] = 'no'
+        context['cotizaciones'] = cotizaciones
+        context['status'] = status
+        context['form'] = form
+        if request.POST['start_date'] == '':
+            form.add_error(
+                None, "El campo de fecha de inicio es requerido.")
+        if request.POST['end_date'] == '':
+            form.add_error(
+                None, "El campo de fecha final es requerido.")
+        return render(request, self.template_name, context)
+
+
+class CotizacionesGeneralDetailView(LoginRequiredMixin, TemplateView):
+    template_name = 'reportes/cotizador_general_detail.html'
+    form_class = DateCotizationForm
+
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(pk=kwargs['pk'])
+        context = self.get_context_data(**kwargs)
+        cotizaciones = []
+        if kwargs['status'] == '0':
+            status = 'Enviada'
+        elif kwargs['status'] == '1':
+            status = 'Guardada'
+        elif kwargs['status'] == '2':
+            status = 'Aprobada'
+        elif kwargs['status'] == '3':
+            status = 'Rechazada'
+        else:
+            status = 'all'
+        start = datetime.date.today() - timedelta(days=30)
+        end = datetime.date.today()
+        if request.user.groups.first().name == 'super_admin':
+            corredores = DatosCorredor.objects.all()
+            for corredor in corredores:
+                if status == 'all':
+                    cotizaciones += Cotizacion.objects.filter(
+                    corredor=corredor.user,
+                    is_active=True, created_at__lte=end,
+                    created_at__gte=start)
+                else:
+                    cotizaciones += Cotizacion.objects.filter(
+                    corredor=corredor.user, status=status,
+                    is_active=True, created_at__lte=end,
+                    created_at__gte=start)
+        elif request.user.groups.first().name == 'corredor':
+            vendedores = CorredorVendedor.objects.filter(corredor=user)
+            for vendedor in vendedores:
+                if status == 'all':
+                    cotizaciones += Cotizacion.objects.filter(
+                    corredor=vendedor.vendedor,
+                    is_active=True, created_at__lte=end,
+                    created_at__gte=start)
+                else:
+                    cotizaciones += Cotizacion.objects.filter(
+                    corredor=vendedor.vendedor, status=status,
+                    is_active=True, created_at__lte=end,
+                    created_at__gte=start)
+        if status == 'all':
+            cotizaciones += Cotizacion.objects.filter(
+            corredor=user,
+            is_active=True, created_at__lte=end,
+            created_at__gte=start)
+        else:
+            cotizaciones += Cotizacion.objects.filter(
+            corredor=user, status=status,
+            is_active=True, created_at__lte=end,
+            created_at__gte=start)
+        context['cotizaciones'] = cotizaciones
+        context['status'] = status
+        context['form'] = DateCotizationForm()
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(pk=kwargs['pk'])
+        context = self.get_context_data(**kwargs)
+        cotizaciones = []
+        form = DateCotizationForm(request.POST)
+        if kwargs['status'] == '0':
+            status = 'Enviada'
+        elif kwargs['status'] == '1':
+            status = 'Guardada'
+        elif kwargs['status'] == '2':
+            status = 'Aprobada'
+        elif kwargs['status'] == '3':
+            status = 'Rechazada'
+        else:
+            status = 'all'
+        if form.is_valid():
+            start = form.cleaned_data['start_date']
+            end = form.cleaned_data['end_date']
+        else:
+            start = date.today() - timedelta(days=30)
+            end = date.today()
+        if request.user.groups.first().name == 'super_admin':
+            corredores = DatosCorredor.objects.all()
+            for corredor in corredores:
+                if status == 'all':
+                    cotizaciones += Cotizacion.objects.filter(
+                    corredor=corredor.user,
+                    is_active=True, created_at__lte=end,
+                    created_at__gte=start)
+                else:
+                    cotizaciones += Cotizacion.objects.filter(
+                    corredor=corredor.user, status=status,
+                    is_active=True, created_at__lte=end,
+                    created_at__gte=start)
+        elif request.user.groups.first().name == 'corredor':
+            vendedores = CorredorVendedor.objects.filter(corredor=user)
+            for vendedor in vendedores:
+                if status == 'all':
+                    cotizaciones += Cotizacion.objects.filter(
+                    corredor=vendedor.vendedor,
+                    is_active=True, created_at__lte=end,
+                    created_at__gte=start)
+                else:
+                    cotizaciones += Cotizacion.objects.filter(
+                    corredor=vendedor.vendedor, status=status,
+                    is_active=True, created_at__lte=end,
+                    created_at__gte=start)
+        if status == 'all':
+            cotizaciones += Cotizacion.objects.filter(
+            corredor=user,
+            is_active=True, created_at__lte=end,
+            created_at__gte=start)
+        else:
+            cotizaciones += Cotizacion.objects.filter(
+            corredor=user, status=status,
+            is_active=True, created_at__lte=end,
+            created_at__gte=start)
         context['cotizaciones'] = cotizaciones
         context['status'] = status
         context['form'] = form

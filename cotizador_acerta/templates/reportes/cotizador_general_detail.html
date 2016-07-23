@@ -95,19 +95,9 @@
     <div class="box box-default color-palette-box">
       <div class="box-header">
         {% if status != 'all' %}
-          {% if propia == 'si' %}
-            <h3 class="box-title">Mis Cotizaciones {{status}}s </h3>
-          {% else %}
-            <h3 class="box-title">Cotizaciones {{status}}s de Corredor/Vendedor</h3>
-            
-          {% endif %}
+            <h3 class="box-title">Cotizaciones {{status}}s </h3>
         {% else %}
-          {% if propia == 'si' %}
-            <h3 class="box-title">Mis Cotizaciones</h3>
-          {% else %}
-            <h3 class="box-title">Cotizaciones de Corredor/Vendedor</h3>
-            
-          {% endif %}
+            <h3 class="box-title">Cotizaciones</h3>
         {% endif %}
       </div>
       <div class="box-body">
@@ -137,33 +127,6 @@
                   <td><span class="pullbadge bg-red">{{ cotizacion.status }}</span></td>
               {% endif %}
               <td><a href="{% url 'cotizaciones_details' cotizacion.pk %}">Ver</a></td>
-              {% if propia == 'si' %}
-              <td>
-            <div class="btn-group">
-                      {% if cotizacion.status == 'Rechazada' or cotizacion.status == 'Aprobada' %}
-                          <button type="button" class="disabled btn btn-default">Acción</button>
-                        <button type="button" class="disabled btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                      {% else %}
-                          <button type="button" class="btn btn-default">Acción</button>
-                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                      {% endif %}
-                      <ul class="dropdown-menu" role="menu">
-                        {% if cotizacion.status == 'Guardada'%}
-                        <li><a href="#"><i class="fa fa-send">  Enviar</i></a></li>
-                        <li class="divider"></li>
-                        {% endif %}
-                        <li><a href="#"><i class="fa fa-check-circle" style="color: green;">  Aprobar</i></a></li>
-                        <li><a href="#"><i class="fa fa-times-circle" style="color: red;">  Rechazar</i></a></li>
-                      </ul>
-                    </div>
-              </td>
-              {% endif %}
             </tr>
           {% endfor %}
           </tbody>

@@ -41,11 +41,11 @@
 						<li><a href="#">Licencia <span class="pull-right badge bg-blue">{{corredor.licencia}}</spana></a></li>
 					{% endif %}
 					<li><a href="#">Correo <span class="pull-right badge bg-blue">{{usuario.email}}</span></a></li>
-					<li><a href="#">Cotizaciones <span class="pull-right badge bg-black">{{ num_cot }}</span></a></li>
-					<li><a href="#">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot_env }}</span></a></li>
-					<li><a href="#">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot_guard }}</span></a></li>
-					<li><a href="#">Cotizaciones Aceptadas<span class="pull-right badge bg-green">{{ num_cot_apr }}</span></a></li>
-					<li><a href="#">Cotizaciones Rechazadas<span class="pull-right badge bg-red">{{ num_cot_rch }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-general' 4 usuario.pk %}">Cotizaciones <span class="pull-right badge bg-black">{{ num_cot }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-general' 0 usuario.pk %}">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot_env }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-general' 1 usuario.pk %}">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot_guard }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-general' 2 usuario.pk %}">Cotizaciones Aceptadas<span class="pull-right badge bg-green">{{ num_cot_apr }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-general' 3 usuario.pk %}">Cotizaciones Rechazadas<span class="pull-right badge bg-red">{{ num_cot_rch }}</span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -101,7 +101,7 @@
 			    	<tr role="row">
 				      <td class="sorting_1"> {{ user.0.user.first_name }}</td>
 				      <td>{{ user.0.user.last_name }}</td>
-				      <td><span class="pull-right badge bg-black">{{ user.1 }}</span></td>
+				      <td><a href="{% url 'cotizaciones-specific' 4 user.0.user.pk %}"><span class="pull-right badge bg-black">{{ user.1 }}</span></a></td>
 				      <td><a href="{% url 'cotizaciones-specific' 0 user.0.user.pk %}"><span class="pull-right badge bg-orange">{{ user.2 }}</span></a></td>
 				      <td><a href="{% url 'cotizaciones-specific' 1 user.0.user.pk %}"><span class="pull-right badge bg-blue">{{ user.3 }}</span></a></td>
 				      <td><a href="{% url 'cotizaciones-specific' 2 user.0.user.pk %}"><span class="pull-right badge bg-green">{{ user.4 }}</span></a></td>
@@ -145,7 +145,7 @@
 					      <td class="sorting_1"> {{ user.0.vendedor.first_name }}</td>
 					      <td>{{ user.0.vendedor.last_name }}</td>
 					      <td>{{ user.0.corredor.first_name }} {{ user.corredor.last_name }}</td>
-					      <td><span class="pull-right badge bg-black">{{ user.1 }}</span></td>
+					      <td><a href="{% url 'cotizaciones-specific' 4 user.0.vendedor.pk %}"><span class="pull-right badge bg-black">{{ user.1 }}</span></a></td>
 					      <td><a href="{% url 'cotizaciones-specific' 0 user.0.vendedor.pk %}"><span class="pull-right badge bg-orange">{{ user.2 }}</span></a></td>
 					      <td><a href="{% url 'cotizaciones-specific' 1 user.0.vendedor.pk %}"><span class="pull-right badge bg-blue">{{ user.3 }}</span></a></td>
 					      <td><a href="{% url 'cotizaciones-specific' 2 user.0.vendedor.pk %}"><span class="pull-right badge bg-green">{{ user.4 }}</span></a></td>
