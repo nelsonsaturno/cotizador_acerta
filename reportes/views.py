@@ -88,7 +88,7 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
         return self.render_to_response(context)
 
 
-class DashboardView(LoginRequiredMixin, DetailRequiredMixin, TemplateView):
+class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'reportes/dashboard.html'
 
     def get(self, request, *args, **kwargs):
@@ -101,7 +101,7 @@ class DashboardView(LoginRequiredMixin, DetailRequiredMixin, TemplateView):
         # Corredor view.
         if request.user.groups.first().name == 'corredor':
             vendedores = CorredorVendedor.objects.filter(corredor=user)
-            for vend in vendedor:
+            for vend in vendedores:
                 if vend.corredor.pk != request.user.pk:
                     return page_not_found(request)
             # Find out the seller's cotizations
