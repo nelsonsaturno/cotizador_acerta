@@ -15,28 +15,6 @@ class LoginRequiredMixin(object):
             LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
-# class AdminRequiredMixin(object):
-#     @method_decorator(login_required(login_url=LOGIN_URL))
-#     def dispatch(self, request, *args, **kwargs):
-#         if request.user.is_authenticated():
-#             user = request.user
-#             if hasattr(self, 'group'):
-#                 if 'super_admin' in self.group:
-#                     all_admins = [
-#                         'super_admin', 'admin_customer',
-#                         'admin_mail', 'admin_order'
-#                     ]
-#                     groups = user.groups.filter(name__in=all_admins)
-#                 else:
-#                     groups = user.groups.filter(name__in=self.group)
-
-#                 if not groups:
-#                     return page_not_found(request)
-
-#         return super(
-#             GroupRequiredMixin, self).dispatch(request, *args, **kwargs)
-
-
 class AdminRequiredMixin(object):
     @method_decorator(login_required(login_url=LOGIN_URL))
     def dispatch(self, request, *args, **kwargs):
