@@ -5,7 +5,7 @@ urlpatterns = patterns(
     '',
     url(
         r'^password/reset/$',
-        'django.contrib.auth.views.password_reset',
+        'darientSessions.views.password_reset',
         {
             'post_reset_redirect': 'password_reset_done',
             'template_name': 'registrations/password_reset_form.html',
