@@ -2,6 +2,40 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from administrador.models import *
+from cotizar.models import Modelo, Marca
+
+
+class ModeloForm(forms.ModelForm):
+
+    class Meta:
+        model = Modelo
+        exclude = []
+
+        labels = {
+            'marca': 'Marca',
+            'nombre': 'Nombre del modelo',
+            'descuento': 'Descuento',
+            'recargo': 'Recargo',
+        }
+
+    def save(self, commit=True):
+        modelo = super(ModeloForm, self).save()
+        return modelo
+
+
+class MarcaForm(forms.ModelForm):
+
+    class Meta:
+        model = Marca
+        exclude = []
+
+        labels = {
+            'nombre': 'Nombre de la marca',
+        }
+
+    def save(self, commit=True):
+        marca = super(MarcaForm, self).save()
+        return marca
 
 
 class SexoForm(forms.ModelForm):

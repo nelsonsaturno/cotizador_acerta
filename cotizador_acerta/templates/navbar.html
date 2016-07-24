@@ -143,43 +143,36 @@
         </li>
           <li style="float: right;">
               <a id="actions" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones &nbsp;<span class="caret"></span></a>
-              <ul class="dropdown-menu" style="position: absolute;">
+              <ul class="dropdown-menu pull-right" style="position: absolute;">
                 {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
                   <li style="float: right;">
                     <a href="{% url 'register'%}">Registrar Corredor</a>
                   </li>
-                  <li role="separator" class="divider"></li>
                   <li style="float: right;">
                     <a href="{% url 'dashboard' %}">Administrador</a>
                   </li>
-                  <li role="separator" class="divider"></li>
                   <li>
                     <a href="{% url 'corredor-vendedor-list' %}">Corredores y Vendedores</a>
                   </li>
-                  <li role="separator" class="divider" style="float: right;"></li>
                 {% endif %}
                 {% if user.is_authenticated and user.groups.all.0.name == 'admin' %}
                   <li style="float: right;">
                     <a href="{% url 'register'%}">Registrar Corredor</a>
                   </li>
-                  <li role="separator" class="divider"></li>
                   <li style="float: right;">
                     <a href="{% url 'corredor-vendedor-list' %}">Corredores y Vendedores</a>
                   </li>
-                  <li role="separator" class="divider"></li>
                 {% endif %}
                 {% if user.is_authenticated and user.groups.all.0.name == 'corredor'  %}
                   <li style="float: right;">
                       <a href="{% url 'register'%}">Registrar Vendedor</a>
                   </li>
-                  <li role="separator" class="divider"></li>
                   <li style="float: right;">
                     <a href="{% url 'dashboard' %}">Dashboard</a>
                   </li>
                   <li style="float: right;">
                       <a href="{% url 'vendedor_list' %}">Mis Vendedores</a>
                   </li>
-                  <li role="separator" class="divider"></li>
                 {% endif %}
                 {% if user.is_authenticated and user.groups.all.0.name == 'vendedor'  %}
                   <li style="float: right;">
@@ -211,3 +204,9 @@
 </div>
 </header>
 <div id="menu" class="sm-main"></div>
+<style type="text/css">
+  .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+      background-color: #eee;
+      border-color: #E76C42;
+  }
+</style>

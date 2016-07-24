@@ -7,10 +7,83 @@ from django.views import generic
 from administrador.forms import *
 from cotizador_acerta.views_mixins import *
 from administrador.models import *
+from cotizar.models import Modelo, Marca
 
 
 class Factores(LoginRequiredMixin, AdminRequiredMixin, generic.TemplateView):
     template_name = "administrador/dashboard.html"
+
+
+class ListMarca(LoginRequiredMixin, AdminRequiredMixin, generic.ListView):
+    template_name = "administrador/list_marca.html"
+    model = Marca
+    context_object_name = 'marcas'
+
+
+class AdminMarca(LoginRequiredMixin, AdminRequiredMixin, generic.UpdateView):
+    template_name = "administrador/modelo_form.html"
+    model = Marca
+    form_class = MarcaForm
+    context_object_name = "marca"
+    success_url = 'list_marca'
+
+    def form_valid(self, form):
+        """
+        If the form is valid, redirect to the supplied URL.
+        """
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse_lazy(self.success_url)
+
+
+class ListModelo(LoginRequiredMixin, AdminRequiredMixin, generic.ListView):
+    template_name = "administrador/list_modelo.html"
+    model = Modelo
+    context_object_name = 'model'
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        allow_empty = self.get_allow_empty()
+        if not allow_empty:
+            # When pagination is enabled and object_list is a queryset,
+            # it's better to do a cheap query than to load the unpaginated
+            # queryset in memory.
+            if (self.get_paginate_by(self.object_list) is not None and
+               hasattr(self.object_list, 'exists')):
+                is_empty = not self.object_list.exists()
+            else:
+                is_empty = len(self.object_list) == 0
+            if is_empty:
+                raise Http404(
+                    _("Empty list and '%(class_name)s.allow_empty' is False.")
+                    % {'class_name': self.__class__.__name__})
+        context = self.get_context_data()
+        marca = Marca.objects.get(pk=kwargs['pk'])
+        modelos = Modelo.objects.filter(marca=marca)
+        context['modelos'] = modelos
+        context['marca'] = marca
+        return self.render_to_response(context)
+
+
+class AdminModelo(LoginRequiredMixin, AdminRequiredMixin, generic.UpdateView):
+    template_name = "administrador/modelo_form.html"
+    model = Modelo
+    form_class = ModeloForm
+    context_object_name = "modelo"
+    success_url = 'list_modelo'
+
+    def form_valid(self, form):
+        """
+        If the form is valid, redirect to the supplied URL.
+        """
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse_lazy(
+            self.success_url, kwargs={'pk': self.object.marca.pk})
 
 
 class ListSexo(LoginRequiredMixin, AdminRequiredMixin, generic.ListView):

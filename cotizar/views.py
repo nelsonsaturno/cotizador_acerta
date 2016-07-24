@@ -13,6 +13,7 @@ from django.template import Context
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.views.defaults import page_not_found
+from django.contrib.humanize.templatetags.humanize import *
 import json
 
 
@@ -803,8 +804,51 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 to_corredor = [request.user.email]
                 from_email = request.user.email
 
+                valor_vehiculo = intcomma(
+                    float("{0:.2f}".format(cotizacion.conductor.valor)))
+                prima_lesiones = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_lesiones)))
+                prima_daniosProp = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_daniosProp)))
+                prima_gastosMedicos = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_gastosMedicos)))
+                colision_vuelco = intcomma(
+                    float("{0:.2f}".format(cotizacion.colision_vuelco)))
+                prima_colisionVuelco = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_colisionVuelco)))
+                otros_danios = intcomma(
+                    float("{0:.2f}".format(cotizacion.otros_danios)))
+                prima_otrosDanios = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_otrosDanios)))
+                incendio_rayo = intcomma(
+                    float("{0:.2f}".format(cotizacion.incendio_rayo)))
+                robo_hurto = intcomma(
+                    float("{0:.2f}".format(cotizacion.robo_hurto)))
+                prima_importacion = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_importacion)))
+                subtotal = intcomma(
+                    float("{0:.2f}".format(cotizacion.subtotal)))
+                impuestos = intcomma(
+                    float("{0:.2f}".format(cotizacion.impuestos)))
+                total = intcomma(
+                    float("{0:.2f}".format(cotizacion.total)))
+
                 ctx = {
                     'cotizacion': cotizacion,
+                    'valor_vehiculo': valor_vehiculo,
+                    'prima_lesiones': prima_lesiones,
+                    'prima_daniosProp': prima_daniosProp,
+                    'prima_gastosMedicos': prima_gastosMedicos,
+                    'colision_vuelco': colision_vuelco,
+                    'prima_colisionVuelco': prima_colisionVuelco,
+                    'otros_danios': otros_danios,
+                    'prima_otrosDanios': prima_otrosDanios,
+                    'incendio_rayo': incendio_rayo,
+                    'robo_hurto': robo_hurto,
+                    'prima_importacion': prima_importacion,
+                    'subtotal': subtotal,
+                    'impuestos': impuestos,
+                    'total': total,
                 }
 
                 # Correo Cliente
