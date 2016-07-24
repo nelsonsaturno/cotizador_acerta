@@ -173,7 +173,7 @@
         <div class="row">
           <div class="col-xs-12 text-right">
           {% if cotizacion.corredor.pk == active_user.pk %}
-            {% if cotizacion.status == 'Guardada' %}
+            {% if cotizacion.status != 'Enviada' %}
               <a class="btn btn-lg calculate" href="{% url 'send' cotizacion.pk %}">Enviar</a>
             {% endif %}
             {% if cotizacion.status != 'Aprobada' and cotizacion.status != 'Rechazada' %}
