@@ -1001,7 +1001,7 @@
 
         $(document).click(function() {
             if($('#id_tipo_id_0').is(":checked")) {
-                $('#id_identificacion').mask('00-000-0000');
+                $('#id_identificacion').mask('00-000-0000', {placeholder: "00-000-0000"});
             } else {
                 $('#id_identificacion').unmask();
             }
