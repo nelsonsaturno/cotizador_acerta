@@ -21,7 +21,7 @@ class ListMarca(LoginRequiredMixin, AdminRequiredMixin, generic.ListView):
 
 
 class AdminMarca(LoginRequiredMixin, AdminRequiredMixin, generic.UpdateView):
-    template_name = "administrador/modelo_form.html"
+    template_name = "administrador/marca_form.html"
     model = Marca
     form_class = MarcaForm
     context_object_name = "marca"
