@@ -28,11 +28,11 @@ urlpatterns = patterns(
         DashboardView.as_view(),
         name='dashboard'),
     url(
-        r'^cotizaciones/(?P<status>\d+)/(?P<pk>\d+)/$',
+        r'^cotizaciones/(?P<status>\d+)/(?P<pk>\d+)/(?P<start>\d{4}-\d{2}-\d{2})/(?P<end>\d{4}-\d{2}-\d{2})/(?P<date>\d+)/$',
         CotizacionesSpecificDetailView.as_view(),
         name='cotizaciones-specific'),
     url(
-        r'^cotizaciones/general/(?P<status>\d+)/(?P<pk>\d+)/$',
+        r'^cotizaciones/general/(?P<status>\d+)/(?P<pk>\d+)/(?P<start>\d{4}-\d{2}-\d{2})/(?P<end>\d{4}-\d{2}-\d{2})/(?P<date>\d+)/$',
         CotizacionesGeneralDetailView.as_view(),
         name='cotizaciones-general'),
     url(r'^cotizacion/changeStatus/(?P<id>\d+)/(?P<status>\d+)/$',

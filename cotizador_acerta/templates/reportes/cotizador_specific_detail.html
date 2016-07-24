@@ -134,7 +134,7 @@
               {% elif cotizacion.status == 'Aprobada' %}
                   <td><span class="badge bg-green">{{ cotizacion.status }}</span></td>
               {% else %}
-                  <td><span class="pullbadge bg-red">{{ cotizacion.status }}</span></td>
+                  <td><span class="badge bg-red">{{ cotizacion.status }}</span></td>
               {% endif %}
               <td><a href="{% url 'cotizaciones_details' cotizacion.pk %}">Ver</a></td>
               {% if propia == 'si' %}
