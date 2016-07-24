@@ -358,42 +358,42 @@
 					                                <td>Lesiones Corporales</td>
 					                                <td>{{ cotizacion.lesiones_corporales }}</td>
 					                                <td></td>
-					                                <td>{{ cotizacion.prima_lesiones|floatformat:2 }}</td>
+					                                <td>{{ cotizacion.prima_lesiones|floatformat:2|intcomma }}</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Daños a la Propiedad Ajena</td>
 					                                <td>{{ cotizacion.danios_propiedad }}</td>
 					                                <td></td>
-					                                <td>{{ cotizacion.prima_daniosProp|floatformat:2 }}</td>
+					                                <td>{{ cotizacion.prima_daniosProp|floatformat:2|intcomma }}</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Gastos Médicos por Accidente</td>
 					                                <td>{{ cotizacion.gastos_medicos }}</td>
 					                                <td></td>
-					                                <td>{{ cotizacion.prima_gastosMedicos|floatformat:2 }}</td>
+					                                <td>{{ cotizacion.prima_gastosMedicos|floatformat:2|intcomma }}</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Colisión y Vuelco</td>
-					                                <td>Suma Asegurada</td>
-					                                <td>{{ cotizacion.colision_vuelco|floatformat:2 }}</td>
-					                                <td>{{ cotizacion.prima_colisionVuelco|floatformat:2 }}</td>
+					                                <td>{{ cotizacion.conductor.valor|floatformat:2|intcomma }}</td>
+					                                <td>{{ cotizacion.colision_vuelco|floatformat:2|intcomma }}</td>
+					                                <td>{{ cotizacion.prima_colisionVuelco|floatformat:2|intcomma }}</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Otros Daños</td>
-					                                <td>Suma Asegurada</td>
-					                                <td>{{ cotizacion.otros_danios|floatformat:2 }}</td>
-					                                <td>{{ cotizacion.prima_otrosDanios|floatformat:2 }}</td>
+					                                <td>{{ cotizacion.conductor.valor|floatformat:2|intcomma }}</td>
+					                                <td>{{ cotizacion.otros_danios|floatformat:2|intcomma }}</td>
+					                                <td>{{ cotizacion.prima_otrosDanios|floatformat:2|intcomma }}</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Incendio y Rayo</td>
-					                                <td>Suma Asegurada</td>
-					                                <td>{{ cotizacion.incendio_rayo|floatformat:2 }}</td>
+					                                <td>{{ cotizacion.conductor.valor|floatformat:2|intcomma }}</td>
+					                                <td>{{ cotizacion.incendio_rayo|floatformat:2|intcomma }}</td>
 					                                <td>-</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Robo y Hurto</td>
-					                                <td>Suma Asegurada</td>
-					                                <td>{{ cotizacion.robo_hurto|floatformat:2 }}</td>
+					                                <td>{{ cotizacion.conductor.valor|floatformat:2|intcomma }}</td>
+					                                <td>{{ cotizacion.robo_hurto|floatformat:2|intcomma }}</td>
 					                                <td>-</td>
 					                              </tr>
 					                              <tr>
@@ -413,7 +413,7 @@
 					                                {% if cotizacion.importacion_piezas%}
 					                                  <td>Incluido</td>
 					                                  <td></td>
-					                                  <td>{{ cotizacion.prima_importacion|floatformat:2 }}</td>
+					                                  <td>{{ cotizacion.prima_importacion|floatformat:2|intcomma }}</td>
 					                                {% else %}
 					                                  <td>No Incluido</td>
 					                                  <td></td>
@@ -424,17 +424,17 @@
 					                                <td>Acerta Preferencial Plus</td>
 					                                <td>Incluido</td>
 					                                <td></td>
-					                                <td>{{ cotizacion.prima_preferencialPlus|floatformat:2 }}</td>
+					                                <td>{{ cotizacion.prima_preferencialPlus|floatformat:2|intcomma }}</td>
 					                              </tr>
 					                            </table>
 					                            <div class="text-right">
 					                              <h5>A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
-					                              <h5>Subtotal: B/. {{ cotizacion.subtotal|floatformat:2 }}</h5>
-					                              <h5>Impuestos: B/. {{ cotizacion.impuestos|floatformat:2 }}</h5>
-					                              <h5>Total a Pagar: B/. {{ cotizacion.total|floatformat:2 }}</h5>
-					                              <h5>Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
-					                              <h5>Prima Pago de Contado: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</h5>
-					                              <h5>Prima Pago ACH/Visa: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }}</h5>
+					                              <h5>Subtotal: B/. {{ cotizacion.subtotal|floatformat:2|intcomma }}</h5>
+					                              <h5>Impuestos: B/. {{ cotizacion.impuestos|floatformat:2|intcomma }}</h5>
+					                              <h5>Total a Pagar: B/. {{ cotizacion.total|floatformat:2|intcomma }}</h5>
+					                              <h5>Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2|intcomma }}</h5>
+					                              <h5>Prima Pago de Contado: B/. {{ cotizacion.prima_pagoContado|floatformat:2|intcomma }}</h5>
+					                              <h5>Prima Pago ACH/Visa: B/. {{ cotizacion.prima_pagoVisa|floatformat:2|intcomma }}</h5>
 					                            </div>
 												<br><br>
 												Saludos Cordiales,
