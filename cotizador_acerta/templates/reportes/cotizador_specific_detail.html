@@ -128,7 +128,7 @@
               <td> {{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}</td>
               <td>{{ cotizacion.conductor.marca.nombre }}</td>
               <td>{{ cotizacion.conductor.modelo.nombre }}</td>
-              <td> B/. {{ cotizacion.total }}</td>
+              <td> B/. {{ cotizacion.total|intcomma }}</td>
               {% if cotizacion.status == 'Enviada' or cotizacion.status == 'Guardada' %}
                 <td><span class="badge bg-orange">{{ cotizacion.status }}</span></td>
               {% elif cotizacion.status == 'Aprobada' %}
@@ -155,11 +155,11 @@
                       {% endif %}
                       <ul class="dropdown-menu" role="menu">
                         {% if cotizacion.status == 'Guardada'%}
-                        <li><a href="#"><i class="fa fa-send">  Enviar</i></a></li>
+                        <li><a href="{% url 'send' cotizacion.pk %}"><i class="fa fa-send">  Enviar</i></a></li>
                         <li class="divider"></li>
                         {% endif %}
-                        <li><a href="#"><i class="fa fa-check-circle" style="color: green;">  Aprobar</i></a></li>
-                        <li><a href="#"><i class="fa fa-times-circle" style="color: red;">  Rechazar</i></a></li>
+                        <li><a href="{% url 'change-status' cotizacion.pk 0 %}"><i class="fa fa-check-circle" style="color: green;">  Aprobar</i></a></li>
+                        <li><a href="{% url 'change-status' cotizacion.pk 1 %}"><i class="fa fa-times-circle" style="color: red;">  Rechazar</i></a></li>
                       </ul>
                     </div>
               </td>

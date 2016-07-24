@@ -32,11 +32,11 @@
     </h1>
     <h1 class="col-md-4">
     {% if cotizacion.status == 'Aprobada' %}
-      <span class="pullbadge bg-green col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
+      <span class="badge bg-green col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
     {% elif cotizacion.status == 'Rechazada' %}
-      <span class="pullbadge bg-red" style="text-align: center;">{{cotizacion.status}}</span>
+      <span class="badge bg-red" style="text-align: center;">{{cotizacion.status}}</span>
     {% else %}
-      <span class="pullbadge bg-orange col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
+      <span class="badge bg-orange col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
     {% endif %}
     </h1>
 {% endblock titulo %}
@@ -172,6 +172,13 @@
         </div>
         <div class="row">
           <div class="col-xs-12 text-right">
+          {% if cotizacion.status == 'Guardada' %}
+            <a class="btn btn-lg calculate" href="{% url 'send' cotizacion.pk %}">Enviar</a>
+          {% endif %}
+          {% if cotizacion.status != 'Aprobada' and cotizacion.status != 'Rechazada' %}
+            <a class="btn btn-lg btn-success" href="{% url 'change-status' cotizacion.pk 0 %}">Aprobar</a>
+            <a class="btn btn-lg btn-danger" href="{% url 'change-status' cotizacion.pk 1 %}">Rechazar</a>
+          {% endif %}
             <a class="btn btn-lg calculate" href="{% url 'cotizaciones_list' %}">Atrás</a>
           </div>
         </div>

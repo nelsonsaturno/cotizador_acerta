@@ -35,4 +35,10 @@ urlpatterns = patterns(
         r'^cotizaciones/general/(?P<status>\d+)/(?P<pk>\d+)/$',
         CotizacionesGeneralDetailView.as_view(),
         name='cotizaciones-general'),
+    url(r'^cotizacion/changeStatus/(?P<id>\d+)/(?P<status>\d+)/$',
+        'reportes.views.changeStatus',
+        name='change-status'),
+    url(r'^cotizacion/enviar/(?P<id>\d+)/$',
+        'reportes.views.sendCotization',
+        name='send'),
 )
