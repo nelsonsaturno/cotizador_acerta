@@ -1,6 +1,19 @@
 {% extends "administrador/base_admin.html" %}
 {% load static %}
+{% load bootstrap3 %}
+
+{% load l10n %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
 {% block title %}<title>Dashboard</title>{% endblock title %}
+{% block extrahead %}
+  {{form.media}}
+{% endblock extrahead %}
 {% block extracss %}
 <link href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}" rel="stylesheet">
 <style type="text/css">
@@ -14,7 +27,73 @@
 {% endblock extracss %}
 
 {% block content %}
+<div class="row">
+  <div class="col-md-12" style="padding-left: 2%;">
+	  <div class="box box-default collapsed-box">
+	    <div class="box-header with-border">
+	      <h3 class="box-title">Filtra el resumen</h3>
 
+	      <div class="box-tools pull-right">
+	        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+	        </button>
+	      </div>
+	      <!-- /.box-tools -->
+	    </div>
+	    <!-- /.box-header -->
+	    <div class="box-body" style="display: none;">
+		  <div class="col-xs-12 col-sm-12 col-md-4">
+		    {% bootstrap_form_errors form %}
+		  </div>
+		<form method="post" role="form">
+		          {% csrf_token %}
+		            <div id="div_start_date"
+		                 class="form-group">
+		                <label for="id_start_date">Fecha inicial:</label>
+
+		        <div class="input-group date col-md-3" id="id_start_date_picker">
+		            <input class="form-control" id="id_start_date" name="start_date" type="text"/>
+		            <span class="input-group-addon">
+		                <span class="glyphicon glyphicon-calendar"></span>
+		            </span>
+		        </div>
+		        <div class="col-md-9"></div>
+		                <div class="text-muted pull-right">
+		                    <small></small>
+		                </div>
+		                <div class="help-block">
+
+		                </div>
+		            </div>
+
+		            <div id="div_end_date"
+		                 class="form-group">
+		                <label for="id_end_date">Fecha final:</label>
+
+		        <div class="input-group date col-md-3" id="id_end_date_picker">
+		            <input class="form-control" id="id_end_date" name="end_date" type="text"/>
+		            <span class="input-group-addon">
+		                <span class="glyphicon glyphicon-calendar"></span>
+		            </span>
+		        </div>
+		        <div class="col-md-9"></div>
+		                <div class="text-muted pull-right">
+		                    <small></small>
+		                </div>
+		                <div class="help-block">
+
+		                </div>
+		            </div>
+
+		            <div class="form-group">
+		                <input type="submit" value="Filtrar" class="btn btn-primary" />
+		            </div>
+		        </form>
+	    </div>
+	    <!-- /.box-body -->
+	  </div>
+	  <!-- /.box -->
+	</div>
+  </div>
 <div class="row">
 	<div class="col-md-12" style="padding-left: 2%;">
 	<!-- Widget: user widget style 1 -->
@@ -37,11 +116,11 @@
 						<li><a href="#">Licencia <span class="pull-right badge bg-blue">{{corredor.licencia}}</spana></a></li>
 					{% endif %}
 					<li><a href="#">Correo <span class="pull-right badge bg-blue">{{usuario.email}}</span></a></li>
-					<li><a href="{% url 'cotizaciones-general' 4 usuario.pk %}">Cotizaciones <span class="pull-right badge bg-black">{{ num_cot }}</span></a></li>
-					<li><a href="{% url 'cotizaciones-general' 0 usuario.pk %}">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot_env }}</span></a></li>
-					<li><a href="{% url 'cotizaciones-general' 1 usuario.pk %}">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot_guard }}</span></a></li>
-					<li><a href="{% url 'cotizaciones-general' 2 usuario.pk %}">Cotizaciones Aceptadas<span class="pull-right badge bg-green">{{ num_cot_apr }}</span></a></li>
-					<li><a href="{% url 'cotizaciones-general' 3 usuario.pk %}">Cotizaciones Rechazadas<span class="pull-right badge bg-red">{{ num_cot_rch }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-general' 4 usuario.pk start end date %}">Cotizaciones <span class="pull-right badge bg-black">{{ num_cot }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-general' 0 usuario.pk start end date %}">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot_env }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-general' 1 usuario.pk start end date %}">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot_guard }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-general' 2 usuario.pk start end date %}">Cotizaciones Aceptadas<span class="pull-right badge bg-green">{{ num_cot_apr }}</span></a></li>
+					<li><a href="{% url 'cotizaciones-general' 3 usuario.pk start end date %}">Cotizaciones Rechazadas<span class="pull-right badge bg-red">{{ num_cot_rch }}</span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -63,10 +142,10 @@
           </tr>
           <tr style="text-align: center;">
             <td align="center"><a href="{% url 'cotizaciones_list' %}"><span class="badge bg-black center">{{cot}}</span></a></td>
-            <td align="center"><a href="{% url 'cotizaciones-specific' 0 usuario.pk %}"><span class="badge bg-orange">{{ cot_env }}</span></td>
-            <td align="center"><a href="{% url 'cotizaciones-specific' 1 usuario.pk %}"><span class="badge bg-blue">{{ cot_guard }}</span></a></td>
-            <td align="center"><a href="{% url 'cotizaciones-specific' 2 usuario.pk %}"><span class="badge bg-green">{{ cot_apr }}</span></a></td>
-            <td align="center"><a href="{% url 'cotizaciones-specific' 3 usuario.pk %}"><span class="badge bg-red">{{ cot_rch }}</span></a></td>
+            <td align="center"><a href="{% url 'cotizaciones-specific' 0 usuario.pk start end date %}"><span class="badge bg-orange">{{ cot_env }}</span></td>
+            <td align="center"><a href="{% url 'cotizaciones-specific' 1 usuario.pk start end date %}"><span class="badge bg-blue">{{ cot_guard }}</span></a></td>
+            <td align="center"><a href="{% url 'cotizaciones-specific' 2 usuario.pk start end date %}"><span class="badge bg-green">{{ cot_apr }}</span></a></td>
+            <td align="center"><a href="{% url 'cotizaciones-specific' 3 usuario.pk start end date %}"><span class="badge bg-red">{{ cot_rch }}</span></a></td>
           </tr>
         </table>
     </div>
@@ -97,11 +176,11 @@
 			    	<tr role="row">
 				      <td class="sorting_1"> {{ user.0.user.first_name }}</td>
 				      <td>{{ user.0.user.last_name }}</td>
-				      <td><a href="{% url 'cotizaciones-specific' 4 user.0.user.pk %}"><span class="pull-right badge bg-black">{{ user.1 }}</span></a></td>
-				      <td><a href="{% url 'cotizaciones-specific' 0 user.0.user.pk %}"><span class="pull-right badge bg-orange">{{ user.2 }}</span></a></td>
-				      <td><a href="{% url 'cotizaciones-specific' 1 user.0.user.pk %}"><span class="pull-right badge bg-blue">{{ user.3 }}</span></a></td>
-				      <td><a href="{% url 'cotizaciones-specific' 2 user.0.user.pk %}"><span class="pull-right badge bg-green">{{ user.4 }}</span></a></td>
-				      <td><a href="{% url 'cotizaciones-specific' 3 user.0.user.pk %}"><span class="pull-right badge bg-red">{{ user.5 }}</span></a></td>
+				      <td><a href="{% url 'cotizaciones-specific' 4 user.0.user.pk start end date %}"><span class="pull-right badge bg-black">{{ user.1 }}</span></a></td>
+				      <td><a href="{% url 'cotizaciones-specific' 0 user.0.user.pk start end date %}"><span class="pull-right badge bg-orange">{{ user.2 }}</span></a></td>
+				      <td><a href="{% url 'cotizaciones-specific' 1 user.0.user.pk start end date %}"><span class="pull-right badge bg-blue">{{ user.3 }}</span></a></td>
+				      <td><a href="{% url 'cotizaciones-specific' 2 user.0.user.pk start end date %}"><span class="pull-right badge bg-green">{{ user.4 }}</span></a></td>
+				      <td><a href="{% url 'cotizaciones-specific' 3 user.0.user.pk start end date %}"><span class="pull-right badge bg-red">{{ user.5 }}</span></a></td>
 				    </tr>
 			    {% endfor %}</tbody>
 			    <tfoot>
@@ -141,11 +220,11 @@
 					      <td class="sorting_1"> {{ user.0.vendedor.first_name }}</td>
 					      <td>{{ user.0.vendedor.last_name }}</td>
 					      <td>{{ user.0.corredor.first_name }} {{ user.corredor.last_name }}</td>
-					      <td><a href="{% url 'cotizaciones-specific' 4 user.0.vendedor.pk %}"><span class="pull-right badge bg-black">{{ user.1 }}</span></a></td>
-					      <td><a href="{% url 'cotizaciones-specific' 0 user.0.vendedor.pk %}"><span class="pull-right badge bg-orange">{{ user.2 }}</span></a></td>
-					      <td><a href="{% url 'cotizaciones-specific' 1 user.0.vendedor.pk %}"><span class="pull-right badge bg-blue">{{ user.3 }}</span></a></td>
-					      <td><a href="{% url 'cotizaciones-specific' 2 user.0.vendedor.pk %}"><span class="pull-right badge bg-green">{{ user.4 }}</span></a></td>
-					      <td><a href="{% url 'cotizaciones-specific' 3 user.0.vendedor.pk %}"><span class="pull-right badge bg-red">{{ user.5 }}</span></a></td>
+					      <td><a href="{% url 'cotizaciones-specific' 4 user.0.vendedor.pk start end date %}"><span class="pull-right badge bg-black">{{ user.1 }}</span></a></td>
+					      <td><a href="{% url 'cotizaciones-specific' 0 user.0.vendedor.pk start end date %}"><span class="pull-right badge bg-orange">{{ user.2 }}</span></a></td>
+					      <td><a href="{% url 'cotizaciones-specific' 1 user.0.vendedor.pk start end date %}"><span class="pull-right badge bg-blue">{{ user.3 }}</span></a></td>
+					      <td><a href="{% url 'cotizaciones-specific' 2 user.0.vendedor.pk start end date %}"><span class="pull-right badge bg-green">{{ user.4 }}</span></a></td>
+					      <td><a href="{% url 'cotizaciones-specific' 3 user.0.vendedor.pk start end date %}"><span class="pull-right badge bg-red">{{ user.5 }}</span></a></td>
 					    </tr>
 			    	{% endif %}
 			    {% endfor %}</tbody>
@@ -162,6 +241,16 @@
 {% endblock content %}
 
 {% block custom_script %}
+<script>
+    $(function() {
+        $("#id_start_date_picker").datetimepicker({"pickTime": false, "language": "en-us", "format": "YYYY-MM-DD"});
+    });
+</script>
+<script>
+    $(function() {
+        $("#id_end_date_picker").datetimepicker({"pickTime": false, "language": "en-us", "format": "YYYY-MM-DD"});
+    });
+</script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(function () {

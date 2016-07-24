@@ -134,7 +134,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 {% bootstrap_form_errors form %}
-                <form action="" method="post" role="form" class="form-horizontal">
+                <form id="myform" action="" method="post" role="form" class="form-horizontal">
                     {% csrf_token %}
                     <div class="login-box-body">
                         <h3 id="subtitulo"><strong>Datos del Cliente</strong></h3>
@@ -260,11 +260,15 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<input type="checkbox" id="checkbox1" /> <br />
+<input type="text" id="textbox1" />
+
 {% endblock content %}
 
 {% block custom_script %}
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
 <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+<script src="{% static 'js/jquery.mask2.min.js' %}"></script>
 <script type="text/javascript">
 
     $(document).ready(function(){
@@ -994,6 +998,14 @@
 
     $(document).ready(function(){
         $('#id_valor_text').maskMoney();
+
+        $(document).click(function() {
+            if($('#id_tipo_id_0').is(":checked")) {
+                $('#id_identificacion').mask('00-000-0000', {placeholder: "00-000-0000"});
+            } else {
+                $('#id_identificacion').unmask();
+            }
+        });
     });
 
 </script>
