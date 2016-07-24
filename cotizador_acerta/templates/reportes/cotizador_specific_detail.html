@@ -128,7 +128,7 @@
               <td> {{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}</td>
               <td>{{ cotizacion.conductor.marca.nombre }}</td>
               <td>{{ cotizacion.conductor.modelo.nombre }}</td>
-              <td> B/. {{ cotizacion.total }}</td>
+              <td> B/. {{ cotizacion.total|intcomma }}</td>
               {% if cotizacion.status == 'Enviada' or cotizacion.status == 'Guardada' %}
                 <td><span class="badge bg-orange">{{ cotizacion.status }}</span></td>
               {% elif cotizacion.status == 'Aprobada' %}

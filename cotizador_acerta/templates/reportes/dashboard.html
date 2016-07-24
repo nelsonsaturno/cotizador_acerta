@@ -22,17 +22,13 @@
 		<!-- Add the bg color to the header using any of the bg-* classes -->
 			<div class="widget-user-header bg-blue">
 			<!-- /.widget-user-image -->
-				{% if  usuario.groups.first.name != 'super_admin' %}
-					<h3 class="widget-user-username">{{ usuario.get_full_name|default:usuario.username }}</h3>
-				{% else %}
-					<h3 class="widget-user-username">ADMIN ACERTA</h3>
-				{% endif %}
+					<h3 class="widget-user-username">Resumen Gerencial</h3>
 				{% if usuario.groups.first.name == 'corredor' %}
-					<h5 class="widget-user-desc">Corredor Acerta</h5>
+					<h5 class="widget-user-desc"> {{ usuario.get_full_name|default:usuario.username }} - Corredor Acerta</h5>
 				{% elif usuario.groups.first.name == 'super_admin' %}
-					<h5 class="widget-user-desc">Administrador Acerta</h5>
+					<h5 class="widget-user-desc">Admin Acerta - Administrador Acerta</h5>
 				{% else %}
-					<h5 class="widget-user-desc">Vendedor Acerta</h5>
+					<h5 class="widget-user-desc">{{ usuario.get_full_name|default:usuario.username }} - Vendedor Acerta</h5>
 				{% endif %}
 			</div>
 			<div class="box-footer no-padding">
