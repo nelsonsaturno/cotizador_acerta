@@ -293,6 +293,16 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
     context_object_name = "usuario"
     success_url = 'corredor_vendedor_detail'
 
+    def get_initial(self):
+        """
+        Returns the initial data to use for forms on this view.
+        """
+        datos = DatosCorredor.objects.get(user=self.object)
+        initial = self.initial.copy()
+        initial['ruc'] = datos.ruc
+        initial['licencia'] = datos.licencia
+        return initial
+
     def form_valid(self, form):
         """
         If the form is valid, redirect to the supplied URL.
