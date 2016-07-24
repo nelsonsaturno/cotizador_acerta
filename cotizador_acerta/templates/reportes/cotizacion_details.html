@@ -172,12 +172,14 @@
         </div>
         <div class="row">
           <div class="col-xs-12 text-right">
-          {% if cotizacion.status == 'Guardada' %}
-            <a class="btn btn-lg calculate" href="{% url 'send' cotizacion.pk %}">Enviar</a>
-          {% endif %}
-          {% if cotizacion.status != 'Aprobada' and cotizacion.status != 'Rechazada' %}
-            <a class="btn btn-lg btn-success" href="{% url 'change-status' cotizacion.pk 0 %}">Aprobar</a>
-            <a class="btn btn-lg btn-danger" href="{% url 'change-status' cotizacion.pk 1 %}">Rechazar</a>
+          {% if cotizacion.corredor.pk == active_user.pk %}
+            {% if cotizacion.status != 'Enviada' %}
+              <a class="btn btn-lg calculate" href="{% url 'send' cotizacion.pk %}">Enviar</a>
+            {% endif %}
+            {% if cotizacion.status != 'Aprobada' and cotizacion.status != 'Rechazada' %}
+              <a class="btn btn-lg btn-success" href="{% url 'change-status' cotizacion.pk 0 %}">Aprobar</a>
+              <a class="btn btn-lg btn-danger" href="{% url 'change-status' cotizacion.pk 1 %}">Rechazar</a>
+            {% endif %}
           {% endif %}
             <a class="btn btn-lg calculate" href="{% url 'cotizaciones_list' %}">Atrás</a>
           </div>

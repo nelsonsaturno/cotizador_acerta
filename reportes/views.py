@@ -88,9 +88,8 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
         context = super(
             CotizacionesDetailView, self).get_context_data(**kwargs)
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'], is_active=True)
-        if cotizacion.corredor.pk != request.user.pk:
-            return page_not_found(request)
         context['cotizacion'] = cotizacion
+        context['active_user'] = User.objects.get(pk=request.user.pk)
         return self.render_to_response(context)
 
 
