@@ -2,7 +2,7 @@
 {% load static %}
 {# Load the tag library #}
 {% load bootstrap3 %}
-
+{% load humanize %}
 {% load l10n %}
 
 {# Load CSS and JavaScript #}
@@ -99,14 +99,14 @@
             <h3 class="box-title">Mis Cotizaciones {{status}}s </h3>
           {% else %}
             <h3 class="box-title">Cotizaciones {{status}}s de Corredor/Vendedor</h3>
-            
+
           {% endif %}
         {% else %}
           {% if propia == 'si' %}
             <h3 class="box-title">Mis Cotizaciones</h3>
           {% else %}
             <h3 class="box-title">Cotizaciones de Corredor/Vendedor</h3>
-            
+
           {% endif %}
         {% endif %}
       </div>
