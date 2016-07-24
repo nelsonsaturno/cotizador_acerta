@@ -191,7 +191,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             end = form.cleaned_data['end_date']
         else:
             start = date.today() - timedelta(days=30)
-            end = date.today()
+            end = date.today() + timedelta(days=1)
         corredorCot = []
         vendedorCot = []
         # (Cotizaciones, Enviadas, Guardadas, Aprobadas, Rechazadas)
@@ -297,7 +297,7 @@ class CotizacionesSpecificDetailView(LoginRequiredMixin, TemplateView):
             status = 'all'
         if int(kwargs['date']) == 0:
             start = date.today() - timedelta(days=5000)
-            end = date.today()
+            end = date.today() + timedelta(days=1)
         else:
             start = datetime.strptime(kwargs['start'], '%Y-%m-%d')
             end = datetime.strptime(kwargs['end'], '%Y-%m-%d')
@@ -339,7 +339,7 @@ class CotizacionesSpecificDetailView(LoginRequiredMixin, TemplateView):
             end = form.cleaned_data['end_date']
         else:
             start = date.today() - timedelta(days=30)
-            end = date.today()
+            end = date.today() + timedelta(days=1)
         if status == 'all':
             cotizaciones = Cotizacion.objects.filter(
             corredor=user,
@@ -386,7 +386,7 @@ class CotizacionesGeneralDetailView(LoginRequiredMixin, TemplateView):
             status = 'all'
         if int(kwargs['date']) == 0:
             start = date.today() - timedelta(days=5000)
-            end = date.today()
+            end = date.today() + timedelta(days=1)
         else:
             start = datetime.strptime(kwargs['start'], '%Y-%m-%d')
             end = datetime.strptime(kwargs['end'], '%Y-%m-%d')
@@ -451,7 +451,7 @@ class CotizacionesGeneralDetailView(LoginRequiredMixin, TemplateView):
             end = form.cleaned_data['end_date']
         else:
             start = date.today() - timedelta(days=30)
-            end = date.today()
+            end = date.today() + timedelta(days=1)
         if request.user.groups.first().name == 'super_admin':
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
