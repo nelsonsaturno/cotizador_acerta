@@ -32,11 +32,11 @@
     </h1>
     <h1 class="col-md-4">
     {% if cotizacion.status == 'Aprobada' %}
-      <span class="pullbadge bg-green col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
+      <span class="badge bg-green col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
     {% elif cotizacion.status == 'Rechazada' %}
-      <span class="pullbadge bg-red" style="text-align: center;">{{cotizacion.status}}</span>
+      <span class="badge bg-red" style="text-align: center;">{{cotizacion.status}}</span>
     {% else %}
-      <span class="pullbadge bg-orange col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
+      <span class="badge bg-orange col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
     {% endif %}
     </h1>
 {% endblock titulo %}

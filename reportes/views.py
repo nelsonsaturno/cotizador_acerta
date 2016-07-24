@@ -8,6 +8,11 @@ from django.views.defaults import page_not_found
 from reportes.forms import *
 import datetime
 from time import *
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse_lazy
+from django.template.loader import get_template
+from django.core.mail import EmailMessage
+from django.template import Context
 
 
 class CorredorVendedorListView(LoginRequiredMixin,
@@ -382,3 +387,91 @@ class CotizacionesGeneralDetailView(LoginRequiredMixin, TemplateView):
             form.add_error(
                 None, "El campo de fecha final es requerido.")
         return render(request, self.template_name, context)
+
+
+def changeStatus(request, id, status):
+    cotizacion = Cotizacion.objects.get(pk=id)
+    if int(status) == 0:
+        cotizacion.status = "Aprobada"
+    else:
+        cotizacion.status = "Rechazada"
+    cotizacion.save()
+    return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
+
+
+def sendCotization(request, id):
+    cotizacion = Cotizacion.objects.get(pk=id)
+    cotizacion.status = 'Enviada'
+    cotizacion.save()
+    subject = "Acerta Seguros - Cotizacion de Vehiculo"
+    to = [cotizacion.conductor.correo]
+    to_corredor = [request.user.email]
+    from_email = request.user.email
+
+    ctx = {
+        'cotizacion': cotizacion,
+    }
+
+    # Correo Cliente
+    message = get_template('cotizar/email.html').render(Context(ctx))
+    msg = EmailMessage(subject, message, to=to, from_email=from_email)
+    msg.content_subtype = 'html'
+    if cotizacion.endoso == "Ford":
+        msg.attach('ford.pdf',
+                   open('cotizador_acerta/static/pdf/ford.pdf',
+                        'rb').read(),
+                   'application/pdf')
+
+    if cotizacion.endoso == "Toyota":
+        msg.attach('toyota.pdf',
+                   open('cotizador_acerta/static/pdf/toyota.pdf',
+                        'rb').read(),
+                   'application/pdf')
+
+    if cotizacion.endoso == "Lexus":
+        msg.attach('lexus.pdf',
+                   open('cotizador_acerta/static/pdf/lexus.pdf',
+                        'rb').read(),
+                   'application/pdf')
+
+    if cotizacion.endoso == "Subaru":
+        msg.attach('subaru.pdf',
+                   open('cotizador_acerta/static/pdf/subaru.pdf',
+                        'rb').read(),
+                   'application/pdf')
+    if cotizacion.endoso == "Porsche":
+        msg.attach('porsche.pdf',
+                   open('cotizador_acerta/static/pdf/porsche.pdf',
+                        'rb').read(),
+                   'application/pdf')
+    if cotizacion.endoso == "Volvo":
+        msg.attach('volvo.pdf',
+                   open('cotizador_acerta/static/pdf/volvo.pdf',
+                        'rb').read(),
+                   'application/pdf')
+    msg.send()
+
+    # Correo Corredor
+    message_corredor = get_template('cotizar/email_corredores.html')\
+        .render(Context(ctx))
+    msg = EmailMessage(subject,
+                       message_corredor,
+                       to=to_corredor,
+                       from_email='noreply@acertaseguros.com')
+    msg.content_subtype = 'html'
+    msg.send()
+
+    # Correo Admin
+    if request.user.groups.first().name != "super_admin":
+        admin = User.objects.filter(groups__name__in=["super_admin"])
+        admins = []
+        for adm in admin:
+            admins.append(adm.email)
+        msg = EmailMessage(subject,
+                           message_corredor,
+                           to=admins,
+                           from_email='noreply@acertaseguros.com')
+        msg.content_subtype = 'html'
+        msg.send()
+
+    return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
