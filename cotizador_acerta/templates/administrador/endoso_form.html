@@ -35,7 +35,20 @@
 
               <div class="box-body">
                 {% csrf_token %}
-                {% bootstrap_form form layout='horizontal' %}
+                {% bootstrap_field form.endoso layout='horizontal' %}
+                {% bootstrap_field form.precio layout='horizontal' %}
+                <div class="form-group">
+                  <label class="col-md-3 control-label" for="id_archivo">Archivo</label>
+                  <div class="col-md-9">
+                    <div class="row bootstrap3-multi-input">
+                      <div class="col-xs-12">
+                        Actual: <a href="{% url 'show_pdf' endoso.pk %}">{{ endoso.archivo.name }}</a>
+                        <br>
+                        Cambiar: <input class="" id="id_archivo" name="archivo" title="" type="file">
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div><!-- /.box-body -->
 
               <div class="box-footer text-center">
