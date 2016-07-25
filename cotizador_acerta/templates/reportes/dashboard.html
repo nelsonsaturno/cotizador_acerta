@@ -116,7 +116,6 @@
 					{% if usuario.groups.first.name == 'corredor' %}
 						<li><a href="#">Licencia <span class="pull-right badge bg-blue">{{corredor.licencia}}</spana></a></li>
 					{% endif %}
-					<li><a href="#">Correo <span class="pull-right badge bg-blue">{{usuario.email}}</span></a></li>
 					<li><a href="{% url 'cotizaciones-general' 4 usuario.pk start end date %}">Cotizaciones <span class="pull-right badge bg-black">{{ num_cot }}</span></a></li>
 					<li><a href="{% url 'cotizaciones-general' 0 usuario.pk start end date %}">Cotizaciones Enviadas<span class="pull-right badge bg-orange">{{ num_cot_env }}</span></a></li>
 					<li><a href="{% url 'cotizaciones-general' 1 usuario.pk start end date %}">Cotizaciones Guardadas<span class="pull-right badge bg-blue">{{ num_cot_guard }}</span></a></li>

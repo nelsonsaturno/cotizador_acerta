@@ -98,18 +98,18 @@ WSGI_APPLICATION = 'cotizador_acerta.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config()
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'dfegmb1cg7i64l',
-#         'USER': 'xygjjzwmiompmc',
-#         'PASSWORD': 'IuzXK7d7orNXGRc9rng4xaQn_a',
-#         'HOST': 'ec2-54-225-117-56.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+# DATABASES = {}
+# DATABASES['default'] = dj_database_url.config()
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dfegmb1cg7i64l',
+        'USER': 'xygjjzwmiompmc',
+        'PASSWORD': 'IuzXK7d7orNXGRc9rng4xaQn_a',
+        'HOST': 'ec2-54-225-117-56.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -144,7 +144,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 

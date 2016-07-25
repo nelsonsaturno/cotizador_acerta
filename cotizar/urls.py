@@ -19,7 +19,7 @@ urlpatterns = patterns(
         DetalleCotizacion.as_view(),
         name='detalle_cotizacion'),
     url(r'^listModelsAjax/$', listModelsAjax.as_view(), name='listModelsAjax'),
-    url(r'^cargar-ahora/$',
-        'cotizar.views.CargarCarros',
-        name='cargar-ahora'),
+    # url(r'^cargar-ahora/$',
+    #     'cotizar.views.CargarCarros',
+    #     name='cargar-ahora'),
 )

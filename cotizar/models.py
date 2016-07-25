@@ -113,10 +113,10 @@ class ConductorVehiculo(models.Model):
                                                 '2,000.00/10,000.00'),
                                                ('5,000.00/25,000.00',
                                                 '5,000.00/25,000.00'),
-                                               ('10,000.00/50,000.00',
-                                                '10,000.00/50,000.00'),
                                                ('5,000.00/35,000.00',
-                                                '5,000.00/35,000.00')])
+                                                '5,000.00/35,000.00'),
+                                               ('10,000.00/50,000.00',
+                                                '10,000.00/50,000.00')])
     muerte_accidental = models.CharField(max_length=30, blank=False,
                                          default='5,000.00/25,000.00',
                                          choices=[('5,000.00/25,000.00',
@@ -208,5 +208,7 @@ class Cotizacion(models.Model):
                                        ('Guardada', 'Guardada'),
                                        ('Aprobada', 'Aprobada'),
                                        ('Rechazada', 'Rechazada')])
-    created_at = models.DateTimeField(auto_now_add = True)
-    modified_at = models.DateTimeField(auto_now = True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now_add=True)
+    version = models.PositiveSmallIntegerField(
+        null=False, blank=False, default=1)

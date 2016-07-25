@@ -1,5 +1,6 @@
 from django.conf.urls import url, patterns
 from administrador.views import *
+from cotizar.views import VolverVehiculo
 
 urlpatterns = patterns(
     '',
@@ -102,4 +103,7 @@ urlpatterns = patterns(
     url(r'^admin-modelo/(?P<pk>\d+)$',
         AdminModelo.as_view(),
         name='admin_modelo'),
+    url(r'^cotizar-ahora/actualizar/vehiculo/(?P<pk>\d+)/(?P<pkc>\d+)/$',
+        VolverVehiculo.as_view(),
+        name='volver-vehiculo'),
 )

@@ -1,11 +1,11 @@
 {% extends "administrador/base_admin.html" %}
 {% load static %}
 {% block title %}<title>Detalle de Cotización</title>{% endblock title %}
-{% load humanize %}
 
 {# Load the tag library #}
 {% load bootstrap3 %}
-
+{% load humanize %}
+{% load i18n %}
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
@@ -27,9 +27,12 @@
 {% endblock extracss %}
 
 {% block titulo %}
-    <h1 class="col-md-8">
+    <h1 class="col-md-2">
         COTIZACIÓN
     </h1>
+    <h5 class="col-md-6 pull-left">
+      Última modificación: {{ cotizacion.modified_at|date:'D, d N Y' }}
+    </h5>
     <h1 class="col-md-4">
     {% if cotizacion.status == 'Aprobada' %}
       <span class="badge bg-green col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
@@ -38,6 +41,7 @@
     {% else %}
       <span class="badge bg-orange col-md-6" style="text-align: center;">{{cotizacion.status}}</span>
     {% endif %}
+      <span class="badge col-md-5" style="text-align: center;">Versión: {{cotizacion.version}}</span>
     </h1>
 {% endblock titulo %}
 
@@ -171,15 +175,20 @@
             </div>
         </div>
         <div class="row">
-          <div class="col-xs-12 text-right">
-          {% if cotizacion.corredor.pk == active_user.pk %}
-              <a class="btn btn-lg calculate" href="{% url 'send' cotizacion.pk %}">Enviar</a>
-            {% if cotizacion.status != 'Aprobada' and cotizacion.status != 'Rechazada' %}
-              <a class="btn btn-lg btn-success" href="{% url 'change-status' cotizacion.pk 0 %}">Aprobar</a>
-              <a class="btn btn-lg btn-danger" href="{% url 'change-status' cotizacion.pk 1 %}">Rechazar</a>
-            {% endif %}
-          {% endif %}
-            <a class="btn btn-lg calculate" href="{% url 'cotizaciones_list' %}">Atrás</a>
+          <div class="col-xs-12">
+            <div class="pull-left">
+              <a class="btn btn-lg calculate" href="{% url 'volver-vehiculo' cotizacion.conductor.pk cotizacion.pk %}"><span class="fa  fa-pencil"></span> Editar</a>
+            </div>
+            <div class="pull-right">
+              {% if cotizacion.corredor.pk == active_user.pk %}
+                  <a class="btn btn-lg calculate" href="{% url 'send' cotizacion.pk %}">Enviar</a>
+                {% if cotizacion.status != 'Aprobada' and cotizacion.status != 'Rechazada' %}
+                  <a class="btn btn-lg btn-success" href="{% url 'change-status' cotizacion.pk 0 %}">Aprobar</a>
+                  <a class="btn btn-lg btn-danger" href="{% url 'change-status' cotizacion.pk 1 %}">Rechazar</a>
+                {% endif %}
+              {% endif %}
+              <a class="btn btn-lg calculate" href="{% url 'cotizaciones_list' %}">Atrás</a>
+            </div>
           </div>
         </div>
 

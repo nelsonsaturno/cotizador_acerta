@@ -694,6 +694,17 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
             cotizacion4.save()
 
             ###################################
+            if 'pkc' in kwargs:
+                c_delete = Cotizacion.objects.get(pk=kwargs['pkc'])
+                cotizacion1.version = c_delete.version + 1
+                cotizacion2.version = c_delete.version + 1
+                cotizacion3.version = c_delete.version + 1
+                cotizacion4.version = c_delete.version + 1
+                cotizacion1.save()
+                cotizacion2.save()
+                cotizacion3.save()
+                cotizacion4.save()
+                c_delete.delete()
 
             return HttpResponseRedirect(
                 reverse_lazy('ver_planes', kwargs={'pk': cotizacion1.pk,

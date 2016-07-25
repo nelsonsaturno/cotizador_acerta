@@ -58,10 +58,8 @@
 			                    <span class="sr-only">Toggle Dropdown</span>
 			                  </button>
 		                  <ul class="dropdown-menu" role="menu">
-		                  	{% if cotizacion.status != 'Enviada'%}
 		                    <li><a href="{% url 'send' cotizacion.pk %}"><i class="fa fa-send">  Enviar</i></a></li>
 		                    <li class="divider"></li>
-		                    {% endif %}
 		                    {% if cotizacion.status != 'Rechazada' and cotizacion.status != 'Aprobada' %}
 		                    <li><a href="{% url 'change-status' cotizacion.pk 0 %}"><i class="fa fa-check-circle" style="color: green;">  Aprobar</i></a></li>
 		                    <li><a href="{% url 'change-status' cotizacion.pk 1 %}"><i class="fa fa-times-circle" style="color: red;">  Rechazar</i></a></li>
