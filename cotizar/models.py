@@ -208,5 +208,9 @@ class Cotizacion(models.Model):
                                        ('Guardada', 'Guardada'),
                                        ('Aprobada', 'Aprobada'),
                                        ('Rechazada', 'Rechazada')])
+    tipo_pago = models.CharField(max_length=30, default='Contado',
+                                 choices=[('Contado', 'Contado'),
+                                          ('Visa', 'Visa'),
+                                          ('Otro', 'Otro')])
     created_at = models.DateTimeField(auto_now_add = True)
     modified_at = models.DateTimeField(auto_now = True)
