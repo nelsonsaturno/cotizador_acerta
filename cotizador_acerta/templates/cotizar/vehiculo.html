@@ -166,8 +166,8 @@
                             {% bootstrap_field form.cero_km layout='horizontal' show_label=False field_class='km-field' %}
                             {% bootstrap_field form.valor layout='horizontal' show_label=False field_class='form-field-value' %}
                             {% bootstrap_field form.valor_text layout='horizontal' show_label=False field_class='form-field' %}
-                            <!-- {% bootstrap_field form.endoso layout='horizontal' show_label=False field_class='form-field' %} -->
-                            <div class="form-group" style="margin-top: -6%">
+                            {% bootstrap_field form.endoso layout='horizontal' show_label=False field_class='form-field input-group col-xs-11 pull-left' %}
+                            <!-- <div class="form-group" style="margin-top: -6%">
                                 <div class="form-field input-group col-xs-12">
                                     <select class="form-control" id="id_endoso" name="endoso" required="required" title="Endoso">
                                         <option value="" selected=selected disabled>Endoso</option>
@@ -180,10 +180,10 @@
                                         <button class="endoso btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-question-sign" style="color: #E76C42;"></span></button>
                                     </div>
                                 </div>
-                                <!-- <div class="form-field">
+                                <div class="form-field">
 
-                                </div> -->
-                            </div>
+                                </div>
+                            </div> -->
                             {% buttons %}
                                 <button id="id_submit" type="submit" class="btn btn-lg calculate">
                                     Calcular
@@ -278,7 +278,10 @@
             increaseArea: '5%' // optional
         });
 
+        $( '#id_endoso' ).parent().parent().css("margin-top", "-8%");
         {% if not update %}
+            $( '#id_endoso' ).prepend('<option value="" selected=selected disabled>Endoso</option>');
+            $('#id_endoso').after('<div class="input-group-btn button-endoso"><button class="endoso btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-question-sign" style="color: #E76C42;"></span></button></div>');
             $('.endoso').prop("disabled",true);
             $( '#id_marca' ).prepend('<option class="placeholder" value="" selected=selected disabled>Marca</option>');
             $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" selected=selected disabled>Estado Civil</option>');
@@ -289,7 +292,14 @@
             $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" selected=selected disabled>Muerte Accidental</option>');
             $( '#id_modelo' ).empty();
             $( '#id_modelo' ).append('<option class="placeholder" value="" selected=selected disabled>Modelo</option>');
+            $("#id_endoso option[value='5']").remove();
+            $("#id_endoso option[value='6']").remove();
+            $("#id_endoso option[value='7']").remove();
+            $("#id_endoso option[value='8']").remove();
+            $("#id_endoso option[value='9']").remove();
+            $("#id_endoso option[value='10']").remove();
         {% else %}
+            $( '#id_endoso' ).prepend('<option value="" disabled>Endoso</option>');
             $( '#id_marca' ).prepend('<option class="placeholder" value="" disabled>Marca</option>');
             $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" disabled>Estado Civil</option>');
             $( '#id_sexo' ).prepend('<option class="placeholder" value="" disabled>Sexo</option>');
@@ -389,10 +399,10 @@
             $( '#id_modelo' ).append('<option value="" selected=selected disabled>Modelo</option>');
         });
         if ($( this ).val() != 95) {
-            $("#id_endoso option[value='Ford']").remove();
+            $("#id_endoso option[value='6']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="Ford" selected=selected>Acerta Ford</option>');
+            $( "#id_endoso" ).append('<option value="6" selected=selected>Endoso Ford</option>');
             $( '.modal-title' ).empty();
             $( '#costo-modal' ).empty();
             $( '.modal-title' ).append('Endoso Ford');
@@ -451,10 +461,10 @@
 
         }
         if ($( this ).val() != 226) {
-            $("#id_endoso option[value='Toyota']").remove();
+            $("#id_endoso option[value='5']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="Toyota" selected=selected>Acerta Toyota</option>');
+            $( "#id_endoso" ).append('<option value="5" selected=selected>Endoso Toyota</option>');
             $( '.modal-title' ).empty();
             $( '#costo-modal' ).empty();
             $( '#costo-modal' ).append('Costo B/. 75.00');
@@ -512,10 +522,10 @@
 
         }
         if ($( this ).val() != 216) {
-            $("#id_endoso option[value='Subaru']").remove();
+            $("#id_endoso option[value='7']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="Subaru" selected=selected>Acerta Subaru</option>');
+            $( "#id_endoso" ).append('<option value="7" selected=selected>Endoso Subaru</option>');
             $( '.modal-title' ).empty();
             $( '#costo-modal' ).empty();
             $( '#costo-modal' ).append('Costo B/. 75.00');
@@ -574,10 +584,10 @@
 
         }
         if ($( this ).val() != 155) {
-            $("#id_endoso option[value='Lexus']").remove();
+            $("#id_endoso option[value='8']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="Lexus" selected=selected>Acerta Lexus</option>');
+            $( "#id_endoso" ).append('<option value="8" selected=selected>Endoso Lexus</option>');
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Lexus');
             $( '#costo-modal' ).empty();
@@ -636,10 +646,10 @@
 
         }
         if ($( this ).val() != 190) {
-            $("#id_endoso option[value='Porsche']").remove();
+            $("#id_endoso option[value='10']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="Porsche" selected=selected>Acerta Porsche</option>');
+            $( "#id_endoso" ).append('<option value="10" selected=selected>Endoso Porsche</option>');
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Porsche');
             $( '#costo-modal' ).empty();
@@ -698,10 +708,10 @@
 
         }
         if ($( this ).val() != 241) {
-            $("#id_endoso option[value='Volvo']").remove();
+            $("#id_endoso option[value='9']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="Volvo" selected=selected>Acerta Volvo</option>');
+            $( "#id_endoso" ).append('<option value="9" selected=selected>Endoso Volvo</option>');
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Volvo');
             $( '#costo-modal' ).empty();
@@ -762,7 +772,7 @@
 
     $( document ).on('change', '#id_endoso', function(e) {
         $('.endoso').prop("disabled",false);
-        if ($('#id_endoso').val() == "Basico") {
+        if ($('#id_endoso').val() == "1") {
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Básico');
             $( '#costo-modal' ).empty();
@@ -819,7 +829,7 @@
             $( '.td2-4' ).append('INCLUIDO');
 
         }
-        if ($('#id_endoso').val() == "Especial") {
+        if ($('#id_endoso').val() == "2") {
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Acerta Especial');
             $( '#costo-modal' ).empty();
@@ -875,7 +885,7 @@
             $( '.td2-4' ).empty();
             $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "Preferencial") {
+        if ($('#id_endoso').val() == "3") {
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Acerta Preferencial');
             $( '#costo-modal' ).empty();
@@ -933,45 +943,345 @@
 
 
         }
-        if ($('#id_endoso').val() == "Uber") {
+        if ($('#id_endoso').val() == "4") {
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Uber');
         }
-        if ($('#id_endoso').val() == "Ford") {
+        if ($('#id_endoso').val() == "6") {
             $( '.modal-title' ).empty();
-            $( '.modal-body' ).empty();
+            $( '#costo-modal' ).empty();
             $( '.modal-title' ).append('Endoso Ford');
-            $( '.modal-body' ).append();
+            $( '#costo-modal' ).append('Costo B/. 75.00');
+            $( '.td-0' ).empty();
+            $( '.td-0' ).append('INCLUIDO');
+            $( '.td-1' ).empty();
+            $( '.td-1' ).append('INCLUIDO');
+            $( '.td-2' ).empty();
+            $( '.td-2' ).append('INCLUIDO');
+            $( '.td-3' ).empty();
+            $( '.td-3' ).append('Hasta 30 días');
+            $( '.td-4' ).empty();
+            $( '.td-4' ).append('conductor $10,000 y pasajeros $5,000 máx. agregado $25,000');
+            $( '.td-5' ).empty();
+            $( '.td-5' ).append('Hasta $1,500');
+            $( '.td-6' ).empty();
+            $( '.td-6' ).append('$750.00 por evento');
+            $( '.td-7' ).empty();
+            $( '.td-7' ).append('$1,000.00 por evento');
+            $( '.td-8' ).empty();
+            $( '.td-8' ).append('max. $1,000.00');
+            $( '.td-9' ).empty();
+            $( '.td-9' ).append('Hasta $500.00');
+            $( '.td-10' ).empty();
+            $( '.td-10' ).append('INCLUIDO');
+            $( '.td-11' ).empty();
+            $( '.td-11' ).append('INCLUIDO');
+            $( '.td-12' ).empty();
+            $( '.td-12' ).append('INCLUIDO');
+            $( '.td-13' ).empty();
+            $( '.td-13' ).append('INCLUIDO');
+            $( '.td-14' ).empty();
+            $( '.td-14' ).append('En fianza de menor de edad para conducir solicitada por el tránsito');
+            $( '.td-15' ).empty();
+            $( '.td-15' ).append('máx  15  días');
+            $( '.td-16' ).empty();
+            $( '.td-16' ).append(' máx 30  días');
+            $( '.td-17' ).empty();
+            $( '.td-17' ).append('máx. 10 días');
+            $( '.td-18' ).empty();
+            $( '.td-18' ).append('Voluntario');
+            $( '.td-19' ).empty();
+            $( '.td-19' ).append('INCLUIDO');
+            $( '.td2-0' ).empty();
+            $( '.td2-0' ).append('$ 150.00 por evento máximo $ 450.00 anual');
+            $( '.td2-1' ).empty();
+            $( '.td2-1' ).append('Hasta 3 eventos');
+            $( '.td2-2' ).empty();
+            $( '.td2-2' ).append('INCLUIDO');
+            $( '.td2-3' ).empty();
+            $( '.td2-3' ).append('INCLUIDO');
+            $( '.td2-4' ).empty();
+            $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "Toyota") {
+        if ($('#id_endoso').val() == "5") {
             $( '.modal-title' ).empty();
-            $( '.modal-body' ).empty();
+            $( '#costo-modal' ).empty();
+            $( '#costo-modal' ).append('Costo B/. 75.00');
             $( '.modal-title' ).append('Endoso Toyota');
-            $( '.modal-body' ).append();
+            $( '.td-0' ).empty();
+            $( '.td-0' ).append('INCLUIDO');
+            $( '.td-1' ).empty();
+            $( '.td-1' ).append('INCLUIDO');
+            $( '.td-2' ).empty();
+            $( '.td-2' ).append('INCLUIDO');
+            $( '.td-3' ).empty();
+            $( '.td-3' ).append('Hasta 30 días');
+            $( '.td-4' ).empty();
+            $( '.td-4' ).append('conductor $10,000 y pasajeros $5,000 máx. agregado $25,000');
+            $( '.td-5' ).empty();
+            $( '.td-5' ).append('Hasta $1,500');
+            $( '.td-6' ).empty();
+            $( '.td-6' ).append('$750.00 por evento');
+            $( '.td-7' ).empty();
+            $( '.td-7' ).append('$1,000.00 por evento');
+            $( '.td-8' ).empty();
+            $( '.td-8' ).append('max. $1,000.00');
+            $( '.td-9' ).empty();
+            $( '.td-9' ).append('Hasta $500.00');
+            $( '.td-10' ).empty();
+            $( '.td-10' ).append('INCLUIDO');
+            $( '.td-11' ).empty();
+            $( '.td-11' ).append('INCLUIDO');
+            $( '.td-12' ).empty();
+            $( '.td-12' ).append('INCLUIDO');
+            $( '.td-13' ).empty();
+            $( '.td-13' ).append('INCLUIDO');
+            $( '.td-14' ).empty();
+            $( '.td-14' ).append('En fianza de menor de edad para conducir solicitada por el tránsito');
+            $( '.td-15' ).empty();
+            $( '.td-15' ).append(' máx  15  días');
+            $( '.td-16' ).empty();
+            $( '.td-16' ).append('máx 30  días');
+            $( '.td-17' ).empty();
+            $( '.td-17' ).append('máx. 10 días');
+            $( '.td-18' ).empty();
+            $( '.td-18' ).append('Voluntario');
+            $( '.td-19' ).empty();
+            $( '.td-19' ).append('INCLUIDO');
+            $( '.td2-0' ).empty();
+            $( '.td2-0' ).append('$ 150.00 por evento máximo $ 450.00 anual');
+            $( '.td2-1' ).empty();
+            $( '.td2-1' ).append('Hasta 3 eventos');
+            $( '.td2-2' ).empty();
+            $( '.td2-2' ).append('INCLUIDO');
+            $( '.td2-3' ).empty();
+            $( '.td2-3' ).append('INCLUIDO');
+            $( '.td2-4' ).empty();
+            $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "Subaru") {
+        if ($('#id_endoso').val() == "7") {
             $( '.modal-title' ).empty();
-            $( '.modal-body' ).empty();
+            $( '#costo-modal' ).empty();
+            $( '#costo-modal' ).append('Costo B/. 75.00');
             $( '.modal-title' ).append('Endoso Subaru');
-            $( '.modal-body' ).append();
+            $( '.td-0' ).empty();
+            $( '.td-0' ).append('INCLUIDO');
+            $( '.td-1' ).empty();
+            $( '.td-1' ).append('INCLUIDO');
+            $( '.td-2' ).empty();
+            $( '.td-2' ).append('INCLUIDO');
+            $( '.td-3' ).empty();
+            $( '.td-3' ).append('Hasta 30 días');
+            $( '.td-4' ).empty();
+            $( '.td-4' ).append('conductor $10,000 y pasajeros $5,000 máx. agregado $25,000');
+            $( '.td-5' ).empty();
+            $( '.td-5' ).append('Hasta $1,500');
+            $( '.td-6' ).empty();
+            $( '.td-6' ).append('$750.00 por evento');
+            $( '.td-7' ).empty();
+            $( '.td-7' ).append('$1,000.00 por evento');
+            $( '.td-8' ).empty();
+            $( '.td-8' ).append('max. $1,000.00');
+            $( '.td-9' ).empty();
+            $( '.td-9' ).append('Hasta $500.00');
+            $( '.td-10' ).empty();
+            $( '.td-10' ).append('INCLUIDO');
+            $( '.td-11' ).empty();
+            $( '.td-11' ).append('INCLUIDO');
+            $( '.td-12' ).empty();
+            $( '.td-12' ).append('INCLUIDO');
+            $( '.td-13' ).empty();
+            $( '.td-13' ).append('INCLUIDO');
+            $( '.td-14' ).empty();
+            $( '.td-14' ).append('En fianza de menor de edad para conducir solicitada por el tránsito');
+            $( '.td-15' ).empty();
+            $( '.td-15' ).append('máx  15  días');
+            $( '.td-16' ).empty();
+            $( '.td-16' ).append(' máx 30  días');
+            $( '.td-17' ).empty();
+            $( '.td-17' ).append('máx. 10 días');
+            $( '.td-18' ).empty();
+            $( '.td-18' ).append('Voluntario');
+            $( '.td-19' ).empty();
+            $( '.td-19' ).append('INCLUIDO');
+            $( '.td2-0' ).empty();
+            $( '.td2-0' ).append('$ 150.00 por evento máximo $ 450.00 anual');
+            $( '.td2-1' ).empty();
+            $( '.td2-1' ).append('Hasta 3 eventos');
+            $( '.td2-2' ).empty();
+            $( '.td2-2' ).append('INCLUIDO');
+            $( '.td2-3' ).empty();
+            $( '.td2-3' ).append('INCLUIDO');
+            $( '.td2-4' ).empty();
+            $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "Lexus") {
+        if ($('#id_endoso').val() == "8") {
             $( '.modal-title' ).empty();
-            $( '.modal-body' ).empty();
             $( '.modal-title' ).append('Endoso Lexus');
-            $( '.modal-body' ).append();
+            $( '#costo-modal' ).empty();
+            $( '#costo-modal' ).append('Costo B/. 125.00');
+            $( '.td-0' ).empty();
+            $( '.td-0' ).append('INCLUIDO');
+            $( '.td-1' ).empty();
+            $( '.td-1' ).append('INCLUIDO');
+            $( '.td-2' ).empty();
+            $( '.td-2' ).append('INCLUIDO');
+            $( '.td-3' ).empty();
+            $( '.td-3' ).append('Hasta 30 días');
+            $( '.td-4' ).empty();
+            $( '.td-4' ).append('conductor $10,000 y pasajeros $5,000 máx. agregado $25,000');
+            $( '.td-5' ).empty();
+            $( '.td-5' ).append('Hasta $1,500');
+            $( '.td-6' ).empty();
+            $( '.td-6' ).append('$750.00 por evento');
+            $( '.td-7' ).empty();
+            $( '.td-7' ).append('$1,000.00 por evento');
+            $( '.td-8' ).empty();
+            $( '.td-8' ).append('max. $1,000.00');
+            $( '.td-9' ).empty();
+            $( '.td-9' ).append('Hasta $1,000.00');
+            $( '.td-10' ).empty();
+            $( '.td-10' ).append('INCLUIDO');
+            $( '.td-11' ).empty();
+            $( '.td-11' ).append('INCLUIDO');
+            $( '.td-12' ).empty();
+            $( '.td-12' ).append('INCLUIDO');
+            $( '.td-13' ).empty();
+            $( '.td-13' ).append('INCLUIDO');
+            $( '.td-14' ).empty();
+            $( '.td-14' ).append('En fianza de menor de edad para conducir solicitada por el tránsito');
+            $( '.td-15' ).empty();
+            $( '.td-15' ).append(' máx.  20 días');
+            $( '.td-16' ).empty();
+            $( '.td-16' ).append('máx 30 días');
+            $( '.td-17' ).empty();
+            $( '.td-17' ).append('máx. 10 días');
+            $( '.td-18' ).empty();
+            $( '.td-18' ).append('INCLUIDO');
+            $( '.td-19' ).empty();
+            $( '.td-19' ).append('INCLUIDO');
+            $( '.td2-0' ).empty();
+            $( '.td2-0' ).append('$ 150.00 por evento máximo $ 450.00 anual');
+            $( '.td2-1' ).empty();
+            $( '.td2-1' ).append('Hasta 3 eventos');
+            $( '.td2-2' ).empty();
+            $( '.td2-2' ).append('INCLUIDO');
+            $( '.td2-3' ).empty();
+            $( '.td2-3' ).append('INCLUIDO');
+            $( '.td2-4' ).empty();
+            $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "Porsche") {
+        if ($('#id_endoso').val() == "10") {
             $( '.modal-title' ).empty();
-            $( '.modal-body' ).empty();
             $( '.modal-title' ).append('Endoso Porsche');
-            $( '.modal-body' ).append();
+            $( '#costo-modal' ).empty();
+            $( '#costo-modal' ).append('Costo B/. 150.00');
+            $( '.td-0' ).empty();
+            $( '.td-0' ).append('INCLUIDO');
+            $( '.td-1' ).empty();
+            $( '.td-1' ).append('INCLUIDO');
+            $( '.td-2' ).empty();
+            $( '.td-2' ).append('INCLUIDO');
+            $( '.td-3' ).empty();
+            $( '.td-3' ).append('Hasta 30 días');
+            $( '.td-4' ).empty();
+            $( '.td-4' ).append('conductor $10,000 y pasajeros $5,000 máx. agregado $25,000');
+            $( '.td-5' ).empty();
+            $( '.td-5' ).append('Hasta $1,500');
+            $( '.td-6' ).empty();
+            $( '.td-6' ).append('$750.00 por evento');
+            $( '.td-7' ).empty();
+            $( '.td-7' ).append('$1,000.00 por evento');
+            $( '.td-8' ).empty();
+            $( '.td-8' ).append('max. $1,000.00');
+            $( '.td-9' ).empty();
+            $( '.td-9' ).append('Hasta $1,000.00');
+            $( '.td-10' ).empty();
+            $( '.td-10' ).append('INCLUIDO');
+            $( '.td-11' ).empty();
+            $( '.td-11' ).append('INCLUIDO');
+            $( '.td-12' ).empty();
+            $( '.td-12' ).append('INCLUIDO');
+            $( '.td-13' ).empty();
+            $( '.td-13' ).append('INCLUIDO');
+            $( '.td-14' ).empty();
+            $( '.td-14' ).append('En fianza de menor de edad para conducir solicitada por el tránsito');
+            $( '.td-15' ).empty();
+            $( '.td-15' ).append(' máx  15 días');
+            $( '.td-16' ).empty();
+            $( '.td-16' ).append(' máx 30  días');
+            $( '.td-17' ).empty();
+            $( '.td-17' ).append('máx. 10 días');
+            $( '.td-18' ).empty();
+            $( '.td-18' ).append('NO INCLUIDO');
+            $( '.td-19' ).empty();
+            $( '.td-19' ).append('INCLUIDO');
+            $( '.td2-0' ).empty();
+            $( '.td2-0' ).append('$ 150.00 por evento máximo $ 450.00 anual');
+            $( '.td2-1' ).empty();
+            $( '.td2-1' ).append('Hasta 3 eventos');
+            $( '.td2-2' ).empty();
+            $( '.td2-2' ).append('INCLUIDO');
+            $( '.td2-3' ).empty();
+            $( '.td2-3' ).append('INCLUIDO');
+            $( '.td2-4' ).empty();
+            $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "Volvo") {
+        if ($('#id_endoso').val() == "9") {
             $( '.modal-title' ).empty();
-            $( '.modal-body' ).empty();
             $( '.modal-title' ).append('Endoso Volvo');
-            $( '.modal-body' ).append();
+            $( '#costo-modal' ).empty();
+            $( '#costo-modal' ).append('Costo B/. 125.00');
+            $( '.td-0' ).empty();
+            $( '.td-0' ).append('INCLUIDO');
+            $( '.td-1' ).empty();
+            $( '.td-1' ).append('INCLUIDO');
+            $( '.td-2' ).empty();
+            $( '.td-2' ).append('INCLUIDO');
+            $( '.td-3' ).empty();
+            $( '.td-3' ).append('Hasta 30 días');
+            $( '.td-4' ).empty();
+            $( '.td-4' ).append('conductor $10,000 y pasajeros $5,000 máx. agregado $25,000');
+            $( '.td-5' ).empty();
+            $( '.td-5' ).append('Hasta $1,500');
+            $( '.td-6' ).empty();
+            $( '.td-6' ).append('$750.00 por evento');
+            $( '.td-7' ).empty();
+            $( '.td-7' ).append('$1,000.00 por evento');
+            $( '.td-8' ).empty();
+            $( '.td-8' ).append('max. $1,000.00');
+            $( '.td-9' ).empty();
+            $( '.td-9' ).append('Hasta $1,000.00');
+            $( '.td-10' ).empty();
+            $( '.td-10' ).append('INCLUIDO');
+            $( '.td-11' ).empty();
+            $( '.td-11' ).append('INCLUIDO');
+            $( '.td-12' ).empty();
+            $( '.td-12' ).append('INCLUIDO');
+            $( '.td-13' ).empty();
+            $( '.td-13' ).append('INCLUIDO');
+            $( '.td-14' ).empty();
+            $( '.td-14' ).append('En fianza de menor de edad para conducir solicitada por el tránsito');
+            $( '.td-15' ).empty();
+            $( '.td-15' ).append(' máx  15 días');
+            $( '.td-16' ).empty();
+            $( '.td-16' ).append('máx 30 días');
+            $( '.td-17' ).empty();
+            $( '.td-17' ).append('máx. 10 días');
+            $( '.td-18' ).empty();
+            $( '.td-18' ).append('INCLUIDO');
+            $( '.td-19' ).empty();
+            $( '.td-19' ).append('INCLUIDO');
+            $( '.td2-0' ).empty();
+            $( '.td2-0' ).append('$ 150.00 por evento máximo $ 450.00 anual');
+            $( '.td2-1' ).empty();
+            $( '.td2-1' ).append('Hasta 3 eventos');
+            $( '.td2-2' ).empty();
+            $( '.td2-2' ).append('INCLUIDO');
+            $( '.td2-3' ).empty();
+            $( '.td2-3' ).append('INCLUIDO');
+            $( '.td2-4' ).empty();
+            $( '.td2-4' ).append('INCLUIDO');
         }
     });
 

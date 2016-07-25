@@ -3,7 +3,9 @@
 {% block titulo %}
     <h1>
         Editar Factor: <strong>Endosos Acerta</strong>
+        <a href="{% url 'crear_endoso' %}" class="btn btn-success pull-right"><span class="fa fa-plus"></span> Agregar Endoso</a>
     </h1>
+
 {% endblock titulo %}
 {% load static %}
 {% block extracss %}
@@ -27,21 +29,24 @@
           <thead>
             <tr>
               <th>Endoso</th>
-              <th>Factor</th>
+              <th>Precio</th>
+              <th>Información</th>
             </tr>
           </thead>
           <tbody>
             {% for endoso in endosos %}
                 <tr>
                     <td><a href="{% url 'admin_endoso' endoso.pk %}">{{ endoso.endoso }}</a></td>
-                    <td>{{ endoso.factor|floatformat:2 }}</td>
+                    <td>{{ endoso.precio|floatformat:2 }}</td>
+                    <td><a href="{% url 'show_pdf' endoso.pk %}">{{ endoso.archivo.name }}</a></td>
                 </tr>
             {% endfor %}
           </tbody>
           <tfoot>
             <tr>
               <th>Endoso</th>
-              <th>Factor</th>
+              <th>Precio</th>
+              <th>Información</th>
             </tr>
           </tfoot>
         </table>

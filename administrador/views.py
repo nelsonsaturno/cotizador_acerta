@@ -8,6 +8,7 @@ from administrador.forms import *
 from cotizador_acerta.views_mixins import *
 from administrador.models import *
 from cotizar.models import Modelo, Marca
+from django.http import FileResponse, Http404
 
 
 class Factores(LoginRequiredMixin, AdminRequiredMixin, generic.TemplateView):
@@ -324,6 +325,32 @@ class AdminEndoso(LoginRequiredMixin, AdminRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         return reverse_lazy(self.success_url)
+
+
+class CrearEndoso(LoginRequiredMixin, AdminRequiredMixin, generic.CreateView):
+    template_name = "administrador/new_endoso_form.html"
+    model = Endoso
+    form_class = EndosoForm
+    context_object_name = "endoso"
+    success_url = 'list_endoso'
+
+    def form_valid(self, form):
+        """
+        If the form is valid, redirect to the supplied URL.
+        """
+        self.object = form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse_lazy(self.success_url)
+
+
+class DisplayPDFView(LoginRequiredMixin, AdminRequiredMixin, generic.View):
+
+    def get(self, request, *args, **kwargs):
+        endoso = Endoso.objects.get(pk=kwargs['pk'])
+        return FileResponse(
+            open(endoso.archivo.name, 'rb'), content_type='application/pdf')
 
 
 class ListLesiones(LoginRequiredMixin, AdminRequiredMixin, generic.ListView):

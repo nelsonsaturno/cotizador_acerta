@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.core.files.storage import FileSystemStorage
+
+fs = FileSystemStorage(location='/cotizador_acerta/static/pdf')
 
 
 class Sexo(models.Model):
@@ -112,28 +115,12 @@ class Importacion(models.Model):
 class Endoso(models.Model):
 
     endoso = models.CharField(max_length=30, blank=False, unique=True,
-                              default='Basico',
-                              choices=[('Basico',
-                                       'Básico'),
-                                       ('Especial',
-                                        'Acerta Especial'),
-                                       ('Preferencial',
-                                        'Acerta Preferencial'),
-                                       ('Uber', 'Acerta Uber'),
-                                       ('Toyota',
-                                        'Acerta Toyota'),
-                                       ('Ford',
-                                        'Acerta Ford'),
-                                       ('Subaru',
-                                        'Acerta Subaru'),
-                                       ('Lexus',
-                                        'Acerta Lexus'),
-                                       ('Porsche',
-                                        'Acerta Porsche'),
-                                       ('Volvo',
-                                        'Acerta Volvo')])
+                              default='Basico')
+    precio = models.FloatField(blank=False, default=0.0)
+    archivo = models.FileField(upload_to='cotizador_acerta/static/pdf')
 
-    factor = models.FloatField(blank=False, default=0.0)
+    def __str__(self):
+        return self.endoso
 
 
 class LesionesCorporales(models.Model):

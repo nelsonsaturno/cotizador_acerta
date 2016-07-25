@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import date
+from administrador.models import Endoso
 
 
 # Redefined django field.
@@ -124,27 +125,7 @@ class ConductorVehiculo(models.Model):
                                          default='5,000.00/25,000.00',
                                          choices=[('5,000.00/25,000.00',
                                                    '5,000.00/25,000.00')])
-    endoso = models.CharField(max_length=30, blank=False,
-                              default='Basico',
-                              choices=[('Basico',
-                                       'Básico'),
-                                       ('Especial',
-                                        'Acerta Especial'),
-                                       ('Preferencial',
-                                        'Acerta Preferencial'),
-                                       ('Uber', 'Acerta Uber'),
-                                       ('Toyota',
-                                        'Acerta Toyota'),
-                                       ('Ford',
-                                        'Acerta Ford'),
-                                       ('Subaru',
-                                        'Acerta Subaru'),
-                                       ('Lexus',
-                                        'Acerta Lexus'),
-                                       ('Porsche',
-                                        'Acerta Porsche'),
-                                       ('Volvo',
-                                        'Acerta Volvo')])
+    endoso = models.ForeignKey(Endoso)
 
     def __str__(self):
         return self.correo
@@ -220,27 +201,7 @@ class Cotizacion(models.Model):
     cuota = models.PositiveSmallIntegerField(
         blank=True, null=True,
         validators=[MaxValueValidator(10)])
-    endoso = models.CharField(max_length=30, blank=False,
-                              default='Basico',
-                              choices=[('Basico',
-                                       'Básico'),
-                                       ('Especial',
-                                        'Acerta Especial'),
-                                       ('Preferencial',
-                                        'Acerta Preferencial'),
-                                       ('Uber', 'Acerta Uber'),
-                                       ('Toyota',
-                                        'Acerta Toyota'),
-                                       ('Ford',
-                                        'Acerta Ford'),
-                                       ('Subaru',
-                                        'Acerta Subaru'),
-                                       ('Lexus',
-                                        'Acerta Lexus'),
-                                       ('Porsche',
-                                        'Acerta Porsche'),
-                                       ('Volvo',
-                                        'Acerta Volvo')])
+    endoso = models.ForeignKey(Endoso)
     prima_endoso = models.FloatField(blank=False, default=0.00)
     status = models.CharField(max_length=30, default='Enviada',
                               choices=[('Enviada', 'Enviada'),

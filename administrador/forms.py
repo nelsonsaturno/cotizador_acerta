@@ -201,8 +201,15 @@ class EndosoForm(forms.ModelForm):
 
         labels = {
             'endoso': 'Endoso',
-            'factor': 'Factor',
+            'precio': 'Precio',
+            'archivo': 'Archivo'
         }
+
+    def clean_archivo(self):
+        value = self.cleaned_data.get('archivo')
+        if not value.name.endswith('.pdf'):
+            raise ValidationError(u'Este tipo de archivo no esta permitido.')
+        return value
 
     def save(self, commit=True):
         endoso = super(EndosoForm, self).save()
