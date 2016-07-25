@@ -22,6 +22,7 @@ from django.views.decorators.csrf import csrf_protect
 from darientSessions.forms import PasswordResetForm
 from django.utils.translation import ugettext as _
 from django.template.response import TemplateResponse
+from django.views.defaults import page_not_found
 
 
 def user_registration(request):
@@ -315,3 +316,25 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
         corredor.save()
         return HttpResponseRedirect(
             reverse_lazy(self.success_url, kwargs={'pk': user.pk}))
+
+
+class EditPassword(LoginRequiredMixin, generic.UpdateView):
+    template_name = "update_password_form.html"
+    model = User
+    form_class = UserPasswordEditForm
+    context_object_name = "usuario"
+    success_url = 'vehiculo'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if int(request.user.pk) != int(kwargs['pk']):
+            return page_not_found(request)
+        return super(EditPassword, self).get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        """
+        If the form is valid, redirect to the supplied URL.
+        """
+        self.object = form.save()
+        return HttpResponseRedirect(
+            reverse_lazy(self.success_url))
