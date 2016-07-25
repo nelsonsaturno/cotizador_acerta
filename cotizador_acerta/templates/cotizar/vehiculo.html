@@ -272,12 +272,12 @@
             $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" selected=selected disabled>Muerte Accidental</option>');
             $( '#id_modelo' ).empty();
             $( '#id_modelo' ).append('<option class="placeholder" value="" selected=selected disabled>Modelo</option>');
-            $("#id_endoso option[value='5']").remove();
             $("#id_endoso option[value='6']").remove();
             $("#id_endoso option[value='7']").remove();
             $("#id_endoso option[value='8']").remove();
             $("#id_endoso option[value='9']").remove();
             $("#id_endoso option[value='10']").remove();
+            $("#id_endoso option[value='11']").remove();
         {% else %}
             $( '#id_endoso' ).prepend('<option value="" disabled>Endoso</option>');
             $( '#id_marca' ).prepend('<option class="placeholder" value="" disabled>Marca</option>');
@@ -378,11 +378,11 @@
             $( '#id_modelo' ).empty();
             $( '#id_modelo' ).append('<option value="" selected=selected disabled>Modelo</option>');
         });
-        if ($( this ).val() != 95) {
-            $("#id_endoso option[value='6']").remove();
+        if ($( this ).val() != 71) {
+            $("#id_endoso option[value='7']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="6" selected=selected>Endoso Ford</option>');
+            $( "#id_endoso" ).append('<option value="7" selected=selected>Endoso Ford</option>');
             $( '.modal-title' ).empty();
             $( '#costo-modal' ).empty();
             $( '.modal-title' ).append('Endoso Ford');
@@ -440,11 +440,11 @@
 
 
         }
-        if ($( this ).val() != 226) {
-            $("#id_endoso option[value='5']").remove();
+        if ($( this ).val() != 202) {
+            $("#id_endoso option[value='6']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="5" selected=selected>Endoso Toyota</option>');
+            $( "#id_endoso" ).append('<option value="6" selected=selected>Endoso Toyota</option>');
             $( '.modal-title' ).empty();
             $( '#costo-modal' ).empty();
             $( '#costo-modal' ).append('Costo B/. 75.00');
@@ -501,11 +501,11 @@
             $( '.td2-4' ).append('INCLUIDO');
 
         }
-        if ($( this ).val() != 216) {
-            $("#id_endoso option[value='7']").remove();
+        if ($( this ).val() != 192) {
+            $("#id_endoso option[value='8']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="7" selected=selected>Endoso Subaru</option>');
+            $( "#id_endoso" ).append('<option value="8" selected=selected>Endoso Subaru</option>');
             $( '.modal-title' ).empty();
             $( '#costo-modal' ).empty();
             $( '#costo-modal' ).append('Costo B/. 75.00');
@@ -563,11 +563,11 @@
 
 
         }
-        if ($( this ).val() != 155) {
-            $("#id_endoso option[value='8']").remove();
+        if ($( this ).val() != 131) {
+            $("#id_endoso option[value='9']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="8" selected=selected>Endoso Lexus</option>');
+            $( "#id_endoso" ).append('<option value="9" selected=selected>Endoso Lexus</option>');
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Lexus');
             $( '#costo-modal' ).empty();
@@ -625,11 +625,11 @@
 
 
         }
-        if ($( this ).val() != 190) {
-            $("#id_endoso option[value='10']").remove();
+        if ($( this ).val() != 166) {
+            $("#id_endoso option[value='11']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="10" selected=selected>Endoso Porsche</option>');
+            $( "#id_endoso" ).append('<option value="11" selected=selected>Endoso Porsche</option>');
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Porsche');
             $( '#costo-modal' ).empty();
@@ -687,11 +687,11 @@
 
 
         }
-        if ($( this ).val() != 241) {
-            $("#id_endoso option[value='9']").remove();
+        if ($( this ).val() != 217) {
+            $("#id_endoso option[value='10']").remove();
             $('.endoso').prop("disabled",false);
         } else {
-            $( "#id_endoso" ).append('<option value="9" selected=selected>Endoso Volvo</option>');
+            $( "#id_endoso" ).append('<option value="10" selected=selected>Endoso Volvo</option>');
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Volvo');
             $( '#costo-modal' ).empty();
@@ -752,7 +752,7 @@
 
     $( document ).on('change', '#id_endoso', function(e) {
         $('.endoso').prop("disabled",false);
-        if ($('#id_endoso').val() == "1") {
+        if ($('#id_endoso').val() == "2") {
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Básico');
             $( '#costo-modal' ).empty();
@@ -809,7 +809,7 @@
             $( '.td2-4' ).append('INCLUIDO');
 
         }
-        if ($('#id_endoso').val() == "2") {
+        if ($('#id_endoso').val() == "3") {
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Acerta Especial');
             $( '#costo-modal' ).empty();
@@ -865,7 +865,7 @@
             $( '.td2-4' ).empty();
             $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "3") {
+        if ($('#id_endoso').val() == "4") {
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Acerta Preferencial');
             $( '#costo-modal' ).empty();
@@ -923,11 +923,11 @@
 
 
         }
-        if ($('#id_endoso').val() == "4") {
+        if ($('#id_endoso').val() == "5") {
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Uber');
         }
-        if ($('#id_endoso').val() == "6") {
+        if ($('#id_endoso').val() == "7") {
             $( '.modal-title' ).empty();
             $( '#costo-modal' ).empty();
             $( '.modal-title' ).append('Endoso Ford');
@@ -983,7 +983,7 @@
             $( '.td2-4' ).empty();
             $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "5") {
+        if ($('#id_endoso').val() == "6") {
             $( '.modal-title' ).empty();
             $( '#costo-modal' ).empty();
             $( '#costo-modal' ).append('Costo B/. 75.00');
@@ -1039,7 +1039,7 @@
             $( '.td2-4' ).empty();
             $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "7") {
+        if ($('#id_endoso').val() == "8") {
             $( '.modal-title' ).empty();
             $( '#costo-modal' ).empty();
             $( '#costo-modal' ).append('Costo B/. 75.00');
@@ -1095,7 +1095,7 @@
             $( '.td2-4' ).empty();
             $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "8") {
+        if ($('#id_endoso').val() == "9") {
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Lexus');
             $( '#costo-modal' ).empty();
@@ -1151,7 +1151,7 @@
             $( '.td2-4' ).empty();
             $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "10") {
+        if ($('#id_endoso').val() == "11") {
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Porsche');
             $( '#costo-modal' ).empty();
@@ -1207,7 +1207,7 @@
             $( '.td2-4' ).empty();
             $( '.td2-4' ).append('INCLUIDO');
         }
-        if ($('#id_endoso').val() == "9") {
+        if ($('#id_endoso').val() == "10") {
             $( '.modal-title' ).empty();
             $( '.modal-title' ).append('Endoso Volvo');
             $( '#costo-modal' ).empty();

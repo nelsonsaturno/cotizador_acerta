@@ -69,8 +69,6 @@
               ]);
           }
 
-        {% endif %}
-
         // CUSTOM ITEM
         // This is a custom item example
         // all created custom items extend from SMItem Class.
@@ -95,7 +93,6 @@
         SMUserAccountItem.prototype = Object.create(SMItem.prototype);
         SMUserAccountItem.prototype.constructor = SMUserAccountItem;
 
-        {% if user.is_authenticated %}
           // Adding custom item
           sideMenu.addItem(new SMUserAccountItem(
             "{{ user.get_full_name|default:user.username }}",

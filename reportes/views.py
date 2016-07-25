@@ -88,8 +88,18 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
         context = super(
             CotizacionesDetailView, self).get_context_data(**kwargs)
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'], is_active=True)
+        user = User.objects.get(pk=request.user.pk)
+        all_admins = [
+            'super_admin',
+            'admin'
+        ]
+        groups = user.groups.filter(name__in=all_admins)
+
+        if not groups:
+            if cotizacion.corredor.pk != user.pk:
+                return page_not_found(request)
         context['cotizacion'] = cotizacion
-        context['active_user'] = User.objects.get(pk=request.user.pk)
+        context['active_user'] = user
         return self.render_to_response(context)
 
 
@@ -526,39 +536,10 @@ def sendCotization(request, id):
     message = get_template('cotizar/email.html').render(Context(ctx))
     msg = EmailMessage(subject, message, to=to, from_email=from_email)
     msg.content_subtype = 'html'
-    if cotizacion.endoso == "Ford":
-        msg.attach('ford.pdf',
-                   open('cotizador_acerta/static/pdf/ford.pdf',
-                        'rb').read(),
-                   'application/pdf')
-
-    if cotizacion.endoso == "Toyota":
-        msg.attach('toyota.pdf',
-                   open('cotizador_acerta/static/pdf/toyota.pdf',
-                        'rb').read(),
-                   'application/pdf')
-
-    if cotizacion.endoso == "Lexus":
-        msg.attach('lexus.pdf',
-                   open('cotizador_acerta/static/pdf/lexus.pdf',
-                        'rb').read(),
-                   'application/pdf')
-
-    if cotizacion.endoso == "Subaru":
-        msg.attach('subaru.pdf',
-                   open('cotizador_acerta/static/pdf/subaru.pdf',
-                        'rb').read(),
-                   'application/pdf')
-    if cotizacion.endoso == "Porsche":
-        msg.attach('porsche.pdf',
-                   open('cotizador_acerta/static/pdf/porsche.pdf',
-                        'rb').read(),
-                   'application/pdf')
-    if cotizacion.endoso == "Volvo":
-        msg.attach('volvo.pdf',
-                   open('cotizador_acerta/static/pdf/volvo.pdf',
-                        'rb').read(),
-                   'application/pdf')
+    msg.attach(cotizacion.endoso.archivo.name.split('/', 20)[-1],
+               open(cotizacion.endoso.archivo.name,
+                    'rb').read(),
+               'application/pdf')
     msg.send()
 
     # Correo Corredor
@@ -566,8 +547,7 @@ def sendCotization(request, id):
         .render(Context(ctx))
     msg = EmailMessage(subject,
                        message_corredor,
-                       to=to_corredor,
-                       from_email='noreply@acertaseguros.com')
+                       to=to_corredor)
     msg.content_subtype = 'html'
     msg.send()
 
@@ -579,8 +559,7 @@ def sendCotization(request, id):
             admins.append(adm.email)
         msg = EmailMessage(subject,
                            message_corredor,
-                           to=admins,
-                           from_email='noreply@acertaseguros.com')
+                           to=admins)
         msg.content_subtype = 'html'
         msg.send()
 

@@ -132,7 +132,7 @@
                         {% endif %}
                       </tr>
                       <tr>
-                        <td>Endoso {{ cotizacion.endoso }}</td>
+                        <td>{{ cotizacion.endoso }}</td>
                         <td>Incluido</td>
                         <td></td>
                         <td>{{ cotizacion.prima_endoso|floatformat:2|intcomma }}</td>
@@ -173,9 +173,7 @@
         <div class="row">
           <div class="col-xs-12 text-right">
           {% if cotizacion.corredor.pk == active_user.pk %}
-            {% if cotizacion.status != 'Enviada' %}
               <a class="btn btn-lg calculate" href="{% url 'send' cotizacion.pk %}">Enviar</a>
-            {% endif %}
             {% if cotizacion.status != 'Aprobada' and cotizacion.status != 'Rechazada' %}
               <a class="btn btn-lg btn-success" href="{% url 'change-status' cotizacion.pk 0 %}">Aprobar</a>
               <a class="btn btn-lg btn-danger" href="{% url 'change-status' cotizacion.pk 1 %}">Rechazar</a>

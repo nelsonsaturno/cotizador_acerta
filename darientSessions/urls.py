@@ -45,8 +45,8 @@ urlpatterns = patterns(
         'darientSessions.views.login_request',
         name='login'),
     url(
-        r'^accounts/confirm/(?P<activation_key>\w+)/$',
-        'darientSessions.views.register_confirm',
+        r'^accounts/confirm/(?P<activation_key>\w+)/(?P<pk>\d+)/$',
+        ActivateAccount.as_view(),
         name='register_confirm'),
     url(
         r'^accounts/generateKey/(?P<pk>\d+)/$',
@@ -56,10 +56,6 @@ urlpatterns = patterns(
         r'^register/$',
         'darientSessions.views.user_registration',
         name='register'),
-    # url(
-    #     r'^editAccount/$',
-    #     'darientSessions.views.editAccount',
-    #     name='editAccount'),
     url(
         r'^logout/$',
         'django.contrib.auth.views.logout',
