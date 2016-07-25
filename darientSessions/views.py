@@ -22,6 +22,7 @@ from django.views.decorators.csrf import csrf_protect
 from darientSessions.forms import PasswordResetForm
 from django.utils.translation import ugettext as _
 from django.template.response import TemplateResponse
+from django.views.defaults import page_not_found
 
 
 def user_registration(request):
@@ -323,6 +324,12 @@ class EditPassword(LoginRequiredMixin, generic.UpdateView):
     form_class = UserPasswordEditForm
     context_object_name = "usuario"
     success_url = 'vehiculo'
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if int(request.user.pk) != int(kwargs['pk']):
+            return page_not_found(request)
+        return super(EditPassword, self).get(request, *args, **kwargs)
 
     def form_valid(self, form):
         """
