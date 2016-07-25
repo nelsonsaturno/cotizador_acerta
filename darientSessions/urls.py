@@ -71,4 +71,8 @@ urlpatterns = patterns(
         r'^edituser/(?P<pk>\d+)$',
         EditUser.as_view(),
         name='edit-user'),
+    url(
+        r'^editProfile/(?P<pk>\d+)$',
+        EditPassword.as_view(),
+        name='edit-profile'),
 )

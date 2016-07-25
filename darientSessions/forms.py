@@ -227,3 +227,46 @@ class UserEditForm(forms.ModelForm):
         user.username = self.cleaned_data['email']
         user.save()
         return user
+
+
+class UserPasswordEditForm(forms.ModelForm):
+    password2 = forms.CharField(required=True,
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Repetir contraseña'}),
+                                label="")
+
+    class Meta:
+        model = User
+        fields = ('password',)
+
+        error_messages = {
+            'password': {
+                'required': "Este campo es requerido"
+            },
+            'password2': {
+                'required': "Este campo es requerido"
+            }
+        }
+
+        widgets = {
+            'password': forms.PasswordInput()
+        }
+
+        labels = {
+            'password': 'Contraseña'
+        }
+
+    def clean(self):
+        password = self.cleaned_data['password']
+        password2 = self.cleaned_data['password2']
+        if password == password2:
+            return self.cleaned_data
+        else:
+            raise forms.ValidationError(u'Ambas contraseñas deben coincidir.')
+
+    def save(self, commit=True):
+        user = super(UserPasswordEditForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        else:
+            return user
