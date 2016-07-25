@@ -52,15 +52,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Historial_Transito',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('inferior', models.IntegerField(default=0, unique=True, choices=[(1, 1), (4, 4), (8, 8)])),
-                ('superior', models.IntegerField(default=0, unique=True, choices=[(3, 3), (7, 7), (10, 10)])),
-                ('factor', models.FloatField(default=0.0)),
-            ],
-        ),
-        migrations.CreateModel(
             name='Importacion',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),

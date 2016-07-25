@@ -11,9 +11,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='historial_transito',
-            name='inferior',
-            field=models.IntegerField(default=0, unique=True, choices=[(0, 0), (4, 4), (8, 8)]),
-        ),
     ]

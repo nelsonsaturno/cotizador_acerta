@@ -79,6 +79,7 @@
                             </div>
                             <form action="" method="post" role="form" class="form-horizontal">
                                 {% csrf_token %}
+                            {% bootstrap_field form.razon_social show_label=False field_class='form-field' %}
                             {% bootstrap_field form.first_name show_label=False field_class='form-field' %}
                             {% bootstrap_field form.last_name show_label=False field_class='form-field' %}
                             {% bootstrap_field form.ruc show_label=False field_class='form-field' %}

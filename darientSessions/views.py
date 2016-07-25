@@ -54,7 +54,7 @@ def user_registration(request):
 
                     email_subject = 'Bienvenido(a) a Acerta Seguros'
                     to = [email]
-                    link = 'http://' + request.get_host() + '/accounts/confirm/' + activation_key
+                    link = 'http://' + request.get_host() + '/accounts/confirm/' + activation_key + '/' + str(user.pk)
                     if user.first_name and user.last_name:
                         iniciales = user.first_name[0] + user.last_name[0]
                     else:
@@ -64,9 +64,8 @@ def user_registration(request):
                         'link': link,
                         'iniciales': iniciales.upper(),
                     }
-                    from_email = 'noreply@acertaseguros.com'
                     message = get_template('email_confirmation.html').render(Context(ctx))
-                    msg = EmailMessage(email_subject, message, to=to, from_email=from_email)
+                    msg = EmailMessage(email_subject, message, to=to)
                     msg.content_subtype = 'html'
                     msg.send()
                     # Add the user into the group: Seller or Agent.
@@ -85,7 +84,8 @@ def user_registration(request):
                     if request.user.groups.first().name == "super_admin":
                         datos_corredor = DatosCorredor(user=user,
                                                        ruc=request.POST['ruc'],
-                                                       licencia=request.POST['licencia'])
+                                                       licencia=request.POST['licencia'],
+                                                       razon_social=form.cleaned_data['razon_social'])
                         datos_corredor.save()
                     return HttpResponseRedirect(
                         reverse_lazy('login'))
@@ -228,7 +228,7 @@ def generate_key(request, pk):
     new_profile.save()
     email_subject = 'Bienvenido(a) a Acerta Seguros'
     to = [user.email]
-    link = 'http://' + request.get_host() + '/accounts/confirm/' + activation_key
+    link = 'http://' + request.get_host() + '/accounts/confirm/' + activation_key + '/' + user.pk
     if user.first_name and user.last_name:
         iniciales = user.first_name[0] + user.last_name[0]
     else:
@@ -238,9 +238,8 @@ def generate_key(request, pk):
         'link': link,
         'iniciales': iniciales.upper(),
     }
-    from_email = 'noreply@acertaseguros.com'
     message = get_template('email_confirmation.html').render(Context(ctx))
-    msg = EmailMessage(email_subject, message, to=to, from_email=from_email)
+    msg = EmailMessage(email_subject, message, to=to)
     msg.content_subtype = 'html'
     msg.send()
     return render_to_response('reenvio_activacion.html')
@@ -302,6 +301,7 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
         initial = self.initial.copy()
         initial['ruc'] = datos.ruc
         initial['licencia'] = datos.licencia
+        initial['razon_social'] = datos.razon_social
         return initial
 
     def form_valid(self, form):
@@ -313,6 +313,7 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
         corredor = DatosCorredor.objects.get(user=user)
         corredor.licencia = form.cleaned_data['licencia']
         corredor.ruc = form.cleaned_data['ruc']
+        corredor.razon_social = form.cleaned_data['razon_social']
         corredor.save()
         return HttpResponseRedirect(
             reverse_lazy(self.success_url, kwargs={'pk': user.pk}))
@@ -330,6 +331,40 @@ class EditPassword(LoginRequiredMixin, generic.UpdateView):
         if int(request.user.pk) != int(kwargs['pk']):
             return page_not_found(request)
         return super(EditPassword, self).get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        """
+        If the form is valid, redirect to the supplied URL.
+        """
+        self.object = form.save()
+        return HttpResponseRedirect(
+            reverse_lazy(self.success_url))
+
+
+class ActivateAccount(generic.UpdateView):
+    template_name = "activate_account.html"
+    model = User
+    form_class = UserPasswordEditForm
+    context_object_name = "usuario"
+    success_url = 'vehiculo'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(reverse_lazy('vehiculo'))
+        user_profile = get_object_or_404(
+            UserProfile, activation_key=kwargs['activation_key'])
+        user = user_profile.user
+
+        if user.is_active:
+            return HttpResponseRedirect(reverse_lazy('vehiculo'))
+
+        if user_profile.key_expires < timezone.now():
+            return HttpResponseRedirect(reverse_lazy('generate_key',
+                                                     kwargs={'pk': user.pk}))
+
+        user.is_active = True
+        user.save()
+        return super(ActivateAccount, self).get(request, *args, **kwargs)
 
     def form_valid(self, form):
         """

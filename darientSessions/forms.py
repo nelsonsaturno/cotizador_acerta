@@ -28,11 +28,9 @@ class PasswordResetForm(forms.Form):
         email = self.cleaned_data["email"]
         active_users = User.objects.filter(
             email=email, is_active=True)
-        print active_users
         for user in active_users:
             # Make sure that no email is sent to a user that actually has
             # a password marked as unusable
-            print user
             if not user.has_usable_password():
                 continue
             if not domain_override:
@@ -61,13 +59,10 @@ class PasswordResetForm(forms.Form):
 
 
 class UserCreateForm(forms.ModelForm):
-    password2 = forms.CharField(required=True,
-                                widget=forms.PasswordInput(attrs={'placeholder': 'Repetir contraseña'}),
-                                label="")
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "password", "username")
+        fields = ("first_name", "last_name", "email", "username")
 
         error_messages = {
             'username': {
@@ -76,7 +71,6 @@ class UserCreateForm(forms.ModelForm):
         }
 
         widgets = {
-            'password': forms.PasswordInput(),
             'username': forms.HiddenInput(attrs={'required': 'false'}),
             'email': forms.TextInput(attrs={'required': 'true'})
         }
@@ -85,16 +79,7 @@ class UserCreateForm(forms.ModelForm):
             'email': 'Correo',
             'first_name': 'Nombre',
             'last_name': 'Apellido',
-            'password': 'Contraseña',
         }
-
-    def clean(self):
-        password = self.cleaned_data['password']
-        password2 = self.cleaned_data['password2']
-        if password == password2:
-            return self.cleaned_data
-        else:
-            raise forms.ValidationError(u'Ambas contraseñas deben coincidir.')
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -107,27 +92,27 @@ class UserCreateForm(forms.ModelForm):
         user = super(UserCreateForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
         user.is_active = 0
-        user.set_password(self.cleaned_data["password"])
-        if commit:
-            user.save()
-        else:
-            return user
+        password = User.objects.make_random_password()
+        user.set_password(password)
+        user.save()
+        return user
 
 
 class CorredorCreateForm(forms.ModelForm):
-    password2 = forms.CharField(required=True,
-                                widget=forms.PasswordInput(attrs={'placeholder': 'Repetir contraseña'}),
-                                label="")
     licencia = forms.CharField(required=True,
                                label="",
                                widget=forms.TextInput(attrs={'placeholder': 'Nro. de Licencia'}))
     ruc = forms.CharField(required=True,
                           label="",
                           widget=forms.TextInput(attrs={'placeholder': 'RUC'}))
+    razon_social = forms.CharField(
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={'placeholder': 'Razón Social'}))
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "password", "username")
+        fields = ("first_name", "last_name", "email", "username")
 
         error_messages = {
             'username': {
@@ -136,7 +121,6 @@ class CorredorCreateForm(forms.ModelForm):
         }
 
         widgets = {
-            'password': forms.PasswordInput(),
             'username': forms.HiddenInput(attrs={'required': 'false'}),
             'email': forms.TextInput(attrs={'required': 'true'})
         }
@@ -145,16 +129,7 @@ class CorredorCreateForm(forms.ModelForm):
             'email': 'Correo',
             'first_name': 'Nombre',
             'last_name': 'Apellido',
-            'password': 'Contraseña',
         }
-
-    def clean(self):
-        password = self.cleaned_data['password']
-        password2 = self.cleaned_data['password2']
-        if password == password2:
-            return self.cleaned_data
-        else:
-            raise forms.ValidationError(u'Ambas contraseñas deben coincidir.')
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -167,11 +142,10 @@ class CorredorCreateForm(forms.ModelForm):
         user = super(CorredorCreateForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
         user.is_active = 0
-        user.set_password(self.cleaned_data["password"])
-        if commit:
-            user.save()
-        else:
-            return user
+        password = User.objects.make_random_password()
+        user.set_password(password)
+        user.save()
+        return user
 
 
 class LoginForm(forms.Form):
@@ -192,6 +166,10 @@ class UserEditForm(forms.ModelForm):
     ruc = forms.CharField(required=True,
                           label="",
                           widget=forms.TextInput(attrs={'placeholder': 'RUC'}))
+    razon_social = forms.CharField(
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={'placeholder': 'Razón Social'}))
 
     class Meta:
         model = User
@@ -266,7 +244,5 @@ class UserPasswordEditForm(forms.ModelForm):
     def save(self, commit=True):
         user = super(UserPasswordEditForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password"])
-        if commit:
-            user.save()
-        else:
-            return user
+        user.save()
+        return user

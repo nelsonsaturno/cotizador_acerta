@@ -174,8 +174,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         base_colision = float("{0:.2f}".format(
             vehiculo.valor * colision.factor))
 
-        prima_endoso = Endoso.objects.get(endoso=vehiculo.endoso)
-        prima_endoso = prima_endoso.factor
+        endoso = Endoso.objects.get(pk=vehiculo.endoso.pk)
+        prima_endoso = endoso.precio
 
         deducibles = float(vehiculo.valor) * porcentaje_uso
         deducibles = float("{0:.2f}".format(deducibles))
@@ -195,10 +195,6 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         prima_ach = float("{0:.2f}".format(total - (total * 0.05)))
 
         user = User.objects.get(pk=request.user.id)
-        if request.POST['endoso'] == "Basico":
-            endoso = "Básico"
-        else:
-            endoso = request.POST['endoso']
 
         cotizacion = Cotizacion(
             conductor=conductor,
@@ -233,21 +229,12 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
     def post(self, request, *args, **kwargs):
         form = ConductorVehiculoForm(request.POST)
         if form.is_valid():
-            if request.POST['endoso'] == "Basico":
-                endoso = "Básico"
-            else:
-                endoso = request.POST['endoso']
             vehiculo = form.save()
             user = User.objects.get(pk=request.user.id)
             vehiculo.corredor = user
             vehiculo.save()
-            if vehiculo.endoso in ["Volvo", "Lexus"]:
-                prima_endoso = 125.00
-            elif vehiculo.endoso == "Porsche":
-                prima_endoso = 150.00
-            else:
-                prima_endoso = 75.00
             cotizacion1 = self.crear_cotizacion(request, vehiculo)
+            prima_endoso = cotizacion1.endoso.precio
             deducibles2 = float(
                 "{0:.2f}".format(cotizacion1.otros_danios * 1.20))
             cotizacion2 = Cotizacion(
@@ -270,7 +257,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Premium",
-                endoso=endoso,
+                endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal2 = cotizacion2.prima_lesiones +\
                 cotizacion2.prima_daniosProp +\
@@ -315,7 +302,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Gold",
-                endoso=endoso,
+                endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal3 = cotizacion3.prima_lesiones +\
                 cotizacion3.prima_daniosProp +\
@@ -362,7 +349,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Silver",
-                endoso=endoso,
+                endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal4 = cotizacion4.prima_lesiones +\
                 cotizacion4.prima_daniosProp +\
@@ -509,8 +496,8 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         base_colision = float("{0:.2f}".format(
             vehiculo.valor * colision.factor))
 
-        prima_endoso = Endoso.objects.get(endoso=vehiculo.endoso)
-        prima_endoso = prima_endoso.factor
+        endoso = Endoso.objects.get(pk=vehiculo.endoso.pk)
+        prima_endoso = endoso.precio
 
         deducibles = float(vehiculo.valor) * porcentaje_uso
         deducibles = float("{0:.2f}".format(deducibles))
@@ -530,10 +517,6 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         prima_ach = float("{0:.2f}".format(total - (total * 0.05)))
 
         user = User.objects.get(pk=request.user.id)
-        if request.POST['endoso'] == "Basico":
-            endoso = "Básico"
-        else:
-            endoso = request.POST['endoso']
 
         cotizacion = Cotizacion(
             conductor=conductor,
@@ -569,21 +552,12 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         form = ConductorVehiculoForm(request.POST)
         if form.is_valid():
             self.object = form.save()
-            if request.POST['endoso'] == "Basico":
-                endoso = "Básico"
-            else:
-                endoso = request.POST['endoso']
             vehiculo = self.object
             user = User.objects.get(pk=request.user.id)
             vehiculo.corredor = user
             vehiculo.save()
-            if vehiculo.endoso in ["Volvo", "Lexus"]:
-                prima_endoso = 125.00
-            elif vehiculo.endoso == "Porsche":
-                prima_endoso = 150.00
-            else:
-                prima_endoso = 75.00
             cotizacion1 = self.crear_cotizacion(request, vehiculo)
+            prima_endoso = cotizacion1.endoso.precio
             deducibles2 = float(
                 "{0:.2f}".format(cotizacion1.otros_danios * 1.20))
             cotizacion2 = Cotizacion(
@@ -606,7 +580,7 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Premium",
-                endoso=endoso,
+                endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal2 = cotizacion2.prima_lesiones +\
                 cotizacion2.prima_daniosProp +\
@@ -651,7 +625,7 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Gold",
-                endoso=endoso,
+                endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal3 = cotizacion3.prima_lesiones +\
                 cotizacion3.prima_daniosProp +\
@@ -698,7 +672,7 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Silver",
-                endoso=endoso,
+                endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal4 = cotizacion4.prima_lesiones +\
                 cotizacion4.prima_daniosProp +\
@@ -855,39 +829,10 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 message = get_template('cotizar/email.html').render(Context(ctx))
                 msg = EmailMessage(subject, message, to=to, from_email=from_email)
                 msg.content_subtype = 'html'
-                if cotizacion.endoso == "Ford":
-                    msg.attach('ford.pdf',
-                               open('cotizador_acerta/static/pdf/ford.pdf',
-                                    'rb').read(),
-                               'application/pdf')
-
-                if cotizacion.endoso == "Toyota":
-                    msg.attach('toyota.pdf',
-                               open('cotizador_acerta/static/pdf/toyota.pdf',
-                                    'rb').read(),
-                               'application/pdf')
-
-                if cotizacion.endoso == "Lexus":
-                    msg.attach('lexus.pdf',
-                               open('cotizador_acerta/static/pdf/lexus.pdf',
-                                    'rb').read(),
-                               'application/pdf')
-
-                if cotizacion.endoso == "Subaru":
-                    msg.attach('subaru.pdf',
-                               open('cotizador_acerta/static/pdf/subaru.pdf',
-                                    'rb').read(),
-                               'application/pdf')
-                if cotizacion.endoso == "Porsche":
-                    msg.attach('porsche.pdf',
-                               open('cotizador_acerta/static/pdf/porsche.pdf',
-                                    'rb').read(),
-                               'application/pdf')
-                if cotizacion.endoso == "Volvo":
-                    msg.attach('volvo.pdf',
-                               open('cotizador_acerta/static/pdf/volvo.pdf',
-                                    'rb').read(),
-                               'application/pdf')
+                msg.attach(cotizacion.endoso.archivo.name.split('/', 20)[-1],
+                           open(cotizacion.endoso.archivo.name,
+                                'rb').read(),
+                           'application/pdf')
                 msg.send()
 
                 # Correo Corredor
@@ -895,8 +840,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                     .render(Context(ctx))
                 msg = EmailMessage(subject,
                                    message_corredor,
-                                   to=to_corredor,
-                                   from_email='noreply@acertaseguros.com')
+                                   to=to_corredor)
                 msg.content_subtype = 'html'
                 msg.send()
 
@@ -908,8 +852,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                         admins.append(adm.email)
                     msg = EmailMessage(subject,
                                        message_corredor,
-                                       to=admins,
-                                       from_email='noreply@acertaseguros.com')
+                                       to=admins)
                     msg.content_subtype = 'html'
                     msg.send()
 

@@ -358,42 +358,42 @@
 					                                <td>Lesiones Corporales</td>
 					                                <td>{{ cotizacion.lesiones_corporales }}</td>
 					                                <td></td>
-					                                <td>{{ prima_lesiones }}</td>
+					                                <td>{{ prima_lesiones|floatformat:2 }}</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Daños a la Propiedad Ajena</td>
 					                                <td>{{ cotizacion.danios_propiedad }}</td>
 					                                <td></td>
-					                                <td>{{ prima_daniosProp }}</td>
+					                                <td>{{ prima_daniosProp|floatformat:2 }}</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Gastos Médicos por Accidente</td>
 					                                <td>{{ cotizacion.gastos_medicos }}</td>
 					                                <td></td>
-					                                <td>{{ prima_gastosMedicos }}</td>
+					                                <td>{{ prima_gastosMedicos|floatformat:2 }}</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Colisión y Vuelco</td>
-					                                <td>{{ valor_vehiculo }}</td>
-					                                <td>{{ colision_vuelco }}</td>
-					                                <td>{{ prima_colisionVuelco }}</td>
+					                                <td>{{ valor_vehiculo|floatformat:2 }}</td>
+					                                <td>{{ colision_vuelco|floatformat:2 }}</td>
+					                                <td>{{ prima_colisionVuelco|floatformat:2 }}</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Otros Daños</td>
-					                                <td>{{ valor_vehiculo }}</td>
-					                                <td>{{ otros_danios }}</td>
-					                                <td>{{ prima_otrosDanios }}</td>
+					                                <td>{{ valor_vehiculo|floatformat:2 }}</td>
+					                                <td>{{ otros_danios|floatformat:2 }}</td>
+					                                <td>{{ prima_otrosDanios|floatformat:2 }}</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Incendio y Rayo</td>
-					                                <td>{{ valor_vehiculo }}</td>
-					                                <td>{{ incendio_rayo }}</td>
+					                                <td>{{ valor_vehiculo|floatformat:2 }}</td>
+					                                <td>{{ incendio_rayo|floatformat:2 }}</td>
 					                                <td>-</td>
 					                              </tr>
 					                              <tr>
 					                                <td>Robo y Hurto</td>
-					                                <td>{{ valor_vehiculo }}</td>
-					                                <td>{{ robo_hurto }}</td>
+					                                <td>{{ valor_vehiculo|floatformat:2 }}</td>
+					                                <td>{{ robo_hurto|floatformat:2 }}</td>
 					                                <td>-</td>
 					                              </tr>
 					                              <tr>
@@ -413,7 +413,7 @@
 					                                {% if cotizacion.importacion_piezas%}
 					                                  <td>Incluido</td>
 					                                  <td></td>
-					                                  <td>{{ prima_importacion }}</td>
+					                                  <td>{{ prima_importacion|floatformat:2 }}</td>
 					                                {% else %}
 					                                  <td>No Incluido</td>
 					                                  <td></td>
@@ -421,11 +421,11 @@
 					                                {% endif %}
 					                              </tr>
 					                              <tr>
-					                                <td>Acerta Preferencial Plus</td>
-					                                <td>Incluido</td>
-					                                <td></td>
-					                                <td>{{ cotizacion.prima_preferencialPlus|floatformat:2 }}</td>
-					                              </tr>
+							                        <td>{{ cotizacion.endoso }}</td>
+							                        <td>Incluido</td>
+							                        <td></td>
+							                        <td>{{ cotizacion.prima_endoso|floatformat:2 }}</td>
+							                      </tr>
 					                            </table>
 					                            <div class="text-right">
 					                              <h5>A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
