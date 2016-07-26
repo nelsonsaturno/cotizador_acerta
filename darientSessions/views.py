@@ -39,8 +39,8 @@ def user_registration(request):
                     form = CorredorCreateForm(request.POST)
 
                 if form.is_valid():
-                    form.save()
-                    username = form.cleaned_data['username']
+                    my_user = form.save()
+                    username = my_user.username
                     email = form.cleaned_data['email']
                     salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
                     activation_key = hashlib.sha1(salt + email).hexdigest()

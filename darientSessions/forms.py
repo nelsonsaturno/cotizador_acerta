@@ -11,6 +11,24 @@ from django.utils.encoding import force_bytes
 from django.template import Context
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
+from random import choice
+from string import ascii_lowercase, digits
+
+
+def generate_random_username(length=16, chars=ascii_lowercase + digits, split=4, delimiter='-'):
+
+    username = ''.join([choice(chars) for i in xrange(length)])
+
+    if split:
+        username = delimiter.join(
+            [username[start:start+split] for start in range(0, len(username), split)])
+
+    try:
+        User.objects.get(username=username)
+        return generate_random_username(
+            length=length, chars=chars, split=split, delimiter=delimiter)
+    except User.DoesNotExist:
+        return username
 
 
 class PasswordResetForm(forms.Form):
@@ -62,17 +80,21 @@ class UserCreateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "username")
+        fields = ("first_name", "last_name", "email")
 
         error_messages = {
-            'username': {
-                'required': "El correo es requerido."
+            'first_name': {
+                'required': "Este campo es requerido"
+            },
+            'last_name': {
+                'required': "Este campo es requerido"
             }
         }
 
         widgets = {
-            'username': forms.HiddenInput(attrs={'required': 'false'}),
-            'email': forms.TextInput(attrs={'required': 'true'})
+            'email': forms.TextInput(attrs={'required': 'true'}),
+            'first_name': forms.TextInput(attrs={'required': 'true'}),
+            'last_name': forms.TextInput(attrs={'required': 'true'})
         }
 
         labels = {
@@ -83,14 +105,14 @@ class UserCreateForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(email=email).exclude(username=username).count() != 0:
+        if User.objects.filter(email=email).count() != 0:
             raise forms.ValidationError(u'Este correo ya existe.')
         return email
 
     def save(self, commit=True):
         user = super(UserCreateForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
+        user.username = generate_random_username()
         user.is_active = 0
         password = User.objects.make_random_password()
         user.set_password(password)
@@ -112,17 +134,21 @@ class CorredorCreateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "username")
+        fields = ("first_name", "last_name", "email")
 
         error_messages = {
-            'username': {
-                'required': "El correo es requerido."
+            'first_name': {
+                'required': "Este campo es requerido"
+            },
+            'last_name': {
+                'required': "Este campo es requerido"
             }
         }
 
         widgets = {
-            'username': forms.HiddenInput(attrs={'required': 'false'}),
-            'email': forms.TextInput(attrs={'required': 'true'})
+            'email': forms.TextInput(attrs={'required': 'true'}),
+            'first_name': forms.TextInput(attrs={'required': 'true'}),
+            'last_name': forms.TextInput(attrs={'required': 'true'})
         }
 
         labels = {
@@ -133,14 +159,14 @@ class CorredorCreateForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(email=email).exclude(username=username).count() != 0:
+        if User.objects.filter(email=email).count() != 0:
             raise forms.ValidationError(u'Este correo ya existe.')
         return email
 
     def save(self, commit=True):
         user = super(CorredorCreateForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
+        user.username = generate_random_username()
         user.is_active = 0
         password = User.objects.make_random_password()
         user.set_password(password)
@@ -173,17 +199,21 @@ class UserEditForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "username")
+        fields = ("first_name", "last_name", "email")
 
         error_messages = {
-            'username': {
-                'required': "El correo es requerido."
+            'first_name': {
+                'required': "Este campo es requerido"
+            },
+            'last_name': {
+                'required': "Este campo es requerido"
             }
         }
 
         widgets = {
-            'username': forms.HiddenInput(attrs={'required': 'false'}),
-            'email': forms.TextInput(attrs={'required': 'true'})
+            'email': forms.TextInput(attrs={'required': 'true'}),
+            'first_name': forms.TextInput(attrs={'required': 'true'}),
+            'last_name': forms.TextInput(attrs={'required': 'true'})
         }
 
         labels = {
@@ -194,15 +224,13 @@ class UserEditForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(email=email).exclude(username=username).count() != 0:
+        if User.objects.filter(email=email).count() != 0:
             raise forms.ValidationError(u'Este correo ya existe.')
         return email
 
     def save(self, commit=True):
         user = super(UserEditForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
-        user.username = self.cleaned_data['email']
         user.save()
         return user
 
