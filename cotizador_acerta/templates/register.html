@@ -78,7 +78,6 @@
                                 {% bootstrap_field form.first_name show_label=False %}
                                 {% bootstrap_field form.last_name show_label=False %}
                                 {% bootstrap_field form.email show_label=False %}
-                                {% bootstrap_field form.username show_label=False %}
 
                                 {% buttons %}
                                     <div class="col-md-3"></div>
@@ -102,12 +101,7 @@
 
 {% endblock content %}
 {% block custom_script %}
-<script type="text/javascript">
-    $(document).on("click", "#id_submit", function(e){
-        console.log("entrando");
-        $("#id_username").val($("#id_email").val());
-    });
-</script>
+
 {% endblock custom_script %}
 
 

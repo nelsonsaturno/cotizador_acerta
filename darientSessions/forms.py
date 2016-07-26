@@ -121,10 +121,10 @@ class UserCreateForm(forms.ModelForm):
 
 
 class CorredorCreateForm(forms.ModelForm):
-    licencia = forms.CharField(required=True,
+    licencia = forms.CharField(required=False,
                                label="",
                                widget=forms.TextInput(attrs={'placeholder': 'Nro. de Licencia'}))
-    ruc = forms.CharField(required=True,
+    ruc = forms.CharField(required=False,
                           label="",
                           widget=forms.TextInput(attrs={'placeholder': 'RUC'}))
     razon_social = forms.CharField(
@@ -186,10 +186,10 @@ class LoginForm(forms.Form):
 
 class UserEditForm(forms.ModelForm):
 
-    licencia = forms.CharField(required=True,
+    licencia = forms.CharField(required=False,
                                label="",
                                widget=forms.TextInput(attrs={'placeholder': 'Nro. de Licencia'}))
-    ruc = forms.CharField(required=True,
+    ruc = forms.CharField(required=False,
                           label="",
                           widget=forms.TextInput(attrs={'placeholder': 'RUC'}))
     razon_social = forms.CharField(

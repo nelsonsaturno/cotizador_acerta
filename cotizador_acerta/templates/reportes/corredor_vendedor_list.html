@@ -25,17 +25,19 @@
 			  <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
 			    <thead>
 			    <tr role="row">
-				    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 181px;">Nombre</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Apellido: activate to sort column ascending" style="width: 224px;">Apellido</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Correo: activate to sort column ascending" style="width: 198px;">Correo</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Licencia: activate to sort column ascending" style="width: 155px;">Licencia</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Detalles: activate to sort column ascending" style="width: 112px;">Detalles</th>
+			    	<th>Razón Social</th>
+				    <th>Nombre</th>
+				    <th>Apellido</th>
+				    <th>Correo</th>
+				    <th>Licencia</th>
+				    <th>Detalles</th>
 			    </tr>
 			    </thead>
 			    <tbody>
 			    {% for user in object_list %}
 			    	<tr role="row">
-				      <td class="sorting_1"> {{ user.user.first_name }}</td>
+			    	  <td>{{ user.razon_social }}</td>
+				      <td> {{ user.user.first_name }}</td>
 				      <td>{{ user.user.last_name }}</td>
 				      <td>{{ user.user.email }}</td>
 				      <td>{{ user.licencia }}</td>
@@ -61,11 +63,12 @@
 			  <table id="example2" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
 			    <thead>
 			    <tr role="row">
-				    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 181px;">Nombre</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Apellido: activate to sort column ascending" style="width: 224px;">Apellido</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Correo: activate to sort column ascending" style="width: 198px;">Correo</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Detalles: activate to sort column ascending" style="width: 112px;">Corredor Asociado</th>
-				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Detalles: activate to sort column ascending" style="width: 112px;">Detalles</th>
+				    <th>Razón Social</th>
+				    <th>Nombre</th>
+				    <th>Apellido</th>
+				    <th>Correo</th>
+				    <th>Licencia</th>
+				    <th>Detalles</th>
 			    </tr>
 			    </thead>
 			    <tbody>

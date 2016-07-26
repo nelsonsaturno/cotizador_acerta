@@ -82,10 +82,16 @@ def user_registration(request):
                                                      vendedor=user)
                         new_relat.save()
                     if request.user.groups.first().name == "super_admin":
-                        datos_corredor = DatosCorredor(user=user,
-                                                       ruc=request.POST['ruc'],
-                                                       licencia=request.POST['licencia'],
-                                                       razon_social=form.cleaned_data['razon_social'])
+                        if form.cleaned_data['ruc'] or form.cleaned_data['licencia']:
+                            datos_corredor = DatosCorredor(user=user,
+                                                           ruc=request.POST['ruc'],
+                                                           licencia=request.POST['licencia'],
+                                                           razon_social=form.cleaned_data['razon_social'])
+                        else:
+                            datos_corredor = DatosCorredor(user=user,
+                                                           ruc='-',
+                                                           licencia='-',
+                                                           razon_social='-')
                         datos_corredor.save()
                     return HttpResponseRedirect(
                         reverse_lazy('login'))
@@ -299,9 +305,13 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
         """
         datos = DatosCorredor.objects.get(user=self.object)
         initial = self.initial.copy()
-        initial['ruc'] = datos.ruc
-        initial['licencia'] = datos.licencia
-        initial['razon_social'] = datos.razon_social
+        if datos:
+            if datos.ruc != '-':
+                initial['ruc'] = datos.ruc
+            if datos.licencia != '-':
+                initial['licencia'] = datos.licencia
+            if datos.razon_social != '-':
+                initial['razon_social'] = datos.razon_social
         return initial
 
     def form_valid(self, form):
@@ -311,9 +321,12 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
         self.object = form.save()
         user = User.objects.get(email=form.cleaned_data['email'])
         corredor = DatosCorredor.objects.get(user=user)
-        corredor.licencia = form.cleaned_data['licencia']
-        corredor.ruc = form.cleaned_data['ruc']
-        corredor.razon_social = form.cleaned_data['razon_social']
+        if form.cleaned_data['licencia']:
+            corredor.licencia = form.cleaned_data['licencia']
+        if form.cleaned_data['ruc']:
+            corredor.licencia = form.cleaned_data['ruc']
+        if form.cleaned_data['razon_social']:
+            corredor.razon_social = form.cleaned_data['razon_social']
         corredor.save()
         return HttpResponseRedirect(
             reverse_lazy(self.success_url, kwargs={'pk': user.pk}))
