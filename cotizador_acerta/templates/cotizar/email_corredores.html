@@ -441,13 +441,32 @@
                                                   </tr>
                                                 </table>
                                                 <div class="text-right">
+                                                {% if tipo_pago == 'Contado' %}
+                                                  <h5><strong>Tipo de pago: Contado</strong></h5>
+                                                {% elif tipo_pago == 'Visa' %}
+                                                  <h5><strong>Tipo de pago: AHC/Visa</strong></h5>
                                                   <h5>A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
+                                                {% else %}
+                                                    <h5><strong>Tipo de pago: Otros</strong></h5>
+                                                  <h5>A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
+                                                {% endif %}
                                                   <h5>Subtotal: B/. {{ subtotal }}</h5>
                                                   <h5>Impuestos: B/. {{ impuestos }}</h5>
-                                                  <h5>Total a Pagar: B/. {{ total }}</h5>
-                                                  <h5>Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
-                                                  <h5>Prima Pago de Contado: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</h5>
-                                                  <h5>Prima Pago ACH/Visa: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }}</h5>
+                                                  {% if tipo_pago == 'Otro'%}
+                                                  <h5><strong>Total a Pagar: B/. {{ total }}</strong></h5>
+                                                  {% else %}
+                                                  <h5>Total: B/. {{ total }}</h5>
+                                                  {% endif %}
+                                                  {% if tipo_pago == 'Contado'%}
+                                                  <h5><strong>Total a Pagar: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</strong></h5>
+                                                  <h5> Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
+                                                  <h5> Puedes pagar con tu ACH/Visa por: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }} en 10 cuotas.</h5>
+                                                  {% elif tipo_pago == 'Visa' %}
+                                                  <h5><strong>Total a Pagar: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }}</strong></h5>
+                                                  <h5> Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
+                                                  <h5>Puedes pagar de Contado por: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</h5>
+                                                  {% endif %}
+                                                </div>
                                                 </div>
                                                 <br><br>
                                                 Saludos Cordiales,
