@@ -248,6 +248,7 @@
                     <form id="form-enviar" action="" method="post" role="form" class="form-horizontal">
                     <div class="col-md-7"></div>
                     <div class="col-md-5">
+                      <h5>Seleccione el método de pago: </h5>
                       {% bootstrap_field form.tipo_pago show_label=False %}
                     </div>
                     <div class="col-md-5 hidden-xs"></div>
@@ -400,15 +401,15 @@
   }
 
   $(document).on("change", "#id_cuotas2", function(){
-      var cuotas = parseInt($(this).val());
-      var total = parseInt($("#prima-mensual").data("total"));
+      var cuotas = parseFloat($(this).val());
+      var total = parseFloat($("#prima-mensual").data("total"));
       var mensualidad = total / cuotas;
       $("#prima-mensual").empty();
       $("#prima-mensual").append("B/.  " + addThousandsSeparator(mensualidad.toFixed(2).toString()));
   });
   $(document).on("change", "#id_cuotas", function(){
-      var cuotas = parseInt($(this).val());
-      var total = parseInt($("#prima-visa").data("total"));
+      var cuotas = parseFloat($(this).val());
+      var total = parseFloat($("#prima-visa").data("total"));
       var mensualidad = total / cuotas;
       $("#prima-mensual").empty();
       $("#prima-mensual").append("B/.  " + addThousandsSeparator(mensualidad.toFixed(2).toString()));
