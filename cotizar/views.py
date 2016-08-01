@@ -839,6 +839,42 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 prima_contado = intcomma(
                     float("{0:.2f}".format(cotizacion.prima_pagoContado)))
                 pago = cotizacion.tipo_pago
+                prima_endoso = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_endoso)))
+                if valor_vehiculo[-2] == '.':
+                    valor_vehiculo = valor_vehiculo + '0'
+                if prima_lesiones[-2] == '.':
+                    prima_lesiones = prima_lesiones + '0'
+                if prima_daniosProp[-2] == '.':
+                    prima_daniosProp = prima_daniosProp + '0'
+                if prima_gastosMedicos[-2] == '.':
+                    prima_gastosMedicos = prima_gastosMedicos + '0'
+                if colision_vuelco[-2] == '.':
+                    colision_vuelco = colision_vuelco + '0'
+                if prima_colisionVuelco[-2] == '.':
+                    prima_colisionVuelco = prima_colisionVuelco + '0'
+                if otros_danios[-2] == '.':
+                    otros_danios = otros_danios + '0'
+                if prima_otrosDanios[-2] == '.':
+                    prima_otrosDanios = prima_otrosDanios + '0'
+                if incendio_rayo[-2] == '.':
+                    incendio_rayo = incendio_rayo + '0'
+                if robo_hurto[-2] == '.':
+                    robo_hurto = robo_hurto + '0'
+                if prima_importacion[-2] == '.':
+                    prima_importacion = prima_importacion + '0'
+                if subtotal[-2] == '.':
+                    subtotal = subtotal + '0'
+                if impuestos[-2] == '.':
+                    impuestos = impuestos + '0'
+                if total[-2] == '.':
+                    total = total + '0'
+                if prima_pagoVisa[-2] == '.':
+                    prima_pagoVisa = prima_pagoVisa + '0'
+                if prima_contado[-2] == '.':
+                    prima_contado = prima_contado + '0'
+                if prima_endoso[-2] == '.':
+                    prima_endoso = prima_endoso + '0'
 
                 ctx = {
                     'cotizacion': cotizacion,
@@ -859,6 +895,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                     'prima_pagoVisa': prima_pagoVisa,
                     'prima_contado': prima_contado,
                     'tipo_pago': pago,
+                    'prima_endoso': prima_endoso,
                 }
 
                 # Correo Cliente

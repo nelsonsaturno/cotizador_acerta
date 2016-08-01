@@ -27,6 +27,8 @@
 			    <thead>
 				    <tr>
 				    	<th>Conductor</th>
+				    	<th>Tlf. Celular</th>
+				    	<th>Correo</th>
 				    	<th>Marca</th>
 				    	<th>Modelo</th>
 				    	<th>Total</th>
@@ -39,6 +41,8 @@
 			    {% for cotizacion in cotizaciones %}
 			    	<tr role="row">
 				      <td> {{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}</td>
+				      <td>{{ cotizacion.conductor.telefono1 }}</td>
+				      <td>{{ cotizacion.conductor.correo }}</td>
 				      <td>{{ cotizacion.conductor.marca.nombre }}</td>
 				      <td>{{ cotizacion.conductor.modelo.nombre }}</td>
 				      <td> B/. {{ cotizacion.total|intcomma }}</td>
@@ -73,6 +77,8 @@
 			    <tfoot>
 				    <tr>
 				    	<th>Conductor</th>
+				    	<th>Tlf. Celular</th>
+				    	<th>Correo</th>
 				    	<th>Marca</th>
 				    	<th>Modelo</th>
 				    	<th>Total</th>

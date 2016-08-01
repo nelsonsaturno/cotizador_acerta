@@ -368,105 +368,104 @@
                                                     <th>Prima</th>
                                                   </tr>
                                                   <tr>
-                                                    <td>Lesiones Corporales</td>
-                                                    <td>{{ cotizacion.lesiones_corporales }}</td>
+                                                    <td style="text-align: left;">Lesiones Corporales</td>
+                                                    <td style="text-align: right;">{{ cotizacion.lesiones_corporales }}</td>
                                                     <td></td>
-                                                    <td>{{ prima_lesiones|floatformat:2 }}</td>
+                                                    <td style="text-align: right;">{{ prima_lesiones|floatformat:2 }}</td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Daños a la Propiedad Ajena</td>
-                                                    <td>{{ cotizacion.danios_propiedad }}</td>
+                                                    <td style="text-align: left;">Daños a la Propiedad Ajena</td>
+                                                    <td style="text-align: right;">{{ cotizacion.danios_propiedad }}</td>
                                                     <td></td>
-                                                    <td>{{ prima_daniosProp|floatformat:2 }}</td>
+                                                    <td style="text-align: right;">{{ prima_daniosProp|floatformat:2 }}</td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Gastos Médicos por Accidente</td>
-                                                    <td>{{ cotizacion.gastos_medicos }}</td>
+                                                    <td style="text-align: left;">Gastos Médicos por Accidente</td>
+                                                    <td style="text-align: right;">{{ cotizacion.gastos_medicos }}</td>
                                                     <td></td>
-                                                    <td>{{ prima_gastosMedicos|floatformat:2 }}</td>
+                                                    <td style="text-align: right;">{{ prima_gastosMedicos|floatformat:2 }}</td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Colisión y Vuelco</td>
-                                                    <td>{{ valor_vehiculo|floatformat:2 }}</td>
-                                                    <td>{{ colision_vuelco|floatformat:2 }}</td>
-                                                    <td>{{ prima_colisionVuelco|floatformat:2 }}</td>
+                                                    <td style="text-align: left;">Colisión y Vuelco</td>
+                                                    <td style="text-align: right;">{{ valor_vehiculo|floatformat:2 }}</td>
+                                                    <td style="text-align: right;">{{ colision_vuelco|floatformat:2 }}</td>
+                                                    <td style="text-align: right;">{{ prima_colisionVuelco|floatformat:2 }}</td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Otros Daños</td>
-                                                    <td>{{ valor_vehiculo|floatformat:2 }}</td>
-                                                    <td>{{ otros_danios|floatformat:2 }}</td>
-                                                    <td>{{ prima_otrosDanios|floatformat:2 }}</td>
+                                                    <td style="text-align: left;">Otros Daños</td>
+                                                    <td style="text-align: right;">{{ valor_vehiculo|floatformat:2 }}</td>
+                                                    <td style="text-align: right;">{{ otros_danios|floatformat:2 }}</td>
+                                                    <td style="text-align: right;">{{ prima_otrosDanios|floatformat:2 }}</td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Incendio y Rayo</td>
-                                                    <td>{{ valor_vehiculo|floatformat:2 }}</td>
-                                                    <td>{{ incendio_rayo|floatformat:2 }}</td>
+                                                    <td style="text-align: left;">Incendio y Rayo</td>
+                                                    <td style="text-align: right;">{{ valor_vehiculo|floatformat:2 }}</td>
+                                                    <td style="text-align: right;">{{ incendio_rayo|floatformat:2 }}</td>
                                                     <td>-</td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Robo y Hurto</td>
-                                                    <td>{{ valor_vehiculo|floatformat:2 }}</td>
-                                                    <td>{{ robo_hurto|floatformat:2 }}</td>
+                                                    <td style="text-align: left;">Robo y Hurto</td>
+                                                    <td style="text-align: right;">{{ valor_vehiculo|floatformat:2 }}</td>
+                                                    <td style="text-align: right;">{{ robo_hurto|floatformat:2 }}</td>
                                                     <td>-</td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Muerte Accidental</td>
-                                                    <td>{{ cotizacion.muerte_accidental }}</td>
-                                                    <td></td>
-                                                    <td>-</td>
-                                                  </tr>
-                                                  <tr>
-                                                    <td>Asistencia Legal</td>
-                                                    <td>Incluido</td>
+                                                    <td style="text-align: left;">Muerte Accidental</td>
+                                                    <td style="text-align: right;">{{ cotizacion.muerte_accidental }}</td>
                                                     <td></td>
                                                     <td>-</td>
                                                   </tr>
                                                   <tr>
-                                                    <td>Importación de Piezas</td>
+                                                    <td style="text-align: left;">Asistencia Legal</td>
+                                                    <td style="text-align: right;">Incluido</td>
+                                                    <td></td>
+                                                    <td>-</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td style="text-align: left;">Importación de Piezas</td>
                                                     {% if cotizacion.importacion_piezas%}
-                                                      <td>Incluido</td>
+                                                      <td style="text-align: right;">Incluido</td>
                                                       <td></td>
-                                                      <td>{{ prima_importacion|floatformat:2 }}</td>
+                                                      <td style="text-align: right;">{{ prima_importacion|floatformat:2 }}</td>
                                                     {% else %}
-                                                      <td>No Incluido</td>
+                                                      <td style="text-align: right;">No Incluido</td>
                                                       <td></td>
                                                       <td>-</td>
                                                     {% endif %}
                                                   </tr>
                                                   <tr>
-                                                    <td>{{ cotizacion.endoso }}</td>
-                                                    <td>Incluido</td>
+                                                    <td style="text-align: left;">{{ cotizacion.endoso }}</td>
+                                                    <td style="text-align: right;">Incluido</td>
                                                     <td></td>
-                                                    <td>{{ cotizacion.prima_endoso|floatformat:2 }}</td>
+                                                    <td style="text-align: right;">{{ prima_endoso }}</td>
                                                   </tr>
                                                 </table>
                                                 <div class="text-right">
                                                 {% if tipo_pago == 'Contado' %}
-                                                  <h5><strong>Tipo de pago: Contado</strong></h5>
+                                                  <h5 style="text-align: right;"><strong>Tipo de pago: Contado</strong></h5>
                                                 {% elif tipo_pago == 'Visa' %}
-                                                  <h5><strong>Tipo de pago: AHC/Visa</strong></h5>
-                                                  <h5>A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
+                                                  <h5 style="text-align: right;"><strong>Tipo de pago: AHC/Visa</strong></h5>
+                                                  <h5 style="text-align: right;">A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
                                                 {% else %}
-                                                    <h5><strong>Tipo de pago: Otros</strong></h5>
-                                                  <h5>A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
+                                                    <h5 style="text-align: right;"><strong>Tipo de pago: Otros</strong></h5>
+                                                  <h5 style="text-align: right;">A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
                                                 {% endif %}
-                                                  <h5>Subtotal: B/. {{ subtotal }}</h5>
-                                                  <h5>Impuestos: B/. {{ impuestos }}</h5>
+                                                  <h5 style="text-align: right;">Subtotal: B/. {{ subtotal }}</h5>
+                                                  <h5 style="text-align: right;">Impuestos: B/. {{ impuestos }}</h5>
                                                   {% if tipo_pago == 'Otro'%}
-                                                  <h5><strong>Total a Pagar: B/. {{ total }}</strong></h5>
+                                                  <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ total }}</strong></h5>
                                                   {% else %}
-                                                  <h5>Total: B/. {{ total }}</h5>
+                                                  <h5 style="text-align: right;">Total: B/. {{ total }}</h5>
                                                   {% endif %}
                                                   {% if tipo_pago == 'Contado'%}
-                                                  <h5><strong>Total a Pagar: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</strong></h5>
-                                                  <h5> Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
-                                                  <h5> Puedes pagar con tu ACH/Visa por: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }} en 10 cuotas.</h5>
+                                                  <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</strong></h5>
+                                                  <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
+                                                  <h5 style="text-align: right;"> Puedes pagar con tu ACH/Visa por: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }} en 10 cuotas.</h5>
                                                   {% elif tipo_pago == 'Visa' %}
-                                                  <h5><strong>Total a Pagar: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }}</strong></h5>
-                                                  <h5> Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
-                                                  <h5>Puedes pagar de Contado por: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</h5>
+                                                  <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }}</strong></h5>
+                                                  <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
+                                                  <h5 style="text-align: right;">Puedes pagar de Contado por: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</h5>
                                                   {% endif %}
-                                                </div>
                                                 </div>
                                                 <br><br>
                                                 Saludos Cordiales,
