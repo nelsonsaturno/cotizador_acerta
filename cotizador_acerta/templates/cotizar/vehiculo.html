@@ -111,6 +111,23 @@
         background-color: #E76C42;
         color: white;
     }
+    .melissa {
+        float: left;
+        vertical-align: text-bottom;
+        display: inline-block;
+        position: relative;
+    }
+    .carro {
+        float: left;
+        vertical-align: text-bottom;
+        display: inline-block;
+        position: absolute;
+    }
+    .helper {
+        display: inline-block;
+        height: 100%;
+        vertical-align: bottom;
+    }
 </style>
 {% endblock extracss %}
 
@@ -131,11 +148,14 @@
 
                 <div class="col-md-2"></div>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-2">
+            </div>
             <div class="col-md-8">
                 {% bootstrap_form_errors form %}
                 <form id="myform" action="" method="post" role="form" class="form-horizontal">
                     {% csrf_token %}
+                <img src="{% static 'img/melissa_acerta_300x130_2.png' %}" class=" hidden-xs melissa">
+                <img src="{% static 'img/carro_acerta_300x130.png' %}" class=" hidden-xs carro">
                     <div class="login-box-body">
                         <h3 id="subtitulo"><strong>Datos del Cliente</strong></h3>
                         <div class="col-md-6" >

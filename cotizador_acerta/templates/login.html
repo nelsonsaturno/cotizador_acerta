@@ -45,8 +45,8 @@
         color: #E76C42 !important;
     }
     .login-box-body {
-        margin-left: 20%;
-        margin-right: 20%
+        margin-left: 10%;
+        margin-right: 10%
     }
     .calculate {
         color: #FFFFFF;
@@ -68,6 +68,9 @@
           padding-top: 20%;
         }
     }
+    img.melissa {
+        float: right;
+    }
 </style>
 
 {% endblock extracss %}
@@ -84,7 +87,9 @@
                 </div>
                 <div class="col-md-4"></div>
             </div>
-            <div class="col-xs-1 col-sm-2 col-md-4"></div>
+            <div class="col-xs-1 col-sm-2 col-md-4" style="text-aligh: right;">
+                <img src="{% static 'img/melissa_acerta_300x130_1.png' %}" class=" hidden-xs melissa">
+            </div>
             <div class="col-xs-10 col-sm-8 col-md-4">
                 {% bootstrap_form_errors form %}
                 <div class="login-box-body">

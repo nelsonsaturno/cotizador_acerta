@@ -764,9 +764,26 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
         form = CotizacionUpdateForm(request.POST)
         if form.is_valid():
-            cuotas = request.POST['cuotas']
-            cotizacion.cuota = int(cuotas)
-            cotizacion.prima_mensual = float(
+            tipo_pago = int(request.POST['tipo_pago'])
+            if tipo_pago == 0:
+                cotizacion.cuota = 1
+                cotizacion.tipo_pago = 'Contado'
+            elif tipo_pago == 1:
+                cuotas = request.POST['cuotas']
+                cotizacion.tipo_pago = 'Visa'
+                cotizacion.cuota = int(cuotas)
+            else:
+                cuotas = request.POST['cuotas2']
+                cotizacion.tipo_pago = 'Otro'
+                cotizacion.cuota = int(cuotas)
+            if tipo_pago == 0:
+                cotizacion.prima_mensual = float(
+                "{0:.2f}".format(cotizacion.total / float(cotizacion.cuota)))
+            elif tipo_pago == 1:
+                cotizacion.prima_mensual = float(
+                "{0:.2f}".format(cotizacion.prima_pagoVisa / float(cotizacion.cuota)))
+            else:
+                cotizacion.prima_mensual = float(
                 "{0:.2f}".format(cotizacion.total / float(cotizacion.cuota)))
             cotizacion.is_active = True
             if request.POST['guardar'] == "guardalo":
@@ -817,6 +834,11 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                     float("{0:.2f}".format(cotizacion.impuestos)))
                 total = intcomma(
                     float("{0:.2f}".format(cotizacion.total)))
+                prima_pagoVisa = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_pagoVisa)))
+                prima_contado = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_pagoContado)))
+                pago = cotizacion.tipo_pago
 
                 ctx = {
                     'cotizacion': cotizacion,
@@ -834,6 +856,9 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                     'subtotal': subtotal,
                     'impuestos': impuestos,
                     'total': total,
+                    'prima_pagoVisa': prima_pagoVisa,
+                    'prima_contado': prima_contado,
+                    'tipo_pago': pago,
                 }
 
                 # Correo Cliente
