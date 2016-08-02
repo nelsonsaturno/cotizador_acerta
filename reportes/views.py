@@ -514,124 +514,127 @@ def changeStatus(request, id, status):
     cotizacion = Cotizacion.objects.get(pk=id)
     if int(status) == 0:
         cotizacion.status = "Aprobada"
+        cotizacion.save()
+        admin = User.objects.filter(groups__name__in=["super_admin", "admin"])
+        to = []
+        for adm in admin:
+            to.append(adm.email)
+        to_corredor = [request.user.email]
+        from_email = request.user.email
+        valor_vehiculo = intcomma(
+            float("{0:.2f}".format(cotizacion.conductor.valor + 0.001)))
+        prima_lesiones = intcomma(
+            float("{0:.2f}".format(cotizacion.prima_lesiones)))
+        prima_daniosProp = intcomma(
+            float("{0:.2f}".format(cotizacion.prima_daniosProp)))
+        prima_gastosMedicos = intcomma(
+            float("{0:.2f}".format(cotizacion.prima_gastosMedicos)))
+        colision_vuelco = intcomma(
+            float("{0:.2f}".format(cotizacion.colision_vuelco)))
+        prima_colisionVuelco = intcomma(
+            float("{0:.2f}".format(cotizacion.prima_colisionVuelco)))
+        otros_danios = intcomma(
+            float("{0:.2f}".format(cotizacion.otros_danios)))
+        prima_otrosDanios = intcomma(
+            float("{0:.2f}".format(cotizacion.prima_otrosDanios)))
+        incendio_rayo = intcomma(
+            float("{0:.2f}".format(cotizacion.incendio_rayo)))
+        robo_hurto = intcomma(
+            float("{0:.2f}".format(cotizacion.robo_hurto)))
+        prima_importacion = intcomma(
+            float("{0:.2f}".format(cotizacion.prima_importacion)))
+        subtotal = intcomma(
+            float("{0:.2f}".format(cotizacion.subtotal)))
+        impuestos = intcomma(
+            float("{0:.2f}".format(cotizacion.impuestos)))
+        total = intcomma(
+            float("{0:.2f}".format(cotizacion.total)))
+        prima_pagoVisa = intcomma(
+            float("{0:.2f}".format(cotizacion.prima_pagoVisa)))
+        prima_contado = intcomma(
+            float("{0:.2f}".format(cotizacion.prima_pagoContado)))
+        pago = cotizacion.tipo_pago
+        prima_endoso = intcomma(
+            float("{0:.2f}".format(cotizacion.prima_endoso)))
+
+        if valor_vehiculo[-2] == '.':
+            valor_vehiculo = valor_vehiculo + '0'
+        if prima_lesiones[-2] == '.':
+            prima_lesiones = prima_lesiones + '0'
+        if prima_daniosProp[-2] == '.':
+            prima_daniosProp = prima_daniosProp + '0'
+        if prima_gastosMedicos[-2] == '.':
+            prima_gastosMedicos = prima_gastosMedicos + '0'
+        if colision_vuelco[-2] == '.':
+            colision_vuelco = colision_vuelco + '0'
+        if prima_colisionVuelco[-2] == '.':
+            prima_colisionVuelco = prima_colisionVuelco + '0'
+        if otros_danios[-2] == '.':
+            otros_danios = otros_danios + '0'
+        if prima_otrosDanios[-2] == '.':
+            prima_otrosDanios = prima_otrosDanios + '0'
+        if incendio_rayo[-2] == '.':
+            incendio_rayo = incendio_rayo + '0'
+        if robo_hurto[-2] == '.':
+            robo_hurto = robo_hurto + '0'
+        if prima_importacion[-2] == '.':
+            prima_importacion = prima_importacion + '0'
+        if subtotal[-2] == '.':
+            subtotal = subtotal + '0'
+        if impuestos[-2] == '.':
+            impuestos = impuestos + '0'
+        if total[-2] == '.':
+            total = total + '0'
+        if prima_pagoVisa[-2] == '.':
+            prima_pagoVisa = prima_pagoVisa + '0'
+        if prima_contado[-2] == '.':
+            prima_contado = prima_contado + '0'
+        if prima_endoso[-2] == '.':
+            prima_endoso = prima_endoso + '0'
+
+        ctx = {
+            'cotizacion': cotizacion,
+            'valor_vehiculo': valor_vehiculo,
+            'prima_lesiones': prima_lesiones,
+            'prima_daniosProp': prima_daniosProp,
+            'prima_gastosMedicos': prima_gastosMedicos,
+            'colision_vuelco': colision_vuelco,
+            'prima_colisionVuelco': prima_colisionVuelco,
+            'otros_danios': otros_danios,
+            'prima_otrosDanios': prima_otrosDanios,
+            'incendio_rayo': incendio_rayo,
+            'robo_hurto': robo_hurto,
+            'prima_importacion': prima_importacion,
+            'subtotal': subtotal,
+            'impuestos': impuestos,
+            'total': total,
+            'prima_pagoVisa': prima_pagoVisa,
+            'prima_contado': prima_contado,
+            'tipo_pago': pago,
+            'prima_endoso': prima_endoso,
+        }
+
+        # Correo Cliente
+        message = get_template('cotizar/email_corredores.html').render(Context(ctx))
+        msg = EmailMessage(subject, message, to=to, from_email=from_email, cc=['nc@darient.com'])
+        msg.content_subtype = 'html'
+        msg.attach(cotizacion.endoso.archivo.name.split('/', 20)[-1],
+                   open(cotizacion.endoso.archivo.name,
+                        'rb').read(),
+                   'application/pdf')
+        msg.send()
+
+        # Correo Corredor
+        message_corredor = get_template('cotizar/email_corredores.html')\
+            .render(Context(ctx))
+        msg = EmailMessage(subject,
+                           message_corredor,
+                           to=to_corredor)
+        msg.content_subtype = 'html'
+        msg.send()
     else:
         cotizacion.status = "Rechazada"
-    cotizacion.save()
-    subject = "Acerta Seguros - Aprobada la Cotizacion de Vehiculo"
-    to = [cotizacion.conductor.correo]
-    to_corredor = [request.user.email]
-    from_email = request.user.email
-    valor_vehiculo = intcomma(
-        float("{0:.2f}".format(cotizacion.conductor.valor + 0.001)))
-    prima_lesiones = intcomma(
-        float("{0:.2f}".format(cotizacion.prima_lesiones)))
-    prima_daniosProp = intcomma(
-        float("{0:.2f}".format(cotizacion.prima_daniosProp)))
-    prima_gastosMedicos = intcomma(
-        float("{0:.2f}".format(cotizacion.prima_gastosMedicos)))
-    colision_vuelco = intcomma(
-        float("{0:.2f}".format(cotizacion.colision_vuelco)))
-    prima_colisionVuelco = intcomma(
-        float("{0:.2f}".format(cotizacion.prima_colisionVuelco)))
-    otros_danios = intcomma(
-        float("{0:.2f}".format(cotizacion.otros_danios)))
-    prima_otrosDanios = intcomma(
-        float("{0:.2f}".format(cotizacion.prima_otrosDanios)))
-    incendio_rayo = intcomma(
-        float("{0:.2f}".format(cotizacion.incendio_rayo)))
-    robo_hurto = intcomma(
-        float("{0:.2f}".format(cotizacion.robo_hurto)))
-    prima_importacion = intcomma(
-        float("{0:.2f}".format(cotizacion.prima_importacion)))
-    subtotal = intcomma(
-        float("{0:.2f}".format(cotizacion.subtotal)))
-    impuestos = intcomma(
-        float("{0:.2f}".format(cotizacion.impuestos)))
-    total = intcomma(
-        float("{0:.2f}".format(cotizacion.total)))
-    prima_pagoVisa = intcomma(
-        float("{0:.2f}".format(cotizacion.prima_pagoVisa)))
-    prima_contado = intcomma(
-        float("{0:.2f}".format(cotizacion.prima_pagoContado)))
-    pago = cotizacion.tipo_pago
-    prima_endoso = intcomma(
-        float("{0:.2f}".format(cotizacion.prima_endoso)))
-
-    if valor_vehiculo[-2] == '.':
-        valor_vehiculo = valor_vehiculo + '0'
-    if prima_lesiones[-2] == '.':
-        prima_lesiones = prima_lesiones + '0'
-    if prima_daniosProp[-2] == '.':
-        prima_daniosProp = prima_daniosProp + '0'
-    if prima_gastosMedicos[-2] == '.':
-        prima_gastosMedicos = prima_gastosMedicos + '0'
-    if colision_vuelco[-2] == '.':
-        colision_vuelco = colision_vuelco + '0'
-    if prima_colisionVuelco[-2] == '.':
-        prima_colisionVuelco = prima_colisionVuelco + '0'
-    if otros_danios[-2] == '.':
-        otros_danios = otros_danios + '0'
-    if prima_otrosDanios[-2] == '.':
-        prima_otrosDanios = prima_otrosDanios + '0'
-    if incendio_rayo[-2] == '.':
-        incendio_rayo = incendio_rayo + '0'
-    if robo_hurto[-2] == '.':
-        robo_hurto = robo_hurto + '0'
-    if prima_importacion[-2] == '.':
-        prima_importacion = prima_importacion + '0'
-    if subtotal[-2] == '.':
-        subtotal = subtotal + '0'
-    if impuestos[-2] == '.':
-        impuestos = impuestos + '0'
-    if total[-2] == '.':
-        total = total + '0'
-    if prima_pagoVisa[-2] == '.':
-        prima_pagoVisa = prima_pagoVisa + '0'
-    if prima_contado[-2] == '.':
-        prima_contado = prima_contado + '0'
-    if prima_endoso[-2] == '.':
-        prima_endoso = prima_endoso + '0'
-
-    ctx = {
-        'cotizacion': cotizacion,
-        'valor_vehiculo': valor_vehiculo,
-        'prima_lesiones': prima_lesiones,
-        'prima_daniosProp': prima_daniosProp,
-        'prima_gastosMedicos': prima_gastosMedicos,
-        'colision_vuelco': colision_vuelco,
-        'prima_colisionVuelco': prima_colisionVuelco,
-        'otros_danios': otros_danios,
-        'prima_otrosDanios': prima_otrosDanios,
-        'incendio_rayo': incendio_rayo,
-        'robo_hurto': robo_hurto,
-        'prima_importacion': prima_importacion,
-        'subtotal': subtotal,
-        'impuestos': impuestos,
-        'total': total,
-        'prima_pagoVisa': prima_pagoVisa,
-        'prima_contado': prima_contado,
-        'tipo_pago': pago,
-        'prima_endoso': prima_endoso,
-    }
-
-    # Correo Cliente
-    message = get_template('cotizar/email.html').render(Context(ctx))
-    msg = EmailMessage(subject, message, to=to, from_email=from_email, cc=['nc@darient.com'])
-    msg.content_subtype = 'html'
-    msg.attach(cotizacion.endoso.archivo.name.split('/', 20)[-1],
-               open(cotizacion.endoso.archivo.name,
-                    'rb').read(),
-               'application/pdf')
-    msg.send()
-
-    # Correo Corredor
-    message_corredor = get_template('cotizar/email_corredores.html')\
-        .render(Context(ctx))
-    msg = EmailMessage(subject,
-                       message_corredor,
-                       to=to_corredor)
-    msg.content_subtype = 'html'
-    msg.send()
+        cotizacion.save()
     return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
 
 
