@@ -515,6 +515,8 @@ def changeStatus(request, id, status):
     if int(status) == 0:
         cotizacion.status = "Aprobada"
         cotizacion.save()
+        subject = "Acerta Seguros - Aprobada la Cotizacion de Vehiculo"
+
         admin = User.objects.filter(groups__name__in=["super_admin", "admin"])
         to = []
         for adm in admin:
@@ -615,7 +617,7 @@ def changeStatus(request, id, status):
         }
 
         # Correo Cliente
-        message = get_template('cotizar/email_corredores.html').render(Context(ctx))
+        message = get_template('cotizar/email.html').render(Context(ctx))
         msg = EmailMessage(subject, message, to=to, from_email=from_email, cc=['nc@darient.com'])
         msg.content_subtype = 'html'
         msg.attach(cotizacion.endoso.archivo.name.split('/', 20)[-1],
