@@ -90,7 +90,8 @@
     <div class="col-md-2" style="padding-top: 10%"></div>
 </div>
 <div class="row">
-    <div class="col-md-3 col-xs-2"></div>
+    <div class="col-md-3 col-xs-2">        
+    </div>
     <div class="col-md-3 col-xs-8">
         <div class="panel panel-default">
             <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><strong>OPCIÓN 1 B/. {{ cotizaciones.0.total|floatformat:2|intcomma }}</strong></h4></div>
@@ -162,7 +163,9 @@
     <div class="col-md-3 col-xs-4"></div>
 </div>
 <div class="row">
-    <div class="col-md-3 col-xs-2"></div>
+    <div class="col-md-3 col-xs-2">
+        <img src="{% static 'img/melissa_acerta_300x130_3.png' %}" style=" float: right; z-index: -1;" class="hidden-xs hidden-sm">
+    </div>
     <div class="col-md-3 col-xs-8">
         <div class="panel panel-default">
             <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><strong>OPCIÓN 3 B/. {{ cotizaciones.2.total|floatformat:2|intcomma }}</strong></div>
@@ -231,7 +234,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-xs-4"></div>
+    <div class="col-md-3 col-xs-4">
+        <img src="{% static 'img/carro_acerta_300x130.png' %}" width="250" style="position: absolute; float: left; z-index: -2; top: 180px;" class="hidden-xs hidden-sm">
+    </div>
 </div><br>
 <div class="col-md-4"></div>
 <div class="col-md-4 text-center">
