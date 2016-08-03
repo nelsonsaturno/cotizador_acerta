@@ -150,14 +150,16 @@
             </div>
             <div class="col-md-2">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8" style="position: relative;">
+                <img src="{% static 'img/melissa_acerta_300x130_2.png' %}" style="position: absolute; float: left; z-index: -1; top: 520px; left: 20px;" class="hidden-xs hidden-sm">
+                <img src="{% static 'img/carro_acerta_300x130.png' %}" width="250" style="position: absolute; float: left; z-index: -2; top: 680px; left:-40px;" class="hidden-xs hidden-sm">
                 {% bootstrap_form_errors form %}
                 <form id="myform" action="" method="post" role="form" class="form-horizontal">
                     {% csrf_token %}
 
                     <div class="login-box-body">
                         <h3 id="subtitulo"><strong>Datos del Cliente</strong></h3>
-                        <div class="col-md-6" >
+                        <div class="col-md-6">
                             <h3 id="subtitulo"><strong>Persona</strong></h3>
                             {% bootstrap_field form.nombre layout='horizontal' show_label=False field_class='form-field' %}
                             {% bootstrap_field form.apellido layout='horizontal' show_label=False field_class='form-field' %}
@@ -171,7 +173,7 @@
                             {% bootstrap_field form.telefono2 layout='horizontal' show_label=False field_class='form-field'%}
                             {% bootstrap_field form.historial_transito layout='horizontal' show_label=False field_class='form-field'%}
                         </div>
-                        <div class="col-md-6" style="position:relative;">
+                        <div class="col-md-6">
                             <h3 id="subtitulo"><strong>Cobertura</strong></h3>
                             {% bootstrap_field form.lesiones_corporales layout='horizontal' show_label=False field_class='form-field'%}
                             {% bootstrap_field form.danios_propiedad layout='horizontal' show_label=False field_class='form-field'%}
