@@ -47,6 +47,13 @@
     input:focus:-ms-input-placeholder {
         color: #E76C42 !important;
     }
+    input:focus:-ms-input-placeholder { /* IE10–11 */
+        color: #E76C42 !important;
+    }
+
+    input:focus::-ms-input-placeholder { /* Edge */
+        color: #E76C42 !important;
+    }
     .login-box-body {
         margin-left: 20%;
         margin-right: 20%
