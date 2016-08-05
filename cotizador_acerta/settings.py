@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'administrador',
     'reportes',
     'bootstrap3_datetime',
+    'polizas',
 ]
 
 MIDDLEWARE_CLASSES = [
