@@ -14,12 +14,15 @@ class Sexo(models.Model):
                                      ('Femenino', 'Femenino')], unique=True)
     factor = models.FloatField(blank=False, default=0.0)
 
+    def __str__(self):
+        return self.sexo
 
-class SexoHistory(object):
+
+class SexoHistory(models.Model):
 
     prev_value = models.ForeignKey(Sexo)
     factor = models.FloatField(blank=False, default=0.0)
-    corredor = models.ForeignKey(User)
+    user = models.ForeignKey(User)
     modified_at = models.DateTimeField(auto_now_add=True)
 
 
