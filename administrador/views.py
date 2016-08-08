@@ -100,6 +100,21 @@ class AdminSexo(LoginRequiredMixin, AdminRequiredMixin, generic.UpdateView):
     context_object_name = "sexo"
     success_url = 'list_sexo'
 
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance with the passed
+        POST variables and then checked for validity.
+        """
+        form = self.get_form()
+        if form.is_valid():
+            prev_value = Sexo.objects.get(pk=kwargs['pk'])
+            history = SexoHistory(prev_value=prev_value,
+                                  factor=prev_value.factor)
+            history.save()
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
     def form_valid(self, form):
         """
         If the form is valid, redirect to the supplied URL.

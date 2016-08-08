@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.models import User
 
 fs = FileSystemStorage(location='/cotizador_acerta/static/pdf')
 
@@ -12,6 +13,14 @@ class Sexo(models.Model):
                             choices=[('Masculino', 'Masculino'),
                                      ('Femenino', 'Femenino')], unique=True)
     factor = models.FloatField(blank=False, default=0.0)
+
+
+class SexoHistory(object):
+
+    prev_value = models.ForeignKey(Sexo)
+    factor = models.FloatField(blank=False, default=0.0)
+    corredor = models.ForeignKey(User)
+    modified_at = models.DateTimeField(auto_now_add=True)
 
 
 class Estado_Civil(models.Model):
