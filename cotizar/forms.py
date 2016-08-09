@@ -31,6 +31,10 @@ class ConductorVehiculoForm(forms.ModelForm):
             'cero_km': '0 Kms',
             'valor': 'Valor',
         }
+        widgets = {
+            'marca': forms.Select(attrs={'class': 'select2'}),
+            'modelo': forms.Select(attrs={'class': 'select2'}),
+        }
 
     def clean_edad(self):
         edad = self.cleaned_data.get('edad')

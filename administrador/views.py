@@ -93,6 +93,17 @@ class ListSexo(LoginRequiredMixin, AdminRequiredMixin, generic.ListView):
     context_object_name = 'sexos'
 
 
+class ListSexoHistory(LoginRequiredMixin, AdminRequiredMixin, generic.TemplateView):
+    template_name = "administrador/list_sexo_history.html"
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        sexo = Sexo.objects.get(pk=kwargs['pk'])
+        histories = SexoHistory.objects.filter(prev_value=sexo).order_by('-modified_at')
+        context['histories'] = histories
+        return self.render_to_response(context)
+
+
 class AdminSexo(LoginRequiredMixin, AdminRequiredMixin, generic.UpdateView):
     template_name = "administrador/sexo_form.html"
     model = Sexo
@@ -105,6 +116,11 @@ class AdminSexo(LoginRequiredMixin, AdminRequiredMixin, generic.UpdateView):
         If the form is valid, redirect to the supplied URL.
         """
         self.object = form.save()
+        user = User.objects.get(pk=form.cleaned_data['user'])
+        historial = SexoHistory(
+            prev_value=self.object, factor=form.cleaned_data['prev'], user=user
+        )
+        historial.save()
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):

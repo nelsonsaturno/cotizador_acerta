@@ -2,10 +2,12 @@
 
 {% block titulo %}
     <h1>
-        Editar Factor: <strong>Sexo</strong>
+        Historial Sexo: <strong>{{ histories.0.prev_value.sexo }}</strong>
     </h1>
 {% endblock titulo %}
 {% load static %}
+{% load humanize %}
+{% load i18n %}
 {% block extracss %}
 <link href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}" rel="stylesheet">
 <style type="text/css">
@@ -28,15 +30,17 @@
             <tr>
               <th>Sexo</th>
               <th>Factor</th>
-              <th>Ver Historial</th>
+              <th>Usuario</th>
+              <th>Fecha de modificación</th>
             </tr>
           </thead>
           <tbody>
-            {% for sexo in sexos %}
+            {% for history in histories %}
                 <tr>
-                    <td><a href="{% url 'admin_sexo' sexo.pk %}">{{ sexo.sexo }}</a></td>
-                    <td>{{ sexo.factor|floatformat:2 }}</td>
-                    <td><a href="{% url 'list_sexo_history' sexo.pk %}">Modificaciones</a></td>
+                    <td>{{ history.prev_value.sexo }}</td>
+                    <td>{{ history.factor|floatformat:2|intcomma }}</td>
+                    <td>{{ history.user.email }}</td>
+                    <td>{{ history.modified_at|date:'D, d N Y' }}</td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -44,14 +48,15 @@
             <tr>
               <th>Sexo</th>
               <th>Factor</th>
-              <th>Ver Historial</th>
+              <th>Usuario</th>
+              <th>Fecha de modificación</th>
             </tr>
           </tfoot>
         </table>
       </div>
     </div>
     <div class="text-center">
-      <a href="{% url 'factores' %}" class="btn btn-primary">Atrás</a>
+      <a href="{% url 'list_sexo' %}" class="btn btn-primary">Atrás</a>
     </div>
   </div>
   <div class="col-md-2 col-sm-hidden col-xs-hidden"></div>
@@ -63,7 +68,7 @@
   $(document).ready(function(){
     $(function () {
         $("#example1").DataTable({
-          "order": [[ 1, "asc" ]],
+          "order": [[ 3, "desc" ]],
           "language": {
             "infoEmpty": "No existen entradas para mostrar",
             "info": "Mostrando _START_ hasta _END_ de _TOTAL_ entradas",

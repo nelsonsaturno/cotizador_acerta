@@ -14,8 +14,26 @@
 {% load static %}
 {% block extracss %}
 <link href="{% static 'plugins/iCheck/square/grey.css' %}" rel="stylesheet">
-
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
 <style type="text/css">
+    select:invalid { color: gray; }
+    .select2 .select2-selection {
+        display: block !important;
+        width: 100% !important;
+        height: 34px !important;
+        padding: 6px 12px !important;
+        font-size: 14px !important;
+        line-height: 1.42857143 !important;
+        color: #555 !important;
+        background-color: #fff !important;
+        background-image: none !important;
+        border: 1px solid #ccc !important;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
+    }
+    .select2-container--default .select2-selection--single {
+        border-radius: 1px !important;
+    }
     #titulo-login {
         font-family: Arial;
         font-size: 25px;
@@ -277,8 +295,17 @@
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
 <script src="{% static 'js/jquery.mask.min.js' %}"></script>
 <script src="{% static 'js/jquery.mask2.min.js' %}"></script>
+<!-- Select2 -->
+<script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
 <script type="text/javascript">
-
+    $('#id_marca').select2({
+        placeholder: "Marca",
+        allowClear: true
+    });
+    $('#id_modelo').select2({
+        placeholder: "Modelo",
+        allowClear: true
+    });
     $(document).ready(function(){
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-grey',
@@ -291,7 +318,6 @@
             $( '#id_endoso' ).prepend('<option value="" selected=selected disabled>Endoso</option>');
             $('#id_endoso').after('<div class="input-group-btn button-endoso"><button class="endoso btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-question-sign" style="color: #E76C42;"></span></button></div>');
             $('.endoso').prop("disabled",true);
-            $( '#id_marca' ).prepend('<option class="placeholder" value="" selected=selected disabled>Marca</option>');
             $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" selected=selected disabled>Estado Civil</option>');
             $( '#id_sexo' ).prepend('<option class="placeholder" value="" selected=selected disabled>Sexo</option>');
             $( '#id_lesiones_corporales' ).prepend('<option class="placeholder" value="" selected=selected disabled>Lesiones Corporales</option>');
@@ -299,7 +325,6 @@
             $( '#id_gastos_medicos' ).prepend('<option class="placeholder" value="" selected=selected disabled>Gastos Médicos</option>');
             $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" selected=selected disabled>Muerte Accidental</option>');
             $( '#id_modelo' ).empty();
-            $( '#id_modelo' ).append('<option class="placeholder" value="" selected=selected disabled>Modelo</option>');
             $("#id_endoso option[value='6']").remove();
             $("#id_endoso option[value='7']").remove();
             $("#id_endoso option[value='8']").remove();
@@ -308,14 +333,12 @@
             $("#id_endoso option[value='11']").remove();
         {% else %}
             $( '#id_endoso' ).prepend('<option value="" disabled>Endoso</option>');
-            $( '#id_marca' ).prepend('<option class="placeholder" value="" disabled>Marca</option>');
             $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" disabled>Estado Civil</option>');
             $( '#id_sexo' ).prepend('<option class="placeholder" value="" disabled>Sexo</option>');
             $( '#id_lesiones_corporales' ).prepend('<option class="placeholder" value="" disabled>Lesiones Corporales</option>');
             $( '#id_danios_propiedad' ).prepend('<option class="placeholder" value="" disabled>Daños a propiedad ajena</option>');
             $( '#id_gastos_medicos' ).prepend('<option class="placeholder" value="" disabled>Gastos Médicos</option>');
             $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" disabled>Muerte Accidental</option>');
-            $( '#id_modelo' ).prepend('<option class="placeholder" value="" disabled>Modelo</option>');
             document.getElementById("id_valor_text").value = $("#id_valor").val() + ".00";
         {% endif %}
     });

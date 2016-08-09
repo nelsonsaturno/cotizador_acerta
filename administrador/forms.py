@@ -40,6 +40,9 @@ class MarcaForm(forms.ModelForm):
 
 class SexoForm(forms.ModelForm):
 
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = Sexo
         exclude = ['sexo']
