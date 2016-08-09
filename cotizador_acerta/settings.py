@@ -35,7 +35,7 @@ LOGIN_URL = reverse_lazy('login')
 # Handle session is not Json Serializable
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 # Auto logout delay in minutes
-AUTO_LOGOUT_DELAY = 120  # equivalent to 120 minutes
+AUTO_LOGOUT_DELAY = 120  # equivalent to 5 minutes
 
 BOOTSTRAP3 = {
     # Class to indicate error (better to set this in your Django form)
