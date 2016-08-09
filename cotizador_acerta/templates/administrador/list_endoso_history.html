@@ -30,7 +30,7 @@
             <tr>
               <th>Endoso</th>
               <th>Precio</th>
-              <th>Información</th>
+              <th class="hidden-xs hidden-sm">Información</th>
               <th>Usuario</th>
               <th>Fecha de modificación</th>
             </tr>
@@ -40,7 +40,7 @@
                 <tr>
                     <td>{{ history.endoso }}</td>
                     <td>{{ history.precio|floatformat:2|intcomma }}</td>
-                    <td><a href="{% url 'show_pdf_history' history.pk %}">{{ history.archivo }}</a></td>
+                    <td class="hidden-xs hidden-md"><a href="{% url 'show_pdf_history' history.pk %}">{{ history.archivo }}</a></td>
                     <td>{{ history.user.email }}</td>
                     <td>{{ history.modified_at|date:'D, d N Y' }}</td>
                 </tr>
@@ -50,7 +50,7 @@
             <tr>
               <th>Endoso</th>
               <th>Precio</th>
-              <th>Información</th>
+              <th class="hidden-xs hidden-md">Información</th>
               <th>Usuario</th>
               <th>Fecha de modificación</th>
             </tr>
