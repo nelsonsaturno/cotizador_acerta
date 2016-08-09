@@ -29,6 +29,7 @@
               <th>Límite Inferior</th>
               <th>Límite Superior</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +38,7 @@
                     <td><a href="{% url 'admin_historial_transito' historial.pk %}">{{ historial.inferior }}</a></td>
                     <td><a href="{% url 'admin_historial_transito' historial.pk %}">{{ historial.superior }}</a></td>
                     <td>{{ historial.factor|floatformat:2 }}</td>
+                    <td><a href="{% url 'list_historial_history' historial.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -45,6 +47,7 @@
               <th>Límite Inferior</th>
               <th>Límite Superior</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

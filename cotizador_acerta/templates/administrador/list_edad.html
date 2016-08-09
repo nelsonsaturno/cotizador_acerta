@@ -29,6 +29,7 @@
               <th>Límite Inferior</th>
               <th>Límite Superior</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +38,7 @@
                     <td><a href="{% url 'admin_edad' edad.pk %}">{{ edad.inferior }}</a></td>
                     <td><a href="{% url 'admin_edad' edad.pk %}">{{ edad.superior }}</a></td>
                     <td>{{ edad.factor|floatformat:2 }}</td>
+                    <td><a href="{% url 'list_edad_history' edad.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -45,6 +47,7 @@
               <th>Límite Inferior</th>
               <th>Límite Superior</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

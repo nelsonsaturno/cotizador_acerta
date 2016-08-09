@@ -28,6 +28,7 @@
             <tr>
               <th>Cobertura</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +36,7 @@
                 <tr>
                     <td><a href="{% url 'admin_lesiones' lesion.pk %}">{{ lesion.lesiones_corporales }}</a></td>
                     <td>{{ lesion.factor|floatformat:2 }}</td>
+                    <td><a href="{% url 'list_lesiones_history' lesion.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -42,6 +44,7 @@
             <tr>
               <th>Cobertura</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

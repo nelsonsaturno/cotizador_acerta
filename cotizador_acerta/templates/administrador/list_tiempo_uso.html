@@ -28,6 +28,7 @@
             <tr>
               <th>Tiempo de Uso (años)</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +36,7 @@
                 <tr>
                     <td><a href="{% url 'admin_tiempo_uso' tiempo.pk %}">{{ tiempo.tiempo }}</a></td>
                     <td>{{ tiempo.factor|floatformat:3 }}</td>
+                    <td><a href="{% url 'list_tiempo_uso_history' tiempo.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -42,6 +44,7 @@
             <tr>
               <th>Tiempo de Uso (años)</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

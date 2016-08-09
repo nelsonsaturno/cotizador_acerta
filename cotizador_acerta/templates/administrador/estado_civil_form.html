@@ -51,3 +51,11 @@
 </div>
 
 {% endblock content %}
+{% block custom_script %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#id_prev").val($("#id_factor").val());
+    $("#id_user").val({{ request.user.pk }});
+  });
+</script>
+{% endblock custom_script %}

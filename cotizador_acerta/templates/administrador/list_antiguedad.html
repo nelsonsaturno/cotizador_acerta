@@ -30,6 +30,7 @@
               <th>Límite</th>
               <th>Factor Inferior</th>
               <th>Factor Superior</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -38,6 +39,7 @@
                     <td><a href="{% url 'admin_antiguedad' antiguedad.pk %}">{{ antiguedad.limite }}</a></td>
                     <td>{{ antiguedad.factor_menor|floatformat:2 }}</td>
                     <td>{{ antiguedad.factor_mayor|floatformat:2 }}</td>
+                    <td><a href="{% url 'list_antiguedad_history' antiguedad.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -46,6 +48,7 @@
               <th>Límite</th>
               <th>Factor Inferior</th>
               <th>Factor Superior</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

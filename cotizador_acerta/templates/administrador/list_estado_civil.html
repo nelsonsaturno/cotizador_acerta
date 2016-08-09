@@ -28,6 +28,7 @@
             <tr>
               <th>Estado Civil</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +36,7 @@
                 <tr>
                     <td><a href="{% url 'admin_estado_civil' estado.pk %}">{{ estado.estado_civil }}</a></td>
                     <td>{{ estado.factor|floatformat:2 }}</td>
+                    <td><a href="{% url 'list_estado_civil_history' estado.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -42,6 +44,7 @@
             <tr>
               <th>Estado Civil</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

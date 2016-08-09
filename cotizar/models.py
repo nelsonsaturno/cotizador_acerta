@@ -36,6 +36,14 @@ class Marca(models.Model):
         return self.nombre
 
 
+class MarcaHistory(models.Model):
+
+    prev_value = models.ForeignKey(Marca)
+    nombre = models.CharField(max_length=20, blank=False)
+    user = models.ForeignKey(User)
+    modified_at = models.DateTimeField(auto_now_add=True)
+
+
 class Modelo(models.Model):
 
     nombre = models.CharField(max_length=35, blank=False)
@@ -45,6 +53,17 @@ class Modelo(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
+class ModeloHistory(models.Model):
+
+    prev_value = models.ForeignKey(Modelo)
+    marca = models.CharField(max_length=20, blank=False)
+    nombre = models.CharField(max_length=35, blank=False)
+    descuento = models.FloatField(blank=False, default=1.00)
+    recargo = models.FloatField(blank=False, default=1.00)
+    user = models.ForeignKey(User)
+    modified_at = models.DateTimeField(auto_now_add=True)
 
 
 class ConductorVehiculo(models.Model):

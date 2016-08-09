@@ -27,18 +27,21 @@
           <thead>
             <tr>
               <th>Factor de Importación</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
             {% for importacion in importaciones %}
                 <tr>
                     <td><a href="{% url 'admin_importacion' importacion.pk %}">{{ importacion.factor|floatformat:4 }}</a></td>
+                    <td><a href="{% url 'list_importacion_history' importacion.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
           <tfoot>
             <tr>
               <th>Factor de Importación</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

@@ -37,6 +37,10 @@
                 {% csrf_token %}
                 {% bootstrap_field form.endoso layout='horizontal' %}
                 {% bootstrap_field form.precio layout='horizontal' %}
+                {% bootstrap_field form.prev_n layout='horizontal' %}
+                {% bootstrap_field form.prev_p layout='horizontal' %}
+                {% bootstrap_field form.prev_a layout='horizontal' %}
+                {% bootstrap_field form.user layout='horizontal' %}
                 <div class="form-group">
                   <label class="col-md-3 control-label" for="id_archivo">Archivo</label>
                   <div class="col-md-9">
@@ -64,3 +68,14 @@
 </div>
 
 {% endblock content %}
+
+{% block custom_script %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#id_prev_n").val($("#id_endoso").val());
+    $("#id_prev_p").val($("#id_precio").val());
+    $("#id_prev_a").val("{{ endoso.archivo.name }}");
+    $("#id_user").val({{ request.user.pk }});
+  });
+</script>
+{% endblock custom_script %}

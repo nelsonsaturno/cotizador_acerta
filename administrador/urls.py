@@ -30,6 +30,11 @@ urlpatterns = patterns(
         name='list_historial_transito'
     ),
     url(
+        r'^list_historial_history/(?P<pk>\d+)$',
+        ListHistorialHistory.as_view(),
+        name='list_historial_history'
+    ),
+    url(
         r'^admin-historial-transito/(?P<pk>\d+)$',
         AdminHistorialTransito.as_view(),
         name='admin_historial_transito'
@@ -38,6 +43,11 @@ urlpatterns = patterns(
         r'^list_estado_civil/$',
         ListEstadoCivil.as_view(),
         name='list_estado_civil'
+    ),
+    url(
+        r'^list_estado_civil_history/(?P<pk>\d+)$',
+        ListEstadoCivilHistory.as_view(),
+        name='list_estado_civil_history'
     ),
     url(
         r'^admin-estado-civil/(?P<pk>\d+)$',
@@ -50,6 +60,11 @@ urlpatterns = patterns(
         name='list_valor'
     ),
     url(
+        r'^list_valor_history/(?P<pk>\d+)$',
+        ListValorHistory.as_view(),
+        name='list_valor_history'
+    ),
+    url(
         r'^admin-valor/(?P<pk>\d+)$',
         AdminValor.as_view(),
         name='admin_valor'
@@ -58,6 +73,11 @@ urlpatterns = patterns(
         r'^list_antiguedad/$',
         ListAntiguedad.as_view(),
         name='list_antiguedad'
+    ),
+    url(
+        r'^list_antiguedad_history/(?P<pk>\d+)$',
+        ListAntiguedadHistory.as_view(),
+        name='list_antiguedad_history'
     ),
     url(
         r'^admin-antiguedad/(?P<pk>\d+)$',
@@ -70,6 +90,11 @@ urlpatterns = patterns(
         name='list_edad'
     ),
     url(
+        r'^list_edad_history/(?P<pk>\d+)$',
+        ListEdadHistory.as_view(),
+        name='list_edad_history'
+    ),
+    url(
         r'^admin-edad/(?P<pk>\d+)$',
         AdminEdad.as_view(),
         name='admin_edad'
@@ -78,6 +103,11 @@ urlpatterns = patterns(
         r'^list_tiempo_uso/$',
         ListTiempoUso.as_view(),
         name='list_tiempo_uso'
+    ),
+    url(
+        r'^list_tiempo_uso_history/(?P<pk>\d+)$',
+        ListTiempoUsoHistory.as_view(),
+        name='list_tiempo_uso_history'
     ),
     url(
         r'^admin-tiempo-uso/(?P<pk>\d+)$',
@@ -90,6 +120,11 @@ urlpatterns = patterns(
         name='list_colision'
     ),
     url(
+        r'^list_colision_history/(?P<pk>\d+)$',
+        ListColisionHistory.as_view(),
+        name='list_colision_history'
+    ),
+    url(
         r'^admin-colision/(?P<pk>\d+)$',
         AdminColision.as_view(),
         name='admin_colision'
@@ -100,6 +135,11 @@ urlpatterns = patterns(
         name='list_importacion'
     ),
     url(
+        r'^list_importacion_history/(?P<pk>\d+)$',
+        ListImportacionHistory.as_view(),
+        name='list_importacion_history'
+    ),
+    url(
         r'^admin-importacion/(?P<pk>\d+)$',
         AdminImportacion.as_view(),
         name='admin_importacion'
@@ -108,6 +148,11 @@ urlpatterns = patterns(
         r'^list_endoso/$',
         ListEndoso.as_view(),
         name='list_endoso'
+    ),
+    url(
+        r'^list_endoso_history/(?P<pk>\d+)$',
+        ListEndosoHistory.as_view(),
+        name='list_endoso_history'
     ),
     url(
         r'^admin-endoso/(?P<pk>\d+)$',
@@ -125,9 +170,19 @@ urlpatterns = patterns(
         name='show_pdf'
     ),
     url(
+        r'^show-pdf-history/(?P<pk>\d+)$',
+        DisplayPDFHistoryView.as_view(),
+        name='show_pdf_history'
+    ),
+    url(
         r'^list_lesiones/$',
         ListLesiones.as_view(),
         name='list_lesiones'
+    ),
+    url(
+        r'^list_lesiones_history/(?P<pk>\d+)$',
+        ListLesionesHistory.as_view(),
+        name='list_lesiones_history'
     ),
     url(
         r'^admin-lesiones/(?P<pk>\d+)$',
@@ -140,6 +195,11 @@ urlpatterns = patterns(
         name='list_danios'
     ),
     url(
+        r'^list_danios_history/(?P<pk>\d+)$',
+        ListDaniosHistory.as_view(),
+        name='list_danios_history'
+    ),
+    url(
         r'^admin-danios/(?P<pk>\d+)$',
         AdminDanios.as_view(),
         name='admin_danios'
@@ -148,6 +208,11 @@ urlpatterns = patterns(
         r'^list_gastos/$',
         ListGastos.as_view(),
         name='list_gastos'
+    ),
+    url(
+        r'^list_gastos_history/(?P<pk>\d+)$',
+        ListGastosHistory.as_view(),
+        name='list_gastos_history'
     ),
     url(
         r'^admin-gastos/(?P<pk>\d+)$',
@@ -160,6 +225,11 @@ urlpatterns = patterns(
         name='list_marca'
     ),
     url(
+        r'^list_marca_history/(?P<pk>\d+)$',
+        ListMarcaHistory.as_view(),
+        name='list_marca_history'
+    ),
+    url(
         r'^admin-marca/(?P<pk>\d+)$',
         AdminMarca.as_view(),
         name='admin_marca'
@@ -168,6 +238,11 @@ urlpatterns = patterns(
         r'^list_modelo/(?P<pk>\d+)$',
         ListModelo.as_view(),
         name='list_modelo'
+    ),
+    url(
+        r'^list_modelo_history/(?P<pk>\d+)$',
+        ListModeloHistory.as_view(),
+        name='list_modelo_history'
     ),
     url(
         r'^admin-modelo/(?P<pk>\d+)$',

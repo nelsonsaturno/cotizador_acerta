@@ -7,6 +7,12 @@ from cotizar.models import Modelo, Marca
 
 class ModeloForm(forms.ModelForm):
 
+    marca_n = forms.CharField(widget=forms.HiddenInput(), required=False)
+    modelo = forms.CharField(widget=forms.HiddenInput(), required=False)
+    prev_d = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    prev_r = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = Modelo
         exclude = []
@@ -24,6 +30,9 @@ class ModeloForm(forms.ModelForm):
 
 
 class MarcaForm(forms.ModelForm):
+
+    prev = forms.CharField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Marca
@@ -59,6 +68,9 @@ class SexoForm(forms.ModelForm):
 
 class Estado_CivilForm(forms.ModelForm):
 
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = Estado_Civil
         exclude = []
@@ -78,6 +90,11 @@ class Estado_CivilForm(forms.ModelForm):
 
 
 class ValorForm(forms.ModelForm):
+
+    prev_s = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    prev_i = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Valor
@@ -100,6 +117,11 @@ class ValorForm(forms.ModelForm):
 
 class Historial_TransitoForm(forms.ModelForm):
 
+    prev_s = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    prev_i = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = Historial_Transito
         exclude = []
@@ -116,6 +138,11 @@ class Historial_TransitoForm(forms.ModelForm):
 
 
 class AntiguedadForm(forms.ModelForm):
+
+    prev_s = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    prev_i = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Antiguedad
@@ -134,6 +161,11 @@ class AntiguedadForm(forms.ModelForm):
 
 class EdadForm(forms.ModelForm):
 
+    prev_s = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    prev_i = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = Edad
         exclude = []
@@ -151,6 +183,9 @@ class EdadForm(forms.ModelForm):
 
 class Tiempo_UsoForm(forms.ModelForm):
 
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = Tiempo_Uso
         exclude = []
@@ -166,6 +201,9 @@ class Tiempo_UsoForm(forms.ModelForm):
 
 
 class ColisionForm(forms.ModelForm):
+
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Colision
@@ -183,6 +221,9 @@ class ColisionForm(forms.ModelForm):
 
 class ImportacionForm(forms.ModelForm):
 
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = Importacion
         exclude = []
@@ -197,6 +238,11 @@ class ImportacionForm(forms.ModelForm):
 
 
 class EndosoForm(forms.ModelForm):
+
+    prev_n = forms.CharField(widget=forms.HiddenInput(), required=False)
+    prev_p = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    prev_a = forms.CharField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Endoso
@@ -221,6 +267,9 @@ class EndosoForm(forms.ModelForm):
 
 class LesionesCorporalesForm(forms.ModelForm):
 
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = LesionesCorporales
         exclude = []
@@ -237,6 +286,9 @@ class LesionesCorporalesForm(forms.ModelForm):
 
 class DaniosPropiedadForm(forms.ModelForm):
 
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = DaniosPropiedad
         exclude = []
@@ -252,6 +304,9 @@ class DaniosPropiedadForm(forms.ModelForm):
 
 
 class GastosMedicosForm(forms.ModelForm):
+
+    prev = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    user = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = GastosMedicos

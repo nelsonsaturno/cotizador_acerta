@@ -51,3 +51,14 @@
 </div>
 
 {% endblock content %}
+
+{% block custom_script %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#id_prev").val($("#id_limite").val());
+    $("#id_prev_i").val($("#id_factor_menor").val());
+    $("#id_prev_s").val($("#id_factor_mayor").val());
+    $("#id_user").val({{ request.user.pk }});
+  });
+</script>
+{% endblock custom_script %}

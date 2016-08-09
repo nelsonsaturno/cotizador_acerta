@@ -28,6 +28,7 @@
             <tr>
               <th>Tiempo de Uso (años)</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +36,7 @@
                 <tr>
                     <td><a href="{% url 'admin_colision' colision.pk %}">{{ colision.tiempo }}</a></td>
                     <td>{{ colision.factor|floatformat:3 }}</td>
+                    <td><a href="{% url 'list_colision_history' colision.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -42,6 +44,7 @@
             <tr>
               <th>Tiempo de Uso (años)</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

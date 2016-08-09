@@ -28,6 +28,7 @@
             <tr>
               <th>Cobertura</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +36,7 @@
                 <tr>
                     <td><a href="{% url 'admin_gastos' gasto.pk %}">{{ gasto.gastos_medicos }}</a></td>
                     <td>{{ gasto.factor|floatformat:2 }}</td>
+                    <td><a href="{% url 'list_gastos_history' gasto.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -42,6 +44,7 @@
             <tr>
               <th>Cobertura</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

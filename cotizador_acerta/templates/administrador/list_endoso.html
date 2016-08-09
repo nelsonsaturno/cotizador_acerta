@@ -31,6 +31,7 @@
               <th>Endoso</th>
               <th>Precio</th>
               <th>Información</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -39,6 +40,7 @@
                     <td><a href="{% url 'admin_endoso' endoso.pk %}">{{ endoso.endoso }}</a></td>
                     <td>{{ endoso.precio|floatformat:2 }}</td>
                     <td><a href="{% url 'show_pdf' endoso.pk %}">{{ endoso.archivo.name }}</a></td>
+                    <td><a href="{% url 'list_endoso_history' endoso.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -47,6 +49,7 @@
               <th>Endoso</th>
               <th>Precio</th>
               <th>Información</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

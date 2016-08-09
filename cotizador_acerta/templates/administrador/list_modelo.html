@@ -31,6 +31,7 @@
               <th>Nombre</th>
               <th>Descuento</th>
               <th>Recargo</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -39,6 +40,7 @@
                     <td><a href="{% url 'admin_modelo' modelo.pk %}">{{ modelo.nombre }}</a></td>
                     <td>{{ modelo.descuento }}</td>
                     <td>{{ modelo.recargo }}</td>
+                    <td><a href="{% url 'list_modelo_history' modelo.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -47,6 +49,7 @@
               <th>Nombre</th>
               <th>Descuento</th>
               <th>Recargo</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

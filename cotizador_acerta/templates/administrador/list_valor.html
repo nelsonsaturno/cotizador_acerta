@@ -29,6 +29,7 @@
               <th>Límite Inferior</th>
               <th>Límite Superior</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +38,7 @@
                     <td><a href="{% url 'admin_valor' valor.pk %}">{{ valor.inferior }}</a></td>
                     <td><a href="{% url 'admin_valor' valor.pk %}">{{ valor.superior }}</a></td>
                     <td>{{ valor.factor|floatformat:2 }}</td>
+                    <td><a href="{% url 'list_valor_history' valor.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -45,6 +47,7 @@
               <th>Límite Inferior</th>
               <th>Límite Superior</th>
               <th>Factor</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>

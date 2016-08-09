@@ -30,6 +30,7 @@
             <tr>
               <th>Nombre</th>
               <th>Listar Modelos</th>
+              <th>Ver Historial</th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +38,7 @@
                 <tr>
                     <td><a href="{% url 'admin_marca' marca.pk %}">{{ marca.nombre }}</a></td>
                     <td><a href="{% url 'list_modelo' marca.pk %}">Ver Modelos</a></td>
+                    <td><a href="{% url 'list_marca_history' marca.pk %}">Modificaciones</a></td>
                 </tr>
             {% endfor %}
           </tbody>
@@ -44,6 +46,7 @@
             <tr>
               <th>Nombre</th>
               <th>Listar Modelos</th>
+              <th>Ver Historial</th>
             </tr>
           </tfoot>
         </table>
