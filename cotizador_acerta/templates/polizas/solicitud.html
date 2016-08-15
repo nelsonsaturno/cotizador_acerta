@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{% load l10n %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% load static %}
+{% block extracss %}
+<link href="{% static 'plugins/iCheck/square/grey.css' %}" rel="stylesheet">
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+<style type="text/css">
+    select:invalid { color: gray; }
+    .select2 .select2-selection {
+        display: block !important;
+        width: 100% !important;
+        height: 34px !important;
+        padding: 6px 12px !important;
+        font-size: 14px !important;
+        line-height: 1.42857143 !important;
+        color: #555 !important;
+        background-color: #fff !important;
+        background-image: none !important;
+        border: 1px solid #ccc !important;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
+    }
+    .select2-container--default .select2-selection--single {
+        border-radius: 1px !important;
+    }
+    #titulo-login {
+        font-family: Arial;
+        font-size: 25px;
+        color: #B5B6B8;
+    }
+    @media only screen and (max-width: 435px) {
+        #titulo-login {
+            font-family: Arial;
+            font-size: 15px;
+            color: #B5B6B8;
+        }
+    }
+    #link-acerta {
+        color: #E76C42;
+    }
+    input:focus {
+        border-color: #E76C42 !important;
+        color: #E76C42 !important;
+    }
+    input:focus::-webkit-input-placeholder {
+        color: #E76C42 !important;
+    }
+    input:focus::-moz-placeholder {
+        color: #E76C42 !important;
+    }
+    input:focus:-moz-placeholder {
+        color: #E76C42 !important;
+    }
+    input:focus:-ms-input-placeholder {
+        color: #E76C42 !important;
+    }
+    input:focus:-ms-input-placeholder { /* IE10–11 */
+        color: #E76C42 !important;
+    }
+
+    input:focus::-ms-input-placeholder { /* Edge */
+        color: #E76C42 !important;
+    }
+    .login-box-body {
+        margin-left: 20%;
+        margin-right: 20%
+    }
+    .form-field {
+        margin:0px 0px 0px 20px;
+    }
+    .form-field-value {
+        margin:0px 0px 0px 20px;
+        display:none;
+    }
+    .km-field {
+        margin:0px 0px 0px 20px;
+        display: none;
+    }
+    #subtitulo {
+        font-family: Arial;
+        font-size: 13px;
+        color: #828489;
+    }
+    #subtitulo2 {
+        font-family: Arial;
+        font-size: 18px;
+        color: #B5B6B8;
+    }
+    .calculate {
+        color: #FFFFFF;
+        background-color: #727270;
+        float: right;
+        width: 65%;
+        text-align: center;
+    }
+    .calculate {
+      transition: all 0.8s ease;
+    }
+    .calculate:hover {
+      background: #E76C42;
+      color: #FFFFFF;
+    }
+    .first {
+        padding-top: 10%;
+    }
+    #id_endoso{
+        z-index: 0;
+    }
+    .button-endoso{
+        z-index: 0;
+    }
+    @media only screen and (max-width: 435px) {
+        .first {
+          padding-top: 20%;
+        }
+    }
+    table th {
+        background-color: #E76C42;
+        color: white;
+        text-align: center;
+    }
+    .caption {
+        text-align: center;
+        font-weight: bold;
+        background-color: #E76C42;
+        color: white;
+    }
+    .melissa {
+        float: left;
+        vertical-align: text-bottom;
+        display: inline-block;
+        position: relative;
+    }
+    .carro {
+        float: left;
+        vertical-align: text-bottom;
+        display: inline-block;
+        position: absolute;
+    }
+    .helper {
+        display: inline-block;
+        height: 100%;
+        vertical-align: bottom;
+    }
+</style>
+{% endblock extracss %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 first">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 text-center">
+                    <h1 id="titulo-login" class="text-center"><strong>SOLICITUD DE PÓLIZA DE SEGUROS PARA AUTOMÓVILES</strong></h1>
+                    <h3 id="subtitulo" class="text-center">Te quedan pocos pasos para realizar tu solicitud</h3>
+                    <h3 id="subtitulo2" class="text-center"><strong>COMPLETA LOS DATOS DE LA SOLICITUD</strong></h3>
+                </div>
+                <br><br><br>
+
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+        <div class="col-md-12">
+            <div class="col-md-2">
+            </div>
+            <div class="container col-md-8">
+              <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Datos Personales</a></li>
+                <li><a data-toggle="tab" href="#menu1">Datos Políticos</a></li>
+                <li><a data-toggle="tab" href="#menu2">Datos Financieros</a></li>
+                <li><a data-toggle="tab" href="#menu3">Datos del Vehículo</a></li>
+              </ul>
+
+              <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                  <p>Fields</p>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                  <p>Fields</p>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                  <p>Fields</p>
+                </div>
+                <div id="menu3" class="tab-pane fade">
+                  <p>Fields</p>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="col-md-2"></div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block custom_script %}
+<script type="text/javascript">
+</script>
+
+{% endblock custom_script %}

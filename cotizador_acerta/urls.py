@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^', include('cotizar.urls')),
     url(r'^administrador/', include('administrador.urls')),
     url(r'^reportes/', include('reportes.urls')),
+    url(r'^polizas/', include('polizas.urls')),
 ]
