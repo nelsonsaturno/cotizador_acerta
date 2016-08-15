@@ -2,8 +2,8 @@ from django.db import models
 from cotizar.models import *
 
 
-# Operador del automovil de la poliza.
-class Operador(models.Model):
+# Persona que puede ser distinta al cliente asegurado.
+class Persona(models.Model):
     nombre = models.CharField(max_length=20, blank=False)
     apellido = models.CharField(max_length=20, blank=False)
     identificacion = models.CharField(max_length=20, blank=False)
@@ -14,18 +14,21 @@ class Operador(models.Model):
 
 
 # Modelo para la solicitud de la poliza.
-class Solicitud(models.Model):
+class SolicitudPoliza(models.Model):
 
     cotizacion = models.ForeignKey(Cotizacion, null=True)
     # Extra fields.
-    operador = models.ForeignKey(Operador, null=False)
+    operador = models.ForeignKey(Persona, null=False, related_name='Operador')
     vigencia_desde = models.DateField()
     vigencia_hasta = models.DateField()
     acreedor = models.CharField(max_length=40, blank=False)
+    leasing = models.CharField(max_length=40, blank=False)
     opcion = models.CharField(max_length=40, blank=False)
     agrupador = models.CharField(max_length=40, blank=False)
     cobrador = models.CharField(max_length=40, blank=False)
     direccion_cobro = models.CharField(max_length=100, blank=False)
+    observaciones = models.CharField(max_length=100, blank=False, default='')
+    responsable_pago = models.ForeignKey(Persona, null=True, related_name='Responsable')
 
     def __str__(self):
         pass
@@ -41,10 +44,7 @@ class Referencia(models.Model):
 # Datos extras para el formulario unico.
 class ExtraDatosCliente(models.Model):
     conductor = models.ForeignKey(ConductorVehiculo, blank=False)
-    telefono_res = models.CharField(max_length=20, blank=False)
-    fax = models.CharField(max_length=20, blank=False)
-    apartado = models.CharField(max_length=100, blank=False)
-    zona = models.CharField(max_length=20, blank=False)
+    placa = models.CharField(max_length=40, blank=False)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
     tipo = models.CharField(max_length=40, blank=False)
@@ -63,6 +63,8 @@ class ExtraDatosCliente(models.Model):
     calle_ave = models.CharField(max_length=30, blank=False)
     no_casa = models.CharField(max_length=5, blank=False, default='N/A')
     apartado_postal = models.CharField(max_length=30, blank=False)
+    telefono_res = models.CharField(max_length=20, blank=False)
+    fax = models.CharField(max_length=20, blank=False)
     estafeta = models.CharField(max_length=30, blank=False)
     ocupacion = models.CharField(max_length=30, blank=False)
     cargo_empresa = models.CharField(max_length=30, blank=False)
