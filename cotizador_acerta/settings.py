@@ -99,8 +99,8 @@ WSGI_APPLICATION = 'cotizador_acerta.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config()
+# DATABASES = {}
+# DATABASES['default'] = dj_database_url.config()
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -111,16 +111,16 @@ DATABASES['default'] = dj_database_url.config()
 #         'PORT': '5432',
 #     }
 # }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'cotizador_acerta',
-#         'USER': 'acerta',
-#         'PASSWORD': 'acerta123',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'cotizador_acerta',
+        'USER': 'acerta',
+        'PASSWORD': 'acerta123',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 
 # Password validation
