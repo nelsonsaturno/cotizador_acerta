@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
 
-/* 
+/*
 ==========================================================================
     SideMenu.js
-========================================================================== 
+==========================================================================
 */
-    
+
 .sm-wrapper {
     overflow: hidden;
     position: absolute;
@@ -16,7 +16,7 @@
 
 .sm-main {
     font-size: 10px;
-    position: fixed;
+    position: relative;
     right: 0;
     left:  auto;
     top: 0;
@@ -41,7 +41,7 @@
 
 
 .sm-main-left {
-  
+
   right: auto;
     left:  0;
   width: 260px;
