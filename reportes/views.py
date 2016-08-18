@@ -792,7 +792,7 @@ class ReportError(LoginRequiredMixin, FormView):
                 'email': form.cleaned_data['email'],
                 'descripcion': form.cleaned_data['descripcion']
             }
-            subject = "Acerta Seguros - Cotizacion de Vehiculo"
+            subject = "Acerta Seguros - Reporte de Errores"
             to = ['ns@darient.com', 'nc@darient.com', 'og@darient.com']
             message = get_template(
                 'reportes/html_reporte_email.html').render(Context(ctx))
