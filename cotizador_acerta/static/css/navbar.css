@@ -43,7 +43,7 @@
 }
 
 #navbar{
-    position: fixed;
+    position: relative;
     z-index: 2;
 }
 
