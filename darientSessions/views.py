@@ -3,6 +3,7 @@
 import hashlib
 import datetime
 import random
+import os
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.template import RequestContext
@@ -67,6 +68,12 @@ def user_registration(request):
                     message = get_template('email_confirmation.html').render(Context(ctx))
                     msg = EmailMessage(email_subject, message, to=to)
                     msg.content_subtype = 'html'
+                    if (request.user.groups.first().name == "super_admin"):
+                        msg.attach('manual_corredores.pdf',
+                           open('cotizador_acerta/static/pdf/manual_corredores.pdf','rb').read(),
+                           'application/pdf')
+                    else:
+                        pass
                     msg.send()
                     # Add the user into the group: Seller or Agent.
                     if request.user.groups.first().name == "super_admin":
