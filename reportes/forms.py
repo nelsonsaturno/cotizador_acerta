@@ -22,4 +22,3 @@ class ReportErrorForm(forms.Form):
         label='Descripción del error',
         widget=forms.Textarea()
     )
-    email = forms.EmailField(required=True, widget=forms.HiddenInput())

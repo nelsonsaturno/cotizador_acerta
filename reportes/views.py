@@ -789,7 +789,9 @@ class ReportError(LoginRequiredMixin, FormView):
         if form.is_valid():
             imagen = request.FILES['imagen']
             ctx = {
-                'email': form.cleaned_data['email'],
+                'email': request.user.email,
+                'nombre': request.user.first_name,
+                'apellido': request.user.last_name,
                 'descripcion': form.cleaned_data['descripcion']
             }
             subject = "Acerta Seguros - Reporte de Errores"
