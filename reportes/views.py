@@ -774,3 +774,36 @@ def sendCotization(request, id):
         msg.send()
 
     return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
+
+
+class ReportError(LoginRequiredMixin, FormView):
+    form_class = ReportErrorForm
+    template_name = 'reportes/reporte_error.html'
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance with the passed
+        POST variables and then checked for validity.
+        """
+        form = self.get_form()
+        if form.is_valid():
+            imagen = request.FILES['imagen']
+            ctx = {
+                'email': form.cleaned_data['email'],
+                'descripcion': form.cleaned_data['descripcion']
+            }
+            subject = "Acerta Seguros - Cotizacion de Vehiculo"
+            to = ['ns@darient.com', 'nc@darient.com', 'og@darient.com']
+            message = get_template(
+                'reportes/html_reporte_email.html').render(Context(ctx))
+            msg = EmailMessage(subject, message, to=to)
+            msg.content_subtype = 'html'
+            msg.attach(imagen.name, imagen.read(), imagen.content_type)
+            msg.send()
+            return HttpResponseRedirect(reverse_lazy('report_success'))
+        else:
+            return self.form_invalid(form)
+
+
+class ReportSuccess(LoginRequiredMixin, TemplateView):
+    template_name = 'reportes/reporte_success.html'

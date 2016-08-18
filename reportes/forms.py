@@ -14,3 +14,12 @@ class DateCotizationForm(forms.Form):
         label='Fecha final', required=True,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False}))
+
+
+class ReportErrorForm(forms.Form):
+    imagen = forms.ImageField(label='Captura de pantalla', required=False)
+    descripcion = forms.CharField(
+        label='Descripción del error',
+        widget=forms.Textarea()
+    )
+    email = forms.EmailField(required=True, widget=forms.HiddenInput())

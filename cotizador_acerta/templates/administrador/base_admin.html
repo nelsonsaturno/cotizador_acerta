@@ -253,6 +253,7 @@
                   <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu">
+                  <li class="footer"><a href="{% url 'report_error' %}">Reportar Error</a></li>
                   <li class="footer"><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
                 </ul>
               </li>
@@ -386,6 +387,15 @@
             <li class="treeview">
               <a href="{% url 'cotizaciones_list' %}">
                 <i class="fa fa-calculator"></i> <span>Mis Cotizaciones</span>
+              </a>
+              <!-- <ul class="treeview-menu">
+                <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+              </ul> -->
+            </li>
+            <li class="treeview">
+              <a href="{% url 'report_error' %}">
+                <i class="fa fa-ban"></i> <span>Reportar Error</span>
               </a>
               <!-- <ul class="treeview-menu">
                 <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
