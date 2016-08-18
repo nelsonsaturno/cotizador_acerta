@@ -642,7 +642,7 @@ def changeStatus(request, id, status):
 
 def sendCotization(request, id):
     cotizacion = Cotizacion.objects.get(pk=id)
-    if (cotizacion.status != 'Aprobada') or (cotizacion.status != 'Rechazada'):
+    if (cotizacion.status != 'Aprobada') and (cotizacion.status != 'Rechazada'):
         cotizacion.status = 'Enviada'
         cotizacion.save()
     subject = "Acerta Seguros - Cotizacion de Vehiculo"
