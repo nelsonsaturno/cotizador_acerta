@@ -7,7 +7,6 @@ header {
 }
 
 .navbar-fixed-top {
-  position: relative !important;
   border-bottom: 8px solid #E76C42;
   z-index: 2;
 }
