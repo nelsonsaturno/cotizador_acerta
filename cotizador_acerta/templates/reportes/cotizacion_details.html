@@ -200,12 +200,10 @@
         </div>
         <div class="row">
           <div class="col-xs-12">
-            {% if cotizacion.status != 'Aprobada' %}
-            {% if cotizacion.status == 'Rechazada' %}
+            {% if cotizacion.status != 'Aprobada' and cotizacion.status != 'Rechazada' %}
               <div class="pull-left">
                 <a class="btn btn-lg calculate" href="{% url 'volver-vehiculo' cotizacion.conductor.pk cotizacion.pk %}"><span class="fa  fa-pencil"></span> Editar</a>
               </div>
-            {% endif %}
             {% endif %}
             <div class="pull-right">
               {% if cotizacion.corredor.pk == active_user.pk %}
