@@ -3,7 +3,7 @@ from polizas.views import *
 
 urlpatterns = patterns(
     '',
-    url(r'^solicitud/$',
+    url(r'^solicitar/(?P<pk>\d+)/$',
         SolicitudPoliza.as_view(),
         name='solicitar'),
 )

@@ -12,6 +12,9 @@
 {% bootstrap_messages %}
 
 {% load static %}
+{% block extrahead %}
+  {{form.media}}
+{% endblock extrahead %}
 {% block extracss %}
 <link href="{% static 'plugins/iCheck/square/grey.css' %}" rel="stylesheet">
 <!-- Select2 -->
@@ -77,15 +80,10 @@
         margin-right: 20%
     }
     .form-field {
-        margin:0px 0px 0px 20px;
+        margin-left: 10px;
     }
-    .form-field-value {
-        margin:0px 0px 0px 20px;
-        display:none;
-    }
-    .km-field {
-        margin:0px 0px 0px 20px;
-        display: none;
+    .form-control{
+        margin-top: 10px;
     }
     #subtitulo {
         font-family: Arial;
@@ -176,35 +174,341 @@
     </div>
 </div>
 <div class="row">
+    {% bootstrap_form_errors form %}
+    <form id="myform" action="" method="post" role="form" class="form-horizontal">
+    {% csrf_token %}
         <div class="col-md-12">
-            <div class="col-md-2">
+            <div class="container col-md-12">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#menu1">Datos Personales</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Datos Residenciales</a></li>
+                    <li><a data-toggle="tab" href="#menu3">Datos Ocupacionales</a></li>
+                    <li><a data-toggle="tab" href="#menu4">Datos Políticos</a></li>
+                    <li><a data-toggle="tab" href="#menu5">Datos Financieros</a></li>
+                    <li><a data-toggle="tab" href="#menu6">Datos Generales</a></li>
+                    <li><a data-toggle="tab" href="#menu7">Datos de Póliza y Bien</a></li>
+                    <li><a data-toggle="tab" href="#menu8">Datos de Cobranza</a></li>
+                    <li><a data-toggle="tab" href="#menu9">Datos Finales</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="menu1" class="tab-pane fade in active">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.nombre }}" disabled>
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.nombre2 layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.apellido }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                {% bootstrap_field form.apellido_mat layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.apellido_cas layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.identificacion }}" disabled>
+                            </div>
+                            <div class="col-md-1">
+                                {% bootstrap_field form.dv layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.pais_nacimiento layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.sexo }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.estado_civil }}" disabled>
+                            </div>
+                            <div class="col-md-8">
+                                {% bootstrap_field form.nacionalidad layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                {% bootstrap_field form.pais_residencia layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.provincia layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.distrito layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                {% bootstrap_field form.corregimiento layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.urbanizacion layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.calle_ave layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu3" class="tab-pane fade">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                {% bootstrap_field form.profesion layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-6">
+                                {% bootstrap_field form.ocupacion layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                {% bootstrap_field form.empresa layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-6">
+                                {% bootstrap_field form.actividad_empresa layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                {% bootstrap_field form.direccion_empresa layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                {% bootstrap_field form.telefono_empresa layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                {% bootstrap_field form.fax_empresa layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-6">
+                                {% bootstrap_field form.correo_trabajo layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu4" class="tab-pane fade">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                {% bootstrap_field form.politico_expuesto layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                {% bootstrap_field form.ilicito layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                {% bootstrap_field form.cargo_politico layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-6">
+                                {% bootstrap_field form.periodo_politico layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                {% bootstrap_field form.nombre_politico layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-6">
+                                {% bootstrap_field form.relacion_politico layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu5" class="tab-pane fade">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                {% bootstrap_field form.declaracion_prima layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-8">
+                                {% bootstrap_field form.actividad_principal layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.ingreso_principal layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-8">
+                                {% bootstrap_field form.otra_actividad layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.otro_ingreso layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            Referencia Personal:
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                {% bootstrap_field form.nom_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                {% bootstrap_field form.actividad_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                {% bootstrap_field form.relacion_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                {% bootstrap_field form.telefono_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            Referencia Bancaria:
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                {% bootstrap_field form.nom_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                {% bootstrap_field form.actividad_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                {% bootstrap_field form.relacion_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                {% bootstrap_field form.telefono_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            Referencia Comercial:
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3">
+                                {% bootstrap_field form.nom_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                {% bootstrap_field form.actividad_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                {% bootstrap_field form.relacion_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                {% bootstrap_field form.telefono_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu6" class="tab-pane fade">
+                        <div class="col-md-12">
+                            Asegurado:
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}" disabled>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.identificacion }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            Conductor:
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                {% bootstrap_field form.nombre_conductor layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-2">
+                                {% bootstrap_field form.tipo_id_conductor layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.id_conductor layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu7" class="tab-pane fade">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-6">
+                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                {% bootstrap_field form.acreedor layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-6">
+                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-disabled" value="B./ {{ cotizacion.conductor.valor }}.00" disabled>
+                            </div>
+                            <div class="col-md-3">
+                                {% bootstrap_field form.placa layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.anio }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.marca.nombre }}" disabled>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.modelo.nombre }}" disabled>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.anio }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                {% bootstrap_field form.motor layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.chasis layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.tipo layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-disabled" value="B./ {{ cotizacion.total }}.00" disabled>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.plan }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                {% bootstrap_field form.observaciones layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu8" class="tab-pane fade">
+                        <p>Fields</p>
+                    </div>
+                    <div id="menu9" class="tab-pane fade">
+                        <p>Fields</p>
+                    </div>
+                </div>
             </div>
-            <div class="container col-md-8">
-              <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Datos Personales</a></li>
-                <li><a data-toggle="tab" href="#menu1">Datos Políticos</a></li>
-                <li><a data-toggle="tab" href="#menu2">Datos Financieros</a></li>
-                <li><a data-toggle="tab" href="#menu3">Datos del Vehículo</a></li>
-              </ul>
-
-              <div class="tab-content">
-                <div id="home" class="tab-pane fade in active">
-                  <p>Fields</p>
-                </div>
-                <div id="menu1" class="tab-pane fade">
-                  <p>Fields</p>
-                </div>
-                <div id="menu2" class="tab-pane fade">
-                  <p>Fields</p>
-                </div>
-                <div id="menu3" class="tab-pane fade">
-                  <p>Fields</p>
-                </div>
-              </div>
-            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                {% buttons %}
+                <button id="id_submit" type="submit" class="btn btn-lg calculate">
+                Procesar
+                </button>
+                {% endbuttons %}
             </div>
             <div class="col-md-2"></div>
-    </div>
+        </div>
+    </form>
 </div>
 {% endblock content %}
 

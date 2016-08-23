@@ -32,8 +32,9 @@
                 <link href="{% static 'css/navbar.css' %}" rel="stylesheet">
                 <link href="{% static 'css/footer.css' %}" rel="stylesheet">
             {% endblock css %}
-
+                <script src="{% static 'plugins/jQuery/jQuery-2.1.4.min.js' %}"></script>
             {% block extracss %}{% endblock extracss %}
+            {% block extrahead %}{% endblock extrahead %}
 
     {% endblock head %}
 </head>
