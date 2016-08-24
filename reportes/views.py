@@ -9,12 +9,13 @@ from reportes.forms import *
 import datetime
 from datetime import *
 from time import *
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse_lazy
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.template import Context
 from django.contrib.humanize.templatetags.humanize import *
+from weasyprint import HTML
 
 
 class CorredorVendedorListView(LoginRequiredMixin,
@@ -809,3 +810,7 @@ class ReportError(LoginRequiredMixin, FormView):
 
 class ReportSuccess(LoginRequiredMixin, TemplateView):
     template_name = 'reportes/reporte_success.html'
+
+
+class ShowPdf(TemplateView):
+    template_name = 'reportes/mypdf.html'

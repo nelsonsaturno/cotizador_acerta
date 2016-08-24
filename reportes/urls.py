@@ -4,6 +4,11 @@ from reportes.views import *
 urlpatterns = patterns(
     '',
     url(
+        r'^showpdf/$',
+        ShowPdf.as_view(),
+        name='showpdf'
+    ),
+    url(
         r'^corredores/$',
         CorredorVendedorListView.as_view(),
         name='corredor-vendedor-list'),
