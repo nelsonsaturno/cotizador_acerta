@@ -115,7 +115,7 @@ DATABASES['default'] = dj_database_url.config()
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'cotizador_acerta',
+#         'NAME': 'cotizador_acerta_polizas',
 #         'USER': 'acerta',
 #         'PASSWORD': 'acerta123',
 #         'HOST': 'localhost',
