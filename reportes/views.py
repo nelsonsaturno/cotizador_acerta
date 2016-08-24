@@ -635,6 +635,12 @@ def changeStatus(request, id, status):
                            to=to_corredor)
         msg.content_subtype = 'html'
         msg.send()
+        admins = ['jgutierrez@acertaseguros.com', 'ylezcano@acertaseguros.com']
+        msg = EmailMessage(subject,
+                           message_corredor,
+                           to=admins)
+        msg.content_subtype = 'html'
+        msg.send()
     else:
         cotizacion.status = "Rechazada"
         cotizacion.save()
@@ -762,17 +768,13 @@ def sendCotization(request, id):
     msg.content_subtype = 'html'
     msg.send()
 
-    # Correo Admin
-    if request.user.groups.first().name != "super_admin":
-        admin = User.objects.filter(groups__name__in=["super_admin"])
-        admins = []
-        for adm in admin:
-            admins.append(adm.email)
-        msg = EmailMessage(subject,
-                           message_corredor,
-                           to=admins)
-        msg.content_subtype = 'html'
-        msg.send()
+    # Correo Admins
+    admins = ['jgutierrez@acertaseguros.com', 'ylezcano@acertaseguros.com']
+    msg = EmailMessage(subject,
+                       message_corredor,
+                       to=admins)
+    msg.content_subtype = 'html'
+    msg.send()
 
     return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
 
