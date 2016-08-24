@@ -73,81 +73,81 @@ class SolicitudPoliza(models.Model):
         pass
 
 
-class Referencia(models.Model):
-    nombre = models.CharField(max_length=40, blank=False)
-    actividad = models.CharField(max_length=40, blank=False)
-    relacion = models.CharField(max_length=20, blank=False)
-    telefono = models.CharField(max_length=20, blank=False)
+# class Referencia(models.Model):
+#     nombre = models.CharField(max_length=40, blank=False)
+#     actividad = models.CharField(max_length=40, blank=False)
+#     relacion = models.CharField(max_length=20, blank=False)
+#     telefono = models.CharField(max_length=20, blank=False)
 
 
-# Datos extras para el formulario unico.
-class ExtraDatosCliente(models.Model):
-    conductor = models.ForeignKey(ConductorVehiculo, blank=False)
-    placa = models.CharField(max_length=40, blank=False)
-    motor = models.CharField(max_length=40, blank=False)
-    chasis = models.CharField(max_length=40, blank=False)
-    tipo = models.CharField(max_length=40, blank=False)
-    nombre2 = models.CharField(max_length=20, blank=False)
-    apellido_mat = models.CharField(max_length=20, blank=False)
-    apellido_cas = models.CharField(max_length=20, blank=False)
-    dv = models.CharField(max_length=20, blank=False)
-    nacionalidad = models.CharField(max_length=30, blank=False)
-    pais_nacimiento = models.CharField(max_length=30, blank=False)
-    pais_residencia = models.CharField(max_length=30, blank=False)
-    provincia = models.CharField(max_length=30, blank=False)
-    distrito = models.CharField(max_length=30, blank=False)
-    corregimiento = models.CharField(max_length=30, blank=False)
-    urbanizacion = models.CharField(max_length=30, blank=False)
-    edificio = models.CharField(max_length=30, blank=False, default='N/A')
-    piso = models.CharField(max_length=5, blank=False, default='N/A')
-    apto = models.CharField(max_length=5, blank=False, default='N/A')
-    calle_ave = models.CharField(max_length=30, blank=False)
-    no_casa = models.CharField(max_length=5, blank=False, default='N/A')
-    apartado_postal = models.CharField(max_length=30, blank=False)
-    telefono_res = models.CharField(max_length=20, blank=False)
-    fax = models.CharField(max_length=20, blank=False)
-    estafeta = models.CharField(max_length=30, blank=False)
-    profesion = models.CharField(max_length=30, blank=False)
-    ocupacion = models.CharField(max_length=30, blank=False)
-    cargo_empresa = models.CharField(max_length=30, blank=False)
-    empresa = models.CharField(max_length=30, blank=False)
-    actividad_empresa = models.CharField(max_length=30, blank=False)
-    direccion_empresa = models.CharField(max_length=100, blank=False)
-    telefono_empresa = models.CharField(max_length=30, blank=False)
-    fax_empresa = models.CharField(max_length=30, blank=False)
-    correo_trabajo = models.EmailField(blank=False)
-    ilicito = models.BooleanField(default=False)
-    politico_expuesto = models.BooleanField(default=False)
-    cargo_politico = models.CharField(max_length=30, blank=False)
-    periodo_politico = models.CharField(max_length=30, blank=False)
-    nombre_politico = models.CharField(max_length=30, blank=True)
-    relacion_politico = models.CharField(max_length=30, blank=True)
-    declaracion_prima = models.BooleanField(default=False)
-    # Perfil Financiero
-    actividad_principal = models.CharField(max_length=100, blank=True)
-    ingreso_principal = models.CharField(max_length=30, blank=False,
-                                           default='<10,000.00',
-                                           choices=[('<10,000.00',
-                                                     '<10,000.00'),
-                                                    ('10,000.00-30,000.00',
-                                                     '10,000.00-30,000.00'),
-                                                    ('30,000.00-50,000.00',
-                                                     '30,000.00-50,000.00'),
-                                                    ('>50,000.00',
-                                                     '>50,000.00')])
-    otra_actividad = models.CharField(max_length=100, blank=True)
-    otro_ingreso = models.CharField(max_length=30, blank=False,
-                                           default='<10,000.00',
-                                           choices=[('<10,000.00',
-                                                     '<10,000.00'),
-                                                    ('10,000.00-30,000.00',
-                                                     '10,000.00-30,000.00'),
-                                                    ('30,000.00-50,000.00',
-                                                     '30,000.00-50,000.00'),
-                                                    ('>50,000.00',
-                                                     '>50,000.00')])
-    # Referencias
-    ref_personal = models.ForeignKey(Referencia, blank=False, related_name='personal')
-    ref_bancaria = models.ForeignKey(Referencia, blank=False, related_name='bancaria')
-    ref_comercial = models.ForeignKey(Referencia, blank=False, related_name='comercial')
-    documento = models.BooleanField(default=False)
+# # Datos extras para el formulario unico.
+# class ExtraDatosCliente(models.Model):
+#     conductor = models.ForeignKey(ConductorVehiculo, blank=False)
+#     placa = models.CharField(max_length=40, blank=False)
+#     motor = models.CharField(max_length=40, blank=False)
+#     chasis = models.CharField(max_length=40, blank=False)
+#     tipo = models.CharField(max_length=40, blank=False)
+#     nombre2 = models.CharField(max_length=20, blank=False)
+#     apellido_mat = models.CharField(max_length=20, blank=False)
+#     apellido_cas = models.CharField(max_length=20, blank=False)
+#     dv = models.CharField(max_length=20, blank=False)
+#     nacionalidad = models.CharField(max_length=30, blank=False)
+#     pais_nacimiento = models.CharField(max_length=30, blank=False)
+#     pais_residencia = models.CharField(max_length=30, blank=False)
+#     provincia = models.CharField(max_length=30, blank=False)
+#     distrito = models.CharField(max_length=30, blank=False)
+#     corregimiento = models.CharField(max_length=30, blank=False)
+#     urbanizacion = models.CharField(max_length=30, blank=False)
+#     edificio = models.CharField(max_length=30, blank=False, default='N/A')
+#     piso = models.CharField(max_length=5, blank=False, default='N/A')
+#     apto = models.CharField(max_length=5, blank=False, default='N/A')
+#     calle_ave = models.CharField(max_length=30, blank=False)
+#     no_casa = models.CharField(max_length=5, blank=False, default='N/A')
+#     apartado_postal = models.CharField(max_length=30, blank=False)
+#     telefono_res = models.CharField(max_length=20, blank=False)
+#     fax = models.CharField(max_length=20, blank=False)
+#     estafeta = models.CharField(max_length=30, blank=False)
+#     profesion = models.CharField(max_length=30, blank=False)
+#     ocupacion = models.CharField(max_length=30, blank=False)
+#     cargo_empresa = models.CharField(max_length=30, blank=False)
+#     empresa = models.CharField(max_length=30, blank=False)
+#     actividad_empresa = models.CharField(max_length=30, blank=False)
+#     direccion_empresa = models.CharField(max_length=100, blank=False)
+#     telefono_empresa = models.CharField(max_length=30, blank=False)
+#     fax_empresa = models.CharField(max_length=30, blank=False)
+#     correo_trabajo = models.EmailField(blank=False)
+#     ilicito = models.BooleanField(default=False)
+#     politico_expuesto = models.BooleanField(default=False)
+#     cargo_politico = models.CharField(max_length=30, blank=False)
+#     periodo_politico = models.CharField(max_length=30, blank=False)
+#     nombre_politico = models.CharField(max_length=30, blank=True)
+#     relacion_politico = models.CharField(max_length=30, blank=True)
+#     declaracion_prima = models.BooleanField(default=False)
+#     # Perfil Financiero
+#     actividad_principal = models.CharField(max_length=100, blank=True)
+#     ingreso_principal = models.CharField(max_length=30, blank=False,
+#                                            default='<10,000.00',
+#                                            choices=[('<10,000.00',
+#                                                      '<10,000.00'),
+#                                                     ('10,000.00-30,000.00',
+#                                                      '10,000.00-30,000.00'),
+#                                                     ('30,000.00-50,000.00',
+#                                                      '30,000.00-50,000.00'),
+#                                                     ('>50,000.00',
+#                                                      '>50,000.00')])
+#     otra_actividad = models.CharField(max_length=100, blank=True)
+#     otro_ingreso = models.CharField(max_length=30, blank=False,
+#                                            default='<10,000.00',
+#                                            choices=[('<10,000.00',
+#                                                      '<10,000.00'),
+#                                                     ('10,000.00-30,000.00',
+#                                                      '10,000.00-30,000.00'),
+#                                                     ('30,000.00-50,000.00',
+#                                                      '30,000.00-50,000.00'),
+#                                                     ('>50,000.00',
+#                                                      '>50,000.00')])
+#     # Referencias
+#     ref_personal = models.ForeignKey(Referencia, blank=False, related_name='personal')
+#     ref_bancaria = models.ForeignKey(Referencia, blank=False, related_name='bancaria')
+#     ref_comercial = models.ForeignKey(Referencia, blank=False, related_name='comercial')
+#     documento = models.BooleanField(default=False)
