@@ -51,7 +51,7 @@ class ConductorVehiculoForm(forms.ModelForm):
 
     def clean(self):
         valor = self.cleaned_data['valor']
-        if valor == 75000.00:
+        if valor <= 75000.00:
             return self.cleaned_data
         else:
             raise forms.ValidationError(u'El costo del vehiculo no puede ser mayor a B/. 75,000.00.')
