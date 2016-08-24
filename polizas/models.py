@@ -14,12 +14,60 @@ class SolicitudPoliza(models.Model):
     acreedor = models.CharField(max_length=40, blank=False)
     leasing = models.CharField(max_length=40, blank=False)
     opcion = models.CharField(max_length=40, blank=False)
-    agrupador = models.CharField(max_length=40, blank=False)
-    cobrador = models.CharField(max_length=40, blank=False)
-    direccion_cobro = models.CharField(max_length=100, blank=False)
+    firmador = models.CharField(max_length=40, blank=False)
     observaciones = models.CharField(max_length=100, blank=False, default='')
+    responsable = models.CharField(max_length=30, blank=False,
+                                   default='Contratante',
+                                   choices=[('Contratante',
+                                             'Contratante'),
+                                            ('Asegurado',
+                                             'Asegurado'),
+                                            ('Otro',
+                                             'Otro')])
     nombre_responsable = models.CharField(max_length=20, blank=False)
     id_responsable = models.CharField(max_length=20, blank=False)
+    tipo_produccion = models.CharField(max_length=30, blank=False,
+                                   default='Propia',
+                                   choices=[('Propia',
+                                             'Propia'),
+                                            ('Coaseguro Lider',
+                                             'Coaseguro Lider'),
+                                            ('Coaseguro No Lider',
+                                             'Coaseguro No Lider'),
+                                            ('Reaseguro Cedido',
+                                             'Reaseguro Cedido')])
+    tipo_suscripcion = models.CharField(max_length=30, blank=False,
+                                   default='Individual',
+                                   choices=[('Individual',
+                                             'Individual'),
+                                            ('Colectiva',
+                                             'Colectiva')])
+    forma_facturacion = models.CharField(max_length=30, blank=False,
+                                   default='Por Poliza',
+                                   choices=[('Por Poliza',
+                                             'Por Poliza'),
+                                            ('Por Certificado',
+                                             'Por Certificado')])
+    renovacion_automatica = models.BooleanField(default=False)
+    comision = models.BooleanField(default=False)
+    def_comision = models.CharField(max_length=30, blank=False)
+    grupo_economico = models.CharField(max_length=50, blank=False)
+    aprobaciones = models.CharField(max_length=200, blank=False)
+    funcionario = models.CharField(max_length=50, blank=False)
+    cargo_funcionario = models.CharField(max_length=20, blank=False)
+    area_funcionario = models.CharField(max_length=30, blank=False,
+                                   default='Comercial',
+                                   choices=[('Comercial',
+                                             'Comercial'),
+                                            ('At. al Cliente',
+                                             'At. al Cliente'),
+                                            ('Fianzas',
+                                             'Fianzas'),
+                                            ('Seguros',
+                                             'Seguros'),
+                                            ('Otro',
+                                             'Otro')])
+    otra_area = models.CharField(max_length=20, blank=False)
 
     def __str__(self):
         pass

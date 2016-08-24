@@ -7,6 +7,7 @@ from datetime import date
 from cotizador_acerta.views_mixins import LoginRequiredMixin
 from polizas.models import *
 from cotizar.models import *
+from darientSessions.models import *
 from administrador.models import *
 from django.template import Context
 from django.template.loader import get_template
@@ -25,7 +26,11 @@ class SolicitudPoliza(LoginRequiredMixin, generic.CreateView):
     def get(self, request, *args, **kwargs):
         self.object = None
         context = self.get_context_data(**kwargs)
-        context['cotizacion'] = Cotizacion.objects.get(pk=kwargs['pk'])
+        cot = Cotizacion.objects.get(pk=kwargs['pk'])
+        context['cotizacion'] = cot
+        user = User.objects.get(username=cot.corredor)
+        if user.groups.first() != 'super_admin' and user.groups.first() != 'admin':
+            context['corredor_pol'] = DatosCorredor.objects.get(user=user)
         return self.render_to_response(context)
 
     def get_context_data(self, **kwargs):
@@ -35,3 +40,4 @@ class SolicitudPoliza(LoginRequiredMixin, generic.CreateView):
         if 'form' not in kwargs:
             kwargs['form'] = self.get_form()
         return super(SolicitudPoliza, self).get_context_data(**kwargs)
+

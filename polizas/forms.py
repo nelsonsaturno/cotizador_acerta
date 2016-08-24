@@ -7,17 +7,13 @@ from polizas.models import *
 
 
 class SolicitudClienteForm(forms.ModelForm):
-    valido_desde = forms.DateField(
-        label='Desde', required=True,
-        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-                                       "pickTime": False}))
-    valido_hasta = forms.DateField(
-        label='Hasta', required=True,
-        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-                                       "pickTime": False}))
+    valido_desde = forms.DateField(label='Vigencia Desde', required=True)
+    valido_hasta = forms.DateField(label='Vigencia Hasta', required=True)
     nombre_conductor = forms.CharField(label='Nombre')
     id_conductor = forms.CharField(label='Identificacion')
-    nombre_responsable = forms.CharField(label='Nombre')
+    responsable = forms.ChoiceField(choices=[(0, 'Contratante'), (1, 'Asegurado'), (2, 'Otro')],
+                                widget=forms.RadioSelect(), label="")
+    nombre_responsable = forms.CharField(label='Nombre Completo')
     id_responsable = forms.CharField(label='Identificacion')
     tipo_id_conductor = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
                                 widget=forms.RadioSelect(), label="")
@@ -29,6 +25,12 @@ class SolicitudClienteForm(forms.ModelForm):
     cobrador = forms.CharField(label='')
     dir_cobro = forms.CharField(label='')
     observaciones = forms.CharField(label='Observaciones')
+    tipo_tdc = forms.ChoiceField(choices=[(0, 'Visa'), (1, 'Master Card'), (2, 'Dinners'), (3, 'American Express')],
+                                widget=forms.RadioSelect(), label="")
+    num_tdc = forms.CharField(label='Numero de Tarjeta')
+    banco_tdc = forms.CharField(label='Banco')
+    expiracion_tdc = forms.DateField(label='Fecha de Expiracion', required=True)
+    dia_pago = forms.DateField(label='Dia de pago', required=True)
     nom_ref_personal = forms.CharField(label='Nombre o Razon Social')
     actividad_ref_personal = forms.CharField(label='Actividad')
     relacion_ref_personal = forms.CharField(label='Relacion con el cliente')
@@ -41,6 +43,23 @@ class SolicitudClienteForm(forms.ModelForm):
     actividad_ref_comercial = forms.CharField(label='Actividad')
     relacion_ref_comercial = forms.CharField(label='Relacion con el cliente')
     telefono_ref_comercial = forms.CharField(label='Telefono de contacto')
+    firmador = forms.CharField(label='Nombre de quien firma')
+    tipo_produccion = forms.ChoiceField(choices=[(0, 'Produccion Propia'), (1, 'Coaseguro Lider'), (2, 'Coaseguro No Lider'), (3, 'Reaseguro Cedido')],
+                                widget=forms.Select(), label="")
+    tipo_suscripcion = forms.ChoiceField(choices=[(0, 'Individual'), (1, 'Colectiva')],
+                                widget=forms.Select(), label="")
+    forma_facturacion = forms.ChoiceField(choices=[(0, 'Por Poliza'), (1, 'Por Certificado')],
+                                widget=forms.Select(), label="")
+    renovacion = forms.BooleanField(label='Renovacion Automatica')
+    comision = forms.BooleanField(label='Comision estandar')
+    def_comision = forms.CharField(label='Definir Comision')
+    grupo_economico = forms.CharField(label='Grupo Economico')
+    aprobaciones = forms.CharField(label='Aprobaciones especiales', widget=forms.Textarea())
+    funcionario = forms.CharField(label='Nombre Completo')
+    cargo_funcionario = forms.CharField(label='Cargo')
+    area_funcionario = forms.ChoiceField(choices=[(0, 'Comercial'), (1, 'At. al Cliente'), (2, 'Fianzas'), (3, 'Seguros'), (4, 'Otras')],
+                                widget=forms.Select(), label="")
+    otra_area = forms.CharField(label='Otra area')
 
     class Meta:
         model = ExtraDatosCliente

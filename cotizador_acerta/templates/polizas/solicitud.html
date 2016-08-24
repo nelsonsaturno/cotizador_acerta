@@ -219,7 +219,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-4">
-                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
+                                <input type="text" class="form-control form-disabled" value="mm/dd/aaaa" disabled>
                             </div>
                             <div class="col-md-4">
                                 {% bootstrap_field form.pais_nacimiento layout='horizontal' show_label=False field_class='form-field' %}
@@ -427,10 +427,10 @@
                     <div id="menu7" class="tab-pane fade">
                         <div class="col-md-12">
                             <div class="col-md-6">
-                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
+                                {% bootstrap_field form.valido_desde layout='horizontal' show_label=False field_class='form-field' %}
                             </div>
                             <div class="col-md-6">
-                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
+                                {% bootstrap_field form.valido_hasta layout='horizontal' show_label=False field_class='form-field' %}
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -489,30 +489,177 @@
                         </div>
                     </div>
                     <div id="menu8" class="tab-pane fade">
-                        <p>Fields</p>
+                        <div class="col-md-12">
+                            Responsable de pago:
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                               {% bootstrap_field form.responsable layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.nombre_responsable layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-2">
+                                {% bootstrap_field form.tipo_id_responsable layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-2">
+                                {% bootstrap_field form.id_responsable layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            Forma de pago:
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.tipo_pago }}" disabled>
+                            </div>
+                        </div>
+                        {% if cotizacion.tipo_pago == 'Visa' %}
+                            <div class="col-md-12">
+                                Tarjeta de Credito:
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    {% bootstrap_field form.tipo_tdc layout='horizontal' show_label=False field_class='form-field' %}
+                                </div>
+                                <div class="col-md-8">
+                                    {% bootstrap_field form.num_tdc layout='horizontal' show_label=False field_class='form-field' %}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    {% bootstrap_field form.banco_tdc layout='horizontal' show_label=False field_class='form-field' %}
+                                </div>
+                                <div class="col-md-6">
+                                    {% bootstrap_field form.expiracion_tdc layout='horizontal' show_label=False field_class='form-field' %}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control form-disabled" value="{{ cotizacion.cuota }} pagos mensuales" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    {% bootstrap_field form.dia_pago layout='horizontal' show_label=False field_class='form-field' %}
+                                </div>
+                            </div>
+                        {% elif cotizacion.tipo_pago == 'Contado' %}
+                            <div class="col-md-12">
+                                Contado:
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control form-disabled" value="1 Pago Anual" disabled>
+                                </div>
+
+                                <div class="col-md-4">
+                                    {% bootstrap_field form.dia_pago layout='horizontal' show_label=False field_class='form-field' %}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="col-md-12">
+                                Otro:
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control form-disabled" value="{{cotizacion.cuota}} pagos mensuales" disabled>
+                                </div>
+
+                                <div class="col-md-4">
+                                    {% bootstrap_field form.dia_pago layout='horizontal' show_label=False field_class='form-field' %}
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                     <div id="menu9" class="tab-pane fade">
-                        <p>Fields</p>
+                        <div class="col-md-12">
+                            Datos del corredor:
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control form-disabled" value="{{ corredor_pol.user.first_name }} {{ corredor_pol.user.last_name }}" disabled>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-disabled" value="{{ corredor_pol.licencia }}" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                {% bootstrap_field form.firmador layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            Informacion para Uso Interno:
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                {% bootstrap_field form.tipo_produccion layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.tipo_suscripcion layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-4">
+                                {% bootstrap_field form.forma_facturacion layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-8">
+                                {% bootstrap_field form.renovacion layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-2">
+                                {% bootstrap_field form.comision layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-2">
+                                {% bootstrap_field form.def_comision layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                {% bootstrap_field form.grupo_economico layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                {% bootstrap_field form.aprobaciones layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            Funcionario que revisa:
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                {% bootstrap_field form.funcionario layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-2">
+                                {% bootstrap_field form.cargo_funcionario layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-2">
+                                {% bootstrap_field form.area_funcionario layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                            <div class="col-md-2">
+                                {% bootstrap_field form.otra_area layout='horizontal' show_label=False field_class='form-field' %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-12">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
                 {% buttons %}
                 <button id="id_submit" type="submit" class="btn btn-lg calculate">
                 Procesar
                 </button>
                 {% endbuttons %}
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-5"></div>
         </div>
     </form>
 </div>
 {% endblock content %}
 
 {% block custom_script %}
+<script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
 <script type="text/javascript">
 </script>
 
