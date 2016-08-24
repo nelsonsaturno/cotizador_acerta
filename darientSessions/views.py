@@ -103,9 +103,8 @@ def user_registration(request):
                                                            razon_social='-')
                         datos_corredor.save()
                     return HttpResponseRedirect(
-                        reverse_lazy('login'))
+                        reverse_lazy('register'))
                 else:
-                    print form
                     if request.user.groups.first().name == "super_admin":
                         context = {'form': form}
                         return render_to_response(

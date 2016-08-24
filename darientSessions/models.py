@@ -29,9 +29,9 @@ class CorredorVendedor(models.Model):
 class DatosCorredor(models.Model):
 
     user = models.OneToOneField(User)
-    ruc = models.CharField(max_length=20, null=False)
-    licencia = models.CharField(max_length=20, null=False)
-    razon_social = models.CharField(max_length=20, null=True, blank=True)
+    ruc = models.CharField(max_length=100, null=False)
+    licencia = models.CharField(max_length=100, null=False)
+    razon_social = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.user.username + ' - ' + self.licencia

@@ -157,6 +157,24 @@ class CorredorCreateForm(forms.ModelForm):
             'last_name': 'Apellido',
         }
 
+    def clean_licencia(self):
+        licencia = self.cleaned_data.get('licencia')
+        if len(licencia) > 100:
+            raise forms.ValidationError(u'Este campo no puede superar los 100 caracteres.')
+        return licencia
+
+    def clean_razon_social(self):
+        razon_social = self.cleaned_data.get('razon_social')
+        if len(razon_social) > 100:
+            raise forms.ValidationError(u'Este campo no puede superar los 100 caracteres.')
+        return razon_social
+
+    def clean_ruc(self):
+        ruc = self.cleaned_data.get('ruc')
+        if len(ruc) > 100:
+            raise forms.ValidationError(u'Este campo no puede superar los 100 caracteres.')
+        return ruc
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).count() != 0:
