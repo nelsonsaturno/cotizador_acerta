@@ -58,9 +58,9 @@ class ConductorVehiculoForm(forms.ModelForm):
         if valor <= 75000.00:
             return self.cleaned_data
         else:
-            if self.cleaned_data['mail_corredor'] == 'lhernandez@acertaseguros.com':
+            if self.cleaned_data['mail_corredor'] == 'ns@darient.com':
                 return self.cleaned_data
-            corredor = User.objects.get(email='lhernandez@acertaseguros.com')
+            corredor = User.objects.get(email='ns@darient.com')
             vendedores = CorredorVendedor.objects.filter(corredor=corredor)
             for vendedor in vendedores:
                 if self.cleaned_data['mail_corredor'] == vendedor.vendedor.email:
