@@ -213,6 +213,7 @@
                             {% bootstrap_field form.valor layout='horizontal' show_label=False field_class='form-field-value' %}
                             {% bootstrap_field form.valor_text layout='horizontal' show_label=False field_class='form-field' %}
                             {% bootstrap_field form.endoso layout='horizontal' show_label=False field_class='form-field input-group col-xs-11 pull-left' %}
+                            {% bootstrap_field form.mail_corredor show_label=False %}
                             {% buttons %}
                                 <button id="id_submit" type="submit" class="btn btn-lg calculate">
                                     Calcular
@@ -312,6 +313,8 @@
             radioClass: 'iradio_square-grey',
             increaseArea: '5%' // optional
         });
+
+        $("#id_mail_corredor").val({{ request.user.email }});
 
         $( '#id_endoso' ).parent().parent().css("margin-top", "-8%");
         {% if not update %}
