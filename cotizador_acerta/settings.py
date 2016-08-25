@@ -100,8 +100,18 @@ WSGI_APPLICATION = 'cotizador_acerta.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+
+##############################################
+#       CONEXION HEROKU!!!
+##############################################
+
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config()
+
+##############################################
+#       PRODUCCION!!!
+##############################################
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -112,6 +122,30 @@ DATABASES['default'] = dj_database_url.config()
 #         'PORT': '5432',
 #     }
 # }
+
+#####################################################
+
+########################################
+#       DESARROLLO!!
+########################################
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd339j965q98db5',
+#         'USER': 'rthjlipirhwtsb',
+#         'PASSWORD': 'YpQrpQvkg5p1AyXJ83OqCRA2tH',
+#         'HOST': 'ec2-54-243-190-37.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
+
+#####################################################
+
+########################################
+#       BD LOCAL!!
+########################################
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -172,6 +206,21 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'app51812519@heroku.com'
-EMAIL_HOST_PASSWORD = 'ohbb0q9f2218'
+
+##############################################
+#       PRODUCCION!!!
+##############################################
+
+# EMAIL_HOST_USER = 'app51812519@heroku.com'
+# EMAIL_HOST_PASSWORD = 'ohbb0q9f2218'
+
+##############################################
+#       DESARROLLO!!!
+##############################################
+
+EMAIL_HOST_USER = 'app55642462@heroku.com'
+EMAIL_HOST_PASSWORD = 'rqq8ftej3229'
+
+###############################################
+
 DEFAULT_FROM_EMAIL = 'Cotizador Acerta Seguros <noreply@acertaseguros.com>'
