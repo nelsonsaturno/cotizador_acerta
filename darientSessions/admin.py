@@ -3,3 +3,4 @@ from darientSessions.models import *
 
 admin.site.register(DatosCorredor)
 admin.site.register(UserProfile)
+admin.site.register(CorredorVendedor)
