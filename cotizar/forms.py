@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from cotizar.models import *
+from django.contrib.auth.models import User
+from darientSessions.models import CorredorVendedor
 
 
 class ConductorVehiculoForm(forms.ModelForm):
@@ -9,6 +11,8 @@ class ConductorVehiculoForm(forms.ModelForm):
     tipo_id = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
                                 widget=forms.RadioSelect(), label="")
     valor_text = forms.CharField(label="Valor", help_text='Ex: 99,999.99')
+
+    mail_corredor = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model = ConductorVehiculo
@@ -54,7 +58,14 @@ class ConductorVehiculoForm(forms.ModelForm):
         if valor <= 75000.00:
             return self.cleaned_data
         else:
-            raise forms.ValidationError(u'El costo del vehiculo no puede ser mayor a B/. 75,000.00.')
+            if self.cleaned_data['mail_corredor'] == 'lhernandez@acertaseguros.com':
+                return self.cleaned_data
+            corredor = User.objects.get(email='lhernandez@acertaseguros.com')
+            vendedores = CorredorVendedor.objects.filter(corredor=corredor)
+            for vendedor in vendedores:
+                if self.cleaned_data['mail_corredor'] == vendedor.vendedor.email:
+                    return self.cleaned_data
+            raise forms.ValidationError(u'Para cotizar vehículos con un valor superior a B/. 75,000.00 por favor contacte a su ejecutivo de Acerta Seguros.')
 
     def save(self, commit=True):
         conductor = super(ConductorVehiculoForm, self).save(commit=False)
