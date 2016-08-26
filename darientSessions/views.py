@@ -358,6 +358,7 @@ class EditVendedor(LoginRequiredMixin, CorredorRequiredMixin, generic.UpdateView
         If the form is valid, redirect to the supplied URL.
         """
         self.object = form.save()
+        user = User.objects.get(email=form.cleaned_data['email'])
         return HttpResponseRedirect(
             reverse_lazy(self.success_url, kwargs={'pk': user.pk}))
 
