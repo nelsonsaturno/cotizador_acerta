@@ -106,7 +106,7 @@
 				{% if usuario.groups.first.name == 'corredor' %}
 					<h5 class="widget-user-desc"> {{ usuario.get_full_name|default:usuario.username }} - Corredor Acerta</h5>
 				{% elif usuario.groups.first.name == 'super_admin' or usuario.groups.first.name == 'admin' %}
-					<h5 class="widget-user-desc">Admin Acerta - Administrador Acerta</h5>
+					<h5 class="widget-user-desc">{{ usuario.get_full_name|default:usuario.username }} - Administrador Acerta</h5>
 				{% else %}
 					<h5 class="widget-user-desc">{{ usuario.get_full_name|default:usuario.username }} - Vendedor Acerta</h5>
 				{% endif %}
