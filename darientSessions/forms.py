@@ -263,7 +263,7 @@ class UserEditForm(forms.ModelForm):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
         user_1 = User.objects.filter(email=email)
-        if len(user_1):
+        if len(user_1) == 0:
             return self.cleaned_data
         user_2 = User.objects.get(pk=username)
         if user_1[0].pk != user_2.pk:
