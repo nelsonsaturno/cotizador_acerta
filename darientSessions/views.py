@@ -32,7 +32,8 @@ def user_registration(request):
         # Sellers will created by agents
         # Agents will created by admins
         if (request.user.groups.first().name == "corredor")\
-           or (request.user.groups.first().name == "super_admin"):
+           or (request.user.groups.first().name == "super_admin")\
+           or (request.user.groups.first().name == "admin"):
             if request.method == 'POST':
                 if request.user.groups.first().name == "corredor":
                     form = UserCreateForm(request.POST)
