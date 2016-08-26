@@ -338,7 +338,7 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
         if form.cleaned_data['licencia']:
             corredor.licencia = form.cleaned_data['licencia']
         if form.cleaned_data['ruc']:
-            corredor.licencia = form.cleaned_data['ruc']
+            corredor.ruc = form.cleaned_data['ruc']
         if form.cleaned_data['razon_social']:
             corredor.razon_social = form.cleaned_data['razon_social']
         corredor.save()

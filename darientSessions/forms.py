@@ -214,6 +214,7 @@ class UserEditForm(forms.ModelForm):
         required=False,
         label="",
         widget=forms.TextInput(attrs={'placeholder': 'Razón Social'}))
+    username = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model = User
@@ -240,11 +241,14 @@ class UserEditForm(forms.ModelForm):
             'last_name': 'Apellido',
         }
 
-    def clean_email(self):
+    def clean(self):
         email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).count() != 0:
+        username = self.cleaned_data.get('username')
+        user_1 = User.objects.get(email=email)
+        user_2 = User.objects.get(pk=username)
+        if user_1.pk != user_2.pk:
             raise forms.ValidationError(u'Este correo ya existe.')
-        return email
+        return self.cleaned_data
 
     def save(self, commit=True):
         user = super(UserEditForm, self).save(commit=False)
