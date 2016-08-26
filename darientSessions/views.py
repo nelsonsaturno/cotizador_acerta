@@ -346,6 +346,22 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
             reverse_lazy(self.success_url, kwargs={'pk': user.pk}))
 
 
+class EditVendedor(LoginRequiredMixin, CorredorRequiredMixin, generic.UpdateView):
+    template_name = "update_vendedor_form.html"
+    model = User
+    form_class = VendedorEditForm
+    context_object_name = "usuario"
+    success_url = 'corredor_vendedor_detail'
+
+    def form_valid(self, form):
+        """
+        If the form is valid, redirect to the supplied URL.
+        """
+        self.object = form.save()
+        return HttpResponseRedirect(
+            reverse_lazy(self.success_url, kwargs={'pk': user.pk}))
+
+
 class EditPassword(LoginRequiredMixin, generic.UpdateView):
     template_name = "update_password_form.html"
     model = User

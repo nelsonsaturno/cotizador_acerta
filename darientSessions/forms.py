@@ -277,6 +277,53 @@ class UserEditForm(forms.ModelForm):
         return user
 
 
+class VendedorEditForm(forms.ModelForm):
+
+    username = forms.CharField(widget=forms.HiddenInput())
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "email")
+
+        error_messages = {
+            'first_name': {
+                'required': "Este campo es requerido"
+            },
+            'last_name': {
+                'required': "Este campo es requerido"
+            }
+        }
+
+        widgets = {
+            'email': forms.TextInput(attrs={'required': 'true'}),
+            'first_name': forms.TextInput(attrs={'required': 'true'}),
+            'last_name': forms.TextInput(attrs={'required': 'true'})
+        }
+
+        labels = {
+            'email': 'Correo',
+            'first_name': 'Nombre',
+            'last_name': 'Apellido',
+        }
+
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        user_1 = User.objects.filter(email=email)
+        if len(user_1) == 0:
+            return self.cleaned_data
+        user_2 = User.objects.get(pk=username)
+        if user_1[0].pk != user_2.pk:
+            raise forms.ValidationError(u'Este correo ya existe.')
+        return self.cleaned_data
+
+    def save(self, commit=True):
+        user = super(UserEditForm, self).save(commit=False)
+        user.email = self.cleaned_data['email']
+        user.save()
+        return user
+
+
 class UserPasswordEditForm(forms.ModelForm):
     password2 = forms.CharField(required=True,
                                 widget=forms.PasswordInput(attrs={'placeholder': 'Repetir contraseña'}),
