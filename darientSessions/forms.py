@@ -318,7 +318,7 @@ class VendedorEditForm(forms.ModelForm):
         return self.cleaned_data
 
     def save(self, commit=True):
-        user = super(UserEditForm, self).save(commit=False)
+        user = super(VendedorEditForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
         user.save()
         return user
