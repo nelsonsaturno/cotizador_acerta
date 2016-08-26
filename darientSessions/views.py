@@ -110,7 +110,7 @@ def user_registration(request):
                         reverse_lazy('register'))
                 else:
                     if request.user.groups.first().name == "super_admin"\
-                       request.user.groups.first().name == "admin":
+                       or request.user.groups.first().name == "admin":
                         context = {'form': form}
                         return render_to_response(
                             'registro_corredor.html', context,
