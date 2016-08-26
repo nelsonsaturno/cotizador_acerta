@@ -117,7 +117,8 @@ def user_registration(request):
                             'register.html', context,
                             context_instance=RequestContext(request))
             else:
-                if request.user.groups.first().name == "super_admin":
+                if request.user.groups.first().name == "super_admin"\
+                   or request.user.groups.first().name == "admin":
                     form = CorredorCreateForm()
                     context = {'form': form}
                     return render_to_response(
