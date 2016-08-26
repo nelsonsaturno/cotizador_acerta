@@ -142,7 +142,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                     len(cotizaciones4)])
             context['vendedores'] = vendedorCot
         # Admin view
-        elif request.user.groups.first().name == 'super_admin':
+        elif request.user.groups.first().name == 'super_admin'\
+             or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
                 cotizaciones = Cotizacion.objects.filter(
@@ -235,7 +236,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                     len(cotizaciones4)])
             context['vendedores'] = vendedorCot
         # Admin view
-        elif request.user.groups.first().name == 'super_admin':
+        elif request.user.groups.first().name == 'super_admin'\
+             or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
                 cotizaciones = Cotizacion.objects.filter(
@@ -401,7 +403,8 @@ class CotizacionesGeneralDetailView(LoginRequiredMixin, TemplateView):
         else:
             start = datetime.strptime(kwargs['start'], '%Y-%m-%d')
             end = datetime.strptime(kwargs['end'], '%Y-%m-%d')
-        if request.user.groups.first().name == 'super_admin':
+        if request.user.groups.first().name == 'super_admin'\
+           or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
                 if status == 'all':
@@ -463,7 +466,8 @@ class CotizacionesGeneralDetailView(LoginRequiredMixin, TemplateView):
         else:
             start = date.today() - timedelta(days=30)
             end = date.today() + timedelta(days=1)
-        if request.user.groups.first().name == 'super_admin':
+        if request.user.groups.first().name == 'super_admin'\
+           or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
                 if status == 'all':

@@ -69,7 +69,8 @@ def user_registration(request):
                     message = get_template('email_confirmation.html').render(Context(ctx))
                     msg = EmailMessage(email_subject, message, to=to)
                     msg.content_subtype = 'html'
-                    if (request.user.groups.first().name == "super_admin"):
+                    if (request.user.groups.first().name == "super_admin")\
+                       or request.user.groups.first().name == "admin":
                         msg.attach('manual_corredores.pdf',
                            open('cotizador_acerta/static/pdf/manual_corredores.pdf','rb').read(),
                            'application/pdf')
@@ -79,7 +80,8 @@ def user_registration(request):
                            'application/pdf')
                     msg.send()
                     # Add the user into the group: Seller or Agent.
-                    if request.user.groups.first().name == "super_admin":
+                    if request.user.groups.first().name == "super_admin"\
+                       or request.user.groups.first().name == "admin":
                         group = Group.objects.get(name='corredor')
                         user.groups.add(group)
                     else:
@@ -91,7 +93,8 @@ def user_registration(request):
                         new_relat = CorredorVendedor(corredor=request.user,
                                                      vendedor=user)
                         new_relat.save()
-                    if request.user.groups.first().name == "super_admin":
+                    if request.user.groups.first().name == "super_admin"\
+                       or request.user.groups.first().name == "admin":
                         if form.cleaned_data['ruc'] or form.cleaned_data['licencia']:
                             datos_corredor = DatosCorredor(user=user,
                                                            ruc=request.POST['ruc'],
@@ -106,7 +109,8 @@ def user_registration(request):
                     return HttpResponseRedirect(
                         reverse_lazy('register'))
                 else:
-                    if request.user.groups.first().name == "super_admin":
+                    if request.user.groups.first().name == "super_admin"\
+                       request.user.groups.first().name == "admin":
                         context = {'form': form}
                         return render_to_response(
                             'registro_corredor.html', context,
