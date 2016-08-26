@@ -262,9 +262,11 @@ class UserEditForm(forms.ModelForm):
     def clean(self):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
-        user_1 = User.objects.get(email=email)
+        user_1 = User.objects.filter(email=email)
+        if len(user_1):
+            return self.cleaned_data
         user_2 = User.objects.get(pk=username)
-        if user_1.pk != user_2.pk:
+        if user_1[0].pk != user_2.pk:
             raise forms.ValidationError(u'Este correo ya existe.')
         return self.cleaned_data
 
