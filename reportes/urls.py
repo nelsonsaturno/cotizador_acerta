@@ -4,6 +4,11 @@ from reportes.views import *
 urlpatterns = patterns(
     '',
     url(
+        r'^showpdf/$',
+        ShowPdf.as_view(),
+        name='showpdf'
+    ),
+    url(
         r'^corredores/$',
         CorredorVendedorListView.as_view(),
         name='corredor-vendedor-list'),
@@ -26,7 +31,8 @@ urlpatterns = patterns(
     url(
         r'^dashboard/$',
         DashboardView.as_view(),
-        name='dashboard'),
+        name='dashboard'
+    ),
     url(
         r'^cotizaciones/(?P<status>\d+)/(?P<pk>\d+)/(?P<start>\d{4}-\d{2}-\d{2})/(?P<end>\d{4}-\d{2}-\d{2})/(?P<date>\d+)/$',
         CotizacionesSpecificDetailView.as_view(),
@@ -41,4 +47,14 @@ urlpatterns = patterns(
     url(r'^cotizacion/enviar/(?P<id>\d+)/$',
         'reportes.views.sendCotization',
         name='send'),
+    url(
+        r'^report-error/$',
+        ReportError.as_view(),
+        name='report_error'
+    ),
+    url(
+        r'^report-success/$',
+        ReportSuccess.as_view(),
+        name='report_success'
+    ),
 )

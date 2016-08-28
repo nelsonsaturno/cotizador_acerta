@@ -23,6 +23,7 @@
                 new SMLinkItem("Corredores y Vendedores", "{% url 'corredor-vendedor-list'%}"),
                 new SMLinkItem("Administrar Parámetros", "{% url 'dashboard'%}"),
                 new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}"),
+                new SMLinkItem("Reportar Error", "{% url 'report_error' %}"),
                 new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"),
                 new SMButtonItem("Cerrar", function (e) {
                     sideMenu.close();
@@ -36,6 +37,7 @@
                 new SMLinkItem("Registrar Corredor", "{% url 'register'%}"),
                 new SMLinkItem("Corredores y Vendedores", "{% url 'corredor-vendedor-list'%}"),
                 new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}"),
+                new SMLinkItem("Reportar Error", "{% url 'report_error' %}"),
                 new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"),
                 new SMButtonItem("Cerrar", function (e) {
                     sideMenu.close();
@@ -50,6 +52,7 @@
                 new SMLinkItem("Dashboard", "{% url 'dashboard'%}"),
                 new SMLinkItem("Mis Vendedores", "{% url 'vendedor_list'%}"),
                 new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}"),
+                new SMLinkItem("Reportar Error", "{% url 'report_error' %}"),
                 new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"),
                 new SMButtonItem("Cerrar", function (e) {
                     sideMenu.close();
@@ -62,6 +65,7 @@
               sideMenu = new SideMenu([
                 new SMLinkItem("Dashboard", "{% url 'dashboard'%}"),
                 new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}"),
+                new SMLinkItem("Reportar Error", "{% url 'report_error' %}"),
                 new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"),
                 new SMButtonItem("Cerrar", function (e) {
                     sideMenu.close();
@@ -181,6 +185,9 @@
                   </li>
                   <li style="float: right;">
                       <a href="{% url 'edit-profile' user.pk %}">Editar Perfil</a>
+                  </li>
+                  <li style="float: right;">
+                      <a href="{% url 'report_error' %}">Reportar Error</a>
                   </li>
               </ul>
           </li>

@@ -4,13 +4,16 @@
 
 {% block extracss %}
 <style type="text/css">
+    .panel-heading {
+        height: auto !important;
+    }
     #titulo {
         font-family: Arial;
         font-size: 29px;
         color: #B5B6B8;
     }
     .first {
-        padding-top: 10%;
+        padding-top: 0%;
     }
     @media only screen and (max-width: 435px) {
         #titulo {
@@ -19,7 +22,7 @@
             color: #B5B6B8;
         }
         .first {
-            padding-top: 20%;
+            padding-top: 0%;
         }
     }
     h3 {
@@ -79,18 +82,18 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-2 first" style="padding-top: 10%"></div>
-    <div class="col-md-8 text-center" style="padding-top: 10%">
+    <div class="col-md-2 first"></div>
+    <div class="col-md-8 text-center">
         <h1 id="titulo" class="text-center"><strong>COTIZACIÓN DE PÓLIZA DE SEGUROS PARA AUTOMÓVIL</strong></h1>
         <h3 id="subtitulo" class="text-center">3 simples pasos para cotizar en línea tu póliza</h3>
         <img src="{% static 'img/1-2-3_cotizador_acerta_2.png' %}" class="col-xs-12 hidden-sm hidden-md hidden-lg">
         <img src="{% static 'img/1-2-3_cotizador_acerta_2.png' %}" class="img-logo hidden-xs">
         <h3 id="subtitulo2" class="text-center"><strong>ELIGE LA COBERTURA</strong></h3><br>
     </div>
-    <div class="col-md-2" style="padding-top: 10%"></div>
+    <div class="col-md-2"></div>
 </div>
 <div class="row">
-    <div class="col-md-3 col-xs-2">        
+    <div class="col-md-3 col-xs-2">
     </div>
     <div class="col-md-3 col-xs-8">
         <div class="panel panel-default">

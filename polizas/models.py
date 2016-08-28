@@ -151,5 +151,3 @@ class ExtraDatosCliente(models.Model):
     ref_bancaria = models.ForeignKey(Referencia, blank=False, related_name='bancaria')
     ref_comercial = models.ForeignKey(Referencia, blank=False, related_name='comercial')
     documento = models.BooleanField(default=False)
-
-

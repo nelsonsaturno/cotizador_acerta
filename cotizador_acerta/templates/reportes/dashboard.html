@@ -158,10 +158,11 @@
 			<div class="box-header">
 				<h3 class="box-title"> Cotizaciones de Corredores ACERTA</h3>
 			</div>
-			<div class="box-body">
+			<div class="box-body table-responsive no-padding">
 			  <table id="example2" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
 			    <thead>
 			    <tr role="row">
+			    	<th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 181px;">Razón Social</th>
 				    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 181px;">Nombre</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Apellido: activate to sort column ascending" style="width: 224px;">Apellido</th>
 				    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Cotizaciones: activate to sort column ascending" style="width: 112px;">Cotizaciones</th>
@@ -174,6 +175,7 @@
 			    <tbody>
 			    {% for user in corredores %}
 			    	<tr role="row">
+			    	  <td>{{ user.0.razon_social }}</td>
 				      <td class="sorting_1"> {{ user.0.user.first_name }}</td>
 				      <td>{{ user.0.user.last_name }}</td>
 				      <td><a href="{% url 'cotizaciones-specific' 4 user.0.user.pk start end date %}"><span class="pull-right badge bg-black">{{ user.1 }}</span></a></td>
@@ -184,7 +186,7 @@
 				    </tr>
 			    {% endfor %}</tbody>
 			    <tfoot>
-			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Cotizaciones</th><th rowspan="1" colspan="1">Cotizaciones Enviadas</th><th rowspan="1" colspan="1">Cotizaciones Guardadas</th><th rowspan="1" colspan="1">Cotizaciones Aceptadas</th><th rowspan="1" colspan="1">Cotizaciones Rechazadas</th></tr>
+			    <tr><th rowspan="1" colspan="1">Razón Social</th><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Cotizaciones</th><th rowspan="1" colspan="1">Cotizaciones Enviadas</th><th rowspan="1" colspan="1">Cotizaciones Guardadas</th><th rowspan="1" colspan="1">Cotizaciones Aceptadas</th><th rowspan="1" colspan="1">Cotizaciones Rechazadas</th></tr>
 			    </tfoot>
 			  </table>
 			</div>

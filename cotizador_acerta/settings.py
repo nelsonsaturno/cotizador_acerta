@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'reportes',
     'bootstrap3_datetime',
     'polizas',
+    'weasyprint',
 ]
 
 MIDDLEWARE_CLASSES = [
