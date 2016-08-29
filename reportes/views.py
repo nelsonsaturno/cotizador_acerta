@@ -97,7 +97,7 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
         ]
         groups = user.groups.filter(name__in=all_admins)
 
-        if cotizacion.corredor.groups[0].name == "vendedor":
+        if cotizacion.corredor.groups.first().name == "vendedor":
             my_user = User.objects.get(pk=cotizacion.corredor.pk)
             corredor = CorredorVendedor.objects.get(vendedor=my_user)
 
