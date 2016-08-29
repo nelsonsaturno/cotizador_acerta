@@ -235,9 +235,6 @@ def register_confirm(request, activation_key):
 
 def generate_key(request, pk):
 
-    if request.user.is_authenticated():
-        HttpResponseRedirect(reverse_lazy('vehiculo'))
-
     user = User.objects.get(pk=pk)
     UserProfile.objects.filter(user=user).delete()
     salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
