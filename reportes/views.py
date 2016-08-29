@@ -103,7 +103,7 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
             my_c = User.objects.get(pk=corredor.corredor.pk)
 
         if not groups:
-            if (cotizacion.corredor.pk != user.pk) or (my_c.pk != request.user.pk):
+            if (cotizacion.corredor.pk != user.pk) || (my_c.pk != request.user.pk):
                 print my_c.pk, " =? ", request.user.pk
                 print my_c.email, " =? ", request.user.email
                 return page_not_found(request)
