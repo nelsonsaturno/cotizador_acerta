@@ -102,7 +102,7 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
             corredor = CorredorVendedor.objects.get(vendedor=my_user)
 
         if not groups:
-            if cotizacion.corredor.pk != user.pk or corredor.corredor.pk != user.pk:
+            if cotizacion.corredor.pk != user.pk or corredor.corredor.pk != request.user.pk:
                 return page_not_found(request)
         context['cotizacion'] = cotizacion
         context['active_user'] = user
