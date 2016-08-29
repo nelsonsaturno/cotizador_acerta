@@ -98,11 +98,17 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
         groups = user.groups.filter(name__in=all_admins)
 
         if cotizacion.corredor.groups.first().name == "vendedor":
+            print "epale"
+            print "epale"
+            print "epale"
+            print "epale"
+            print "epale"
             my_user = User.objects.get(pk=cotizacion.corredor.pk)
             corredor = CorredorVendedor.objects.get(vendedor=my_user)
+            my_c = User.objects.get(pk=corredor.corredor.pk)
 
         if not groups:
-            if cotizacion.corredor.pk != user.pk or corredor.corredor.pk != request.user.pk:
+            if (cotizacion.corredor.pk != user.pk) or (my_c.pk != request.user.pk):
                 return page_not_found(request)
         context['cotizacion'] = cotizacion
         context['active_user'] = user
