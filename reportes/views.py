@@ -101,12 +101,13 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
             my_user = User.objects.get(pk=cotizacion.corredor.pk)
             corredor = CorredorVendedor.objects.get(vendedor=my_user)
             my_c = User.objects.get(pk=corredor.corredor.pk)
+        else:
+            my_c = User.objects.get(pk=cotizacion.corredor.pk)
 
         if not groups:
-            if (cotizacion.corredor.pk != user.pk) || (my_c.pk != request.user.pk):
-                print my_c.pk, " =? ", request.user.pk
-                print my_c.email, " =? ", request.user.email
-                return page_not_found(request)
+            if cotizacion.corredor.pk != user.pk:
+                if my_c.pk != request.user.pk:
+                    return page_not_found(request)
         context['cotizacion'] = cotizacion
         context['active_user'] = user
         return self.render_to_response(context)
