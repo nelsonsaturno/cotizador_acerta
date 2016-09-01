@@ -159,6 +159,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 mycorredores = [corredor.user]
                 if vendedores.count() > 0:
                     for v in vendedores:
+                        print v
+                        print v
                         mycorredores.append(v.vendedor)
                 cotizaciones = Cotizacion.objects.filter(
                     corredor__in=mycorredores, is_active=True)
