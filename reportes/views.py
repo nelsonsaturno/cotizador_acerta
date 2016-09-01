@@ -158,7 +158,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                     corredor=corredor.user)
                 mycorredores = [corredor.user]
                 for v in vendedores:
-                    print v.corredor
+                    print v.vendedor
                     if v.vendedor:
                         mycorredores.append(v.vendedor)
                 cotizaciones = Cotizacion.objects.filter(
