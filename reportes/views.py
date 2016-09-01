@@ -154,36 +154,29 @@ class DashboardView(LoginRequiredMixin, TemplateView):
              or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
-                print corredor.user.email
                 user_corredor = User.objects.get(email=corredor.user.email)
                 vendedores = CorredorVendedor.objects.filter(
                     corredor=user_corredor)
                 mycorredores = [user_corredor]
-                print vendedores.count()
-                i = 1
                 for v in vendedores:
-                    print i
-                    i = i + 1
-                    print v.vendedor
-                    if v.vendedor:
-                        mycorredores.append(v.vendedor)
+                    mycorredores.append(v.vendedor)
                 cotizaciones = Cotizacion.objects.filter(
                     corredor__in=mycorredores, is_active=True)
-                numCot[0] += len(cotizaciones)
+                numCot[0] += cotizaciones.count()
                 cotizaciones1 = cotizaciones.filter(status='Enviada')
-                numCot[1] += len(cotizaciones1)
+                numCot[1] += cotizaciones1.count()
                 cotizaciones2 = cotizaciones.filter(status='Guardada')
-                numCot[2] += len(cotizaciones2)
+                numCot[2] += cotizaciones2.count()
                 cotizaciones3 = cotizaciones.filter(status='Aprobada')
-                numCot[3] += len(cotizaciones3)
+                numCot[3] += cotizaciones3.count()
                 cotizaciones4 = cotizaciones.filter(status='Rechazada')
-                numCot[4] += len(cotizaciones4)
+                numCot[4] += cotizaciones4.count()
                 corredorCot.append([corredor,
-                                    len(cotizaciones),
-                                    len(cotizaciones1),
-                                    len(cotizaciones2),
-                                    len(cotizaciones3),
-                                    len(cotizaciones4)])
+                                    cotizaciones.count(),
+                                    cotizaciones1.count(),
+                                    cotizaciones2.count(),
+                                    cotizaciones3.count(),
+                                    cotizaciones4.count()])
             context['corredores'] = corredorCot
         # Session User.
         context['usuario'] = user
