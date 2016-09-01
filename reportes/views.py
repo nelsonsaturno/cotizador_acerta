@@ -250,7 +250,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                     len(cotizaciones3),
                                     len(cotizaciones4)])
             context['vendedores'] = vendedorCot
-        # Admin view
+        # Admin view.
         elif request.user.groups.first().name == 'super_admin'\
              or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
