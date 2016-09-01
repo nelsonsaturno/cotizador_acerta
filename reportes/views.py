@@ -154,9 +154,12 @@ class DashboardView(LoginRequiredMixin, TemplateView):
              or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
+                print corredor.user.email
+                user_corredor = User.objects.get(email=corredor.user.email)
                 vendedores = CorredorVendedor.objects.filter(
-                    corredor=corredor.user)
-                mycorredores = [corredor.user]
+                    corredor=user_corredor)
+                mycorredores = [user_corredor]
+                print vendedores.count()
                 for v in vendedores:
                     print v.vendedor
                     if v.vendedor:
