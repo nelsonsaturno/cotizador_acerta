@@ -160,7 +160,10 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                     corredor=user_corredor)
                 mycorredores = [user_corredor]
                 print vendedores.count()
+                i = 1
                 for v in vendedores:
+                    print i
+                    i = i + 1
                     print v.vendedor
                     if v.vendedor:
                         mycorredores.append(v.vendedor)
