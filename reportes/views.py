@@ -157,8 +157,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                 vendedores = CorredorVendedor.objects.filter(
                     corredor=corredor.user).values_list('vendedor')
                 mycorredores = [corredor.user]
-                for v in vendedores:
-                    mycorredores.append(v.vendedor)
+                if vendedores != []:
+                    for v in vendedores:
+                        mycorredores.append(v.vendedor)
                 cotizaciones = Cotizacion.objects.filter(
                     corredor__in=mycorredores, is_active=True)
                 numCot[0] += len(cotizaciones)
