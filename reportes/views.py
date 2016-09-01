@@ -154,8 +154,10 @@ class DashboardView(LoginRequiredMixin, TemplateView):
              or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
+                vendedores = CorredorVendedor.objects.filter().values_list('vendedor')
+                vendedores.append(corredor.user)
                 cotizaciones = Cotizacion.objects.filter(
-                    corredor=corredor.user, is_active=True)
+                    corredor__in=corredor.user, is_active=True)
                 numCot[0] += len(cotizaciones)
                 cotizaciones1 = cotizaciones.filter(status='Enviada')
                 numCot[1] += len(cotizaciones1)
@@ -172,7 +174,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                     len(cotizaciones3),
                                     len(cotizaciones4)])
             context['corredores'] = corredorCot
-        #Session User.
+        # Session User.
         context['usuario'] = user
         if user.groups.first().name == 'corredor':
             context['corredor'] = DatosCorredor.objects.get(user=user)
@@ -298,6 +300,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context['end'] = end.strftime("%Y-%m-%d")
         context['date'] = '1'
         return render(request, self.template_name, context)
+
 
 class CotizacionesSpecificDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'reportes/cotizador_specific_detail.html'
