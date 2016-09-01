@@ -16,6 +16,7 @@ from django.core.mail import EmailMessage
 from django.template import Context
 from django.contrib.humanize.templatetags.humanize import *
 from weasyprint import HTML
+import csv
 
 
 class CorredorVendedorListView(LoginRequiredMixin,
@@ -835,3 +836,17 @@ class ReportSuccess(LoginRequiredMixin, TemplateView):
 
 class ShowPdf(TemplateView):
     template_name = 'reportes/mypdf.html'
+
+
+class DownloadCSV(View):
+
+    def get(self, request, *args, **kwargs):
+        # Create the HttpResponse object with the appropriate CSV header.
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="mycsv.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
+        writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
+
+        return response
