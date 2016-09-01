@@ -154,10 +154,13 @@ class DashboardView(LoginRequiredMixin, TemplateView):
              or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
-                vendedores = CorredorVendedor.objects.filter().values_list('vendedor')
-                vendedores.append(corredor.user)
+                vendedores = CorredorVendedor.objects.filter(
+                    corredor=corredor.user).values_list('vendedor')
+                mycorredores = [corredor.user]
+                for v in vendedores:
+                    mycorredores.append(v.vendedor)
                 cotizaciones = Cotizacion.objects.filter(
-                    corredor__in=corredor.user, is_active=True)
+                    corredor__in=mycorredores, is_active=True)
                 numCot[0] += len(cotizaciones)
                 cotizaciones1 = cotizaciones.filter(status='Enviada')
                 numCot[1] += len(cotizaciones1)
