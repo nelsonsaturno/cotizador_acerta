@@ -9,12 +9,14 @@ from datetime import date
 from cotizador_acerta.views_mixins import LoginRequiredMixin
 from cotizar.models import *
 from administrador.models import *
+from darientSessions.models import *
 from django.template import Context
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.views.defaults import page_not_found
 from django.contrib.humanize.templatetags.humanize import *
 import json
+import re
 
 
 def CargarCarros(request):
@@ -70,6 +72,25 @@ class CotizarAhora(LoginRequiredMixin, generic.TemplateView):
 class Vehiculo(LoginRequiredMixin, generic.CreateView):
     template_name = "cotizar/vehiculo.html"
     form_class = ConductorVehiculoForm
+
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        context = self.get_context_data(**kwargs)
+        try:
+            corredor = DatosCorredor.objects.get(user=request.user)
+            es_corredor = True
+            planes = corredor.planes
+            crear_planes = re.findall('"([^"]*)"', planes)
+
+        except:
+            corredor = None
+            es_corredor = False
+            crear_planes = []
+
+        context['form'] = ConductorVehiculoForm
+        context['planes'] = crear_planes
+        return self.render_to_response(context)
+   
 
     def crear_cotizacion(self, request, vehiculo):
         conductor = vehiculo
