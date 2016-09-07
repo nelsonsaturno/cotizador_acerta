@@ -78,7 +78,7 @@ def user_registration(request):
                         msg.attach('manual_vendedores.pdf',
                            open('cotizador_acerta/static/pdf/manual_vendedores.pdf','rb').read(),
                            'application/pdf')
-                    msg.send()
+                    #msg.send()
                     # Add the user into the group: Seller or Agent.
                     if request.user.groups.first().name == "super_admin"\
                        or request.user.groups.first().name == "admin":
@@ -99,13 +99,16 @@ def user_registration(request):
                             datos_corredor = DatosCorredor(user=user,
                                                            ruc=request.POST['ruc'],
                                                            licencia=request.POST['licencia'],
-                                                           razon_social=form.cleaned_data['razon_social'])
+                                                           razon_social=form.cleaned_data['razon_social'],
+                                                           planes=form.cleaned_data['planes'])
                         else:
                             datos_corredor = DatosCorredor(user=user,
                                                            ruc='-',
                                                            licencia='-',
-                                                           razon_social='-')
+                                                           razon_social='-',
+                                                           planes=form.cleaned_data['planes'])
                         datos_corredor.save()
+                        print datos_corredor.planes
                     return HttpResponseRedirect(
                         reverse_lazy('register'))
                 else:
