@@ -128,9 +128,16 @@ class CorredorCreateForm(forms.ModelForm):
                           label="",
                           widget=forms.TextInput(attrs={'placeholder': 'RUC'}))
     razon_social = forms.CharField(
-        required=False,
-        label="",
-        widget=forms.TextInput(attrs={'placeholder': 'Razón Social'}))
+                                    required=False,
+                                    label="",
+                                    widget=forms.TextInput(attrs={'placeholder': 'Razón Social'}))
+    planes = forms.MultipleChoiceField(choices=(
+                                        ('Plan 1', 'Plan 1'),
+                                        ('Plan 2', 'Plan 2'),
+                                        ('Plan 3', 'Plan 3')
+                                        ), 
+                                widget=forms.CheckboxSelectMultiple
+                                )
 
     class Meta:
         model = User
