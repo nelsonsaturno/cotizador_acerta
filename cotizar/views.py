@@ -78,23 +78,19 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         context = self.get_context_data(**kwargs)
 
         # Chequeamos si es corredor, y creamos los planes para mostrar
-        try:
+        if (request.user.groups.first().name == "corredor"):
             corredor = DatosCorredor.objects.get(user=request.user)
             planes = corredor.planes
             crear_planes = re.findall('"([^"]*)"', planes)
 
-        except:
-            corredor = None
-            crear_planes = []
-
         # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
-        try:
+        elif (request.user.groups.first().name == "vendedor"):
             vendedor = CorredorVendedor.objects.get(vendedor=request.user)
             corredor = DatosCorredor.objects.get(user=vendedor.corredor)
             planes = corredor.planes
             crear_planes = re.findall('"([^"]*)"', planes)
 
-        except:
+        else:
             corredor = None
             crear_planes = []
 
