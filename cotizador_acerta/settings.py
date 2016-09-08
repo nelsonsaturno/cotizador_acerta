@@ -130,15 +130,15 @@ DATABASES['default'] = dj_database_url.config()
 ########################################
 
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'd339j965q98db5',
-#         'USER': 'rthjlipirhwtsb',
-#         'PASSWORD': 'YpQrpQvkg5p1AyXJ83OqCRA2tH',
-#         'HOST': 'ec2-54-243-190-37.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+#      'default': {
+#          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#          'NAME': 'd339j965q98db5',
+#          'USER': 'rthjlipirhwtsb',
+#          'PASSWORD': 'YpQrpQvkg5p1AyXJ83OqCRA2tH',
+#          'HOST': 'ec2-54-243-190-37.compute-1.amazonaws.com',
+#          'PORT': '5432',
+#      }
+#  }
 
 #####################################################
 
@@ -211,8 +211,8 @@ EMAIL_PORT = 587
 #       PRODUCCION!!!
 ##############################################
 
-EMAIL_HOST_USER = 'app51812519@heroku.com'
-EMAIL_HOST_PASSWORD = 'ohbb0q9f2218'
+#EMAIL_HOST_USER = 'app51812519@heroku.com'
+#EMAIL_HOST_PASSWORD = 'ohbb0q9f2218'
 
 ##############################################
 #       DESARROLLO!!!
