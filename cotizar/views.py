@@ -15,6 +15,7 @@ from django.core.mail import EmailMessage
 from django.views.defaults import page_not_found
 from django.contrib.humanize.templatetags.humanize import *
 import json
+import math
 
 
 def CargarCarros(request):
@@ -178,13 +179,13 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         prima_endoso = endoso.precio
 
         deducibles = float(vehiculo.valor) * porcentaje_uso
-        deducibles = float("{0:.2f}".format(deducibles))
+        deducibles = math.ceil(float("{0:.2f}".format(deducibles)))
         prima_otros = float(
             "{0:.2f}".format(deducibles - (deducibles * descuento)))
         prima_colision = float(
             "{0:.2f}".format(base_colision * (1 - descuento)))
-        deducible_colision = float("{0:.0f}".format(int(
-            base_colision * (1 + vehiculo.modelo.recargo))))
+        deducible_colision = math.ceil(float("{0:.0f}".format(int(
+            base_colision * (1 + vehiculo.modelo.recargo)))))
         subtotal = prima_lesiones +\
             prima_danios + prima_gastos +\
             prima_otros + importacion_piezas + prima_colision + prima_endoso
@@ -235,8 +236,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             vehiculo.save()
             cotizacion1 = self.crear_cotizacion(request, vehiculo)
             prima_endoso = cotizacion1.endoso.precio
-            deducibles2 = float(
-                "{0:.2f}".format(cotizacion1.otros_danios * 1.20))
+            deducibles2 = math.ceil(float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 1.20)))
             cotizacion2 = Cotizacion(
                 conductor=vehiculo,
                 corredor=user,
@@ -252,8 +253,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.9,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.9,
-                colision_vuelco=float(
-                    "{0:.0f}".format(int(cotizacion1.colision_vuelco * 1.20))),
+                colision_vuelco=math.ceil(float(
+                    "{0:.0f}".format(int(cotizacion1.colision_vuelco * 1.20)))),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Premium",
@@ -279,8 +280,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             cotizacion2.save()
 
             ###################################
-            deducibles3 = float(
-                "{0:.2f}".format(cotizacion1.otros_danios * 1.60))
+            deducibles3 = math.ceil(float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 1.60)))
 
             cotizacion3 = Cotizacion(
                 conductor=vehiculo,
@@ -297,8 +298,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.8,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.8,
-                colision_vuelco=float(
-                    "{0:.0f}".format(int(cotizacion1.colision_vuelco * 1.60))),
+                colision_vuelco=math.ceil(float(
+                    "{0:.0f}".format(int(cotizacion1.colision_vuelco * 1.60)))),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Gold",
@@ -326,8 +327,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             ###################################
 
             ###################################
-            deducibles4 = float(
-                "{0:.2f}".format(cotizacion1.otros_danios * 2.00))
+            deducibles4 = math.ceil(float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 2.00)))
 
             cotizacion4 = Cotizacion(
                 conductor=vehiculo,
@@ -344,8 +345,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.7,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.7,
-                colision_vuelco=float(
-                    "{0:.0f}".format(int(cotizacion1.colision_vuelco * 2.00))),
+                colision_vuelco=math.ceil(float(
+                    "{0:.0f}".format(int(cotizacion1.colision_vuelco * 2.00)))),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Silver",
