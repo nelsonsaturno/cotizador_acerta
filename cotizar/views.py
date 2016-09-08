@@ -76,15 +76,26 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
     def get(self, request, *args, **kwargs):
         self.object = None
         context = self.get_context_data(**kwargs)
+
+        # Chequeamos si es corredor, y creamos los planes para mostrar
         try:
             corredor = DatosCorredor.objects.get(user=request.user)
-            es_corredor = True
             planes = corredor.planes
             crear_planes = re.findall('"([^"]*)"', planes)
 
         except:
             corredor = None
-            es_corredor = False
+            crear_planes = []
+
+        # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
+        try:
+            vendedor = CorredorVendedor.objects.get(vendedor=request.user)
+            corredor = DatosCorredor.objects.get(user=vendedor.corredor)
+            planes = corredor.planes
+            crear_planes = re.findall('"([^"]*)"', planes)
+
+        except:
+            corredor = None
             crear_planes = []
 
         context['form'] = ConductorVehiculoForm
