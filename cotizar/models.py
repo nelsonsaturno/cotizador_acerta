@@ -85,9 +85,10 @@ class ConductorVehiculo(models.Model):
     correo = models.EmailField(blank=False)
     telefono1 = models.CharField(max_length=20, blank=False)
     telefono2 = models.CharField(max_length=20, blank=True, default="")
-    historial_transito = models.PositiveSmallIntegerField(
-        blank=False,
-        validators=[MaxValueValidator(10), MinValueValidator(0)]
+    historial_transito = PositiveSmallIntegerField(blank=False,
+                                     min_value=0,
+                                     max_value=8,
+                                    validators=[MaxValueValidator(10), MinValueValidator(0)]
     )
     edad = models.PositiveSmallIntegerField(
         blank=False,
@@ -96,7 +97,8 @@ class ConductorVehiculo(models.Model):
     modelo = models.ForeignKey(Modelo, blank=False)
     anio = PositiveSmallIntegerField(blank=False,
                                      min_value=1900,
-                                     max_value=date.today().year + 1)
+                                     max_value=date.today().year + 1,
+    validators=[MaxValueValidator(1900), MinValueValidator(date.today().year + 1)])
     cero_km = models.BooleanField(default=False)
     valor = models.PositiveIntegerField(blank=False)
     importacion_piezas = models.BooleanField(default=False)
