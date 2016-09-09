@@ -73,7 +73,6 @@ class SolicitudClienteForm(forms.ModelForm):
             'nombre2': 'Segundo Nombre',
             'apellido_mat': 'Apellido Materno',
             'apellido_cas': 'Apellido de Casado/a',
-            'dv': 'D.V',
             'nacionalidad': 'Nacionalidad',
             'pais_nacimiento': 'Pais de Nacimiento',
             'pais_residencia': 'Pais de Residencia',

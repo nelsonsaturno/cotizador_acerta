@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from cotizar.models import *
+from datetime import *
+from bootstrap3_datetime.widgets import DateTimePicker
+
 
 
 class ConductorVehiculoForm(forms.ModelForm):
@@ -18,6 +21,7 @@ class ConductorVehiculoForm(forms.ModelForm):
             'nombre': 'Nombre',
             'apellido': 'Apellido',
             'sexo': 'Sexo',
+            'fecha_nacimiento': 'Fecha de Nacimiento',
             'identificacion': 'Identificación',
             'estado_civil': 'Estado Civil',
             'correo': 'Correo',

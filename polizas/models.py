@@ -90,7 +90,6 @@ class ExtraDatosCliente(models.Model):
     nombre2 = models.CharField(max_length=20, blank=False)
     apellido_mat = models.CharField(max_length=20, blank=False)
     apellido_cas = models.CharField(max_length=20, blank=False)
-    dv = models.CharField(max_length=20, blank=False)
     nacionalidad = models.CharField(max_length=30, blank=False)
     pais_nacimiento = models.CharField(max_length=30, blank=False)
     pais_residencia = models.CharField(max_length=30, blank=False)

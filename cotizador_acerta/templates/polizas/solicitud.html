@@ -210,16 +210,13 @@
                             <div class="col-md-4">
                                 {% bootstrap_field form.apellido_cas layout='horizontal' show_label=False field_class='form-field' %}
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.identificacion }}" disabled>
-                            </div>
-                            <div class="col-md-1">
-                                {% bootstrap_field form.dv layout='horizontal' show_label=False field_class='form-field' %}
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-4">
-                                <input type="text" class="form-control form-disabled" value="mm/dd/aaaa" disabled>
+                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.fecha_nacimiento }}" disabled>
                             </div>
                             <div class="col-md-4">
                                 {% bootstrap_field form.pais_nacimiento layout='horizontal' show_label=False field_class='form-field' %}
@@ -660,7 +657,13 @@
 
 {% block custom_script %}
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
+<script src="{% static 'js/jquery.mask.min.js' %}"></script>
+<script src="{% static 'js/jquery.mask2.min.js' %}"></script>
 <script type="text/javascript">
+    $(document).ready(function(){
+        $('#id_valido_desde').mask('0000/00/00', {placeholder: "Valido desde (aaaa/mm/dd)"});
+        $('#id_valido_hasta').mask('0000/00/00', {placeholder: "Hasta (aaaa/mm/dd)"});
+    });
 </script>
 
 {% endblock custom_script %}
