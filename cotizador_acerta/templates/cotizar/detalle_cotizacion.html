@@ -306,7 +306,7 @@
               </button>
 
               <div class="row hidden-md hidden-lg"></div>
-                <button id="guardar" type="submit" class="btn btn-lg back" style="margin-left:10px; float: right;">Guardar</button>
+                <button id="guardar" type="submit" class="btn btn-lg back guardar" style="margin-left:10px; float: right;">Guardar</button>
                 </form>
                 <a class="btn btn-lg calculate calculate2" href="{% url 'vehiculo' %}">Nueva Cotización</a>
             </div>
@@ -323,7 +323,7 @@
 {% block custom_script %}
 
 <script type="text/javascript">
-
+jQuery(document).ready(function($) {
   var element = document.querySelectorAll(".prima-contado");
   var element1 = document.querySelectorAll(".prima-visa");
   var element2 = document.querySelectorAll(".prima-mensual");
@@ -339,6 +339,10 @@
 
   var element = document.querySelector("#id_tipo_pago_0");
   element.onclick = function () {
+    $('#id_submit').prop('disabled', false);
+    $('#guardar').prop('disabled', false);
+    $(".cuotas-validacion").remove();
+    $(".cuotas2-validacion").remove();
     var element = document.querySelector("#id_cuotas2");
     element.classList.add("hidden");
     var element = document.querySelector("#id_cuotas");
@@ -356,6 +360,25 @@
   }
   var element = document.querySelector("#id_tipo_pago_1");
   element.onclick = function () {
+    $('#id_submit').prop('disabled', false);
+    $('#guardar').prop('disabled', false);
+    $(".cuotas2-validacion").remove();
+    var testcuotas =    /^[1-9]$|^10$/;
+    jQuery('input#id_cuotas').bind('input propertychange', function() {
+      if (testcuotas.test(jQuery(this).val()))
+      {
+          $(".cuotas-validacion").remove();
+         jQuery('button.calculate').prop("disabled",false);
+         jQuery('button.guardar').prop("disabled",false);
+       } else
+       {
+         $(".cuotas-validacion").remove();
+          $('#id_submit').prop('disabled', true);
+          $(this).parent().after("<div class='form-field cuotas-validacion' style='color:red; margin-top: 5%; margin-bottom: -4%;'>Cuota valida entre 1-10</div>");
+         jQuery('button.calculate').prop("disabled",true);
+         jQuery('button.guardar').prop("disabled",true);
+       }
+     });
     var element = document.querySelector("#id_cuotas2");
     element.classList.add("hidden");
     var element = document.querySelector("#id_cuotas");
@@ -375,6 +398,25 @@
   }
   var element = document.querySelector("#id_tipo_pago_2");
   element.onclick = function () {
+    $('#id_submit').prop('disabled', false);
+    $('#guardar').prop('disabled', false);
+    $(".cuotas-validacion").remove();
+    var testcuotas2 =    /^[1-6]$/;
+    jQuery('input#id_cuotas2').bind('input propertychange', function() {
+      if (testcuotas2.test(jQuery(this).val()))
+      {
+          $(".cuotas2-validacion").remove();
+         jQuery('button.calculate').prop("disabled",false);
+         jQuery('button.guardar').prop("disabled",false);
+       } else
+       {
+         $(".cuotas2-validacion").remove();
+          $('#id_submit').prop('disabled', true);
+          $(this).parent().after("<div class='form-field cuotas2-validacion' style='color:red; margin-top: 5%; margin-bottom: -4%;'>Cuotas valida entre 1-6</div>");
+         jQuery('button.calculate').prop("disabled",true);
+         jQuery('button.guardar').prop("disabled",true);
+       }
+     });
     var element = document.querySelector("#id_cuotas");
     element.classList.add("hidden");
     var element = document.querySelector("#id_cuotas2");
@@ -390,6 +432,7 @@
       element1[i].classList.add("hidden");
     }
   }
+});
 
   function addThousandsSeparator(input) {
       var output = input

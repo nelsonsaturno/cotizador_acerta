@@ -88,17 +88,17 @@ class ConductorVehiculo(models.Model):
     historial_transito = PositiveSmallIntegerField(blank=False,
                                      min_value=0,
                                      max_value=8,
-                                    validators=[MaxValueValidator(10), MinValueValidator(0)]
+                                    validators=[MaxValueValidator(8), MinValueValidator(0)]
     )
     edad = models.PositiveSmallIntegerField(
         blank=False,
-        validators=[MaxValueValidator(100), MinValueValidator(18)])
+        validators=[MaxValueValidator(99), MinValueValidator(18)])
     marca = models.ForeignKey(Marca, blank=False)
     modelo = models.ForeignKey(Modelo, blank=False)
     anio = PositiveSmallIntegerField(blank=False,
                                      min_value=1900,
                                      max_value=date.today().year + 1,
-    validators=[MaxValueValidator(1900), MinValueValidator(date.today().year + 1)])
+    validators=[MaxValueValidator(date.today().year + 1), MinValueValidator(1900)])
     cero_km = models.BooleanField(default=False)
     valor = models.PositiveIntegerField(blank=False)
     importacion_piezas = models.BooleanField(default=False)
