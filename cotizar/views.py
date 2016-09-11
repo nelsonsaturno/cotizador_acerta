@@ -877,7 +877,18 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 if prima_endoso[-2] == '.':
                     prima_endoso = prima_endoso + '0'
 
+                opcion = 1
+                if kwargs['pk'] > kwargs['pk1']:
+                    opcion += 1
+                if kwargs['pk'] > kwargs['pk2']:
+                    opcion += 1
+                if kwargs['pk'] > kwargs['pk3']:
+                    opcion += 1
+                if kwargs['pk'] > kwargs['pk4']:
+                    opcion += 1
+
                 ctx = {
+                    'opcion': opcion,
                     'cotizacion': cotizacion,
                     'valor_vehiculo': valor_vehiculo,
                     'prima_lesiones': prima_lesiones,
