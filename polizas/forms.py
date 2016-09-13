@@ -125,16 +125,16 @@ class PagoForm(forms.Form):
         widget=forms.PasswordInput(),
         min_value=0
     )
-    expiracion_tdc = forms.DateField(
-        label='Fecha de Expiracion',
-        required=True,
-        widget=DateTimePicker(
-            options={
-                "format": "YYYY-MM-DD",
-                "pickTime": False
-            }
-        )
-    )
+    # expiracion_tdc = forms.DateField(
+    #     label='Fecha de Expiracion',
+    #     required=True,
+    #     widget=DateTimePicker(
+    #         options={
+    #             "format": "YYYY-MM-DD",
+    #             "pickTime": False
+    #         }
+    #     )
+    # )
     nombre_persona = forms.CharField(
         label='Nombre Impreso en la Tarjeta',
         required=True
