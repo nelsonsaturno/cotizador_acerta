@@ -111,3 +111,20 @@ class SolicitudClienteForm(forms.ModelForm):
             'recursos': 'Recursos',
         }
 
+
+class PagoForm(forms.Form):
+
+    numero_tarjeta = forms.IntegerField(
+        label="Número de Tarjeta",
+        required=True,
+        min_value=1
+    )
+    cvv = forms.IntegerField(
+        label='CVV',
+        required=True,
+        min_value=1
+    )
+    nombre_persona = forms.CharField(
+        label='Nombre Impreso en la Tarjeta',
+        required=True
+    )

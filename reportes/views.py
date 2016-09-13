@@ -16,6 +16,7 @@ from django.core.mail import EmailMessage
 from django.template import Context
 from django.contrib.humanize.templatetags.humanize import *
 from weasyprint import HTML
+import csv
 
 
 class CorredorVendedorListView(LoginRequiredMixin,
@@ -154,28 +155,29 @@ class DashboardView(LoginRequiredMixin, TemplateView):
              or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
+                user_corredor = User.objects.get(email=corredor.user.email)
                 vendedores = CorredorVendedor.objects.filter(
-                    corredor=corredor.user).values_list('vendedor')
-                mycorredores = [corredor.user]
+                    corredor=user_corredor)
+                mycorredores = [user_corredor]
                 for v in vendedores:
                     mycorredores.append(v.vendedor)
                 cotizaciones = Cotizacion.objects.filter(
                     corredor__in=mycorredores, is_active=True)
-                numCot[0] += len(cotizaciones)
+                numCot[0] += cotizaciones.count()
                 cotizaciones1 = cotizaciones.filter(status='Enviada')
-                numCot[1] += len(cotizaciones1)
+                numCot[1] += cotizaciones1.count()
                 cotizaciones2 = cotizaciones.filter(status='Guardada')
-                numCot[2] += len(cotizaciones2)
+                numCot[2] += cotizaciones2.count()
                 cotizaciones3 = cotizaciones.filter(status='Aprobada')
-                numCot[3] += len(cotizaciones3)
+                numCot[3] += cotizaciones3.count()
                 cotizaciones4 = cotizaciones.filter(status='Rechazada')
-                numCot[4] += len(cotizaciones4)
+                numCot[4] += cotizaciones4.count()
                 corredorCot.append([corredor,
-                                    len(cotizaciones),
-                                    len(cotizaciones1),
-                                    len(cotizaciones2),
-                                    len(cotizaciones3),
-                                    len(cotizaciones4)])
+                                    cotizaciones.count(),
+                                    cotizaciones1.count(),
+                                    cotizaciones2.count(),
+                                    cotizaciones3.count(),
+                                    cotizaciones4.count()])
             context['corredores'] = corredorCot
         # Session User.
         context['usuario'] = user
@@ -248,7 +250,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                     len(cotizaciones3),
                                     len(cotizaciones4)])
             context['vendedores'] = vendedorCot
-        # Admin view
+        # Admin view.
         elif request.user.groups.first().name == 'super_admin'\
              or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
@@ -834,3 +836,17 @@ class ReportSuccess(LoginRequiredMixin, TemplateView):
 
 class ShowPdf(TemplateView):
     template_name = 'reportes/mypdf.html'
+
+
+class DownloadCSV(View):
+
+    def get(self, request, *args, **kwargs):
+        # Create the HttpResponse object with the appropriate CSV header.
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="mycsv.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
+        writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
+
+        return response
