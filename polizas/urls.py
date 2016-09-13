@@ -3,7 +3,19 @@ from polizas.views import *
 
 urlpatterns = patterns(
     '',
-    url(r'^solicitar/(?P<pk>\d+)/$',
+    url(
+        r'^solicitar/(?P<pk>\d+)/$',
         SolicitudPoliza.as_view(),
-        name='solicitar'),
+        name='solicitar'
+    ),
+    url(
+        r'^realizar-pago/$',
+        PagoTarjeta.as_view(),
+        name='realizar_pago'
+    ),
+    url(
+        r'^confirmacion-pago/$',
+        ConfirmacionPago.as_view(),
+        name='confirmacion_pago'
+    ),
 )
