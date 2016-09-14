@@ -41,3 +41,13 @@ class SolicitudPoliza(LoginRequiredMixin, generic.CreateView):
             kwargs['form'] = self.get_form()
         return super(SolicitudPoliza, self).get_context_data(**kwargs)
 
+    def post(self, request, *args, **kwargs):
+        form = SolicitudClienteForm(request.POST)
+        if form.is_valid():
+            cliente = form.save()
+            vehiculo.save()
+
+            return HttpResponseRedirect(reverse_lazy('cotizar'))
+        else:
+            return render(request, self.template_name, {'form': form})
+

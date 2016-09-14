@@ -1214,7 +1214,7 @@
 
     $(document).ready(function(){
         $('#id_valor_text').maskMoney();
-        $('#id_fecha_nacimiento').mask('0000/00/00', {placeholder: "F. Nacimiento (aaaa/mm/dd)"});
+        $('#id_fecha_nacimiento').mask('00/00/0000', {placeholder: "F. Nacimiento (mm/dd/aaaa)"});
 
         $(document).click(function() {
             if($('#id_tipo_id_0').is(":checked")) {
