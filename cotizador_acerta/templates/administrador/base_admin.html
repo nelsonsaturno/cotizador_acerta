@@ -336,15 +336,7 @@
               </li>
             {% endif %}
             {% if user.is_authenticated and user.groups.all.0.name == 'admin' %}
-              <li class="treeview">
-                <a href="{% url 'dashboard' %}">
-                  <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                </a>
-                <!-- <ul class="treeview-menu">
-                  <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                  <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                </ul> -->
-              </li>
+
               <li class="treeview">
                 <a href="{% url 'corredor-vendedor-list' %}">
                   <i class="fa fa-users"></i> <span>Corredores y Vendedores</span>
@@ -739,6 +731,16 @@
     <!--<script src="{% static 'plugins/chartjs/Chart.min.js' %}"></script>-->
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <!--<script src="{% static 'dist/js/pages/dashboard2.js' %}"></script-->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-83151440-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
     {% endblock script %}
     {% block custom_script %}{% endblock custom_script %}
 

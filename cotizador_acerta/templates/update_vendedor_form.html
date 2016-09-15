@@ -36,6 +36,9 @@
     input:focus:-ms-input-placeholder {
         color: #E76C42 !important;
     }
+    .form-field {
+        padding:0px 10px 0px 10px;
+    }
     .login-box-body {
         margin-left: 20%;
         margin-right: 20%
@@ -66,28 +69,26 @@
             <div class="col-xs-12 col-sm-12 col-md-8">
                 <div class="box box-danger">
                     <div class="box-header with-border">
-                        <h1 id="titulo-login" class="text-center"><strong>REGISTRO DE CORREDORES</strong></h1>
+                        <h1 id="titulo-login" class="text-center"><strong>ACTUALIZAR DATOS DE VENDEDOR</strong></h1>
                     </div>
                     <div class="box-body">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            {% bootstrap_form_errors form %}
+                            <div class="">
+                                {% bootstrap_form_errors form %}
+                            </div>
                             <form action="" method="post" role="form" class="form-horizontal">
                                 {% csrf_token %}
-
-                                {% bootstrap_field form.razon_social show_label=False %}
-                                {% bootstrap_field form.first_name show_label=False %}
-                                {% bootstrap_field form.last_name show_label=False %}
-                                {% bootstrap_field form.ruc show_label=False %}
-                                {% bootstrap_field form.licencia show_label=False %}
-                                {% bootstrap_field form.email show_label=False %}
-                                {% bootstrap_field form.planes show_label=False %}
+                            {% bootstrap_field form.first_name show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.last_name show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.email show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.username %}
 
                                 {% buttons %}
                                     <div class="col-md-3"></div>
                                     <div class="col-sm-4 col-md-6 text-center">
                                         <button id="id_submit" type="submit" class="btn btn-lg calculate">
-                                            Registrar
+                                            Actualizar
                                         </button>
                                     </div>
                                     <div class="col-md-3"></div>
@@ -104,7 +105,12 @@
 </div>
 
 {% endblock content %}
-
 {% block custom_script %}
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#id_username").val("{{usuario.pk}}");
+    });
+</script>
 {% endblock custom_script %}
+
+

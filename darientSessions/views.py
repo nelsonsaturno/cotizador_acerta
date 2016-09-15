@@ -32,7 +32,8 @@ def user_registration(request):
         # Sellers will created by agents
         # Agents will created by admins
         if (request.user.groups.first().name == "corredor")\
-           or (request.user.groups.first().name == "super_admin"):
+           or (request.user.groups.first().name == "super_admin")\
+           or (request.user.groups.first().name == "admin"):
             if request.method == 'POST':
                 if request.user.groups.first().name == "corredor":
                     form = UserCreateForm(request.POST)
@@ -68,7 +69,8 @@ def user_registration(request):
                     message = get_template('email_confirmation.html').render(Context(ctx))
                     msg = EmailMessage(email_subject, message, to=to)
                     msg.content_subtype = 'html'
-                    if (request.user.groups.first().name == "super_admin"):
+                    if (request.user.groups.first().name == "super_admin")\
+                       or request.user.groups.first().name == "admin":
                         msg.attach('manual_corredores.pdf',
                            open('cotizador_acerta/static/pdf/manual_corredores.pdf','rb').read(),
                            'application/pdf')
@@ -76,9 +78,10 @@ def user_registration(request):
                         msg.attach('manual_vendedores.pdf',
                            open('cotizador_acerta/static/pdf/manual_vendedores.pdf','rb').read(),
                            'application/pdf')
-                    msg.send()
+                    #msg.send()
                     # Add the user into the group: Seller or Agent.
-                    if request.user.groups.first().name == "super_admin":
+                    if request.user.groups.first().name == "super_admin"\
+                       or request.user.groups.first().name == "admin":
                         group = Group.objects.get(name='corredor')
                         user.groups.add(group)
                     else:
@@ -90,23 +93,27 @@ def user_registration(request):
                         new_relat = CorredorVendedor(corredor=request.user,
                                                      vendedor=user)
                         new_relat.save()
-                    if request.user.groups.first().name == "super_admin":
+                    if request.user.groups.first().name == "super_admin"\
+                       or request.user.groups.first().name == "admin":
                         if form.cleaned_data['ruc'] or form.cleaned_data['licencia']:
                             datos_corredor = DatosCorredor(user=user,
                                                            ruc=request.POST['ruc'],
                                                            licencia=request.POST['licencia'],
-                                                           razon_social=form.cleaned_data['razon_social'])
+                                                           razon_social=form.cleaned_data['razon_social'],
+                                                           planes=form.cleaned_data['planes'])
                         else:
                             datos_corredor = DatosCorredor(user=user,
                                                            ruc='-',
                                                            licencia='-',
-                                                           razon_social='-')
+                                                           razon_social='-',
+                                                           planes=form.cleaned_data['planes'])
                         datos_corredor.save()
+                        print datos_corredor.planes
                     return HttpResponseRedirect(
-                        reverse_lazy('login'))
+                        reverse_lazy('register'))
                 else:
-                    print form
-                    if request.user.groups.first().name == "super_admin":
+                    if request.user.groups.first().name == "super_admin"\
+                       or request.user.groups.first().name == "admin":
                         context = {'form': form}
                         return render_to_response(
                             'registro_corredor.html', context,
@@ -117,7 +124,8 @@ def user_registration(request):
                             'register.html', context,
                             context_instance=RequestContext(request))
             else:
-                if request.user.groups.first().name == "super_admin":
+                if request.user.groups.first().name == "super_admin"\
+                   or request.user.groups.first().name == "admin":
                     form = CorredorCreateForm()
                     context = {'form': form}
                     return render_to_response(
@@ -230,9 +238,6 @@ def register_confirm(request, activation_key):
 
 def generate_key(request, pk):
 
-    if request.user.is_authenticated():
-        HttpResponseRedirect(reverse_lazy('vehiculo'))
-
     user = User.objects.get(pk=pk)
     UserProfile.objects.filter(user=user).delete()
     salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
@@ -333,10 +338,27 @@ class EditUser(LoginRequiredMixin, GroupRequiredMixin, generic.UpdateView):
         if form.cleaned_data['licencia']:
             corredor.licencia = form.cleaned_data['licencia']
         if form.cleaned_data['ruc']:
-            corredor.licencia = form.cleaned_data['ruc']
+            corredor.ruc = form.cleaned_data['ruc']
         if form.cleaned_data['razon_social']:
             corredor.razon_social = form.cleaned_data['razon_social']
         corredor.save()
+        return HttpResponseRedirect(
+            reverse_lazy(self.success_url, kwargs={'pk': user.pk}))
+
+
+class EditVendedor(LoginRequiredMixin, CorredorRequiredMixin, generic.UpdateView):
+    template_name = "update_vendedor_form.html"
+    model = User
+    form_class = VendedorEditForm
+    context_object_name = "usuario"
+    success_url = 'corredor_vendedor_detail'
+
+    def form_valid(self, form):
+        """
+        If the form is valid, redirect to the supplied URL.
+        """
+        self.object = form.save()
+        user = User.objects.get(email=form.cleaned_data['email'])
         return HttpResponseRedirect(
             reverse_lazy(self.success_url, kwargs={'pk': user.pk}))
 

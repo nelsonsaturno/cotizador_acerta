@@ -17,7 +17,6 @@ from django.contrib.humanize.templatetags.humanize import *
 import json
 
 
-
 class SolicitudPoliza(LoginRequiredMixin, generic.CreateView):
     template_name = "polizas/solicitud.html"
     form_class = SolicitudClienteForm
@@ -41,3 +40,12 @@ class SolicitudPoliza(LoginRequiredMixin, generic.CreateView):
             kwargs['form'] = self.get_form()
         return super(SolicitudPoliza, self).get_context_data(**kwargs)
 
+
+class ConfirmacionPago(generic.TemplateView):
+    template_name = "polizas/confirmacion_pago.html"
+
+
+class PagoTarjeta(generic.FormView):
+    form_class = PagoForm
+    template_name = "polizas/pago.html"
+    success_url = reverse_lazy('confirmacion_pago')

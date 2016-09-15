@@ -68,6 +68,10 @@ urlpatterns = patterns(
         EditUser.as_view(),
         name='edit-user'),
     url(
+        r'^editvendedor/(?P<pk>\d+)$',
+        EditVendedor.as_view(),
+        name='edit-vendedor'),
+    url(
         r'^editProfile/(?P<pk>\d+)$',
         EditPassword.as_view(),
         name='edit-profile'),

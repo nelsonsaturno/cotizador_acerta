@@ -128,9 +128,16 @@ class CorredorCreateForm(forms.ModelForm):
                           label="",
                           widget=forms.TextInput(attrs={'placeholder': 'RUC'}))
     razon_social = forms.CharField(
-        required=False,
-        label="",
-        widget=forms.TextInput(attrs={'placeholder': 'Razón Social'}))
+                                    required=False,
+                                    label="",
+                                    widget=forms.TextInput(attrs={'placeholder': 'Razón Social'}))
+    planes = forms.MultipleChoiceField(choices=(
+                                        ('Plan 1', 'Plan 1'),
+                                        ('Plan 2', 'Plan 2'),
+                                        ('Plan 3', 'Plan 3')
+                                        ), 
+                                widget=forms.CheckboxSelectMultiple
+                                )
 
     class Meta:
         model = User
@@ -156,6 +163,24 @@ class CorredorCreateForm(forms.ModelForm):
             'first_name': 'Nombre',
             'last_name': 'Apellido',
         }
+
+    def clean_licencia(self):
+        licencia = self.cleaned_data.get('licencia')
+        if len(licencia) > 100:
+            raise forms.ValidationError(u'Este campo no puede superar los 100 caracteres.')
+        return licencia
+
+    def clean_razon_social(self):
+        razon_social = self.cleaned_data.get('razon_social')
+        if len(razon_social) > 100:
+            raise forms.ValidationError(u'Este campo no puede superar los 100 caracteres.')
+        return razon_social
+
+    def clean_ruc(self):
+        ruc = self.cleaned_data.get('ruc')
+        if len(ruc) > 100:
+            raise forms.ValidationError(u'Este campo no puede superar los 100 caracteres.')
+        return ruc
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -196,6 +221,7 @@ class UserEditForm(forms.ModelForm):
         required=False,
         label="",
         widget=forms.TextInput(attrs={'placeholder': 'Razón Social'}))
+    username = forms.CharField(widget=forms.HiddenInput())
 
     class Meta:
         model = User
@@ -222,14 +248,84 @@ class UserEditForm(forms.ModelForm):
             'last_name': 'Apellido',
         }
 
-    def clean_email(self):
+    def clean_licencia(self):
+        licencia = self.cleaned_data.get('licencia')
+        if len(licencia) > 100:
+            raise forms.ValidationError(u'Este campo no puede superar los 100 caracteres.')
+        return licencia
+
+    def clean_razon_social(self):
+        razon_social = self.cleaned_data.get('razon_social')
+        if len(razon_social) > 100:
+            raise forms.ValidationError(u'Este campo no puede superar los 100 caracteres.')
+        return razon_social
+
+    def clean_ruc(self):
+        ruc = self.cleaned_data.get('ruc')
+        if len(ruc) > 100:
+            raise forms.ValidationError(u'Este campo no puede superar los 100 caracteres.')
+        return ruc
+
+    def clean(self):
         email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).count() != 0:
+        username = self.cleaned_data.get('username')
+        user_1 = User.objects.filter(email=email)
+        if len(user_1) == 0:
+            return self.cleaned_data
+        user_2 = User.objects.get(pk=username)
+        if user_1[0].pk != user_2.pk:
             raise forms.ValidationError(u'Este correo ya existe.')
-        return email
+        return self.cleaned_data
 
     def save(self, commit=True):
         user = super(UserEditForm, self).save(commit=False)
+        user.email = self.cleaned_data['email']
+        user.save()
+        return user
+
+
+class VendedorEditForm(forms.ModelForm):
+
+    username = forms.CharField(widget=forms.HiddenInput())
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "email")
+
+        error_messages = {
+            'first_name': {
+                'required': "Este campo es requerido"
+            },
+            'last_name': {
+                'required': "Este campo es requerido"
+            }
+        }
+
+        widgets = {
+            'email': forms.TextInput(attrs={'required': 'true'}),
+            'first_name': forms.TextInput(attrs={'required': 'true'}),
+            'last_name': forms.TextInput(attrs={'required': 'true'})
+        }
+
+        labels = {
+            'email': 'Correo',
+            'first_name': 'Nombre',
+            'last_name': 'Apellido',
+        }
+
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        username = self.cleaned_data.get('username')
+        user_1 = User.objects.filter(email=email)
+        if len(user_1) == 0:
+            return self.cleaned_data
+        user_2 = User.objects.get(pk=username)
+        if user_1[0].pk != user_2.pk:
+            raise forms.ValidationError(u'Este correo ya existe.')
+        return self.cleaned_data
+
+    def save(self, commit=True):
+        user = super(VendedorEditForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
         user.save()
         return user

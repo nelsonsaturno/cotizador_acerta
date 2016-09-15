@@ -1,5 +1,5 @@
 #footer {
-    position: relative;
+    position: relative !important;
     bottom: 0%;
     width: 100%;
     padding: 10px;
@@ -11,7 +11,7 @@
 
 @media only screen and (max-width: 435px) {
     #footer {
-        position: relative;
+        position: relative !important;
         bottom: 0%;
         width: 100%;
         padding: 10px;

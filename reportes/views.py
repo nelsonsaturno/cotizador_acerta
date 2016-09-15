@@ -16,6 +16,7 @@ from django.core.mail import EmailMessage
 from django.template import Context
 from django.contrib.humanize.templatetags.humanize import *
 from weasyprint import HTML
+import csv
 
 
 class CorredorVendedorListView(LoginRequiredMixin,
@@ -97,9 +98,17 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
         ]
         groups = user.groups.filter(name__in=all_admins)
 
+        if cotizacion.corredor.groups.first().name == "vendedor":
+            my_user = User.objects.get(pk=cotizacion.corredor.pk)
+            corredor = CorredorVendedor.objects.get(vendedor=my_user)
+            my_c = User.objects.get(pk=corredor.corredor.pk)
+        else:
+            my_c = User.objects.get(pk=cotizacion.corredor.pk)
+
         if not groups:
             if cotizacion.corredor.pk != user.pk:
-                return page_not_found(request)
+                if my_c.pk != request.user.pk:
+                    return page_not_found(request)
         context['cotizacion'] = cotizacion
         context['active_user'] = user
         return self.render_to_response(context)
@@ -142,28 +151,35 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                     len(cotizaciones4)])
             context['vendedores'] = vendedorCot
         # Admin view
-        elif request.user.groups.first().name == 'super_admin':
+        elif request.user.groups.first().name == 'super_admin'\
+             or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
+                user_corredor = User.objects.get(email=corredor.user.email)
+                vendedores = CorredorVendedor.objects.filter(
+                    corredor=user_corredor)
+                mycorredores = [user_corredor]
+                for v in vendedores:
+                    mycorredores.append(v.vendedor)
                 cotizaciones = Cotizacion.objects.filter(
-                    corredor=corredor.user, is_active=True)
-                numCot[0] += len(cotizaciones)
+                    corredor__in=mycorredores, is_active=True)
+                numCot[0] += cotizaciones.count()
                 cotizaciones1 = cotizaciones.filter(status='Enviada')
-                numCot[1] += len(cotizaciones1)
+                numCot[1] += cotizaciones1.count()
                 cotizaciones2 = cotizaciones.filter(status='Guardada')
-                numCot[2] += len(cotizaciones2)
+                numCot[2] += cotizaciones2.count()
                 cotizaciones3 = cotizaciones.filter(status='Aprobada')
-                numCot[3] += len(cotizaciones3)
+                numCot[3] += cotizaciones3.count()
                 cotizaciones4 = cotizaciones.filter(status='Rechazada')
-                numCot[4] += len(cotizaciones4)
+                numCot[4] += cotizaciones4.count()
                 corredorCot.append([corredor,
-                                    len(cotizaciones),
-                                    len(cotizaciones1),
-                                    len(cotizaciones2),
-                                    len(cotizaciones3),
-                                    len(cotizaciones4)])
+                                    cotizaciones.count(),
+                                    cotizaciones1.count(),
+                                    cotizaciones2.count(),
+                                    cotizaciones3.count(),
+                                    cotizaciones4.count()])
             context['corredores'] = corredorCot
-        #Session User.
+        # Session User.
         context['usuario'] = user
         if user.groups.first().name == 'corredor':
             context['corredor'] = DatosCorredor.objects.get(user=user)
@@ -234,8 +250,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
                                     len(cotizaciones3),
                                     len(cotizaciones4)])
             context['vendedores'] = vendedorCot
-        # Admin view
-        elif request.user.groups.first().name == 'super_admin':
+        # Admin view.
+        elif request.user.groups.first().name == 'super_admin'\
+             or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
                 cotizaciones = Cotizacion.objects.filter(
@@ -288,6 +305,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context['end'] = end.strftime("%Y-%m-%d")
         context['date'] = '1'
         return render(request, self.template_name, context)
+
 
 class CotizacionesSpecificDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'reportes/cotizador_specific_detail.html'
@@ -401,7 +419,8 @@ class CotizacionesGeneralDetailView(LoginRequiredMixin, TemplateView):
         else:
             start = datetime.strptime(kwargs['start'], '%Y-%m-%d')
             end = datetime.strptime(kwargs['end'], '%Y-%m-%d')
-        if request.user.groups.first().name == 'super_admin':
+        if request.user.groups.first().name == 'super_admin'\
+           or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
                 if status == 'all':
@@ -463,7 +482,8 @@ class CotizacionesGeneralDetailView(LoginRequiredMixin, TemplateView):
         else:
             start = date.today() - timedelta(days=30)
             end = date.today() + timedelta(days=1)
-        if request.user.groups.first().name == 'super_admin':
+        if request.user.groups.first().name == 'super_admin'\
+           or request.user.groups.first().name == "admin":
             corredores = DatosCorredor.objects.all()
             for corredor in corredores:
                 if status == 'all':
@@ -635,6 +655,12 @@ def changeStatus(request, id, status):
                            to=to_corredor)
         msg.content_subtype = 'html'
         msg.send()
+        admins = ['jgutierrez@acertaseguros.com', 'ylezcano@acertaseguros.com']
+        msg = EmailMessage(subject,
+                           message_corredor,
+                           to=admins)
+        msg.content_subtype = 'html'
+        msg.send()
     else:
         cotizacion.status = "Rechazada"
         cotizacion.save()
@@ -763,17 +789,13 @@ def sendCotization(request, id):
     msg.content_subtype = 'html'
     msg.send()
 
-    # Correo Admin
-    if request.user.groups.first().name != "super_admin":
-        admin = User.objects.filter(groups__name__in=["super_admin"])
-        admins = []
-        for adm in admin:
-            admins.append(adm.email)
-        msg = EmailMessage(subject,
-                           message_corredor,
-                           to=admins)
-        msg.content_subtype = 'html'
-        msg.send()
+    # Correo Admins
+    admins = ['jgutierrez@acertaseguros.com', 'ylezcano@acertaseguros.com']
+    msg = EmailMessage(subject,
+                       message_corredor,
+                       to=admins)
+    msg.content_subtype = 'html'
+    msg.send()
 
     return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
 
@@ -815,3 +837,17 @@ class ReportSuccess(LoginRequiredMixin, TemplateView):
 
 class ShowPdf(TemplateView):
     template_name = 'reportes/mypdf.html'
+
+
+class DownloadCSV(View):
+
+    def get(self, request, *args, **kwargs):
+        # Create the HttpResponse object with the appropriate CSV header.
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="mycsv.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
+        writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
+
+        return response

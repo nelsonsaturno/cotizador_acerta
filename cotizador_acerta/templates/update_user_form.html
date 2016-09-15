@@ -74,7 +74,7 @@
                     <div class="box-body">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <div class="hidden">
+                            <div class="">
                                 {% bootstrap_form_errors form %}
                             </div>
                             <form action="" method="post" role="form" class="form-horizontal">
@@ -85,6 +85,7 @@
                             {% bootstrap_field form.ruc show_label=False field_class='form-field' %}
                             {% bootstrap_field form.licencia show_label=False field_class='form-field' %}
                             {% bootstrap_field form.email show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.username %}
 
                                 {% buttons %}
                                     <div class="col-md-3"></div>
@@ -108,6 +109,11 @@
 
 {% endblock content %}
 {% block custom_script %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#id_username").val("{{usuario.pk}}");
+    });
+</script>
 {% endblock custom_script %}
 
 

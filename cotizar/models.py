@@ -89,7 +89,7 @@ class ConductorVehiculo(models.Model):
         blank=False,
         validators=[MaxValueValidator(10), MinValueValidator(0)]
     )
-    fecha_nacimiento = models.DateField()
+    fecha_nacimiento = models.DateField(auto_now_add=True)
     marca = models.ForeignKey(Marca, blank=False)
     modelo = models.ForeignKey(Modelo, blank=False)
     anio = PositiveSmallIntegerField(blank=False,

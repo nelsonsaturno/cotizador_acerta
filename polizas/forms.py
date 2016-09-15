@@ -110,3 +110,31 @@ class SolicitudClienteForm(forms.ModelForm):
             'recursos': 'Recursos',
         }
 
+
+class PagoForm(forms.Form):
+
+    numero_tarjeta = forms.IntegerField(
+        label="Número de Tarjeta",
+        required=True,
+        min_value=1
+    )
+    cvv = forms.IntegerField(
+        label='CVV',
+        required=True,
+        widget=forms.PasswordInput(),
+        min_value=0
+    )
+    # expiracion_tdc = forms.DateField(
+    #     label='Fecha de Expiracion',
+    #     required=True,
+    #     widget=DateTimePicker(
+    #         options={
+    #             "format": "YYYY-MM-DD",
+    #             "pickTime": False
+    #         }
+    #     )
+    # )
+    nombre_persona = forms.CharField(
+        label='Nombre Impreso en la Tarjeta',
+        required=True
+    )

@@ -33,11 +33,15 @@
 				<ul class="nav nav-stacked">
 					{% if usuario.groups.first.name == 'corredor' %}
 						<li><a href="#">Licencia <span class="pull-right badge bg-orange">{{corredor.licencia}}</spana></a></li>
-						<li><a href="#">RUC <span class="pull-right badge bg-orange">{{corredor.ruc}}</spana></a></li>
+						<li><a href="#">RUC <span class="pull-right badge bg-orange">{{corredor.ruc}}</span></a></li>
 					{% endif %}
 					<li><a href="#">Correo <span class="pull-right badge bg-orange">{{usuario.email}}</span></a></li>
 					<li><a href="#">Cotizaciones <span class="pull-right badge bg-red">{{ num_cot }}</span></a></li>
-					<li><a href="{% url 'edit-user' usuario.pk %}">Editar <span class="pull-right badge bg-orange"></span></a></li>
+					{% if request.user.groups.first.name == 'corredor' %}
+						<li><a href="{% url 'edit-vendedor' usuario.pk %}">Editar <span class="pull-right badge bg-orange"></span></a></li>
+					{% else %}
+						<li><a href="{% url 'edit-user' usuario.pk %}">Editar <span class="pull-right badge bg-orange"></span></a></li>
+					{% endif %}
 				</ul>
 			</div>
 		</div>

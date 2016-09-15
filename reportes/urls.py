@@ -9,6 +9,11 @@ urlpatterns = patterns(
         name='showpdf'
     ),
     url(
+        r'^downloadcsv/$',
+        DownloadCSV.as_view(),
+        name='download_csv'
+    ),
+    url(
         r'^corredores/$',
         CorredorVendedorListView.as_view(),
         name='corredor-vendedor-list'),

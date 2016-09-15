@@ -36,7 +36,11 @@
           <tbody>
             {% for antiguedad in antiguedades %}
                 <tr>
+                    {% if user.is_authenticated and user.groups.all.0.name == 'super_admin' %}
                     <td><a href="{% url 'admin_antiguedad' antiguedad.pk %}">{{ antiguedad.limite }}</a></td>
+                    {% else %}
+                    <td>{{ antiguedad.limite }}</td>
+                    {% endif %}
                     <td>{{ antiguedad.factor_menor|floatformat:2 }}</td>
                     <td>{{ antiguedad.factor_mayor|floatformat:2 }}</td>
                     <td><a href="{% url 'list_antiguedad_history' antiguedad.pk %}">Modificaciones</a></td>

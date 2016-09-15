@@ -158,7 +158,10 @@
                 {% endif %}
                 {% if user.is_authenticated and user.groups.all.0.name == 'admin' %}
                   <li style="float: right;">
-                    <a href="{% url 'register'%}">Registrar Corredor</a>
+                    <a href="{% url 'register' %}">Registrar Corredor</a>
+                  </li>
+                  <li style="float: right;">
+                    <a href="{% url 'dashboard' %}">Administrador</a>
                   </li>
                   <li style="float: right;">
                     <a href="{% url 'corredor-vendedor-list' %}">Corredores y Vendedores</a>
