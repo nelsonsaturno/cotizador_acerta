@@ -13,7 +13,6 @@ class SolicitudPoliza(models.Model):
     vigencia_hasta = models.DateField()
     acreedor = models.CharField(max_length=40, blank=False)
     leasing = models.CharField(max_length=40, blank=False)
-    opcion = models.CharField(max_length=40, blank=False)
     firmador = models.CharField(max_length=40, blank=False)
     observaciones = models.CharField(max_length=100, blank=False, default='')
     responsable = models.CharField(max_length=30, blank=False,
@@ -68,6 +67,22 @@ class SolicitudPoliza(models.Model):
                                             ('Otro',
                                              'Otro')])
     otra_area = models.CharField(max_length=20, blank=False)
+    cobrador = models.CharField(max_length=20, blank=False)
+    dir_cobro = models.CharField(max_length=100, blank=False)
+    tipo_tdc = models.CharField(max_length=30, blank=False,
+                                   default='Visa',
+                                   choices=[('Visa',
+                                             'Visa'),
+                                            ('Mastercard',
+                                             'Mastercad'),
+                                            ('Dinners',
+                                             'Dinners'),
+                                            ('American Express',
+                                             'American Express')])
+    num_tdc = models.CharField(max_length=16, blank=False)
+    banco_tdc = models.CharField(max_length=20, blank=False)
+    expiracion_tdc = models.DateField()
+    dia_pago = models.DateField()
 
     def __str__(self):
         pass

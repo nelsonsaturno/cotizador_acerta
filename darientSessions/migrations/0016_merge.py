@@ -7,12 +7,9 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('polizas', '0002_auto_20160824_2039'),
+        ('darientSessions', '0015_auto_20160914_2053'),
+        ('darientSessions', '0014_auto_20160915_0004'),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='extradatoscliente',
-            name='dv',
-        ),
     ]

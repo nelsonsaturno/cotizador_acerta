@@ -43,11 +43,11 @@ class ConductorVehiculoForm(forms.ModelForm):
             'modelo': forms.Select(attrs={'class': 'select2'}),
         }
 
-    def clean_edad(self):
-        edad = self.cleaned_data.get('edad')
-        if edad < 18:
-            raise forms.ValidationError(u'La edad minima debe ser 18 años.')
-        return edad
+    # def clean_edad(self):
+    #     edad = self.cleaned_data.get('edad')
+    #     if edad < 18:
+    #         raise forms.ValidationError(u'La edad minima debe ser 18 años.')
+    #     return edad
 
     def clean_historial_transito(self):
         historial = self.cleaned_data.get('historial_transito')

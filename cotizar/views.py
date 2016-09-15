@@ -98,7 +98,6 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         context['form'] = ConductorVehiculoForm
         context['planes'] = crear_planes
         return self.render_to_response(context)
-   
 
     def crear_cotizacion(self, request, vehiculo):
         conductor = vehiculo
