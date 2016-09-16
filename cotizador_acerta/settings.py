@@ -211,15 +211,15 @@ EMAIL_PORT = 587
 #       PRODUCCION!!!
 ##############################################
 
-#EMAIL_HOST_USER = 'app51812519@heroku.com'
-#EMAIL_HOST_PASSWORD = 'ohbb0q9f2218'
+# EMAIL_HOST_USER = 'app51812519@heroku.com'
+# EMAIL_HOST_PASSWORD = 'ohbb0q9f2218'
 
 ##############################################
 #       DESARROLLO!!!
 ##############################################
 
-# EMAIL_HOST_USER = 'app55642462@heroku.com'
-# EMAIL_HOST_PASSWORD = 'rqq8ftej3229'
+EMAIL_HOST_USER = 'app55642462@heroku.com'
+EMAIL_HOST_PASSWORD = 'rqq8ftej3229'
 
 ###############################################
 

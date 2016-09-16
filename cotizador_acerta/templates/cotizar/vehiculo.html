@@ -128,11 +128,6 @@
           padding-top: 0%;
         }
     }
-    table th {
-        background-color: #E76C42;
-        color: white;
-        text-align: center;
-    }
     .caption {
         text-align: center;
         font-weight: bold;
@@ -157,6 +152,7 @@
         vertical-align: bottom;
     }
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 {% endblock extracss %}
 
 
@@ -303,10 +299,12 @@
 
 {% block custom_script %}
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
-<script src="{% static 'js/jquery.mask.min.js' %}"></script>
-<script src="{% static 'js/jquery.mask2.min.js' %}"></script>
 <!-- Select2 -->
 <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+<script src="{% static 'js/jquery.mask.min.js' %}"></script>
+<script src="{% static 'js/jquery.mask2.min.js' %}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<script src="{% static 'plugins/datepicker/locales/bootstrap-datepicker.es.js' %}"></script>
 <script type="text/javascript">
     $('#id_marca').select2({
         placeholder: "Marca",
@@ -317,6 +315,12 @@
         allowClear: true
     });
     $(document).ready(function(){
+        $('#id_fecha_nacimiento').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'es',
+            todayHighlight: true,
+            autoclose: true,
+        });
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-grey',
             radioClass: 'iradio_square-grey',
@@ -1223,7 +1227,7 @@
 
     $(document).ready(function(){
         $('#id_valor_text').maskMoney();
-        $('#id_fecha_nacimiento').mask('00/00/0000', {placeholder: "F. Nacimiento (mm/dd/aaaa)"});
+        $('#id_fecha_nacimiento').mask('0000-00-00', {placeholder: "F. Nacimiento (aaaa-mm-dd)"});
 
         $(document).click(function() {
             if($('#id_tipo_id_0').is(":checked")) {
@@ -1234,8 +1238,6 @@
         });
     });
 
-</script>
-<script type="text/javascript">
 </script>
 
 {% endblock custom_script %}
