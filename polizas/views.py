@@ -9,7 +9,7 @@ from polizas.models import *
 from cotizar.models import *
 from darientSessions.models import *
 from administrador.models import *
-from django.template import Context
+from django.template import Context, RequestContext
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.views.defaults import page_not_found
@@ -17,7 +17,7 @@ from django.contrib.humanize.templatetags.humanize import *
 import xhtml2pdf
 from xhtml2pdf import pisa
 import json
-
+from easy_pdf.views import PDFTemplateView
 
 class SolicitudPoliza(LoginRequiredMixin, generic.CreateView):
     template_name = "polizas/solicitud.html"
@@ -81,8 +81,8 @@ class PagoTarjeta(generic.FormView):
 # Vistas de prueba
 ########################################################
 
-# class Test(generic.TemplateView):
-#     template_name = "polizas/generacion_PDF.html"
+class Test(generic.TemplateView):
+    template_name = "polizas/generacion_PDF.html"
 
 # class GeneracionPDF(LoginRequiredMixin, generic.ListView):
 #     model = SolicitudPoliza
@@ -95,8 +95,7 @@ class PagoTarjeta(generic.FormView):
 #         html  = template.render(context)
 
 #         file = open("polizas/"+'prueba.pdf', "w+b")
-#         pisaStatus = pisa.CreatePDF(html.encode('utf-8'), dest=file,
-#             encoding='utf-8')
+#         pisaStatus = pisa.CreatePDF(html.encode('utf-8'), dest=file, encoding='utf-8')
 
 #         file.seek(0)
 #         pdf = file.read()
@@ -104,3 +103,7 @@ class PagoTarjeta(generic.FormView):
    
 #         return HttpResponse(pdf, 'application/pdf')
         
+
+
+class HelloPDFView(PDFTemplateView):
+    template_name = "polizas/pdf_personaNatural.html"
