@@ -28,8 +28,8 @@ class SolicitudPoliza(LoginRequiredMixin, generic.CreateView):
         cot = Cotizacion.objects.get(pk=kwargs['pk'])
         context['cotizacion'] = cot
         user = User.objects.get(username=cot.corredor)
-        if user.groups.first() != 'super_admin'\
-           and user.groups.first() != 'admin':
+        if user.groups.first().name != 'super_admin'\
+           and user.groups.first().name != 'admin':
             context['corredor_pol'] = DatosCorredor.objects.get(user=user)
         return self.render_to_response(context)
 
