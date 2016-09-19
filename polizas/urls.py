@@ -5,7 +5,7 @@ urlpatterns = patterns(
     '',
     url(
         r'^solicitar/(?P<pk>\d+)/$',
-        SolicitudPoliza.as_view(),
+        SolicitudPolizaView.as_view(),
         name='solicitar'
     ),
     url(

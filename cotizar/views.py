@@ -98,14 +98,16 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         context['form'] = ConductorVehiculoForm
         context['planes'] = crear_planes
         return self.render_to_response(context)
-   
 
     def crear_cotizacion(self, request, vehiculo):
         conductor = vehiculo
 
         sexo = Sexo.objects.get(sexo=conductor.sexo)
 
-        if conductor.edad >= 30:
+        today = date.today()
+        calc_edad = today.year - conductor.fecha_nacimiento.year - ((today.month, today.day) < (conductor.fecha_nacimiento.month, conductor.fecha_nacimiento.day))
+
+        if calc_edad >= 30:
             estado_civil = Estado_Civil.objects.get(
                 estado_civil='Casado(a)'
             )
@@ -140,8 +142,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         else:
             antiguedad = vejez.factor_mayor
 
-        edad = Edad.objects.filter(inferior__lte=conductor.edad,
-                                   superior__gte=conductor.edad).first()
+        edad = Edad.objects.filter(inferior__lte=calc_edad,
+                                   superior__gte=calc_edad).first()
 
         desc_parametros = 1.00 -\
             (sexo.factor * estado_civil.factor * valor.factor *
@@ -426,8 +428,10 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         conductor = vehiculo
 
         sexo = Sexo.objects.get(sexo=conductor.sexo)
+        today = date.today()
+        calc_edad = today.year - conductor.fecha_nacimiento.year - ((today.month, today.day) < (conductor.fecha_nacimiento.month, conductor.fecha_nacimiento.day))
 
-        if conductor.edad >= 30:
+        if calc_edad >= 30:
             estado_civil = Estado_Civil.objects.get(
                 estado_civil='Casado(a)'
             )
@@ -462,8 +466,8 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         else:
             antiguedad = vejez.factor_mayor
 
-        edad = Edad.objects.filter(inferior__lte=conductor.edad,
-                                   superior__gte=conductor.edad).first()
+        edad = Edad.objects.filter(inferior__lte=calc_edad,
+                                   superior__gte=calc_edad).first()
 
         desc_parametros = 1.00 -\
             (sexo.factor * estado_civil.factor * valor.factor *
