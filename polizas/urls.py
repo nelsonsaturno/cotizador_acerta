@@ -8,6 +8,14 @@ urlpatterns = patterns(
         SolicitudPoliza.as_view(),
         name='solicitar'
     ),
+    url(r'^prueba/$',
+        Test.as_view(),
+       name='prueba'),
+
+    url(r'^prueba/generacion$',
+        GeneracionPDF.as_view(),
+       name='generacion'),
+    ),
     url(
         r'^realizar-pago/$',
         PagoTarjeta.as_view(),
