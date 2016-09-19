@@ -78,22 +78,22 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         self.object = None
         context = self.get_context_data(**kwargs)
 
-        # Chequeamos si es corredor, y creamos los planes para mostrar
-        # if (request.user.groups.first().name == "corredor"):
-        #     corredor = DatosCorredor.objects.get(user=request.user)
-        #     planes = corredor.planes
-        #     crear_planes = re.findall('"([^"]*)"', planes)
+        Chequeamos si es corredor, y creamos los planes para mostrar
+        if (request.user.groups.first().name == "corredor"):
+            corredor = DatosCorredor.objects.get(user=request.user)
+            planes = corredor.planes
+            crear_planes = re.findall('"([^"]*)"', planes)
 
-        # # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
-        # elif (request.user.groups.first().name == "vendedor"):
-        #     vendedor = CorredorVendedor.objects.get(vendedor=request.user)
-        #     corredor = DatosCorredor.objects.get(user=vendedor.corredor)
-        #     planes = corredor.planes
-        #     crear_planes = re.findall('"([^"]*)"', planes)
+        Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
+        elif (request.user.groups.first().name == "vendedor"):
+            vendedor = CorredorVendedor.objects.get(vendedor=request.user)
+            corredor = DatosCorredor.objects.get(user=vendedor.corredor)
+            planes = corredor.planes
+            crear_planes = re.findall('"([^"]*)"', planes)
 
-        # else:
-        #     corredor = None
-        #     crear_planes = []
+        else:
+            corredor = None
+            crear_planes = []
 
         context['form'] = ConductorVehiculoForm
         #context['planes'] = crear_planes
