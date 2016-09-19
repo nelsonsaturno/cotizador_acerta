@@ -105,8 +105,8 @@ WSGI_APPLICATION = 'cotizador_acerta.wsgi.application'
 #       CONEXION HEROKU!!!
 ##############################################
 
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config()
+# DATABASES = {}
+# DATABASES['default'] = dj_database_url.config()
 
 ##############################################
 #       PRODUCCION!!!
@@ -129,16 +129,16 @@ DATABASES['default'] = dj_database_url.config()
 #       DESARROLLO!!
 ########################################
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'd339j965q98db5',
-#         'USER': 'rthjlipirhwtsb',
-#         'PASSWORD': 'YpQrpQvkg5p1AyXJ83OqCRA2tH',
-#         'HOST': 'ec2-54-243-190-37.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd339j965q98db5',
+        'USER': 'rthjlipirhwtsb',
+        'PASSWORD': 'YpQrpQvkg5p1AyXJ83OqCRA2tH',
+        'HOST': 'ec2-54-243-190-37.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 #####################################################
 

@@ -410,7 +410,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                                                    'pk4': cotizacion4.pk}))
         else:
             return render(request, self.template_name, {'form': form,
-                                                        'update': 1})
+                                                        'update': True})
 
 
 class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
