@@ -82,9 +82,6 @@ class SolicitudPoliza(models.Model):
     expiracion_tdc = models.DateField(null=True)
     dia_pago = models.DateField()
 
-    def __str__(self):
-        pass
-
 
 class Referencia(models.Model):
     nombre = models.CharField(max_length=40, blank=False)
