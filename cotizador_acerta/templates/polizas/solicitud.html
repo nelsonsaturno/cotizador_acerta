@@ -694,6 +694,34 @@
                                                 {% bootstrap_field form.calle_ave layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                {% bootstrap_field form.edificio layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3">
+                                                {% bootstrap_field form.piso layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3">
+                                                {% bootstrap_field form.apto layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3">
+                                                {% bootstrap_field form.no_casa layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                {% bootstrap_field form.apartado_postal layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3">
+                                                {% bootstrap_field form.telefono_res layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3">
+                                                {% bootstrap_field form.fax layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3">
+                                                {% bootstrap_field form.estafeta layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                        </div>
                                     </div>
                                 </fieldset>
 
@@ -709,11 +737,14 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             {% bootstrap_field form.empresa layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             {% bootstrap_field form.actividad_empresa layout='horizontal' show_label=False field_class='form-field' %}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {% bootstrap_field form.cargo_empresa layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -1102,7 +1133,7 @@
                                     </div>
                                 </fieldset>
 
-                                <button type="submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>
+                                <button type="submit" id="id_submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>
                             </form>
                         </div>
                     </div><!-- /.box-body -->
@@ -1111,6 +1142,20 @@
         </div>
     </div>
 </div>
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ field.name }}{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
 {% endblock content %}
 
 {% block custom_script %}
@@ -1132,8 +1177,8 @@
 <script src="{% static 'js/jquery.mask2.min.js' %}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#id_valido_desde').mask('0000/00/00', {placeholder: "Valido desde (aaaa/mm/dd)"});
-        $('#id_valido_hasta').mask('0000/00/00', {placeholder: "Hasta (aaaa/mm/dd)"});
+        $('#id_valido_desde').mask('0000-00-00', {placeholder: "Valido desde (aaaa/mm/dd)"});
+        $('#id_valido_hasta').mask('0000-00-00', {placeholder: "Hasta (aaaa/mm/dd)"});
     });
 </script>
 

@@ -17,7 +17,7 @@ from django.contrib.humanize.templatetags.humanize import *
 import json
 
 
-class SolicitudPoliza(LoginRequiredMixin, generic.CreateView):
+class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
     template_name = "polizas/solicitud.html"
     form_class = SolicitudClienteForm
     model = SolicitudPoliza
@@ -39,13 +39,19 @@ class SolicitudPoliza(LoginRequiredMixin, generic.CreateView):
         """
         if 'form' not in kwargs:
             kwargs['form'] = self.get_form()
-        return super(SolicitudPoliza, self).get_context_data(**kwargs)
+        return super(SolicitudPolizaView, self).get_context_data(**kwargs)
 
     def post(self, request, *args, **kwargs):
         form = SolicitudClienteForm(request.POST)
+        cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
+        user = User.objects.get(username=cotizacion.corredor)
+        if user.groups.first().name != 'super_admin'\
+           and user.groups.first().name != 'admin':
+            corredor = DatosCorredor.objects.get(user=user)
+        else:
+            corredor = ''
         if form.is_valid():
             extra_cliente = form.save()
-            cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
             ref1 = Referencia(
                 nombre=request.POST['nom_ref_personal'],
                 actividad=request.POST['actividad_ref_personal'],
@@ -76,7 +82,7 @@ class SolicitudPoliza(LoginRequiredMixin, generic.CreateView):
             solicitud = SolicitudPoliza(
                 cotizacion=cotizacion,
                 nombre_conductor=request.POST['nombre_conductor'],
-                id_conductor=request.POST['id_conducto'],
+                id_conductor=request.POST['id_conductor'],
                 vigencia_desde=request.POST['valido_desde'],
                 vigencia_hasta=request.POST['valido_hasta'],
                 acreedor=request.POST['acreedor'],
@@ -98,18 +104,16 @@ class SolicitudPoliza(LoginRequiredMixin, generic.CreateView):
                 cargo_funcionario=request.POST['cargo_funcionario'],
                 area_funcionario=request.POST['area_funcionario'],
                 otra_area=request.POST['otra_area'],
-                cobrador=request.POST['cobrador'],
-                dir_cobro=request.POST['dir_cobro'],
-                tipo_tdc=request.POST['tipo_tdc'],
-                num_tdc=request.POST['num_tdc'],
-                banco_tdc=request.POST['banco_tdc'],
-                expiracion_tdc=request.POST['expiracion_tdc'],
+                tipo_tdc=request.POST.get('tipo_tdc',''),
+                num_tdc=request.POST.get('num_tdc',''),
+                banco_tdc=request.POST.get('banco_tdc',''),
+                expiracion_tdc=request.POST.get('expiracion_tdc',date.today()),
                 dia_pago=request.POST['dia_pago']
             )
             solicitud.save()
-            return HttpResponseRedirect(reverse_lazy('cotizaciones'))
+            return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
         else:
-            return render(request, self.template_name, {'form': form})
+            return render(request, self.template_name, {'form': form,'cotizacion': cotizacion, 'corredor_pol': corredor})
 
 
 class ConfirmacionPago(generic.TemplateView):
