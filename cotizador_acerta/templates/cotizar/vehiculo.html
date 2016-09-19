@@ -344,7 +344,6 @@
             $("#id_endoso option[value='10']").remove();
             $("#id_endoso option[value='11']").remove();
         {% else %}
-            console.log("aqui");
             $( '#id_endoso' ).prepend('<option value="" disabled>Endoso</option>');
             $( '#id_historial_transito' ).prepend('<option value="" disabled>Historial de Tránsito</option>');
             $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" disabled>Estado Civil</option>');
@@ -354,7 +353,7 @@
             $( '#id_gastos_medicos' ).prepend('<option class="placeholder" value="" disabled>Gastos Médicos</option>');
             $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" disabled>Muerte Accidental</option>');
             document.getElementById("id_valor_text").value = $("#id_valor").val() + ".00";
-            var anio = parseInt("{{vehiculo.anio}}");
+            var anio = parseInt("{{form.anio}}");
             var today = new Date();
             var year1 = today.getFullYear() -1;
             var year = today.getFullYear();
