@@ -79,24 +79,24 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         context = self.get_context_data(**kwargs)
 
         # Chequeamos si es corredor, y creamos los planes para mostrar
-        if (request.user.groups.first().name == "corredor"):
-            corredor = DatosCorredor.objects.get(user=request.user)
-            planes = corredor.planes
-            crear_planes = re.findall('"([^"]*)"', planes)
+        # if (request.user.groups.first().name == "corredor"):
+        #     corredor = DatosCorredor.objects.get(user=request.user)
+        #     planes = corredor.planes
+        #     crear_planes = re.findall('"([^"]*)"', planes)
 
-        # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
-        elif (request.user.groups.first().name == "vendedor"):
-            vendedor = CorredorVendedor.objects.get(vendedor=request.user)
-            corredor = DatosCorredor.objects.get(user=vendedor.corredor)
-            planes = corredor.planes
-            crear_planes = re.findall('"([^"]*)"', planes)
+        # # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
+        # elif (request.user.groups.first().name == "vendedor"):
+        #     vendedor = CorredorVendedor.objects.get(vendedor=request.user)
+        #     corredor = DatosCorredor.objects.get(user=vendedor.corredor)
+        #     planes = corredor.planes
+        #     crear_planes = re.findall('"([^"]*)"', planes)
 
-        else:
-            corredor = None
-            crear_planes = []
+        # else:
+        #     corredor = None
+        #     crear_planes = []
 
         context['form'] = ConductorVehiculoForm
-        context['planes'] = crear_planes
+        #context['planes'] = crear_planes
         return self.render_to_response(context)
 
     def crear_cotizacion(self, request, vehiculo):
@@ -803,6 +803,10 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 cotizacion.tipo_pago = 'Contado'
             elif tipo_pago == 1:
                 cuotas = request.POST['cuotas']
+                cotizacion.tipo_pago = 'ACH'
+                cotizacion.cuota = int(cuotas)
+            elif tipo_pago == 2:
+                cuotas = request.POST['cuotas']
                 cotizacion.tipo_pago = 'Visa'
                 cotizacion.cuota = int(cuotas)
             else:
@@ -815,6 +819,9 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
             elif tipo_pago == 1:
                 cotizacion.prima_mensual = float(
                 "{0:.2f}".format(cotizacion.prima_pagoVisa / float(cotizacion.cuota)))
+            elif tipo_pago == 2:
+                cotizacion.prima_mensual = float(
+                "{0:.2f}".format(cotizacion.prima_pagoVisa / float(cotizacion.cuota)))                
             else:
                 cotizacion.prima_mensual = float(
                 "{0:.2f}".format(cotizacion.total / float(cotizacion.cuota)))
