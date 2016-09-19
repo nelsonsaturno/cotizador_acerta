@@ -195,25 +195,25 @@
                       <tr>
                         <td>Otros Daños</td>
                         <td>{{ cotizacion.conductor.valor|floatformat:2|intcomma }}</td>
-                        <td>{{ cotizacion.otros_danios|floatformat:2|intcomma }}</td>
+                        <td>{{ cotizacion.otros_danios|floatformat:0|intcomma }}</td>
                         <td>{{ cotizacion.prima_otrosDanios|floatformat:2|intcomma }}</td>
                       </tr>
                       <tr>
                         <td>Colisión y Vuelco</td>
                         <td>{{ cotizacion.conductor.valor|floatformat:2|intcomma }}</td>
-                        <td>{{ cotizacion.colision_vuelco|floatformat:2|intcomma }}</td>
+                        <td>{{ cotizacion.colision_vuelco|floatformat:0|intcomma }}</td>
                         <td>{{ cotizacion.prima_colisionVuelco|floatformat:2|intcomma }}</td>
                       </tr>
                       <tr>
                         <td>Incendio y Rayo</td>
                         <td>{{ cotizacion.conductor.valor|floatformat:2|intcomma }}</td>
-                        <td>{{ cotizacion.incendio_rayo|floatformat:2|intcomma }}</td>
+                        <td>{{ cotizacion.incendio_rayo|floatformat:0|intcomma }}</td>
                         <td>-</td>
                       </tr>
                       <tr>
                         <td>Robo y Hurto</td>
                         <td>{{ cotizacion.conductor.valor|floatformat:2|intcomma }}</td>
-                        <td>{{ cotizacion.robo_hurto|floatformat:2|intcomma }}</td>
+                        <td>{{ cotizacion.robo_hurto|floatformat:0|intcomma }}</td>
                         <td>-</td>
                       </tr>
                       <tr>

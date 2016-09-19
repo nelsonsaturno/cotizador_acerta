@@ -13,7 +13,6 @@ class SolicitudPoliza(models.Model):
     vigencia_hasta = models.DateField()
     acreedor = models.CharField(max_length=40, blank=False)
     leasing = models.CharField(max_length=40, blank=False)
-    opcion = models.CharField(max_length=40, blank=False)
     firmador = models.CharField(max_length=40, blank=False)
     observaciones = models.CharField(max_length=100, blank=False, default='')
     responsable = models.CharField(max_length=30, blank=False,
@@ -68,9 +67,20 @@ class SolicitudPoliza(models.Model):
                                             ('Otro',
                                              'Otro')])
     otra_area = models.CharField(max_length=20, blank=False)
-
-    def __str__(self):
-        pass
+    tipo_tdc = models.CharField(max_length=30, blank=False, null=True,
+                                   default='Visa',
+                                   choices=[('Visa',
+                                             'Visa'),
+                                            ('Mastercard',
+                                             'Mastercad'),
+                                            ('Dinners',
+                                             'Dinners'),
+                                            ('American Express',
+                                             'American Express')])
+    num_tdc = models.CharField(max_length=16, blank=False, null=True)
+    banco_tdc = models.CharField(max_length=20, blank=False, null=True)
+    expiracion_tdc = models.DateField(null=True)
+    dia_pago = models.DateField()
 
 
 class Referencia(models.Model):
@@ -82,7 +92,7 @@ class Referencia(models.Model):
 
 # Datos extras para el formulario unico.
 class ExtraDatosCliente(models.Model):
-    conductor = models.ForeignKey(ConductorVehiculo, blank=False)
+    conductor = models.ForeignKey(ConductorVehiculo, null=True)
     placa = models.CharField(max_length=40, blank=False)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
@@ -90,7 +100,6 @@ class ExtraDatosCliente(models.Model):
     nombre2 = models.CharField(max_length=20, blank=False)
     apellido_mat = models.CharField(max_length=20, blank=False)
     apellido_cas = models.CharField(max_length=20, blank=False)
-    dv = models.CharField(max_length=20, blank=False)
     nacionalidad = models.CharField(max_length=30, blank=False)
     pais_nacimiento = models.CharField(max_length=30, blank=False)
     pais_residencia = models.CharField(max_length=30, blank=False)
@@ -147,7 +156,7 @@ class ExtraDatosCliente(models.Model):
                                                     ('>50,000.00',
                                                      '>50,000.00')])
     # Referencias
-    ref_personal = models.ForeignKey(Referencia, blank=False, related_name='personal')
-    ref_bancaria = models.ForeignKey(Referencia, blank=False, related_name='bancaria')
-    ref_comercial = models.ForeignKey(Referencia, blank=False, related_name='comercial')
-    documento = models.BooleanField(default=False)
+    ref_personal = models.ForeignKey(Referencia, null=True, related_name='personal')
+    ref_bancaria = models.ForeignKey(Referencia, null=True, related_name='bancaria')
+    ref_comercial = models.ForeignKey(Referencia, null=True, related_name='comercial')
+    documento = models.NullBooleanField(default=False)

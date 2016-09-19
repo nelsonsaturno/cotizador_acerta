@@ -6,7 +6,6 @@ from cotizar.models import *
 from django.contrib.auth.models import User
 from django.views.defaults import page_not_found
 from reportes.forms import *
-import datetime
 from datetime import *
 from time import *
 from django.http import HttpResponseRedirect, HttpResponse
@@ -203,7 +202,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         form = DateCotizationForm()
         context['form'] = form
         start = datetime.strptime('1900-01-01', '%Y-%m-%d')
-        end = datetime.strptime('1900-01-01', '%Y-%m-%d')
+        now = datetime.now()
+        now_ = str(now.year) + '-' + str(now.month) + '-' + str(now.day)
+        end = datetime.strptime(now_, '%Y-%m-%d')
         context['start'] = start.strftime("%Y-%m-%d")
         context['end'] = end.strftime("%Y-%m-%d")
         context['date'] = '0'
@@ -664,7 +665,8 @@ def changeStatus(request, id, status):
     else:
         cotizacion.status = "Rechazada"
         cotizacion.save()
-    return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
+        return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
+    return HttpResponseRedirect(reverse_lazy('solicitar',kwargs={'pk': cotizacion.pk}))
 
 
 def sendCotization(request, id):

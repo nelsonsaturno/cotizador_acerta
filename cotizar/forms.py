@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from cotizar.models import *
+from datetime import *
+from bootstrap3_datetime.widgets import DateTimePicker
 from django.contrib.auth.models import User
 from darientSessions.models import CorredorVendedor
+import datetime
 
 
 class ConductorVehiculoForm(forms.ModelForm):
@@ -22,13 +25,13 @@ class ConductorVehiculoForm(forms.ModelForm):
             'nombre': 'Nombre',
             'apellido': 'Apellido',
             'sexo': 'Sexo',
+            'fecha_nacimiento': 'Fecha de Nacimiento',
             'identificacion': 'Identificación',
             'estado_civil': 'Estado Civil',
             'correo': 'Correo',
             'telefono1': 'Teléfono Celular',
             'telefono2': 'Teléfono de Trabajo',
             'historial_transito': 'Historial de Tránsito',
-            'edad': 'Edad',
             'marca': 'Marca',
             'modelo': 'Modelo',
             'anio': 'Año',
@@ -38,13 +41,24 @@ class ConductorVehiculoForm(forms.ModelForm):
         widgets = {
             'marca': forms.Select(attrs={'class': 'select2'}),
             'modelo': forms.Select(attrs={'class': 'select2'}),
+            'historial_transito': forms.Select(
+                choices=[
+                    (0, "0"), (1, "1"), (2, "2"), (3, "3"),
+                    (4, "4"), (5, "5"), (6, "6"), (7, "7"),
+                    (8, "8"), (9, "9"), (10, "10")
+                ]
+            )
         }
 
-    def clean_edad(self):
-        edad = self.cleaned_data.get('edad')
-        if edad < 18:
+    def clean_fecha_nacimiento(self):
+        fecha = self.cleaned_data.get('fecha_nacimiento')
+        d = str(fecha)
+        d1 = datetime.datetime.strptime(d, "%Y-%m-%d")
+        d2 = datetime.datetime.now()
+        d3 = (d2 - d1).days / 365
+        if d3 < 18.0:
             raise forms.ValidationError(u'La edad minima debe ser 18 años.')
-        return edad
+        return fecha
 
     def clean_historial_transito(self):
         historial = self.cleaned_data.get('historial_transito')
