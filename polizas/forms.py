@@ -21,15 +21,12 @@ class SolicitudClienteForm(forms.ModelForm):
                                 widget=forms.RadioSelect(), label="")
     acreedor = forms.CharField(label='Acreedor Hipotecario')
     leasing = forms.CharField(label='o Leasing')
-    agrupador = forms.CharField(label='')
-    cobrador = forms.CharField(label='')
-    dir_cobro = forms.CharField(label='')
     observaciones = forms.CharField(label='Observaciones')
     tipo_tdc = forms.ChoiceField(choices=[(0, 'Visa'), (1, 'Master Card'), (2, 'Dinners'), (3, 'American Express')],
-                                widget=forms.RadioSelect(), label="")
-    num_tdc = forms.CharField(label='Numero de Tarjeta')
-    banco_tdc = forms.CharField(label='Banco')
-    expiracion_tdc = forms.DateField(label='Fecha de Expiracion', required=True)
+                                widget=forms.RadioSelect(), label="", required=False)
+    num_tdc = forms.CharField(label='Numero de Tarjeta',required=False)
+    banco_tdc = forms.CharField(label='Banco',required=False)
+    expiracion_tdc = forms.DateField(label='Fecha de Expiracion', required=False)
     dia_pago = forms.DateField(label='Dia de pago', required=True)
     nom_ref_personal = forms.CharField(label='Nombre o Razon Social')
     actividad_ref_personal = forms.CharField(label='Actividad')
@@ -73,7 +70,6 @@ class SolicitudClienteForm(forms.ModelForm):
             'nombre2': 'Segundo Nombre',
             'apellido_mat': 'Apellido Materno',
             'apellido_cas': 'Apellido de Casado/a',
-            'dv': 'D.V',
             'nacionalidad': 'Nacionalidad',
             'pais_nacimiento': 'Pais de Nacimiento',
             'pais_residencia': 'Pais de Residencia',
@@ -108,7 +104,6 @@ class SolicitudClienteForm(forms.ModelForm):
             'declaracion_prima': 'Prima de Seguros mayor o igual a B./ 10,000.00',
             'actividad_principal': 'Actividad fuente principal de sus ingresos',
             'otra_actividad': 'Actividad de otras fuentes de ingreso:',
-            'recursos': 'Recursos',
         }
 
 
@@ -122,8 +117,19 @@ class PagoForm(forms.Form):
     cvv = forms.IntegerField(
         label='CVV',
         required=True,
-        min_value=1
+        widget=forms.PasswordInput(),
+        min_value=0
     )
+    # expiracion_tdc = forms.DateField(
+    #     label='Fecha de Expiracion',
+    #     required=True,
+    #     widget=DateTimePicker(
+    #         options={
+    #             "format": "YYYY-MM-DD",
+    #             "pickTime": False
+    #         }
+    #     )
+    # )
     nombre_persona = forms.CharField(
         label='Nombre Impreso en la Tarjeta',
         required=True

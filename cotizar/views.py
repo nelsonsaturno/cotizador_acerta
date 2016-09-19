@@ -9,12 +9,15 @@ from datetime import date
 from cotizador_acerta.views_mixins import LoginRequiredMixin
 from cotizar.models import *
 from administrador.models import *
+from darientSessions.models import *
 from django.template import Context
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.views.defaults import page_not_found
 from django.contrib.humanize.templatetags.humanize import *
 import json
+import re
+import math
 
 
 def CargarCarros(request):
@@ -71,12 +74,40 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
     template_name = "cotizar/vehiculo.html"
     form_class = ConductorVehiculoForm
 
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        context = self.get_context_data(**kwargs)
+
+        # Chequeamos si es corredor, y creamos los planes para mostrar
+        if (request.user.groups.first().name == "corredor"):
+            corredor = DatosCorredor.objects.get(user=request.user)
+            planes = corredor.planes
+            crear_planes = re.findall('"([^"]*)"', planes)
+
+        # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
+        elif (request.user.groups.first().name == "vendedor"):
+            vendedor = CorredorVendedor.objects.get(vendedor=request.user)
+            corredor = DatosCorredor.objects.get(user=vendedor.corredor)
+            planes = corredor.planes
+            crear_planes = re.findall('"([^"]*)"', planes)
+
+        else:
+            corredor = None
+            crear_planes = []
+
+        context['form'] = ConductorVehiculoForm
+        context['planes'] = crear_planes
+        return self.render_to_response(context)
+
     def crear_cotizacion(self, request, vehiculo):
         conductor = vehiculo
 
         sexo = Sexo.objects.get(sexo=conductor.sexo)
 
-        if conductor.edad >= 30:
+        today = date.today()
+        calc_edad = today.year - conductor.fecha_nacimiento.year - ((today.month, today.day) < (conductor.fecha_nacimiento.month, conductor.fecha_nacimiento.day))
+
+        if calc_edad >= 30:
             estado_civil = Estado_Civil.objects.get(
                 estado_civil='Casado(a)'
             )
@@ -111,8 +142,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         else:
             antiguedad = vejez.factor_mayor
 
-        edad = Edad.objects.filter(inferior__lte=conductor.edad,
-                                   superior__gte=conductor.edad).first()
+        edad = Edad.objects.filter(inferior__lte=calc_edad,
+                                   superior__gte=calc_edad).first()
 
         desc_parametros = 1.00 -\
             (sexo.factor * estado_civil.factor * valor.factor *
@@ -178,13 +209,13 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         prima_endoso = endoso.precio
 
         deducibles = float(vehiculo.valor) * porcentaje_uso
-        deducibles = float("{0:.2f}".format(deducibles))
+        deducibles = math.ceil(float("{0:.2f}".format(deducibles)))
         prima_otros = float(
             "{0:.2f}".format(deducibles - (deducibles * descuento)))
         prima_colision = float(
             "{0:.2f}".format(base_colision * (1 - descuento)))
-        deducible_colision = float("{0:.0f}".format(int(
-            base_colision * (1 + vehiculo.modelo.recargo))))
+        deducible_colision = math.ceil(float("{0:.0f}".format(int(
+            base_colision * (1 + vehiculo.modelo.recargo)))))
         subtotal = prima_lesiones +\
             prima_danios + prima_gastos +\
             prima_otros + importacion_piezas + prima_colision + prima_endoso
@@ -235,8 +266,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             vehiculo.save()
             cotizacion1 = self.crear_cotizacion(request, vehiculo)
             prima_endoso = cotizacion1.endoso.precio
-            deducibles2 = float(
-                "{0:.2f}".format(cotizacion1.otros_danios * 1.20))
+            deducibles2 = math.ceil(float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 1.20)))
             cotizacion2 = Cotizacion(
                 conductor=vehiculo,
                 corredor=user,
@@ -279,8 +310,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             cotizacion2.save()
 
             ###################################
-            deducibles3 = float(
-                "{0:.2f}".format(cotizacion1.otros_danios * 1.60))
+            deducibles3 = math.ceil(float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 1.60)))
 
             cotizacion3 = Cotizacion(
                 conductor=vehiculo,
@@ -326,8 +357,8 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             ###################################
 
             ###################################
-            deducibles4 = float(
-                "{0:.2f}".format(cotizacion1.otros_danios * 2.00))
+            deducibles4 = math.ceil(float(
+                "{0:.2f}".format(cotizacion1.otros_danios * 2.00)))
 
             cotizacion4 = Cotizacion(
                 conductor=vehiculo,
@@ -397,8 +428,10 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         conductor = vehiculo
 
         sexo = Sexo.objects.get(sexo=conductor.sexo)
+        today = date.today()
+        calc_edad = today.year - conductor.fecha_nacimiento.year - ((today.month, today.day) < (conductor.fecha_nacimiento.month, conductor.fecha_nacimiento.day))
 
-        if conductor.edad >= 30:
+        if calc_edad >= 30:
             estado_civil = Estado_Civil.objects.get(
                 estado_civil='Casado(a)'
             )
@@ -433,8 +466,8 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         else:
             antiguedad = vejez.factor_mayor
 
-        edad = Edad.objects.filter(inferior__lte=conductor.edad,
-                                   superior__gte=conductor.edad).first()
+        edad = Edad.objects.filter(inferior__lte=calc_edad,
+                                   superior__gte=calc_edad).first()
 
         desc_parametros = 1.00 -\
             (sexo.factor * estado_civil.factor * valor.factor *
