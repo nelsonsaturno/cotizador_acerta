@@ -353,7 +353,7 @@
             $( '#id_gastos_medicos' ).prepend('<option class="placeholder" value="" disabled>Gastos Médicos</option>');
             $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" disabled>Muerte Accidental</option>');
             document.getElementById("id_valor_text").value = $("#id_valor").val() + ".00";
-            var anio = parseInt("{{form.anio}}");
+            var anio = $("#id_anio").val();
             var today = new Date();
             var year1 = today.getFullYear() -1;
             var year = today.getFullYear();
