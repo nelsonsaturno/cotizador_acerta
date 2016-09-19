@@ -80,6 +80,7 @@ class CotizacionUpdateForm(forms.Form):
 
     cuotas = forms.IntegerField(min_value=1, max_value=10, label="Cuotas", required=False, initial=1)
     cuotas2 = forms.IntegerField(min_value=1, max_value=6, label="Cuotas", required=False, initial=1)
-    tipo_pago = forms.ChoiceField(choices=[(0, 'Pago de Contado'), (1, 'Pago Prima ACH/Visa'), (2, 'Otro')],
+    cuotas3 = forms.IntegerField(min_value=2, max_value=10, label="Cuotas", required=False, initial=1)
+    tipo_pago = forms.ChoiceField(choices=[(0, 'Pago de Contado'), (1, 'Pago Prima ACH'), (2, 'Pago TDC'), (3, 'Otro')],
                                 widget=forms.RadioSelect(), label="", required=True)
     guardar = forms.CharField(widget=forms.HiddenInput(), required=False)
