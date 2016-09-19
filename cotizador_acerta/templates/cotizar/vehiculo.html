@@ -344,6 +344,7 @@
             $("#id_endoso option[value='10']").remove();
             $("#id_endoso option[value='11']").remove();
         {% else %}
+            console.log("aqui");
             $( '#id_endoso' ).prepend('<option value="" disabled>Endoso</option>');
             $( '#id_historial_transito' ).prepend('<option value="" disabled>Historial de Tránsito</option>');
             $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" disabled>Estado Civil</option>');
