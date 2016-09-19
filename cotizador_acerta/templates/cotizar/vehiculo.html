@@ -322,6 +322,25 @@
 
         $("#id_mail_corredor").val("{{ request.user.email }}");
 
+        var anio = parseInt($(this).val());
+        var today = new Date();
+        var year1 = today.getFullYear() -1;
+        var year = today.getFullYear();
+        var year2 = today.getFullYear() +1;
+        if (anio == year || anio == year1 || anio == year2) {
+            $(".km-field").css('display','block');
+            $(".km-field > div > label > .icheckbox_square-grey").attr("aria-checked", "false");
+            $(".km-field > div > label > .icheckbox_square-grey").removeClass("checked");
+            $('#id_cero_km').attr('checked', false);
+            $('#id_cero_km').prop('checked', false);
+        }
+        else {
+            $(".km-field").css('display','none');
+            $(".km-field > div > label > .icheckbox_square-grey").attr("aria-checked", "false");
+            $(".km-field > div > label > .icheckbox_square-grey").removeClass("checked");
+            $('#id_cero_km').prop('checked', false);
+        }
+
         $( '#id_endoso' ).parent().parent().css("margin-top", "-8%");
         {% if not update %}
             $( '#id_endoso' ).prepend('<option value="" selected=selected disabled>Endoso</option>');
