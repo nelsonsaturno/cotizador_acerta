@@ -3,7 +3,6 @@
 import hashlib
 import datetime
 import random
-import os
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.template import RequestContext
