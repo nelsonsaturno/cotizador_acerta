@@ -78,13 +78,13 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         self.object = None
         context = self.get_context_data(**kwargs)
 
-        Chequeamos si es corredor, y creamos los planes para mostrar
+        # Chequeamos si es corredor, y creamos los planes para mostrar
         if (request.user.groups.first().name == "corredor"):
             corredor = DatosCorredor.objects.get(user=request.user)
             planes = corredor.planes
             crear_planes = re.findall('"([^"]*)"', planes)
 
-        Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
+        # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
         elif (request.user.groups.first().name == "vendedor"):
             vendedor = CorredorVendedor.objects.get(vendedor=request.user)
             corredor = DatosCorredor.objects.get(user=vendedor.corredor)
@@ -96,7 +96,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             crear_planes = []
 
         context['form'] = ConductorVehiculoForm
-        #context['planes'] = crear_planes
+        context['planes'] = crear_planes
         return self.render_to_response(context)
 
     def crear_cotizacion(self, request, vehiculo):
@@ -844,7 +844,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 cotizacion.tipo_pago = 'ACH'
                 cotizacion.cuota = int(cuotas)
             elif tipo_pago == 2:
-                cuotas = request.POST['cuotas']
+                cuotas = request.POST['cuotas3']
                 cotizacion.tipo_pago = 'Visa'
                 cotizacion.cuota = int(cuotas)
             else:
@@ -853,13 +853,13 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 cotizacion.cuota = int(cuotas)
             if tipo_pago == 0:
                 cotizacion.prima_mensual = float(
-                "{0:.2f}".format(cotizacion.total / float(cotizacion.cuota)))
+                "{0:.2f}".format(cotizacion.prima_pagoContado / float(cotizacion.cuota)))
             elif tipo_pago == 1:
                 cotizacion.prima_mensual = float(
                 "{0:.2f}".format(cotizacion.prima_pagoVisa / float(cotizacion.cuota)))
             elif tipo_pago == 2:
                 cotizacion.prima_mensual = float(
-                "{0:.2f}".format(cotizacion.prima_pagoVisa / float(cotizacion.cuota)))                
+                "{0:.2f}".format(cotizacion.prima_pagoVisa / float(cotizacion.cuota)))
             else:
                 cotizacion.prima_mensual = float(
                 "{0:.2f}".format(cotizacion.total / float(cotizacion.cuota)))
