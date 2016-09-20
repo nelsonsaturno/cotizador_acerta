@@ -651,10 +651,11 @@ def changeStatus(request, id, status):
     else:
         cotizacion.status = "Rechazada"
         cotizacion.save()
-        return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
-    return HttpResponseRedirect(
-        reverse_lazy('solicitar', kwargs={'pk': cotizacion.pk})
-    )
+    return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
+    # Esto va para desarrollo todavia
+    # return HttpResponseRedirect(
+    #     reverse_lazy('solicitar', kwargs={'pk': cotizacion.pk})
+    # )
 
 
 def sendCotization(request, id):
