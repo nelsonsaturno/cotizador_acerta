@@ -262,6 +262,7 @@
                         <h5><br></h5>
                         <h5>{% bootstrap_field form.cuotas show_label=False layout='horizontal' %}</h5>
                         <h5>{% bootstrap_field form.cuotas2 show_label=False layout='horizontal' %}</h5>
+                        <h5>{% bootstrap_field form.cuotas3 show_label=False layout='horizontal' %}</h5>
                         <h5><br></h5>
                         <h5><br></h5>
                         <h5><br></h5>
@@ -275,7 +276,8 @@
                       <h5>Impuestos:</h5>
                       <h5>Total:</h5>
                       <h5 class="prima-contado" ><strong>Total a pagar de Contado:</strong></h5>
-                      <h5 class="prima-visa"><strong>Total a pagar con ACH/Visa:</strong></h5>
+                      <h5 class="prima-ach"><strong>Total a pagar con ACH:</strong></h5>
+                      <h5 class="prima-visa"><strong>Total a pagar con TCR:</strong></h5>
                       <h5 class="prima-mensual"><strong>Prima Mensual:</strong></h5>
                     </div>
                     <div class="col-md-2 col-xs-4 text-right" style="text:align:left;">
@@ -284,7 +286,7 @@
                       <h5>B/.{{ cotizacion.impuestos|floatformat:2|intcomma }}</h5>
                       <h5><strong>B/.{{ cotizacion.total|floatformat:2|intcomma }}</strong></h5>
                       <h5 class="prima-contado"><strong>B/.{{ cotizacion.prima_pagoContado|floatformat:2|intcomma }}</strong></h5>
-                      <h5 class="prima-visa" id="prima-visa" data-total="{{ cotizacion.prima_pagoVisa|floatformat:2 }}">B/.{{ cotizacion.prima_pagoVisa|floatformat:2|intcomma }}</h5>
+                      <h5 class="prima-ach" id="prima-ach" data-total="{{ cotizacion.prima_pagoVisa|floatformat:2 }}">B/.{{ cotizacion.prima_pagoVisa|floatformat:2|intcomma }}</h5>
                       <h5 class="prima-mensual" id="prima-mensual" data-total="{{ cotizacion.total|floatformat:2 }}"><strong>B/. {{ cotizacion.prima_mensual|floatformat:2 }}</strong></h5>
                     </div>
                     <br>
@@ -325,7 +327,7 @@
 <script type="text/javascript">
 
   var element = document.querySelectorAll(".prima-contado");
-  var element1 = document.querySelectorAll(".prima-visa");
+  var element1 = document.querySelectorAll(".prima-ach");
   var element2 = document.querySelectorAll(".prima-mensual");
   for (var i = 0; i < element.length; i++) {
     element[i].classList.add("hidden");
@@ -336,6 +338,13 @@
   element.classList.add("hidden");
   var element = document.querySelector("#id_cuotas");
   element.classList.add("hidden");
+  var element = document.querySelector("#id_cuotas3");
+  element.classList.add("hidden"); 
+  var element = document.querySelectorAll(".prima-visa");
+  for (var i = 0; i < element.length; i++) {
+    element[i].classList.add("hidden");
+  }
+
 
   var element = document.querySelector("#id_tipo_pago_0");
   element.onclick = function () {
@@ -343,15 +352,23 @@
     element.classList.add("hidden");
     var element = document.querySelector("#id_cuotas");
     element.classList.add("hidden");
+    var element = document.querySelector("#id_cuotas3");
+    element.classList.add("hidden");
     var element = document.querySelectorAll(".prima-contado");
     for (var i = 0; i < element.length; i++) {
       element[i].classList.remove("hidden");
     }
-    var element1 = document.querySelectorAll(".prima-visa");
+    var element = document.querySelectorAll(".prima-visa");
+    for (var i = 0; i < element.length; i++) {
+      element[i].classList.remove("hidden");
+    }
+    var element1 = document.querySelectorAll(".prima-ach");
     var element2 = document.querySelectorAll(".prima-mensual");
+    var element3 = document.querySelectorAll(".prima-visa");
     for (var i = 0; i < element.length; i++) {
       element1[i].classList.add("hidden");
       element2[i].classList.add("hidden");
+      element3[i].classList.add("hidden");
     }
   }
   var element = document.querySelector("#id_tipo_pago_1");
@@ -360,7 +377,9 @@
     element.classList.add("hidden");
     var element = document.querySelector("#id_cuotas");
     element.classList.remove("hidden");
-    var element = document.querySelectorAll(".prima-visa");
+    var element = document.querySelector("#id_cuotas3");
+    element.classList.add("hidden");
+    var element = document.querySelectorAll(".prima-ach");
     for (var i = 0; i < element.length; i++) {
       element[i].classList.remove("hidden");
     }
@@ -372,19 +391,54 @@
     for (var i = 0; i < element.length; i++) {
       element[i].classList.add("hidden");
     }
+    var element = document.querySelectorAll(".prima-visa");
+    for (var i = 0; i < element.length; i++) {
+      element[i].classList.add("hidden");
+    }
   }
+
   var element = document.querySelector("#id_tipo_pago_2");
   element.onclick = function () {
     var element = document.querySelector("#id_cuotas");
     element.classList.add("hidden");
     var element = document.querySelector("#id_cuotas2");
+    element.classList.add("hidden");
+    var element = document.querySelector("#id_cuotas3");
     element.classList.remove("hidden");
     var element = document.querySelectorAll(".prima-mensual");
     for (var i = 0; i < element.length; i++) {
       element[i].classList.remove("hidden");
     }
+    var element = document.querySelectorAll(".prima-visa");
+    for (var i = 0; i < element.length; i++) {
+      element[i].classList.remove("hidden");
+    }
     var element = document.querySelectorAll(".prima-contado");
-    var element1 = document.querySelectorAll(".prima-visa");
+    var element1 = document.querySelectorAll(".prima-ach");
+    for (var i = 0; i < element.length; i++) {
+      element[i].classList.add("hidden");
+      element1[i].classList.add("hidden");
+    }
+  }
+
+  var element = document.querySelector("#id_tipo_pago_3");
+  element.onclick = function () {
+    var element = document.querySelector("#id_cuotas");
+    element.classList.add("hidden");
+    var element = document.querySelector("#id_cuotas2");
+    element.classList.remove("hidden");
+    var element = document.querySelector("#id_cuotas3");
+    element.classList.add("hidden");
+    var element = document.querySelectorAll(".prima-mensual");
+    for (var i = 0; i < element.length; i++) {
+      element[i].classList.remove("hidden");
+    }
+    var element = document.querySelectorAll(".prima-visa");
+    for (var i = 0; i < element.length; i++) {
+      element[i].classList.add("hidden");
+    }
+    var element = document.querySelectorAll(".prima-contado");
+    var element1 = document.querySelectorAll(".prima-ach");
     for (var i = 0; i < element.length; i++) {
       element[i].classList.add("hidden");
       element1[i].classList.add("hidden");
@@ -412,7 +466,7 @@
   });
   $(document).on("change", "#id_cuotas", function(){
       var cuotas = parseFloat($(this).val());
-      var total = parseFloat($("#prima-visa").data("total"));
+      var total = parseFloat($("#prima-ach").data("total"));
       var mensualidad = total / cuotas;
       $("#prima-mensual").empty();
       $("#prima-mensual").append("B/.  " + addThousandsSeparator(mensualidad.toFixed(2).toString()));
