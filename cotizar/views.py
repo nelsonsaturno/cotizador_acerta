@@ -211,7 +211,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         deducibles = float(vehiculo.valor) * porcentaje_uso
         deducibles = math.ceil(float("{0:.2f}".format(deducibles)))
         if deducibles < 150.00:
-                deducibles = float("{0:.2f".format(150.00))
+                deducibles = float("{0:.2f}".format(150.00))
         prima_otros = float(
             "{0:.2f}".format(deducibles - (deducibles * descuento)))
         prima_colision = float(
@@ -219,7 +219,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         deducible_colision = math.ceil(float("{0:.0f}".format(int(
             base_colision * (1 + vehiculo.modelo.recargo)))))
         if deducible_colision < 250.00:
-            deducible_colision = float("{0:.2f".format(250.00))
+            deducible_colision = float("{0:.2f}".format(250.00))
         subtotal = prima_lesiones +\
             prima_danios + prima_gastos +\
             prima_otros + importacion_piezas + prima_colision + prima_endoso
@@ -273,11 +273,11 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             deducibles2 = math.ceil(float(
                 "{0:.2f}".format(cotizacion1.otros_danios * 1.20)))
             if deducibles2 < 150.00:
-                deducibles2 = float("{0:.2f".format(150.00))
+                deducibles2 = float("{0:.2f}".format(150.00))
             colision_vuelco2 = float("{0:.0f}".format(
                     int(cotizacion1.colision_vuelco * 1.20)))
             if colision_vuelco2 < 250.00:
-                colision_vuelco2 = float("{0:.2f".format(250.00))
+                colision_vuelco2 = float("{0:.2f}".format(250.00))
             cotizacion2 = Cotizacion(
                 conductor=vehiculo,
                 corredor=user,
@@ -322,11 +322,11 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             deducibles3 = math.ceil(float(
                 "{0:.2f}".format(cotizacion1.otros_danios * 1.60)))
             if deducibles3 < 150.00:
-                deducibles3 = float("{0:.2f".format(150.00))
+                deducibles3 = float("{0:.2f}".format(150.00))
             colision_vuelco3 = float("{0:.0f}".format(
                     int(cotizacion1.colision_vuelco * 1.60)))
             if colision_vuelco3 < 250.00:
-                colision_vuelco3 = float("{0:.2f".format(250.00))
+                colision_vuelco3 = float("{0:.2f}".format(250.00))
 
             cotizacion3 = Cotizacion(
                 conductor=vehiculo,
@@ -374,11 +374,11 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             deducibles4 = math.ceil(float(
                 "{0:.2f}".format(cotizacion1.otros_danios * 2.00)))
             if deducibles4 < 150.00:
-                deducibles4 = float("{0:.2f".format(150.00))
+                deducibles4 = float("{0:.2f}".format(150.00))
             colision_vuelco4 = float("{0:.0f}".format(
                     int(cotizacion1.colision_vuelco * 2.00)))
             if colision_vuelco4 < 250.00:
-                colision_vuelco4 = float("{0:.2f".format(250.00))
+                colision_vuelco4 = float("{0:.2f}".format(250.00))
 
             cotizacion4 = Cotizacion(
                 conductor=vehiculo,
@@ -554,7 +554,7 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         deducibles = float(vehiculo.valor) * porcentaje_uso
         deducibles = float("{0:.2f}".format(deducibles))
         if deducibles < 150.00:
-            deducibles = float("{0:.2f".format(150.00))
+            deducibles = float("{0:.2f}".format(150.00))
         prima_otros = float(
             "{0:.2f}".format(deducibles - (deducibles * descuento)))
         prima_colision = float(
@@ -562,7 +562,7 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         deducible_colision = float("{0:.0f}".format(
             int(base_colision * (1 + vehiculo.modelo.recargo))))
         if deducible_colision < 250.00:
-            deducibles = float("{0:.2f".format(250.00))
+            deducibles = float("{0:.2f}".format(250.00))
         subtotal = prima_lesiones +\
             prima_danios + prima_gastos +\
             prima_otros + importacion_piezas + prima_colision + prima_endoso
@@ -617,11 +617,11 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
             deducibles2 = float(
                 "{0:.2f}".format(cotizacion1.otros_danios * 1.20))
             if deducibles2 < 150.00:
-                deducibles2 = float("{0:.2f".format(150.00))
+                deducibles2 = float("{0:.2f}".format(150.00))
             colision_vuelco2 = float("{0:.0f}".format(
                     int(cotizacion1.colision_vuelco * 1.20)))
             if colision_vuelco2 < 250.00:
-                colision_vuelco2 = float("{0:.2f".format(250.00))
+                colision_vuelco2 = float("{0:.2f}".format(250.00))
             cotizacion2 = Cotizacion(
                 conductor=vehiculo,
                 corredor=user,
@@ -666,11 +666,11 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
             deducibles3 = float(
                 "{0:.2f}".format(cotizacion1.otros_danios * 1.60))
             if deducibles3 < 150.00:
-                deducibles3 = float("{0:.2f".format(150.00))
+                deducibles3 = float("{0:.2f}".format(150.00))
             colision_vuelco3 = float("{0:.0f}".format(
                     int(cotizacion1.colision_vuelco * 1.60)))
             if colision_vuelco3 < 250.00:
-                colision_vuelco3 = float("{0:.2f".format(250.00))
+                colision_vuelco3 = float("{0:.2f}".format(250.00))
 
             cotizacion3 = Cotizacion(
                 conductor=vehiculo,
@@ -718,11 +718,11 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
             deducibles4 = float(
                 "{0:.2f}".format(cotizacion1.otros_danios * 2.00))
             if deducibles4 < 150.00:
-                deducibles4 = float("{0:.2f".format(150.00))
+                deducibles4 = float("{0:.2f}".format(150.00))
             colision_vuelco4 = float("{0:.0f}".format(
                     int(cotizacion1.colision_vuelco * 2.00)))
             if colision_vuelco4 < 250.00:
-                colision_vuelco4 = float("{0:.2f".format(250.00))
+                colision_vuelco4 = float("{0:.2f}".format(250.00))
 
             cotizacion4 = Cotizacion(
                 conductor=vehiculo,
