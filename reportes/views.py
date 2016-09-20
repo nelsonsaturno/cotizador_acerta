@@ -539,10 +539,6 @@ def changeStatus(request, id, status):
         cotizacion.save()
         subject = "Acerta Seguros - Aprobada la Cotizacion de Vehiculo"
 
-        admin = User.objects.filter(groups__name__in=["super_admin", "admin"])
-        to = []
-        for adm in admin:
-            to.append(adm.email)
         to_corredor = [request.user.email]
         from_email = request.user.email
         valor_vehiculo = intcomma(
@@ -638,16 +634,6 @@ def changeStatus(request, id, status):
             'prima_endoso': prima_endoso,
         }
 
-        # Correo Cliente
-        message = get_template('cotizar/email_corredores.html').render(Context(ctx))
-        msg = EmailMessage(subject, message, to=to, from_email=from_email, cc=['nc@darient.com'])
-        msg.content_subtype = 'html'
-        msg.attach(cotizacion.endoso.archivo.name.split('/', 20)[-1],
-                   open(cotizacion.endoso.archivo.name,
-                        'rb').read(),
-                   'application/pdf')
-        msg.send()
-
         # Correo Corredor
         message_corredor = get_template('cotizar/email_corredores.html')\
             .render(Context(ctx))
@@ -666,7 +652,9 @@ def changeStatus(request, id, status):
         cotizacion.status = "Rechazada"
         cotizacion.save()
         return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
-    return HttpResponseRedirect(reverse_lazy('solicitar',kwargs={'pk': cotizacion.pk}))
+    return HttpResponseRedirect(
+        reverse_lazy('solicitar', kwargs={'pk': cotizacion.pk})
+    )
 
 
 def sendCotization(request, id):
