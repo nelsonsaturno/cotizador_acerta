@@ -78,7 +78,7 @@ def user_registration(request):
                         msg.attach('manual_vendedores.pdf',
                            open('cotizador_acerta/static/pdf/manual_vendedores.pdf','rb').read(),
                            'application/pdf')
-                    #msg.send()
+                    msg.send()
                     # Add the user into the group: Seller or Agent.
                     if request.user.groups.first().name == "super_admin"\
                        or request.user.groups.first().name == "admin":
