@@ -45,10 +45,13 @@ urlpatterns = patterns(
     url(
         r'^cotizaciones/general/(?P<status>\d+)/(?P<pk>\d+)/(?P<start>\d{4}-\d{2}-\d{2})/(?P<end>\d{4}-\d{2}-\d{2})/(?P<date>\d+)/$',
         CotizacionesGeneralDetailView.as_view(),
-        name='cotizaciones-general'),
-    url(r'^cotizacion/changeStatus/(?P<id>\d+)/(?P<status>\d+)/$',
+        name='cotizaciones-general'
+    ),
+    url(
+        r'^cotizacion/changeStatus/(?P<id>\d+)/(?P<status>\d+)/$',
         'reportes.views.changeStatus',
-        name='change-status'),
+        name='change-status'
+    ),
     url(r'^cotizacion/enviar/(?P<id>\d+)/$',
         'reportes.views.sendCotization',
         name='send'),

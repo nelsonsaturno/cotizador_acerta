@@ -3,7 +3,6 @@
 import hashlib
 import datetime
 import random
-import os
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.template import RequestContext
@@ -78,7 +77,7 @@ def user_registration(request):
                         msg.attach('manual_vendedores.pdf',
                            open('cotizador_acerta/static/pdf/manual_vendedores.pdf','rb').read(),
                            'application/pdf')
-                    #msg.send()
+                    msg.send()
                     # Add the user into the group: Seller or Agent.
                     if request.user.groups.first().name == "super_admin"\
                        or request.user.groups.first().name == "admin":
