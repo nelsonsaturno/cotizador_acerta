@@ -83,6 +83,10 @@ class ConductorVehiculoForm(forms.ModelForm):
 
     def save(self, commit=True):
         conductor = super(ConductorVehiculoForm, self).save(commit=False)
+        if self.cleaned_data['tipo_id'] == 0:
+            conductor.tipo_id = 'cedula'
+        else:
+            conductor.tipo_id = 'pasaporte'
         if commit:
             conductor.save()
             return conductor

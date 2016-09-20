@@ -367,6 +367,11 @@
                 $(".km-field > div > label > .icheckbox_square-grey").removeClass("checked");
                 $('#id_cero_km').prop('checked', false);
             }
+            {% if vehiculo.tipo_id == 'cedula' %}
+                $('#id_tipo_id_0').iCheck('check');
+            {% else %}
+                $('#id_tipo_id_1').iCheck('check');
+            {% endif %}
         {% endif %}
     });
 
