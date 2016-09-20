@@ -9,6 +9,11 @@ urlpatterns = patterns(
         name='solicitar'
     ),
     url(
+        r'^detalles/(?P<pk>\d+)/$',
+        DetallePoliza.as_view(),
+        name='detalles-poliza'
+    ),
+    url(
         r'^realizar-pago/$',
         PagoTarjeta.as_view(),
         name='realizar_pago'

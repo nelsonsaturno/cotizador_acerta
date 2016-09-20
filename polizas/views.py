@@ -116,6 +116,24 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             return render(request, self.template_name, {'form': form,'cotizacion': cotizacion, 'corredor_pol': corredor})
 
 
+class DetallePoliza(LoginRequiredMixin, generic.TemplateView):
+    template_name = "polizas/detalle_poliza.html"
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        poliza = SolicitudPoliza.objects.get(pk=kwargs['pk'])
+        user = User.objects.get(username=poliza.cotizacion.corredor)
+        if user.groups.first().name != 'super_admin'\
+           and user.groups.first().name != 'admin':
+            corredor = DatosCorredor.objects.get(user=user)
+            context['corredor'] = corredor
+        context['poliza'] = poliza
+        extra_datos = ExtraDatosCliente.objects.get(conductor=poliza.cotizacion.conductor)
+        context['extra_datos'] = extra_datos
+        return self.render_to_response(context)
+
+
 class ConfirmacionPago(generic.TemplateView):
     template_name = "polizas/confirmacion_pago.html"
 
