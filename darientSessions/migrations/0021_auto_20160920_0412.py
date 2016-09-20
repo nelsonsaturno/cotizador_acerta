@@ -8,7 +8,7 @@ import datetime
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('darientSessions', '0020_datoscorredor_planes'),
+        ('darientSessions', '0019_auto_20160919_0022'),
     ]
 
     operations = [

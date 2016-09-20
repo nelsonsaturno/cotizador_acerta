@@ -12,11 +12,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='datoscorredor',
-            name='planes',
-            field=models.Field(default=b'', max_length=100, choices=[(b'Plan 1', b'Plan 1'), (b'Plan 2', b'Plan 2'), (b'Plan 3', b'Plan 3')]),
-        ),
         migrations.AlterField(
             model_name='userprofile',
             name='key_expires',
