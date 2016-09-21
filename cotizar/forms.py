@@ -112,7 +112,7 @@ class CotizacionUpdateForm(forms.Form):
         ),
         label="Cuotas", required=False
     )
-    cuotas3 = forms.IntegerField(
+    cuotas3 = forms.ChoiceField(
         choices=(
             (2, "2"), (3, "3"),
             (4, "4"), (5, "5"), (6, "6"),
