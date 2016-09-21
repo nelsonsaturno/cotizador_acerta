@@ -96,20 +96,30 @@ class ConductorVehiculoForm(forms.ModelForm):
 
 class CotizacionUpdateForm(forms.Form):
 
-    cuotas = forms.IntegerField(
-        min_value=1, max_value=10,
-        label="Cuotas", required=False,
-        initial=1
+    cuotas = forms.ChoiceField(
+        choices=(
+            (1, "1"), (2, "2"), (3, "3"),
+            (4, "4"), (5, "5"), (6, "6"),
+            (7, "7"), (8, "8"), (9, "9"),
+            (10, "10")
+        ),
+        label="Cuotas", required=False
     )
-    cuotas2 = forms.IntegerField(
-        min_value=1, max_value=6,
-        label="Cuotas", required=False,
-        initial=1
+    cuotas2 = forms.ChoiceField(
+        choices=(
+            (1, "1"), (2, "2"), (3, "3"),
+            (4, "4"), (5, "5"), (6, "6")
+        ),
+        label="Cuotas", required=False
     )
     cuotas3 = forms.IntegerField(
-        min_value=2, max_value=10,
+        choices=(
+            (2, "2"), (3, "3"),
+            (4, "4"), (5, "5"), (6, "6"),
+            (7, "7"), (8, "8"), (9, "9"),
+            (10, "10")
+        ),
         label="Cuotas", required=False,
-        initial=2
     )
     tipo_pago = forms.ChoiceField(
         choices=[
