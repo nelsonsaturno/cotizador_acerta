@@ -167,20 +167,7 @@
                     </div>
                     <div class="box-body">
                         <div class="col-md-12">
-                            {% if form.errors %}
-                                {% for field in form %}
-                                    <div class="alert alert-danger">
-                                        {% for error in field.errors %}
-                                            <strong>{{ field.label }}{{ error|escape }}</strong>
-                                        {% endfor %}
-                                    </div>
-                                {% endfor %}
-                                {% for error in form.non_field_errors %}
-                                    <div class="alert alert-danger">
-                                        <strong>{{ error|escape }}</strong>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
+                            {% bootstrap_form_errors form %}
                             <form class="stepy-validation" id="myform" method="post" role="form">
                             {% csrf_token %}
                                 <fieldset title="1">
@@ -741,6 +728,12 @@
             autoclose: true,
         });
         $('#id_dia_pago').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'es',
+            todayHighlight: true,
+            autoclose: true,
+        });
+        $('#id_expiracion_tdc').datepicker({
             format: 'yyyy-mm-dd',
             language: 'es',
             todayHighlight: true,
