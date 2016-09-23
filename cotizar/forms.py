@@ -16,17 +16,36 @@ class ConductorVehiculoForm(forms.ModelForm):
     valor_text = forms.CharField(label="Valor", help_text='Ex: 99,999.99')
 
     mail_corredor = forms.CharField(widget=forms.HiddenInput())
-    
-    provincia = forms.ChoiceField(choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'), (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10'), (11, '11'), (12, '12'), (13, '13'), ('PE', 'PE'), ('N', 'N'), ('E', 'E')], required=False)
 
-    tipo = forms.ChoiceField(choices=[('PI', 'PI'), ('AV', 'AV')], required=False)
+    provincia = forms.ChoiceField(
+        choices=[
+            (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'),
+            (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10'),
+            (11, '11'), (12, '12'), (13, '13'), ('PE', 'PE'),
+            ('N', 'N'), ('E', 'E')
+        ],
+        required=False
+    )
 
-    campo_id_1 = forms.CharField(label="Campo 1", required=False, localize=True, max_length=3)
+    tipo = forms.ChoiceField(
+        choices=[('PI', 'PI'), ('AV', 'AV')],
+        required=False
+    )
 
-    campo_id_2 = forms.CharField(label="Campo 2", required=False, localize=True, max_length=4)
+    campo_id_1 = forms.CharField(
+        label="Campo 1", required=False,
+        localize=True, max_length=3
+    )
 
-    identificacion = forms.CharField(label="Numero de Pasaporte", required=False)
+    campo_id_2 = forms.CharField(
+        label="Campo 2", required=False,
+        localize=True, max_length=4
+    )
 
+    identificacion = forms.CharField(
+        label="Numero de Pasaporte",
+        required=False
+    )
 
     class Meta:
         model = ConductorVehiculo
@@ -50,8 +69,6 @@ class ConductorVehiculoForm(forms.ModelForm):
             'valor': 'Valor',
             'provincia': 'Provincia',
             'tipo': 'tipo',
-            'campo_id_1': 'campo_id_1',
-            'campo_id_2': 'campo_id_2',
         }
         widgets = {
             'marca': forms.Select(attrs={'class': 'select2'}),
@@ -88,11 +105,10 @@ class ConductorVehiculoForm(forms.ModelForm):
         campo_id_1 = self.cleaned_data['campo_id_1']
         campo_id_2 = self.cleaned_data['campo_id_2']
         if tipo_id == '0':
-            print campo_id_1, 'hola'
             if campo_id_1 == '':
-                raise forms.ValidationError(u'Este campo es requerido.')
-            if campo_id_2 == '':
-                raise forms.ValidationError(u'Este campo es requerido.')
+                raise forms.ValidationError(u'Debe completar su identificación.')
+            elif campo_id_2 == '':
+                raise forms.ValidationError(u'Debe completar su identificación.')
         valor = self.cleaned_data['valor']
         if valor <= 75000.00:
             return self.cleaned_data

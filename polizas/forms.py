@@ -95,8 +95,8 @@ class SolicitudClienteForm(forms.ModelForm):
             'telefono_empresa': 'Telefono de Trabajo',
             'fax_empresa': 'Fax de Trabajo',
             'correo_trabajo': 'Correo Electronico de Oficina',
-            'politico_expuesto': 'Es o ha sido objeto de investigacion, indagacion o condena por actividades ilicitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo',
-            'ilicito': 'Es o ha sido una (1) Persona Politicamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta',
+            'ilicito': 'Es o ha sido objeto de investigacion, indagacion o condena por actividades ilicitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo',
+            'politico_expuesto': 'Es o ha sido una (1) Persona Politicamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta',
             'cargo_politico': 'Cargo',
             'periodo_politico': 'Periodo',
             'nombre_politico': 'Nombre',
@@ -105,6 +105,22 @@ class SolicitudClienteForm(forms.ModelForm):
             'actividad_principal': 'Actividad fuente principal de sus ingresos',
             'otra_actividad': 'Actividad de otras fuentes de ingreso:',
         }
+
+    def __init__(self, *args, **kwargs):
+        super(SolicitudClienteForm, self).__init__(*args, **kwargs)
+        self.fields['edificio'].initial = ''
+        self.fields['piso'].initial = ''
+        self.fields['apto'].initial = ''
+        self.fields['no_casa'].initial = ''
+
+    def clean(self):
+        valido_desde = str(self.cleaned_data['valido_desde'])
+        valido_hasta = str(self.cleaned_data['valido_hasta'])
+        desde = datetime.strptime(valido_desde, '%Y-%m-%d')
+        hasta = datetime.strptime(valido_hasta, '%Y-%m-%d')
+        if hasta < desde:
+            raise forms.ValidationError(u'Las fechas de validez son incorrectas.')
+        return self.cleaned_data
 
 
 class PagoForm(forms.Form):

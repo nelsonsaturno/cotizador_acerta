@@ -123,11 +123,6 @@
           padding-top: 20%;
         }
     }
-    table th {
-        background-color: #E76C42;
-        color: white;
-        text-align: center;
-    }
     .caption {
         text-align: center;
         font-weight: bold;
@@ -157,6 +152,7 @@
 <link href="{% static 'assets/css/core.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'assets/css/stepy_components.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'assets/css/colors.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 {% endblock extracss %}
 
 
@@ -171,7 +167,20 @@
                     </div>
                     <div class="box-body">
                         <div class="col-md-12">
-                            {% bootstrap_form_errors form %}
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    <div class="alert alert-danger">
+                                        {% for error in field.errors %}
+                                            <strong>{{ field.label }}{{ error|escape }}</strong>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ error|escape }}</strong>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
                             <form class="stepy-validation" id="myform" method="post" role="form">
                             {% csrf_token %}
                                 <fieldset title="1">
@@ -318,28 +327,28 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-12">
-                                                {% bootstrap_field form.politico_expuesto layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-12">
                                                 {% bootstrap_field form.ilicito layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="col-md-6">
-                                                {% bootstrap_field form.cargo_politico layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-6">
-                                                {% bootstrap_field form.periodo_politico layout='horizontal' show_label=False field_class='form-field' %}
+                                            <div class="col-md-12">
+                                                {% bootstrap_field form.politico_expuesto layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-6">
-                                                {% bootstrap_field form.nombre_politico layout='horizontal' show_label=False field_class='form-field' %}
+                                                {% bootstrap_field form.cargo_politico layout='horizontal' show_label=False field_class='form-field politico' %}
                                             </div>
                                             <div class="col-md-6">
-                                                {% bootstrap_field form.relacion_politico layout='horizontal' show_label=False field_class='form-field' %}
+                                                {% bootstrap_field form.periodo_politico layout='horizontal' show_label=False field_class='form-field politico' %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                {% bootstrap_field form.nombre_politico layout='horizontal' show_label=False field_class='form-field politico' %}
+                                            </div>
+                                            <div class="col-md-6">
+                                                {% bootstrap_field form.relacion_politico layout='horizontal' show_label=False field_class='form-field politico' %}
                                             </div>
                                         </div>
                                     </div>
@@ -689,20 +698,7 @@
         </div>
     </div>
 </div>
-{% if form.errors %}
-    {% for field in form %}
-        {% for error in field.errors %}
-            <div class="alert alert-danger">
-                <strong>{{ field.name }}{{ error|escape }}</strong>
-            </div>
-        {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}
-        <div class="alert alert-danger">
-            <strong>{{ error|escape }}</strong>
-        </div>
-    {% endfor %}
-{% endif %}
+
 {% endblock content %}
 
 {% block custom_script %}
@@ -722,10 +718,34 @@
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
 <script src="{% static 'js/jquery.mask.min.js' %}"></script>
 <script src="{% static 'js/jquery.mask2.min.js' %}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<script src="{% static 'plugins/datepicker/locales/bootstrap-datepicker.es.js' %}"></script>
 <script type="text/javascript">
+    $('#id_politico_expuesto').on('ifChecked', function(event){
+        $(".politico").removeClass("hidden");
+    });
     $(document).ready(function(){
+        $(".politico").addClass("hidden");
         $('#id_valido_desde').mask('0000-00-00', {placeholder: "Valido desde (aaaa/mm/dd)"});
         $('#id_valido_hasta').mask('0000-00-00', {placeholder: "Hasta (aaaa/mm/dd)"});
+        $('#id_valido_desde').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'es',
+            todayHighlight: true,
+            autoclose: true,
+        });
+        $('#id_valido_hasta').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'es',
+            todayHighlight: true,
+            autoclose: true,
+        });
+        $('#id_dia_pago').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'es',
+            todayHighlight: true,
+            autoclose: true,
+        });
     });
 </script>
 

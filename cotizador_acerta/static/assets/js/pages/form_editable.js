@@ -30,7 +30,7 @@ $(function() {
     $.fn.editable.defaults.mode = 'popup';
 
     // Buttons
-    $.fn.editableform.buttons = 
+    $.fn.editableform.buttons =
         '<button type="submit" class="btn btn-primary btn-icon editable-submit"><i class="icon-check"></i></button>' +
         '<button type="button" class="btn btn-default btn-icon editable-cancel"><i class="icon-x"></i></button>';
 
@@ -75,7 +75,7 @@ $(function() {
                 s.push('[');
                 $.each(response.responseText, function(i, v){
                     s.push('{value: ' + v.value+', text: "'+v.text+'"}');
-                }); 
+                });
                 s.push(']');
             }
             else {
@@ -115,7 +115,7 @@ $(function() {
     // Required text field
     $('#empty-field-validate').editable({
         validate: function(value) {
-            if($.trim(value) == '') return 'This field is required';
+            if($.trim(value) == '') return 'Debe rellenar este campo';
         }
     });
 
@@ -186,7 +186,7 @@ $(function() {
             firstItem: 'name'
         },
         showbuttons: 'bottom'
-    }); 
+    });
 
 
 
@@ -207,24 +207,24 @@ $(function() {
         url: '/address',
         showbuttons: 'bottom',
         value: {
-            city: "Moscow", 
-            street: "Lenina", 
+            city: "Moscow",
+            street: "Lenina",
             building: "12"
         },
         tpl: '<div class="editable-address form-group"><label>City: </label><input type="text" name="city" class="form-control"></div>'+
         '<div class="editable-address form-group"><label>Street: </label><input type="text" name="street" class="form-control"></div>'+
         '<div class="editable-address form-group"><label>Building: </label><input type="text" name="building" class="form-control"></div>',
         validate: function(value) {
-            if(value.city == '') return 'city is required!'; 
+            if(value.city == '') return 'city is required!';
         },
         display: function(value) {
         if(!value) {
             $(this).empty();
-            return; 
+            return;
         }
         var html = '<b>' + $('<div>').text(value.city).html() + '</b>, ' + $('<div>').text(value.street).html() + ' st., bld. ' + $('<div>').text(value.building).html();
-            $(this).html(html); 
-        }         
+            $(this).html(html);
+        }
     });
 
 
@@ -273,13 +273,13 @@ $(function() {
             var colors = {"": "gray", 1: "green", 2: "blue"},
             elem = $.grep(sourceData, function(o){return o.value == value;});
 
-            if(elem.length) {    
-                $(this).text(elem[0].text).css("color", colors[value]); 
+            if(elem.length) {
+                $(this).text(elem[0].text).css("color", colors[value]);
             }
             else {
-                $(this).empty(); 
+                $(this).empty();
             }
-        }   
+        }
     });
 
 
@@ -293,39 +293,39 @@ $(function() {
         responseTime: 400,
         response: function(settings) {
             if(settings.data.value == 'err') {
-                this.status = 500;  
-                this.responseText = 'Validation error!'; 
+                this.status = 500;
+                this.responseText = 'Validation error!';
             }
             else {
-                this.responseText = '';  
+                this.responseText = '';
             }
         }
     });
 
     // Data
     var sources = {
-        1: [{value: 11, text: 11}, {value: 111, text: 111}], 
-        2: [{value: 22, text: 22}, {value: 222, text: 222}] 
+        1: [{value: 11, text: 11}, {value: 111, text: 111}],
+        2: [{value: 22, text: 22}, {value: 222, text: 222}]
     };
 
     // Initialize first list
     $('#default-list').editable({
-        url: '/default-list',    
+        url: '/default-list',
         pk: 1,
         source: [{value: 1, text: 'text1'}, {value: 2, text: 'text2'}],
         title: 'Select1',
         success: function(response, newValue) {
-            $('#dependent-list').editable('option', 'source', sources[newValue]);  
+            $('#dependent-list').editable('option', 'source', sources[newValue]);
             $('#dependent-list').editable('setValue', null);
         }
     });
 
     // Initialize dependent list
     $('#dependent-list').editable({
-        url: '/default-list',    
-        pk: 1,    
+        url: '/default-list',
+        pk: 1,
         title: 'Select2',
-        sourceError: 'Please, select value in first list' 
+        sourceError: 'Please, select value in first list'
     });
 
 
@@ -338,7 +338,7 @@ $(function() {
     $.mockjax({
         url: '/remote',
         response: function(settings) {
-            this.responseText = [ 
+            this.responseText = [
                 {value: 0, text: 'Guest'},
                 {value: 1, text: 'Service'},
                 {value: 2, text: 'Customer'},
@@ -347,13 +347,13 @@ $(function() {
                 {value: 5, text: 'Admin'}
             ];
             log(settings, this);
-        }        
+        }
     });
 
     // Initialize
     $('#select-default-remote').editable({
         source: '/remote',
-        showbuttons: false 
+        showbuttons: false
     });
 
 
@@ -368,7 +368,7 @@ $(function() {
         status: 500,
         response: function(settings) {
             this.responseText = 'Internal Server Error';
-        }        
+        }
     });
 
     // Initialize
@@ -524,28 +524,28 @@ $(function() {
                 {value: 4, text: 'Support'},
                 {value: 5, text: 'Admin'}
             ];
-        }        
+        }
     });
 
     // Initialize plugin
     $('#checkbox-unordered-list').editable({
         source: '/source-ul',
-        url: '/checkbox-unordered-list',     
+        url: '/checkbox-unordered-list',
         display: function(value, sourceData) {
             var $el = $('#list'),
             checked, html = '';
             if(!value) {
                 $el.empty();
                 return;
-            }            
+            }
 
             checked = $.grep(sourceData, function(o){
-                return $.grep(value, function(v){ 
-                    return v == o.value; 
+                return $.grep(value, function(v){
+                    return v == o.value;
                 }).length;
             });
 
-            $.each(checked, function(i, v) { 
+            $.each(checked, function(i, v) {
                 html+= '<li>'+$.fn.editableutils.escape(v.text)+'</li>';
             });
 
@@ -592,7 +592,7 @@ $(function() {
                 {value: 4, text: 'Support'},
                 {value: 5, text: 'Admin'}
             ];
-        }        
+        }
     });
 
     // Initialize
@@ -613,14 +613,14 @@ $(function() {
         response: function(settings) {
             console.log(settings);
         }
-    }); 
+    });
 
     // Initialize
     $('#editable-put-submit').editable({
-        url: '/editable-put-submit',    
+        url: '/editable-put-submit',
         ajaxOptions: {
             type: 'put'
-        }        
+        }
     });
 
 
@@ -640,7 +640,7 @@ $(function() {
 
     // Initialize
     $('#editable-render-response').editable({
-        url: '/editable-render-response',    
+        url: '/editable-render-response',
         display: function(value, response) {
             $(this).html(response);
         }
@@ -664,18 +664,18 @@ $(function() {
                 this.responseText = '{"success": false, "msg": "required"}';
             }
         }
-    }); 
+    });
 
     // Initialize
     $('#editable-json-response').editable({
-        url: '/editable-json-response',    
+        url: '/editable-json-response',
         ajaxOptions: {
             dataType: 'json'
         },
         success: function(response, newValue) {
             if(!response) {
                 return "Unknown error!";
-            }          
+            }
 
             if(response.success === false) {
                 return response.msg;
@@ -754,12 +754,12 @@ $(function() {
         showbuttons: 'bottom',
         clear: false,
         display: function(value) {
-            $(this).html(value); 
-            $(this).each(function() { 
+            $(this).html(value);
+            $(this).each(function() {
                 var text = $(this).text().split(',');
-                for( var i = 0, len = text.length; i < len; i++ ) { 
-                    text[i] = '<span>' + text[i] + '</span>'; 
-                } 
+                for( var i = 0, len = text.length; i < len; i++ ) {
+                    text[i] = '<span>' + text[i] + '</span>';
+                }
                 $(this).html(text.join(', '));
             });
         }
@@ -776,12 +776,12 @@ $(function() {
         showbuttons: 'bottom',
         clear: false,
         display: function(value) {
-            $(this).html(value); 
-            $(this).each(function() { 
+            $(this).html(value);
+            $(this).each(function() {
                 var text = $(this).text().split(',');
-                for( var i = 0, len = text.length; i < len; i++ ) { 
-                    text[i] = '<span class="label label-primary">' + text[i] + '</span>'; 
-                } 
+                for( var i = 0, len = text.length; i < len; i++ ) {
+                    text[i] = '<span class="label label-primary">' + text[i] + '</span>';
+                }
                 $(this).html(text.join(' '));
             });
         }
@@ -801,7 +801,7 @@ $(function() {
     // Initialize editable
     $('#editable-typeahead').editable({
         value: 'California'
-    }); 
+    });
 
     // Typeahead
     $('#editable-typeahead').on('shown', function(e, editable) {
@@ -987,8 +987,8 @@ $(function() {
             width: 200,
             placeholder: 'Select country',
             allowClear: true
-        } 
-    }); 
+        }
+    });
 
 
     // Multiple select
@@ -1001,7 +1001,7 @@ $(function() {
             multiple: true,
             placeholder: 'Select something'
         }
-    }); 
+    });
 
 
     //
@@ -1049,7 +1049,7 @@ $(function() {
             formatSelection: movieFormatSelection,  // omitted for brevity, see the source of this page
             dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
             escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
-        } 
+        }
     });
 
     // Format results
