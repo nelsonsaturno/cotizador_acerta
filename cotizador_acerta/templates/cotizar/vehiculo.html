@@ -191,7 +191,18 @@
                             {% bootstrap_field form.sexo layout='horizontal' show_label=False show_help=True field_class='form-field' %}
                             {% bootstrap_field form.fecha_nacimiento layout='horizontal' show_label=False show_help=True field_class='form-field' %}
                             {% bootstrap_field form.tipo_id layout='horizontal' show_label=False field_class='form-field' %}
-                            {% bootstrap_field form.identificacion layout='horizontal' show_label=False field_class='form-field' %}
+                            {% bootstrap_field form.identificacion layout='horizontal' show_label=False field_class='form-field passp' %}
+                            <div class="col-md-6 ced">
+                            {% bootstrap_field form.provincia layout='horizontal' show_label=False field_class='form-field ced' %}
+                            </div>
+                            <div class="col-md-6 ced">
+                            {% bootstrap_field form.tipo layout='horizontal' show_label=False field_class='form-field ced' %}</div>
+                            <div class="col-md-6 ced">
+                            {% bootstrap_field form.campo_id_1 layout='horizontal' show_label=False field_class='form-field ced' %}
+                            </div>
+                             <div class="col-md-6 ced">
+                            {% bootstrap_field form.campo_id_2 layout='horizontal' show_label=False field_class='form-field ced' %}
+                            </div>
                             {% bootstrap_field form.estado_civil layout='horizontal'  show_label=False field_class='form-field' %}
                             {% bootstrap_field form.correo layout='horizontal' show_label=False field_class='form-field'%}
                             {% bootstrap_field form.telefono1 layout='horizontal' show_label=False field_class='form-field'%}
@@ -309,7 +320,22 @@
         placeholder: "Modelo",
         allowClear: true
     });
+
+    $('#id_tipo_id_0').on('ifChecked', function(event){
+      $(".ced").removeClass("hidden"); 
+      $(".passp").addClass("hidden"); 
+    });
+
+    $('#id_tipo_id_1').on('ifChecked', function(event){
+      $(".ced").addClass("hidden"); 
+      $(".passp").removeClass("hidden");
+    });
+  
+
     $(document).ready(function(){
+
+        $(".ced").addClass("hidden");
+        $(".passp").addClass("hidden");
         $('#id_fecha_nacimiento').datepicker({
             format: 'yyyy-mm-dd',
             language: 'es',
@@ -375,8 +401,8 @@
         {% endif %}
     });
 
-    $(document).on("change", "#id_identificacion", function(e){
-        e.preventDefault();
+    $(document).on("onclick", "#id_tipo_id", function(e){
+        console.log('hola');
        if( $("#id_tipo_id_0").is(':checked') ){
             var cedula = new RegExp('^([0-9]{1,2}\-?[0-9]{2,4}\-?[0-9]{3,4})$');
             if (cedula.test($(this).val())) {
