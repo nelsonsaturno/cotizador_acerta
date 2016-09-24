@@ -65,4 +65,8 @@ urlpatterns = patterns(
         ReportSuccess.as_view(),
         name='report_success'
     ),
+    url(
+        r'^polizas/$',
+        PolizasListView.as_view(),
+        name='polizas_list'),
 )

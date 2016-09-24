@@ -33,4 +33,9 @@ urlpatterns = patterns(
         ConfirmacionPago.as_view(),
         name='confirmacion_pago'
     ),
+    url(
+        r'^generarPDF/(?P<pk>\d+)/$',
+        GeneracionPDFPolizas.as_view(),
+        name='generacion-pdf-polizas'
+    ),
 )

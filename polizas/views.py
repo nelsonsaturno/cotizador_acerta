@@ -48,6 +48,12 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
 
         self.object = None
         context = self.get_context_data(**kwargs)
+        solicitudes = SolicitudPoliza.objects.all()
+        if solicitudes == []:
+            new_pk = 1
+        else:
+            new_pk = int(solicitudes.last().pk) + 1
+        context['new_pk'] = new_pk
         cot = Cotizacion.objects.get(pk=kwargs['pk'])
         context['cotizacion'] = cot
         user = User.objects.get(username=cot.corredor)
@@ -132,8 +138,8 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 tipo_produccion=request.POST['tipo_produccion'],
                 tipo_suscripcion=request.POST['tipo_suscripcion'],
                 forma_facturacion=request.POST['forma_facturacion'],
-                renovacion_automatica=request.POST['renovacion'],
-                comision=request.POST['comision'],
+                renovacion_automatica=request.POST.get('renovacion',False),
+                comision=request.POST.get('comision',False),
                 def_comision=request.POST.get('def_comision',''),
                 grupo_economico=request.POST['grupo_economico'],
                 aprobaciones=request.POST.get('aprobaciones',''),
@@ -148,7 +154,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 dia_pago=request.POST['dia_pago']
             )
             solicitud.save()
-            return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
+            return HttpResponseRedirect(reverse_lazy('polizas_list'))
         else:
             return render(
                 request,
@@ -223,3 +229,35 @@ class GeneracionPDF(LoginRequiredMixin, generic.CreateView):
 
 class HelloPDFView(PDFTemplateView):
     template_name = "polizas/pdf_personaNatural.html"
+
+
+class GeneracionPDFPolizas(LoginRequiredMixin, generic.CreateView):
+    model = SolicitudPoliza
+    template_name = 'polizas/pdf_personaNatural.html'
+
+    def get(self, request, *args, **kwargs):
+
+        solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
+        datos_extra = ExtraDatosCliente.objects.get(
+            conductor=solicitud.cotizacion.conductor)
+        context = Context({'pagesize': 'letter'})
+        context['solicitud'] = solicitud
+        context['cotizacion'] = solicitud.cotizacion
+        context['conductor1'] = solicitud.cotizacion.conductor
+        context['conductor2'] = datos_extra
+        template = get_template('polizas/pdf_personaNatural.html')
+        html = template.render(context)
+
+        file = open("polizas/" + 'personaNatural.pdf', "w+b")
+        pisa.CreatePDF(
+            html.encode('utf-8'),
+            dest=file,
+            encoding='utf-8'
+        )
+
+        file.seek(0)
+        pdf = file.read()
+        file.close()
+
+        return HttpResponse(pdf, 'application/pdf')
+

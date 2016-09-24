@@ -52,6 +52,7 @@
                 new SMLinkItem("Dashboard", "{% url 'dashboard'%}"),
                 new SMLinkItem("Mis Vendedores", "{% url 'vendedor_list'%}"),
                 new SMLinkItem("Mis Cotizaciones", "{% url 'cotizaciones_list'%}"),
+                new SMLinkItem("Mis Polizas", "{% url 'polizas_list'%}"),
                 new SMLinkItem("Reportar Error", "{% url 'report_error' %}"),
                 new SMLinkItem("Cerrar Sesión", "{% url 'logout'%}"),
                 new SMButtonItem("Cerrar", function (e) {
@@ -185,6 +186,9 @@
                 {% endif %}
                   <li style="float: right;">
                       <a href="{% url 'cotizaciones_list' %}">Mis Cotizaciones</a>
+                  </li>
+                  <li style="float: right;">
+                      <a href="{% url 'polizas_list' %}">Mis Polizas</a>
                   </li>
                   <li style="float: right;">
                       <a href="{% url 'edit-profile' user.pk %}">Editar Perfil</a>

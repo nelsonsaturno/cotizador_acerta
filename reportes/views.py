@@ -3,6 +3,7 @@ from django.views.generic import *
 from cotizador_acerta.views_mixins import *
 from darientSessions.models import *
 from cotizar.models import *
+from polizas.models import *
 from django.contrib.auth.models import User
 from django.views.defaults import page_not_found
 from reportes.forms import *
@@ -651,11 +652,11 @@ def changeStatus(request, id, status):
     else:
         cotizacion.status = "Rechazada"
         cotizacion.save()
-    return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
-    # Esto va para desarrollo todavia
-    # return HttpResponseRedirect(
-    #     reverse_lazy('solicitar', kwargs={'pk': cotizacion.pk})
-    # )
+    #return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
+    #Esto va para desarrollo todavia
+    return HttpResponseRedirect(
+        reverse_lazy('solicitar', kwargs={'pk': cotizacion.pk})
+    )
 
 
 def sendCotization(request, id):
@@ -827,6 +828,24 @@ class ReportSuccess(LoginRequiredMixin, TemplateView):
 
 class ShowPdf(TemplateView):
     template_name = 'reportes/mypdf.html'
+
+
+class PolizasListView(LoginRequiredMixin, ListView):
+    template_name = 'reportes/polizas_list.html'
+    model = SolicitudPoliza
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = []
+        context = super(
+            PolizasListView, self).get_context_data(**kwargs)
+        corredor = User.objects.get(pk=request.user.pk)
+        cotizaciones = Cotizacion.objects.filter(corredor=corredor, status='Aprobada')
+        solicitudes = []
+        for cot in cotizaciones:
+            solicitud = SolicitudPoliza.objects.get(cotizacion=cot)
+            solicitudes.append(solicitud)
+        context['solicitudes'] = solicitudes
+        return self.render_to_response(context)
 
 
 class DownloadCSV(View):
