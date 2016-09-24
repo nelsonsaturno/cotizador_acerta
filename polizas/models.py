@@ -77,7 +77,7 @@ class SolicitudPoliza(models.Model):
                                              'Dinners'),
                                             ('American Express',
                                              'American Express')])
-    num_tdc = models.CharField(max_length=16, blank=False, null=True)
+    num_tdc = models.CharField(max_length=20, blank=False, null=True)
     banco_tdc = models.CharField(max_length=20, blank=False, null=True)
     expiracion_tdc = models.CharField(max_length=20, blank=False, null=True)
     dia_pago = models.DateField()

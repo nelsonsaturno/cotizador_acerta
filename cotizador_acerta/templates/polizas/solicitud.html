@@ -512,7 +512,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control form-disabled" value="B./ {{ cotizacion.total }}.00" disabled>
+                                                <input type="text" class="form-control form-disabled" value="B./ {{ cotizacion.total }}" disabled>
                                             </div>
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control form-disabled" value="{{ cotizacion.plan }}" disabled>
@@ -693,7 +693,6 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD
 <!--{% if form.errors %}
     {% for field in form %}
         {% for error in field.errors %}
@@ -708,9 +707,6 @@
         </div>
     {% endfor %}
 {% endif %}-->
-=======
-
->>>>>>> bac9bc0795859a099935ba6716ddf48ac28de22c
 {% endblock content %}
 
 {% block custom_script %}
@@ -733,18 +729,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <script src="{% static 'plugins/datepicker/locales/bootstrap-datepicker.es.js' %}"></script>
 <script type="text/javascript">
-<<<<<<< HEAD
-
-=======
-    $('#id_politico_expuesto').on('ifChecked', function(event){
-        $(".politico").removeClass("hidden");
-    });
->>>>>>> bac9bc0795859a099935ba6716ddf48ac28de22c
     $(document).ready(function(){
-        $(".politico").addClass("hidden");
         $('#id_valido_desde').mask('0000-00-00', {placeholder: "Valido desde (aaaa/mm/dd)"});
         $('#id_valido_hasta').mask('0000-00-00', {placeholder: "Hasta (aaaa/mm/dd)"});
-<<<<<<< HEAD
         $('#id_expiracion_tdc').mask('0000-00', {placeholder: "Expiracion (aaaa-mm)"});
         $('#id_num_tdc').mask('0000-0000-0000-0000', {placeholder: "Numero TDC"});
         $( document ).on('change', '#id_area_funcionario', function(e) {
@@ -910,32 +897,6 @@
        } else {
             $(".cedula-help").remove();
        }
-=======
-        $('#id_valido_desde').datepicker({
-            format: 'yyyy-mm-dd',
-            language: 'es',
-            todayHighlight: true,
-            autoclose: true,
-        });
-        $('#id_valido_hasta').datepicker({
-            format: 'yyyy-mm-dd',
-            language: 'es',
-            todayHighlight: true,
-            autoclose: true,
-        });
-        $('#id_dia_pago').datepicker({
-            format: 'yyyy-mm-dd',
-            language: 'es',
-            todayHighlight: true,
-            autoclose: true,
-        });
-        $('#id_expiracion_tdc').datepicker({
-            format: 'yyyy-mm-dd',
-            language: 'es',
-            todayHighlight: true,
-            autoclose: true,
-        });
->>>>>>> bac9bc0795859a099935ba6716ddf48ac28de22c
     });
 
     $("#id_id_responsable").focusout(function(e){
@@ -1012,11 +973,6 @@
         $("#id_id_responsable").val('');
         $("#id_id_responsable").prop("disabled", false);
     }
-
-    // var element = document.querySelector("#id_submit");
-    // element.onclick = function() {
-    //     window.open("{% url 'generacion-pdf-polizas' new_pk %}",'mywindow','width=1200,height=800,left=0,top=100,screenX=0,screenY=100');
-    // }
 
 </script>
 

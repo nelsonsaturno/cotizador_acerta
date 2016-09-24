@@ -27,7 +27,7 @@ class SolicitudClienteForm(forms.ModelForm):
                                 widget=forms.RadioSelect(), label="", required=False)
     num_tdc = forms.CharField(label='Numero de Tarjeta',required=False)
     banco_tdc = forms.CharField(label='Banco',required=False)
-    expiracion_tdc = forms.DateField(label='Fecha de Expiracion', required=False)
+    expiracion_tdc = forms.CharField(label='Expiracion',required=False)
     dia_pago = forms.DateField(label='Dia de pago (aaaa/mm/dd)', required=True)
     nom_ref_personal = forms.CharField(label='Nombre o Razon Social', required=False)
     actividad_ref_personal = forms.CharField(label='Actividad', required=False)

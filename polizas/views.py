@@ -238,8 +238,9 @@ class GeneracionPDFPolizas(LoginRequiredMixin, generic.CreateView):
     def get(self, request, *args, **kwargs):
 
         solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
-        datos_extra = ExtraDatosCliente.objects.get(
+        datos_extras = ExtraDatosCliente.objects.filter(
             conductor=solicitud.cotizacion.conductor)
+        datos_extra = datos_extras.last()
         context = Context({'pagesize': 'letter'})
         context['solicitud'] = solicitud
         context['cotizacion'] = solicitud.cotizacion
