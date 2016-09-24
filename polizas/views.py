@@ -52,58 +52,72 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             corredor = ''
         if form.is_valid():
             extra_cliente = form.save()
-            ref1 = Referencia(
-                nombre=request.POST['nom_ref_personal'],
-                actividad=request.POST['actividad_ref_personal'],
-                relacion=request.POST['relacion_ref_personal'],
-                telefono=request.POST['telefono_ref_personal']
-            )
-            ref2 = Referencia(
-                nombre=request.POST['nom_ref_bancaria'],
-                actividad=request.POST['actividad_ref_bancaria'],
-                relacion=request.POST['relacion_ref_bancaria'],
-                telefono=request.POST['telefono_ref_bancaria']
-            )
-            ref3 = Referencia(
-                nombre=request.POST['nom_ref_comercial'],
-                actividad=request.POST['actividad_ref_comercial'],
-                relacion=request.POST['relacion_ref_comercial'],
-                telefono=request.POST['telefono_ref_comercial']
-            )
-            ref1.save()
-            ref2.save()
-            ref3.save()
-            extra_cliente.ref_personal = ref1
-            extra_cliente.ref_bancaria = ref2
-            extra_cliente.ref_comercial = ref3
+            if request.POST.get('nom_ref_personal', '') != '':
+                ref1 = Referencia(
+                    nombre=request.POST['nom_ref_personal'],
+                    actividad=request.POST['actividad_ref_personal'],
+                    relacion=request.POST['relacion_ref_personal'],
+                    telefono=request.POST['telefono_ref_personal']
+                )
+                ref2 = Referencia(
+                    nombre=request.POST['nom_ref_bancaria'],
+                    actividad=request.POST['actividad_ref_bancaria'],
+                    relacion=request.POST['relacion_ref_bancaria'],
+                    telefono=request.POST['telefono_ref_bancaria']
+                )
+                ref3 = Referencia(
+                    nombre=request.POST['nom_ref_comercial'],
+                    actividad=request.POST['actividad_ref_comercial'],
+                    relacion=request.POST['relacion_ref_comercial'],
+                    telefono=request.POST['telefono_ref_comercial']
+                )
+                ref1.save()
+                ref2.save()
+                ref3.save()
+                extra_cliente.ref_personal = ref1
+                extra_cliente.ref_bancaria = ref2
+                extra_cliente.ref_comercial = ref3
             extra_cliente.conductor = cotizacion.conductor
             extra_cliente.save()
+            conductor = [request.POST.get('nombre_conductor','n/a'),
+                         request.POST.get('id_conductor','n/a')]
+            if conductor[0] == 'n/a':
+                conductor[0] = cotizacion.conductor.nombre + ' ' + cotizacion.conductor.apellido
+            if conductor[1] == 'n/a':
+                conductor[1] = cotizacion.conductor.identificacion
 
+            responsable = [request.POST.get('nombre_responsable','n/a'),
+                         request.POST.get('id_responsable','n/a')]
+            if responsable[0] == 'n/a':
+                responsable[0] = cotizacion.conductor.nombre + ' ' + cotizacion.conductor.apellido
+            if responsable[1] == 'n/a':
+                responsable[1] = cotizacion.conductor.identificacion
+            
             solicitud = SolicitudPoliza(
                 cotizacion=cotizacion,
-                nombre_conductor=request.POST['nombre_conductor'],
-                id_conductor=request.POST['id_conductor'],
+                nombre_conductor=conductor[0],
+                id_conductor=conductor[1],
                 vigencia_desde=request.POST['valido_desde'],
                 vigencia_hasta=request.POST['valido_hasta'],
                 acreedor=request.POST['acreedor'],
                 leasing=request.POST['leasing'],
                 firmador=request.POST['firmador'],
-                observaciones=request.POST['observaciones'],
+                observaciones=request.POST.get('observaciones',''),
                 responsable=request.POST['responsable'],
-                nombre_responsable=request.POST['nombre_responsable'],
-                id_responsable=request.POST['id_responsable'],
+                nombre_responsable=responsable[0],
+                id_responsable=responsable[1],
                 tipo_produccion=request.POST['tipo_produccion'],
                 tipo_suscripcion=request.POST['tipo_suscripcion'],
                 forma_facturacion=request.POST['forma_facturacion'],
                 renovacion_automatica=request.POST['renovacion'],
                 comision=request.POST['comision'],
-                def_comision=request.POST['def_comision'],
+                def_comision=request.POST.get('def_comision',''),
                 grupo_economico=request.POST['grupo_economico'],
-                aprobaciones=request.POST['aprobaciones'],
+                aprobaciones=request.POST.get('aprobaciones',''),
                 funcionario=request.POST['funcionario'],
                 cargo_funcionario=request.POST['cargo_funcionario'],
                 area_funcionario=request.POST['area_funcionario'],
-                otra_area=request.POST['otra_area'],
+                otra_area=request.POST.get('otra_area',''),
                 tipo_tdc=request.POST.get('tipo_tdc',''),
                 num_tdc=request.POST.get('num_tdc',''),
                 banco_tdc=request.POST.get('banco_tdc',''),

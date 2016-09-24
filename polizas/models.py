@@ -107,11 +107,11 @@ class ExtraDatosCliente(models.Model):
     distrito = models.CharField(max_length=30, blank=False)
     corregimiento = models.CharField(max_length=30, blank=False)
     urbanizacion = models.CharField(max_length=30, blank=False)
-    edificio = models.CharField(max_length=30, blank=False, default='N/A')
-    piso = models.CharField(max_length=5, blank=False, default='N/A')
-    apto = models.CharField(max_length=5, blank=False, default='N/A')
+    edificio = models.CharField(max_length=30, blank=False, default='')
+    piso = models.CharField(max_length=5, blank=False, default='')
+    apto = models.CharField(max_length=5, blank=False, default='')
     calle_ave = models.CharField(max_length=30, blank=False)
-    no_casa = models.CharField(max_length=5, blank=False, default='N/A')
+    no_casa = models.CharField(max_length=5, blank=False, default='')
     apartado_postal = models.CharField(max_length=30, blank=False)
     telefono_res = models.CharField(max_length=20, blank=False)
     fax = models.CharField(max_length=20, blank=False)
@@ -127,14 +127,14 @@ class ExtraDatosCliente(models.Model):
     correo_trabajo = models.EmailField(blank=False)
     ilicito = models.BooleanField(default=False)
     politico_expuesto = models.BooleanField(default=False)
-    cargo_politico = models.CharField(max_length=30, blank=False)
-    periodo_politico = models.CharField(max_length=30, blank=False)
+    cargo_politico = models.CharField(max_length=30, blank=True)
+    periodo_politico = models.CharField(max_length=30, blank=True)
     nombre_politico = models.CharField(max_length=30, blank=True)
     relacion_politico = models.CharField(max_length=30, blank=True)
     declaracion_prima = models.BooleanField(default=False)
     # Perfil Financiero
     actividad_principal = models.CharField(max_length=100, blank=True)
-    ingreso_principal = models.CharField(max_length=30, blank=False,
+    ingreso_principal = models.CharField(max_length=30, blank=True,
                                            default='<10,000.00',
                                            choices=[('<10,000.00',
                                                      '<10,000.00'),
@@ -145,7 +145,7 @@ class ExtraDatosCliente(models.Model):
                                                     ('>50,000.00',
                                                      '>50,000.00')])
     otra_actividad = models.CharField(max_length=100, blank=True)
-    otro_ingreso = models.CharField(max_length=30, blank=False,
+    otro_ingreso = models.CharField(max_length=30, blank=True,
                                            default='<10,000.00',
                                            choices=[('<10,000.00',
                                                      '<10,000.00'),

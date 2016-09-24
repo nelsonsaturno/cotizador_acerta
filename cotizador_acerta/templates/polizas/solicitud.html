@@ -771,15 +771,15 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-12">
-                                                {% bootstrap_field form.politico_expuesto layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-12">
                                                 {% bootstrap_field form.ilicito layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                         <div class="col-md-12">
+                                            <div class="col-md-12">
+                                                {% bootstrap_field form.politico_expuesto layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 politico">
                                             <div class="col-md-6">
                                                 {% bootstrap_field form.cargo_politico layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
@@ -787,7 +787,10 @@
                                                 {% bootstrap_field form.periodo_politico layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 politico3">
+                                            <i>Solo para los casos (2) y (3)</i>
+                                        </div>
+                                        <div class="col-md-12 politico2">
                                             <div class="col-md-6">
                                                 {% bootstrap_field form.nombre_politico layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
@@ -807,71 +810,73 @@
                                                 {% bootstrap_field form.declaracion_prima layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-8">
-                                                {% bootstrap_field form.actividad_principal layout='horizontal' show_label=False field_class='form-field' %}
+                                        <div class="datos-financieros">
+                                            <div class="col-md-12">
+                                                <div class="col-md-8">
+                                                    {% bootstrap_field form.actividad_principal layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {% bootstrap_field form.ingreso_principal layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                {% bootstrap_field form.ingreso_principal layout='horizontal' show_label=False field_class='form-field' %}
+                                            <div class="col-md-12">
+                                                <div class="col-md-8">
+                                                    {% bootstrap_field form.otra_actividad layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {% bootstrap_field form.otro_ingreso layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-8">
-                                                {% bootstrap_field form.otra_actividad layout='horizontal' show_label=False field_class='form-field' %}
+                                            <div class="col-md-12">
+                                                Referencia Personal:
                                             </div>
-                                            <div class="col-md-4">
-                                                {% bootstrap_field form.otro_ingreso layout='horizontal' show_label=False field_class='form-field' %}
+                                            <div class="col-md-12">
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.nom_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.actividad_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.relacion_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.telefono_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            Referencia Personal:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.nom_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
+                                            <div class="col-md-12">
+                                                Referencia Bancaria:
                                             </div>
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.actividad_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
+                                            <div class="col-md-12">
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.nom_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.actividad_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.relacion_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.telefono_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.relacion_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
+                                            <div class="col-md-12">
+                                                Referencia Comercial:
                                             </div>
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.telefono_ref_personal layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            Referencia Bancaria:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.nom_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.actividad_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.relacion_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.telefono_ref_bancaria layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            Referencia Comercial:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.nom_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.actividad_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.relacion_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.telefono_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
+                                            <div class="col-md-12">
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.nom_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.actividad_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.relacion_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-3">
+                                                    {% bootstrap_field form.telefono_ref_comercial layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -885,11 +890,14 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}" disabled>
+                                                <input type="text" class="form-control form-disabled" id="nombre-conductor" value="{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}" disabled>
                                             </div>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.identificacion }}" disabled>
+                                                <input type="text" class="form-control form-disabled" id="id-conductor" value="{{ cotizacion.conductor.identificacion }}" disabled>
                                             </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            {% bootstrap_field form.aseguradoConductor layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
                                         <div class="col-md-12">
                                             Conductor:
@@ -1142,7 +1150,7 @@
         </div>
     </div>
 </div>
-{% if form.errors %}
+<!--{% if form.errors %}
     {% for field in form %}
         {% for error in field.errors %}
             <div class="alert alert-danger">
@@ -1155,7 +1163,7 @@
             <strong>{{ error|escape }}</strong>
         </div>
     {% endfor %}
-{% endif %}
+{% endif %}-->
 {% endblock content %}
 
 {% block custom_script %}
@@ -1175,11 +1183,253 @@
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
 <script src="{% static 'js/jquery.mask.min.js' %}"></script>
 <script src="{% static 'js/jquery.mask2.min.js' %}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<script src="{% static 'plugins/datepicker/locales/bootstrap-datepicker.es.js' %}"></script>
 <script type="text/javascript">
+
     $(document).ready(function(){
         $('#id_valido_desde').mask('0000-00-00', {placeholder: "Valido desde (aaaa/mm/dd)"});
         $('#id_valido_hasta').mask('0000-00-00', {placeholder: "Hasta (aaaa/mm/dd)"});
+        $( document ).on('change', '#id_area_funcionario', function(e) {
+            e.preventDefault();
+            var $index = $(this).children('option:selected').index();
+            if ($index == 5) {
+                var element = document.querySelector("#id_otra_area");
+                element.classList.remove("hidden");
+            } else {
+                var element = document.querySelector("#id_otra_area");
+                element.classList.add("hidden");
+            }
+        });
     });
+    var element = document.querySelector(".politico");
+    element.classList.add("hidden");
+    var element = document.querySelector(".politico2");
+    element.classList.add("hidden");
+    var element = document.querySelector(".politico3");
+    element.classList.add("hidden");
+    var element = document.querySelector(".datos-financieros");
+    element.classList.add("hidden");
+    var element = document.querySelector("#id_otra_area");
+    element.classList.add("hidden");
+
+    var select = document.querySelector("#id_politico_expuesto:checked");
+    var select2 = document.querySelector("#id_declaracion_prima:checked");
+    if (select || select2) {
+        var element = document.querySelector(".datos-financieros");
+        element.classList.remove("hidden");
+    } else {
+        var element = document.querySelector(".datos-financieros");
+        element.classList.add("hidden");
+    }
+
+    $("#id_politico_expuesto").on("change", function(event) {
+        if (this.checked) {
+            var element = document.querySelector(".politico");
+            element.classList.remove("hidden");
+            var element = document.querySelector(".politico2");
+            element.classList.remove("hidden");
+            var element = document.querySelector(".politico3");
+            element.classList.remove("hidden");
+        } else {
+            var element = document.querySelector(".politico");
+            element.classList.add("hidden");
+            var element = document.querySelector(".politico2");
+            element.classList.add("hidden");
+            var element = document.querySelector(".politico3");
+            element.classList.add("hidden");
+        }
+
+        var select = document.querySelector("#id_politico_expuesto:checked");
+        var select2 = document.querySelector("#id_declaracion_prima:checked");
+        if (select || select2) {
+            var element = document.querySelector(".datos-financieros");
+            element.classList.remove("hidden");
+        } else {
+            var element = document.querySelector(".datos-financieros");
+            element.classList.add("hidden");
+        }
+    } );
+
+    $("#id_aseguradoConductor").on("change", function(event) { 
+        if (this.checked) {
+            var element = document.querySelector("#id_tipo_id_conductor");
+            element.classList.add("hidden");
+            var val1 = $("#nombre-conductor").val();
+            var val2 = $("#id-conductor").val();
+            $("#id_nombre_conductor").val(val1);
+            $("#id_nombre_conductor").prop("disabled", true);
+            $("#id_id_conductor").val(val2);
+            $("#id_id_conductor").prop("disabled", true);
+        } else {
+            var element = document.querySelector("#id_tipo_id_conductor");
+            element.classList.remove("hidden");
+            $("#id_nombre_conductor").val('');
+            $("#id_nombre_conductor").prop("disabled", false);
+            $("#id_id_conductor").val('');
+            $("#id_id_conductor").prop("disabled", false);
+        }
+    } );
+
+    $("#id_comision").on("change", function(event) { 
+        if (this.checked) {
+            var element = document.querySelector("#id_def_comision");
+            element.classList.add("hidden");
+        } else {
+            var element = document.querySelector("#id_def_comision");
+            element.classList.remove("hidden");
+        }
+    } );
+
+    $("#id_declaracion_prima").on("change", function(event) { 
+        var select = document.querySelector("#id_politico_expuesto:checked");
+        var select2 = document.querySelector("#id_declaracion_prima:checked");
+        if (select || select2) {
+            var element = document.querySelector(".datos-financieros");
+            element.classList.remove("hidden");
+        } else {
+            var element = document.querySelector(".datos-financieros");
+            element.classList.add("hidden");
+        }
+
+    } );
+
+    $(document).on("change", "#id_id_conductor", function(e){
+        e.preventDefault();
+       if( $("#id_tipo_id_conductor_0").is(':checked') ){
+            var cedula = new RegExp('^([0-9]{1,2}\-?[0-9]{2,4}\-?[0-9]{3,4})$');
+            if (cedula.test($(this).val())) {
+                $('#id_submit').prop('disabled', false);
+                $(".cedula-validacion").remove();
+            } else {
+                $(".cedula-validacion").remove();
+                $('#id_submit').prop('disabled', true);
+                $(this).parent().after("<div class='form-field cedula-validacion' style='color:red; margin-top: 5%; margin-bottom: -4%;'>Introduzca una cédula válida</div>");
+            }
+       } else {
+            $(".cedula-validacion").remove();
+            $('#id_submit').prop('disabled', false);
+       }
+    });
+
+    $("#id_id_conductor").focus(function(e){
+        e.preventDefault();
+       if( $("#id_tipo_id_conductor_0").is(':checked') ){
+            $(".cedula-help").remove();
+            $("#id_id_conductor").parent().after("<div class='form-field cedula-help' style='color: #727270; margin-top: 5%; margin-bottom: -4%;'>Cédula. Ej: 12-123-1234 ó 121231234</div>");
+       } else {
+            $(".cedula-help").remove();
+       }
+    });
+
+    $("#id_id_conductor").focusout(function(e){
+        e.preventDefault();
+        $(".cedula-help").remove();
+    });
+
+    $(document).on("change", "#id_id_responsable", function(e){
+        e.preventDefault();
+       if( $("#id_tipo_id_responsable_0").is(':checked') ){
+            var cedula = new RegExp('^([0-9]{1,2}\-?[0-9]{2,4}\-?[0-9]{3,4})$');
+            if (cedula.test($(this).val())) {
+                $('#id_submit').prop('disabled', false);
+                $(".cedula-validacion").remove();
+            } else {
+                $(".cedula-validacion").remove();
+                $('#id_submit').prop('disabled', true);
+                $(this).parent().after("<div class='form-field cedula-validacion' style='color:red; margin-top: 5%; margin-bottom: -4%;'>Introduzca una cédula válida</div>");
+            }
+       } else {
+            $(".cedula-validacion").remove();
+            $('#id_submit').prop('disabled', false);
+       }
+    });
+
+    $("#id_id_responsable").focus(function(e){
+        e.preventDefault();
+       if( $("#id_tipo_id_responsable_0").is(':checked') ){
+            $(".cedula-help").remove();
+            $("#id_id_responsable").parent().after("<div class='form-field cedula-help' style='color: #727270; margin-top: 5%; margin-bottom: -4%;'>Cédula. Ej: 12-123-1234 ó 121231234</div>");
+       } else {
+            $(".cedula-help").remove();
+       }
+    });
+
+    $("#id_id_responsable").focusout(function(e){
+        e.preventDefault();
+        $(".cedula-help").remove();
+    });
+
+    $(document).ready(function(){
+        $(document).click(function() {
+            if($('#id_tipo_id_conductor_0').is(":checked")) {
+                $('#id_id_conductor').mask('00-000-0000', {placeholder: "00-000-0000"});
+            } else {
+                $('#id_id_conductor').unmask();
+            }
+        });
+
+        $('#id_valido_desde').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'es',
+            todayHighlight: true,
+            autoclose: true,
+        });
+        $('#id_valido_hasta').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'es',
+            todayHighlight: true,
+            autoclose: true,
+        });
+        $('#id_dia_pago').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'es',
+            todayHighlight: true,
+            autoclose: true,
+        });
+
+        $( '#id_ingreso_principal' ).prepend('<option class="placeholder" value="" selected=selected disabled>Ingreso Anual</option>');
+        $( '#id_otro_ingreso' ).prepend('<option class="placeholder" value="" selected=selected disabled>Ingreso Anual</option>');
+        $( '#id_tipo_produccion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Produccion</option>');
+        $( '#id_tipo_suscripcion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Suscripcion</option>');
+        $( '#id_forma_facturacion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Forma de facturacion</option>');
+        $( '#id_area_funcionario' ).prepend('<option class="placeholder" value="" selected=selected disabled>Area</option>');
+    });
+
+    var element = document.querySelector("#id_responsable_0");
+    element.onclick = function () {
+        var element = document.querySelector("#id_tipo_id_responsable");
+        element.classList.add("hidden");
+        var val1 = $("#nombre-conductor").val();
+        var val2 = $("#id-conductor").val();
+        $("#id_nombre_responsable").val(val1);
+        $("#id_nombre_responsable").prop("disabled", true);
+        $("#id_id_responsable").val(val2);
+        $("#id_id_responsable").prop("disabled", true);
+    }
+
+    var element = document.querySelector("#id_responsable_1");
+    element.onclick = function () {
+        var element = document.querySelector("#id_tipo_id_responsable");
+        element.classList.add("hidden");
+        var val1 = $("#nombre-conductor").val();
+        var val2 = $("#id-conductor").val();
+        $("#id_nombre_responsable").val(val1);
+        $("#id_nombre_responsable").prop("disabled", true);
+        $("#id_id_responsable").val(val2);
+        $("#id_id_responsable").prop("disabled", true);
+    }
+
+    var element = document.querySelector("#id_responsable_2");
+    element.onclick = function () {
+        var element = document.querySelector("#id_tipo_id_responsable");
+        element.classList.remove("hidden");
+        $("#id_nombre_responsable").val('');
+        $("#id_nombre_responsable").prop("disabled", false);
+        $("#id_id_responsable").val('');
+        $("#id_id_responsable").prop("disabled", false);
+    }
+
 </script>
 
 {% endblock custom_script %}

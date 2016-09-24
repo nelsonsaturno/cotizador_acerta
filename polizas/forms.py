@@ -7,39 +7,40 @@ from polizas.models import *
 
 
 class SolicitudClienteForm(forms.ModelForm):
+    aseguradoConductor = forms.BooleanField(label='Asegurado es Conductor', required=False)
     valido_desde = forms.DateField(label='Vigencia Desde', required=True)
     valido_hasta = forms.DateField(label='Vigencia Hasta', required=True)
-    nombre_conductor = forms.CharField(label='Nombre')
-    id_conductor = forms.CharField(label='Identificacion')
+    nombre_conductor = forms.CharField(label='Nombre', required=False)
+    id_conductor = forms.CharField(label='Identificacion', required=False)
     responsable = forms.ChoiceField(choices=[(0, 'Contratante'), (1, 'Asegurado'), (2, 'Otro')],
                                 widget=forms.RadioSelect(), label="")
-    nombre_responsable = forms.CharField(label='Nombre Completo')
-    id_responsable = forms.CharField(label='Identificacion')
+    nombre_responsable = forms.CharField(label='Nombre Completo', required=False)
+    id_responsable = forms.CharField(label='Identificacion', required=False)
     tipo_id_conductor = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
-                                widget=forms.RadioSelect(), label="")
+                                widget=forms.RadioSelect(), label="", required=False)
     tipo_id_responsable = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
-                                widget=forms.RadioSelect(), label="")
+                                widget=forms.RadioSelect(), label="", required=False)
     acreedor = forms.CharField(label='Acreedor Hipotecario')
     leasing = forms.CharField(label='o Leasing')
-    observaciones = forms.CharField(label='Observaciones')
+    observaciones = forms.CharField(label='Observaciones', widget=forms.Textarea(), )
     tipo_tdc = forms.ChoiceField(choices=[(0, 'Visa'), (1, 'Master Card'), (2, 'Dinners'), (3, 'American Express')],
                                 widget=forms.RadioSelect(), label="", required=False)
     num_tdc = forms.CharField(label='Numero de Tarjeta',required=False)
     banco_tdc = forms.CharField(label='Banco',required=False)
     expiracion_tdc = forms.DateField(label='Fecha de Expiracion', required=False)
-    dia_pago = forms.DateField(label='Dia de pago', required=True)
-    nom_ref_personal = forms.CharField(label='Nombre o Razon Social')
-    actividad_ref_personal = forms.CharField(label='Actividad')
-    relacion_ref_personal = forms.CharField(label='Relacion con el cliente')
-    telefono_ref_personal = forms.CharField(label='Telefono de contacto')
-    nom_ref_bancaria = forms.CharField(label='Nombre o Razon Social')
-    actividad_ref_bancaria = forms.CharField(label='Actividad')
-    relacion_ref_bancaria = forms.CharField(label='Relacion con el cliente')
-    telefono_ref_bancaria = forms.CharField(label='Telefono de contacto')
-    nom_ref_comercial = forms.CharField(label='Nombre o Razon Social')
-    actividad_ref_comercial = forms.CharField(label='Actividad')
-    relacion_ref_comercial = forms.CharField(label='Relacion con el cliente')
-    telefono_ref_comercial = forms.CharField(label='Telefono de contacto')
+    dia_pago = forms.DateField(label='Dia de pago (aaaa/mm/dd)', required=True)
+    nom_ref_personal = forms.CharField(label='Nombre o Razon Social', required=False)
+    actividad_ref_personal = forms.CharField(label='Actividad', required=False)
+    relacion_ref_personal = forms.CharField(label='Relacion con el cliente', required=False)
+    telefono_ref_personal = forms.CharField(label='Telefono de contacto', required=False)
+    nom_ref_bancaria = forms.CharField(label='Nombre o Razon Social', required=False)
+    actividad_ref_bancaria = forms.CharField(label='Actividad', required=False)
+    relacion_ref_bancaria = forms.CharField(label='Relacion con el cliente', required=False)
+    telefono_ref_bancaria = forms.CharField(label='Telefono de contacto', required=False)
+    nom_ref_comercial = forms.CharField(label='Nombre o Razon Social', required=False)
+    actividad_ref_comercial = forms.CharField(label='Actividad', required=False)
+    relacion_ref_comercial = forms.CharField(label='Relacion con el cliente', required=False)
+    telefono_ref_comercial = forms.CharField(label='Telefono de contacto', required=False)
     firmador = forms.CharField(label='Nombre de quien firma')
     tipo_produccion = forms.ChoiceField(choices=[(0, 'Produccion Propia'), (1, 'Coaseguro Lider'), (2, 'Coaseguro No Lider'), (3, 'Reaseguro Cedido')],
                                 widget=forms.Select(), label="")
@@ -47,16 +48,16 @@ class SolicitudClienteForm(forms.ModelForm):
                                 widget=forms.Select(), label="")
     forma_facturacion = forms.ChoiceField(choices=[(0, 'Por Poliza'), (1, 'Por Certificado')],
                                 widget=forms.Select(), label="")
-    renovacion = forms.BooleanField(label='Renovacion Automatica')
-    comision = forms.BooleanField(label='Comision estandar')
-    def_comision = forms.CharField(label='Definir Comision')
+    renovacion = forms.BooleanField(label='Renovacion Automatica', required=False)
+    comision = forms.BooleanField(label='Comision estandar', required=False)
+    def_comision = forms.CharField(label='Definir Comision', required=False)
     grupo_economico = forms.CharField(label='Grupo Economico')
-    aprobaciones = forms.CharField(label='Aprobaciones especiales', widget=forms.Textarea())
+    aprobaciones = forms.CharField(label='Aprobaciones especiales', widget=forms.Textarea(), required=False)
     funcionario = forms.CharField(label='Nombre Completo')
     cargo_funcionario = forms.CharField(label='Cargo')
     area_funcionario = forms.ChoiceField(choices=[(0, 'Comercial'), (1, 'At. al Cliente'), (2, 'Fianzas'), (3, 'Seguros'), (4, 'Otras')],
                                 widget=forms.Select(), label="")
-    otra_area = forms.CharField(label='Otra area')
+    otra_area = forms.CharField(label='Otra area', required=False)
 
     class Meta:
         model = ExtraDatosCliente
@@ -95,8 +96,8 @@ class SolicitudClienteForm(forms.ModelForm):
             'telefono_empresa': 'Telefono de Trabajo',
             'fax_empresa': 'Fax de Trabajo',
             'correo_trabajo': 'Correo Electronico de Oficina',
-            'politico_expuesto': 'Es o ha sido objeto de investigacion, indagacion o condena por actividades ilicitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo',
-            'ilicito': 'Es o ha sido una (1) Persona Politicamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta',
+            'ilicito': 'Es o ha sido objeto de investigacion, indagacion o condena por actividades ilicitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo',
+            'politico_expuesto': 'Es o ha sido una (1) Persona Politicamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta',
             'cargo_politico': 'Cargo',
             'periodo_politico': 'Periodo',
             'nombre_politico': 'Nombre',

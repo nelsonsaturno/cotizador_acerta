@@ -1230,10 +1230,10 @@
         $('#id_fecha_nacimiento').mask('0000-00-00', {placeholder: "F. Nacimiento (aaaa-mm-dd)"});
 
         $(document).click(function() {
-            if($('#id_tipo_id_0').is(":checked")) {
-                $('#id_identificacion').mask('00-000-0000', {placeholder: "00-000-0000"});
+            if($('#id_tipo_id_conductor_0').is(":checked")) {
+                $('#id_conductor').mask('00-000-0000', {placeholder: "00-000-0000"});
             } else {
-                $('#id_identificacion').unmask();
+                $('#id_conductor').unmask();
             }
         });
     });
