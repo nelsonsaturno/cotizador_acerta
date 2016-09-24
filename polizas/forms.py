@@ -107,6 +107,22 @@ class SolicitudClienteForm(forms.ModelForm):
             'otra_actividad': 'Actividad de otras fuentes de ingreso:',
         }
 
+    def __init__(self, *args, **kwargs):
+        super(SolicitudClienteForm, self).__init__(*args, **kwargs)
+        self.fields['edificio'].initial = ''
+        self.fields['piso'].initial = ''
+        self.fields['apto'].initial = ''
+        self.fields['no_casa'].initial = ''
+
+    def clean(self):
+        valido_desde = str(self.cleaned_data['valido_desde'])
+        valido_hasta = str(self.cleaned_data['valido_hasta'])
+        desde = datetime.strptime(valido_desde, '%Y-%m-%d')
+        hasta = datetime.strptime(valido_hasta, '%Y-%m-%d')
+        if hasta < desde:
+            raise forms.ValidationError(u'Las fechas de validez son incorrectas.')
+        return self.cleaned_data
+
 
 class PagoForm(forms.Form):
 

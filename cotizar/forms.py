@@ -17,6 +17,36 @@ class ConductorVehiculoForm(forms.ModelForm):
 
     mail_corredor = forms.CharField(widget=forms.HiddenInput())
 
+    provincia = forms.ChoiceField(
+        choices=[
+            (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'),
+            (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10'),
+            (11, '11'), (12, '12'), (13, '13'), ('PE', 'PE'),
+            ('N', 'N'), ('E', 'E')
+        ],
+        required=False
+    )
+
+    tipo = forms.ChoiceField(
+        choices=[('PI', 'PI'), ('AV', 'AV')],
+        required=False
+    )
+
+    campo_id_1 = forms.CharField(
+        label="Campo 1", required=False,
+        localize=True, max_length=3
+    )
+
+    campo_id_2 = forms.CharField(
+        label="Campo 2", required=False,
+        localize=True, max_length=4
+    )
+
+    identificacion = forms.CharField(
+        label="Numero de Pasaporte",
+        required=False
+    )
+
     class Meta:
         model = ConductorVehiculo
         exclude = ['corredor', ]
@@ -26,7 +56,7 @@ class ConductorVehiculoForm(forms.ModelForm):
             'apellido': 'Apellido',
             'sexo': 'Sexo',
             'fecha_nacimiento': 'Fecha de Nacimiento',
-            'identificacion': 'Identificación',
+            'identificacion': 'Número de Pasaporte',
             'estado_civil': 'Estado Civil',
             'correo': 'Correo',
             'telefono1': 'Teléfono Celular',
@@ -37,6 +67,8 @@ class ConductorVehiculoForm(forms.ModelForm):
             'anio': 'Año',
             'cero_km': '0 Kms',
             'valor': 'Valor',
+            'provincia': 'Provincia',
+            'tipo': 'tipo',
         }
         widgets = {
             'marca': forms.Select(attrs={'class': 'select2'}),
@@ -47,7 +79,8 @@ class ConductorVehiculoForm(forms.ModelForm):
                     (4, "4"), (5, "5"), (6, "6"), (7, "7"),
                     (8, "8")
                 ]
-            )
+            ),
+            'campo_id_1': forms.CharField(max_length=3)
         }
 
     def clean_fecha_nacimiento(self):
@@ -68,6 +101,14 @@ class ConductorVehiculoForm(forms.ModelForm):
         return historial
 
     def clean(self):
+        tipo_id = self.cleaned_data['tipo_id']
+        campo_id_1 = self.cleaned_data['campo_id_1']
+        campo_id_2 = self.cleaned_data['campo_id_2']
+        if tipo_id == '0':
+            if campo_id_1 == '':
+                raise forms.ValidationError(u'Debe completar su identificación.')
+            elif campo_id_2 == '':
+                raise forms.ValidationError(u'Debe completar su identificación.')
         valor = self.cleaned_data['valor']
         if valor <= 75000.00:
             return self.cleaned_data
@@ -96,20 +137,30 @@ class ConductorVehiculoForm(forms.ModelForm):
 
 class CotizacionUpdateForm(forms.Form):
 
-    cuotas = forms.IntegerField(
-        min_value=1, max_value=10,
-        label="Cuotas", required=False,
-        initial=1
+    cuotas = forms.ChoiceField(
+        choices=(
+            (1, "1"), (2, "2"), (3, "3"),
+            (4, "4"), (5, "5"), (6, "6"),
+            (7, "7"), (8, "8"), (9, "9"),
+            (10, "10")
+        ),
+        label="Cuotas", required=False
     )
-    cuotas2 = forms.IntegerField(
-        min_value=1, max_value=6,
-        label="Cuotas", required=False,
-        initial=1
+    cuotas2 = forms.ChoiceField(
+        choices=(
+            (1, "1"), (2, "2"), (3, "3"),
+            (4, "4"), (5, "5"), (6, "6")
+        ),
+        label="Cuotas", required=False
     )
-    cuotas3 = forms.IntegerField(
-        min_value=2, max_value=10,
+    cuotas3 = forms.ChoiceField(
+        choices=(
+            (2, "2"), (3, "3"),
+            (4, "4"), (5, "5"), (6, "6"),
+            (7, "7"), (8, "8"), (9, "9"),
+            (10, "10")
+        ),
         label="Cuotas", required=False,
-        initial=2
     )
     tipo_pago = forms.ChoiceField(
         choices=[

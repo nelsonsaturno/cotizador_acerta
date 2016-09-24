@@ -81,24 +81,24 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         context = self.get_context_data(**kwargs)
 
         # Chequeamos si es corredor, y creamos los planes para mostrar
-        if (request.user.groups.first().name == "corredor"):
-            corredor = DatosCorredor.objects.get(user=request.user)
-            planes = corredor.planes
-            crear_planes = re.findall('"([^"]*)"', planes)
+        # if (request.user.groups.first().name == "corredor"):
+        #     corredor = DatosCorredor.objects.get(user=request.user)
+        #     planes = corredor.planes
+        #     crear_planes = re.findall('"([^"]*)"', planes)
 
-        # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
-        elif (request.user.groups.first().name == "vendedor"):
-            vendedor = CorredorVendedor.objects.get(vendedor=request.user)
-            corredor = DatosCorredor.objects.get(user=vendedor.corredor)
-            planes = corredor.planes
-            crear_planes = re.findall('"([^"]*)"', planes)
+        # # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
+        # elif (request.user.groups.first().name == "vendedor"):
+        #     vendedor = CorredorVendedor.objects.get(vendedor=request.user)
+        #     corredor = DatosCorredor.objects.get(user=vendedor.corredor)
+        #     planes = corredor.planes
+        #     crear_planes = re.findall('"([^"]*)"', planes)
 
-        else:
-            corredor = None
-            crear_planes = []
+        # else:
+        #     corredor = None
+        #     crear_planes = []
 
         context['form'] = ConductorVehiculoForm
-        context['planes'] = crear_planes
+        #context['planes'] = crear_planes 
         return self.render_to_response(context)
 
     def crear_cotizacion(self, request, vehiculo):
@@ -267,6 +267,17 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         form = ConductorVehiculoForm(request.POST)
         if form.is_valid():
             vehiculo = form.save()
+            
+            tipo_id = form.cleaned_data['tipo_id']
+            if tipo_id == '0':
+                provincia = form.cleaned_data['provincia']
+                tipo = form.cleaned_data['tipo']
+                campo_id_1 = form.cleaned_data['campo_id_1']
+                campo_id_2 = form.cleaned_data['campo_id_2']
+                cedula = str(provincia) + '-' + str(tipo) + '-' + str(campo_id_1) + '-' + str(campo_id_2)
+                vehiculo.identificacion = cedula
+                vehiculo.tipo_id = 'cedula'
+
             user = User.objects.get(pk=request.user.id)
             vehiculo.corredor = user
             vehiculo.save()
