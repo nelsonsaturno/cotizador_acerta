@@ -7,28 +7,37 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('polizas', '0004_auto_20160918_2331'),
+        ('polizas', '0001_initial'),
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.RemoveField(
             model_name='extradatoscliente',
             name='conductor',
-            field=models.ForeignKey(to='cotizar.ConductorVehiculo', null=True),
         ),
-        migrations.AlterField(
+        migrations.RemoveField(
             model_name='extradatoscliente',
             name='ref_bancaria',
-            field=models.ForeignKey(related_name='bancaria', to='polizas.Referencia', null=True),
         ),
-        migrations.AlterField(
+        migrations.RemoveField(
             model_name='extradatoscliente',
             name='ref_comercial',
-            field=models.ForeignKey(related_name='comercial', to='polizas.Referencia', null=True),
         ),
-        migrations.AlterField(
+        migrations.RemoveField(
             model_name='extradatoscliente',
             name='ref_personal',
-            field=models.ForeignKey(related_name='personal', to='polizas.Referencia', null=True),
+        ),
+        migrations.RemoveField(
+            model_name='solicitudpoliza',
+            name='cotizacion',
+        ),
+        migrations.DeleteModel(
+            name='ExtraDatosCliente',
+        ),
+        migrations.DeleteModel(
+            name='Referencia',
+        ),
+        migrations.DeleteModel(
+            name='SolicitudPoliza',
         ),
     ]
