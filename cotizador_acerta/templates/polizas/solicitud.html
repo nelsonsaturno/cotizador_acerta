@@ -1190,6 +1190,8 @@
     $(document).ready(function(){
         $('#id_valido_desde').mask('0000-00-00', {placeholder: "Valido desde (aaaa/mm/dd)"});
         $('#id_valido_hasta').mask('0000-00-00', {placeholder: "Hasta (aaaa/mm/dd)"});
+        $('#id_expiracion_tdc').mask('0000-00', {placeholder: "Expiracion (aaaa-mm)"});
+        $('#id_num_tdc').mask('0000-0000-0000-0000', {placeholder: "Numero TDC"});
         $( document ).on('change', '#id_area_funcionario', function(e) {
             e.preventDefault();
             var $index = $(this).children('option:selected').index();

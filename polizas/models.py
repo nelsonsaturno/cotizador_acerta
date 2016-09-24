@@ -79,7 +79,7 @@ class SolicitudPoliza(models.Model):
                                              'American Express')])
     num_tdc = models.CharField(max_length=16, blank=False, null=True)
     banco_tdc = models.CharField(max_length=20, blank=False, null=True)
-    expiracion_tdc = models.DateField(null=True)
+    expiracion_tdc = models.CharField(max_length=20, blank=False, null=True)
     dia_pago = models.DateField()
 
 

@@ -31,8 +31,8 @@
 					</td>
 					<td style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
 						<p style="text-decoration: underline; font-weight: bold; padding-bottom: -10px;">Para uso de la compañía:</p>
-						<p style="padding-bottom: -10px;"><span>No. póliza: </span><span></span>{{solicitud.pk}}<span>Riesgo: </span><span></span></p>
-						<p>Código del cliente: </p>
+						<p style="padding-bottom: -10px;"><span>No. póliza: </span><span></span>{{solicitud.pk}}  <span>&nbsp;&nbsp;&nbsp;Riesgo: </span><span></span></p>
+						<p>Código del cliente: {{conductor1.pk}} </p>
 					</td>
 				</tr>
 				<tr>
@@ -61,7 +61,7 @@
 						</p>
 						<p>
 							<span>Estado civil: </span><span>{{conductor1.estado_civil}}</span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nacionalidad(es)</span><span>{{conductor2.nacionalidad}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nacionalidad(es): </span><span>{{conductor2.nacionalidad}}</span>
 						</p>
 					</td>
 				</tr>
@@ -132,7 +132,7 @@
 						{% endif %}
 
 						<p style="padding-bottom: -6px;"><span>Es o ha sido una persona (1) Persona Políticamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta? </span>
-						{% if conductor2.ilicito == False %}
+						{% if conductor2.politico_expuesto == False %}
 						<span style="text-decoration: underline; font-size: 12px;">_X_</span>&nbsp;<span>&nbsp;No</span>
 						<span>&nbsp;___</span><span>&nbsp;Sí</span>
 						{% else %}
@@ -143,11 +143,11 @@
 
 						<p style="padding-bottom: -6px;">
 							<span>Cargo actual o anterior: </span><span>{{conductor2.cargo_politico}}</span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Período: </span><span>{{conductor.periodo_politico}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Período: </span><span>{{conductor2.periodo_politico}}</span>
 						</p>
 						<p>
-							<span>Caso 2 y 3: Nombre: </span><span>{{conductor.nombre_politico}}</span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Relación: </span><span>{{conductor.relacion_politico}}</span>
+							<span>Caso 2 y 3: Nombre: </span><span>{{conductor2.nombre_politico}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Relación: </span><span>{{conductor2.relacion_politico}}</span>
 						</p>
 					</td>
 				</tr>
@@ -158,7 +158,7 @@
 					<td colspan="2">
 						<p><span>Si su respuesta anterior fue Si y/o la prima sel segura es igual, anual o mayor a B/. 10,000.00 complete la siguiente información, en caso que no diríjase a la seccion de Datos Generales: </span><span style="font-size: 9px;"> Acerta Seguros, con base en la Matriz de riesgo, podrá solicitar en algunos otros casos que esta sección sea completada (Ley 23 del 27/04/2015).</span></p>
 
-						<p><span>Actividad fuente principal de sus ingresos (Especifique): </span><span>{{conductor.actividad_principal}}</span></p>
+						<p><span>Actividad fuente principal de sus ingresos (Especifique): </span><span>{{conductor2.actividad_principal}}</span></p>
 						<p>
 							<table>
 								<tr>
@@ -180,7 +180,7 @@
 									Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
-								{% elif conductor2.ingreso_principal == '10,000.00-30,000' %}
+								{% elif conductor2.ingreso_principal == '10,000.00-30,000.00' %}
 								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Menos de 10mil USD$
 								</td>
@@ -194,7 +194,7 @@
 									Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
-								{% elif conductor2.ingreso_principal == '30,000.00-50,000' %}
+								{% elif conductor2.ingreso_principal == '30,000.00-50,000.00' %}
 								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Menos de 10mil USD$
 								</td>
@@ -208,7 +208,7 @@
 									Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
-								{% elif conductor2.ingreso_principal == '>50,000' %}
+								{% elif conductor2.ingreso_principal == '>50,000.00' %}
 								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Menos de 10mil USD$
 								</td>
@@ -235,8 +235,9 @@
 								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Ingreso Anual:
 								</td>
+								{% if conductor2.otro_ingreso == '<10,000.00' %}
 								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
-									Menos de 10mil USD$
+									<span style="text-decoration: underline; font-size: 12px;">_X_</span>Menos de 10mil USD$
 								</td>
 								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									10mil y 30mil USD$
@@ -248,6 +249,49 @@
 									Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
+								{% elif conductor2.otro_ingreso == '10,000.00-30,000.00' %}
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Menos de 10mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									<span style="text-decoration: underline; font-size: 12px;">_X_</span>10mil y 30mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									30mil y 50mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Más de 50mil USD$
+								</td>
+								<td style="width: 45px;">
+								{% elif conductor2.otro_ingreso == '30,000.00-50,000.00' %}
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Menos de 10mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									10mil y 30mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									<span style="text-decoration: underline; font-size: 12px;">_X_</span>30mil y 50mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Más de 50mil USD$
+								</td>
+								<td style="width: 45px;">
+								{% elif conductor2.otro_ingreso == '>50,000.00' %}
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Menos de 10mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									10mil y 30mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									30mil y 50mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									<span style="text-decoration: underline; font-size: 12px;">_X_</span>Más de 50mil USD$
+								</td>
+								<td style="width: 45px;">
+								{% endif %}
 								</tr>
 							</table>
 						</p>
@@ -354,20 +398,32 @@
 							<span>Si el asegurado es distinto al cliente contratante deberá completar un Formulario Único de Datos del Cliente.</span>
 						</p>
 						<p style="padding-bottom: -6px;">
-							<span style="font-weight: bold; text-decoration: underline">Asegurado:</span>
+							<span style="font-weight: bold; text-decoration: underline">Asegurado:</span><span>{{conductor1.nombre}} {{conductor1.apellido}}</span>
 							<span></span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte/RUC:</span>
-							<span></span>
-						</p>
-						<p style="padding-bottom: -6px;">
-							<span style="font-weight: bold; text-decoration: underline">Conductor Adicional:</span>
-							<span></span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte:</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte/RUC:</span><span>{{conductor1.identificacion}}</span>
 							<span></span>
 						</p>
-						<p style="font-size: 9px;">
-							Si la póliza tiene más unidades y/o más personas que puedan operar el o los vehículos, favor indicarlo en documento adjunto con el detalle del vehículo, nombre completo y cédula o pasaporte de la persona conductor del vehículo.
-						</p>
+						{% if conductor1.identificacion == solicitud.id_conductor %}
+							<p style="padding-bottom: -6px;">
+								<span style="font-weight: bold; text-decoration: underline">Conductor Adicional: </span>
+								<span>N/A</span>
+								<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte:</span>
+								<span>N/A</span>
+							</p>
+							<p style="font-size: 9px;">
+								Si la póliza tiene más unidades y/o más personas que puedan operar el o los vehículos, favor indicarlo en documento adjunto con el detalle del vehículo, nombre completo y cédula o pasaporte de la persona conductor del vehículo.
+							</p>
+						{% else %}
+							<p style="padding-bottom: -6px;">
+								<span style="font-weight: bold; text-decoration: underline">Conductor Adicional: <span>{{ solicitud.nombre_conductor }} </span></span>
+								<span></span>
+								<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte: <span>{{ solicitud.id_conductor }}</span></span>
+								<span></span>
+							</p>
+							<p style="font-size: 9px;">
+								Si la póliza tiene más unidades y/o más personas que puedan operar el o los vehículos, favor indicarlo en documento adjunto con el detalle del vehículo, nombre completo y cédula o pasaporte de la persona conductor del vehículo.
+							</p>
+						{% endif %}
 					</td>
 				</tr>
 				<tr>
@@ -380,27 +436,27 @@
 						</p>
 						<p style="padding-bottom: -6px;">
 							<span>Vigencia: </span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde: </span><span>(dd/mm/aaa)</span><span></span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hasta: </span><span>(dd/mm/aaa)</span><span></span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde: </span><span>{{solicitud.vigencia_desde}}</span><span></span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hasta: </span><span>{{solicitud.vigencia_hasta}}</span><span></span>
 						</p>
 						<p style="padding-bottom: -6px;">
-							<span>Acreedor Hipotecario: </span><span></span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Leasing: </span><span></span>
+							<span>Acreedor Hipotecario: </span><span>{{solicitud.acreedor}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Leasing: </span><span>{{solicitud.leasing}}</span>
 						</p>
 						<p style="padding-bottom: -6px;">
-							<span>Valor actual de la unidad: </span><span></span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Placa No.: </span><span></span><span style="font-size:7px;">(Obligatorio en auto usado)</span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Año: </span><span></span>
+							<span>Valor actual de la unidad: </span><span>{{conductor1.valor}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Placa No.: </span><span>{{conductor2.placa}}</span><span style="font-size:7px;">&nbsp;(Obligatorio en auto usado)</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Año: </span><span>{{conductor1.anio}}</span>
 						</p>
 						<p style="padding-bottom: -6px;">
-							<span>Marca: </span><span></span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modelo: </span><span></span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uso: </span><span></span>
+							<span>Marca: </span><span>{{conductor1.marca.nombre}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modelo: </span><span>{{conductor1.modelo.nombre}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uso: </span><span>{{conductor1.anio}}</span>
 						</p>
 						<p>
-							<span>Motor: </span><span></span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chasis: </span><span></span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo: </span><span></span>
+							<span>Motor: </span><span>{{conductor2.motor}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chasis: </span><span>{{conductor2.chasis}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo: </span><span>{{conductor2.tipo}}</span>
 						</p>
 					</td>
 				</tr>
@@ -428,12 +484,12 @@
 				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
 					<td colspan="2">
 						<p style="padding-bottom: -6px;">
-							<span>Prima anual: </span><span></span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Plan: </span><span></span>
+							<span>Prima anual: </span><span>{{cotizacion.total}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Plan: </span><span>{{cotizacion.plan}}</span>
 						</p>
 						<p style="padding-bottom: -6px;">
 							<span style="text-decoration: underline; font-weight: bold; font-size: 11px;">Observaciones: </span>
-							<span></span>
+							<span>{{solicitud.observaciones}}</span>
 						</p>
 						<p>&nbsp;</p>
 					</td>
@@ -448,23 +504,62 @@
 								<tr style="padding-bottom: -5px;">
 									<td><span style="text-decoration: underline; font-weight: bold;">Datos de Cobranza: </span><span style="text-decoration: underline">Responsable de pago: </span></td>
 								</tr>
-								<tr style="padding-bottom: -5px;">
-									<td><span></span><span>Igual al contratante de la póliza</span></td>
-									<td><span></span><span>Igual al asegurado de la póliza</span></td>
-								</tr>
-								<tr style="padding-bottom: -5px;">
-									<td><span></span><span>El responsable de pago es distinto, favor completar:</span></td>
-								</tr>
-								<tr style="padding-bottom: -5px;">
-									<td>
-										<span>Cédula/Pasaporte o RUC: </span>
-										<span></span>
-									</td>
-									<td>
-										<span>Nombre Completo: </span>
-										<span></span>
-									</td>
-								</tr>
+								{% if solicitud.responsable == 'Contratante' %}
+									<tr style="padding-bottom: -5px;">
+										<td><span></span><span>Igual al contratante de la póliza    X</span></td>
+										<td><span></span><span>Igual al asegurado de la póliza</span></td>
+									</tr>
+									<tr style="padding-bottom: -5px;">
+										<td><span></span><span>El responsable de pago es distinto, favor completar:</span></td>
+									</tr>
+									<tr style="padding-bottom: -5px;">
+										<td>
+											<span>Cédula/Pasaporte o RUC: </span>
+											<span>N/A</span>
+										</td>
+										<td>
+											<span>Nombre Completo: </span>
+											<span>N/A</span>
+										</td>
+									</tr>
+								{% elif solicitud.responsable == 'Asegurado' %}
+									<tr style="padding-bottom: -5px;">
+										<td><span></span><span>Igual al contratante de la póliza </span></td>
+										<td><span></span><span>Igual al asegurado de la póliza    X</span></td>
+									</tr>
+									<tr style="padding-bottom: -5px;">
+										<td><span></span><span>El responsable de pago es distinto, favor completar:</span></td>
+									</tr>
+									<tr style="padding-bottom: -5px;">
+										<td>
+											<span>Cédula/Pasaporte o RUC: </span>
+											<span>N/A</span>
+										</td>
+										<td>
+											<span>Nombre Completo: </span>
+											<span>N/A</span>
+										</td>
+									</tr>
+								{% else %}
+									<tr style="padding-bottom: -5px;">
+										<td><span></span><span>Igual al contratante de la póliza </span></td>
+										<td><span></span><span>Igual al asegurado de la póliza</span></td>
+									</tr>
+									<tr style="padding-bottom: -5px;">
+										<td><span></span><span>El responsable de pago es distinto X, favor completar:</span></td>
+									</tr>
+									<tr style="padding-bottom: -5px;">
+										<td>
+											<span>Cédula/Pasaporte o RUC: </span>
+											<span>{{ solicitud.id_responsable}}</span>
+										</td>
+										<td>
+											<span>Nombre Completo: </span>
+											<span>{{ solicitud.nombre_responsable}}</span>
+										</td>
+									</tr>
+								{% endif %}
+								
 								<tr>
 									<td colspan="3" style="font-size: 7px;">Si el responsable de pago es distinto al cliente contratante o al asegurado deberá completar un Formulario Único de Datos del Cliente</td>
 								</tr>
@@ -477,20 +572,60 @@
 											<table>
 												<tr>
 													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">
+														{% if cotizacion.tipo_pago == 'Visa' %}
+															<p style="padding-bottom: -10px;">a) Descuento por tarjeta de crédito</p>
+															{% if solicitud.tipo_tdc == 'Visa' %}
+																<p style="padding-bottom: -10px;">
+																<span>Visa</span>_X_<span></span>
+																<span>Master Card</span><span>__</span>
+																<span>Dinners</span><span>__</span>
+																<span>American Express</span><span>__</span>
+																</p>
+															{% elif solicitud.tipo_tdc == 'Mastercard' %}
+																<p style="padding-bottom: -10px;">
+																<span>Visa</span>__<span></span>
+																<span>Master Card</span><span>_X_</span>
+																<span>Dinners</span><span>__</span>
+																<span>American Express</span><span>__</span>
+																</p>
+															{% elif solicitud.tipo_tdc == 'Dinners' %}
+																<p style="padding-bottom: -10px;">
+																<span>Visa</span>__<span></span>
+																<span>Master Card</span><span>__</span>
+																<span>Dinners</span><span>_X_</span>
+																<span>American Express</span><span>__</span>
+																</p>
+															{% else %}
+																<p style="padding-bottom: -10px;">
+																<span>Visa</span>__<span></span>
+																<span>Master Card</span><span>__</span>
+																<span>Dinners</span><span>__</span>
+																<span>American Express</span><span>_X_</span>
+																</p>
+															{% endif %}
+															<p style="padding-bottom: -10px;">
+															<span>Nro. Tarjeta: </span><span>{{solicitud.num_tdc}}</span>
+															</p>
+															<p>
+															<span>Banco: </span><span>{{solicitud.banco_tdc}}</span>
+															<span>Fecha de expiración: </span><span>{{solicitud.expiracion_tdc}}</span></span>
+															</p>
+														{% else %}
 														<p style="padding-bottom: -10px;">a) Descuento por tarjeta de crédito</p>
-														<p style="padding-bottom: -10px;">
-														<span>Visa</span><span></span>
-														<span>Master Card</span><span></span>
-														<span>Dinners</span><span></span>
-														<span>American Express</span><span></span>
-														</p>
-														<p style="padding-bottom: -10px;">
-														<span>Nro. Tarjeta: </span><span></span>-<span></span>-<span></span>-<span></span>
-														</p>
-														<p>
-														<span>Banco: </span><span></span>
-														<span>Fecha de expiración: </span><span></span><span>(mm/aaaa)</span>
-														</p>
+															<p style="padding-bottom: -10px;">
+															<span>Visa</span>__<span></span>
+															<span>Master Card</span><span>__</span>
+															<span>Dinners</span><span>__</span>
+															<span>American Express</span><span>__</span>
+															</p>
+															<p style="padding-bottom: -10px;">
+															<span>Nro. Tarjeta: </span><span>N/A</span>
+															</p>
+															<p>
+															<span>Banco: </span><span>N/A</span>
+															<span>Fecha de expiración: </span><span>N/A</span>
+															</p>
+														{% endif %}
 													</td>
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
 												</tr>
@@ -515,7 +650,7 @@
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">* <span></span><span>Pagos mensuales</span></td>
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
-													<td></td>
+													<td style="padding-left: -25px;"><span>{{solicitud.dia_pago}}</span></td>
 												</tr>
 											</table>
 										</p>
@@ -553,11 +688,12 @@
 							<table>
 								<tr style="padding-bottom: -6px;">
 									<td style="text-decoration: underline; font-weight: bold; padding-right: -40px;">Datos del corredor: </td>
-									<td colspan="2">Nombre o Razón Social: </td>
+									<td colspan="2">Nombre o Razón Social: <span>{{cotizacion.corredor.first_name}} {{cotizacion.corredor.last_name}}</span></td>
 									<td>Licencia: </td>
 								</tr>
 								<tr style="padding-bottom: -6px;">
 									<td>Nombre de quien firma: </td>
+									<td><span>{{solicitud.firmador}}</span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="padding-right: -10px;">Firma del corredor o colaborador autorizado: </td>
@@ -580,21 +716,51 @@
 										<p style="padding-bottom: -6px;">
 										<span style="text-decoration: underline; font-weight: bold;">Información para uso interno: </span><span>Tipo de producción</span>
 										</p>
-										<p style="padding-bottom: -6px;">
-											<span>Prod. Propia</span><span></span>
-											<span>Coaseguro Líder</span><span></span>
-											<span>Coaseguro No Líder</span><span></span>
-											<span>Reaseguro Cedido</span><span></span>
-										</p>
+										{% if solicitud.tipo_produccion == 'Propia' %}
+											<p style="padding-bottom: -6px;">
+												<span>Prod. Propia</span><span>_X_</span>
+												<span>Coaseguro Líder</span><span>__</span>
+												<span>Coaseguro No Líder</span><span>__</span>
+												<span>Reaseguro Cedido</span><span>__</span>
+											</p>
+										{% elif solicitud.tipo_produccion == 'Coaseguro Lider' %}
+											<p style="padding-bottom: -6px;">
+												<span>Prod. Propia</span><span>__</span>
+												<span>Coaseguro Líder</span><span>_X_</span>
+												<span>Coaseguro No Líder</span><span>__</span>
+												<span>Reaseguro Cedido</span><span>__</span>
+											</p>
+										{% elif solicitud.tipo_produccion == 'Coaseguro No Lider' %}
+											<p style="padding-bottom: -6px;">
+												<span>Prod. Propia</span><span>__</span>
+												<span>Coaseguro Líder</span><span>__</span>
+												<span>Coaseguro No Líder</span><span>_X_</span>
+												<span>Reaseguro Cedido</span><span>__</span>
+											</p>
+										{% else %}
+											<p style="padding-bottom: -6px;">
+												<span>Prod. Propia</span><span>__</span>
+												<span>Coaseguro Líder</span><span>__</span>
+												<span>Coaseguro No Líder</span><span>__</span>
+												<span>Reaseguro Cedido</span><span>_X_</span>
+											</p>
+										{% endif %}
 									</td>
 									<td colspan="5" style="padding-right: -40px; padding-left: -25px;">
 										<p style="padding-bottom: -6px;">
 										<span>Tipo de suscripción: </span><span></span>
 										</p>
-										<p style="padding-bottom: -6px;">
-											<span>Individual</span><span></span>
-											<span>Colectiva</span><span></span>
-										</p>
+										{% if solicitud.tipo_suscripcion == 'Individual' %}
+											<p style="padding-bottom: -6px;">
+												<span>Individual</span><span>_X_</span>
+												<span>Colectiva</span><span>__</span>
+											</p>
+										{% else %}
+											<p style="padding-bottom: -6px;">
+												<span>Individual</span><span>__</span>
+												<span>Colectiva</span><span>_X_</span>
+											</p>
+										{% endif %}
 									</td>
 								</tr>
 								<tr style="border: 2px solid #999;">
@@ -602,48 +768,69 @@
 										<p style="padding-bottom: -15px;">
 										<span>Forma de facturación: </span><span></span>
 										</p>
-										<p style="padding-bottom: -6px;">
-											<span>Por póliza: </span><span></span>
-											<span>Por certificado: </span><span></span>
-										</p>
+										{% if solicitud.forma_facturacion == 'Por Poliza' %}
+											<p style="padding-bottom: -6px;">
+												<span>Por póliza: </span><span>_X_</span>
+												<span>Por certificado: </span>__<span></span>
+											</p>
+										{% else %}
+											<p style="padding-bottom: -6px;">
+												<span>Por póliza: </span><span>__</span>
+												<span>Por certificado: </span>_X_<span></span>
+											</p>
+										{% endif %}
 									</td>
 									<td colspan="3" style="padding-right: -40px; padding-left: -25px;">
 										<p style="padding-bottom: -15px;">
 										<span>Renovación automática: </span><span></span>
 										</p>
-										<p style="padding-bottom: -6px;">
-											<span>Sí</span><span></span>
-											<span>No</span><span></span>
-										</p>
+										{% if solicitud.renovacion %}
+											<p style="padding-bottom: -6px;">
+												<span>Sí</span><span>_X_</span>
+												<span>No</span><span>__</span>
+											</p>
+										{% else %}
+											<p style="padding-bottom: -6px;">
+												<span>Sí</span><span>__</span>
+												<span>No</span><span>_X_</span>
+											</p>
+										{% endif %}
 									</td>
 									<td colspan="5" style="padding-right: -40px; padding-left: -25px;">
 										<p style="padding-bottom: -15px;">
 										<span>Comisión estándar: </span><span></span>
 										</p>
-										<p style="padding-bottom: -6px;">
-											<span>Sí</span><span></span>
-											<span>No</span><span></span>
-											<span>Definir</span><span></span>
-										</p>
+										{% if solicitud.comision %}
+											<p style="padding-bottom: -6px;">
+												<span>Sí</span><span>_X_</span>
+												<span>No</span><span>__</span>
+												<span>Definir</span><span>N/A</span>
+											</p>
+										{% else %}
+											<p style="padding-bottom: -6px;">
+												<span>Sí</span><span>__</span>
+												<span>No</span><span>_X_</span>
+												<span>Definir: </span><span>{{solicitud.def_comision}}</span>
+											</p>
+										{% endif %}
 									</td>
 								</tr>
 								<tr style="border: 2px solid #999; padding-bottom: -1px;">
-									<td colspan="12" style="padding-right: -40px; padding-left: -25px;"><span>Grupo económico: </span><span></span></td>
+									<td colspan="12" style="padding-right: -40px; padding-left: -25px;"><span>Grupo económico: </span><span>{{solicitud.grupo_economico}}</span></td>
 								</tr>
 								<tr style="border: 2px solid #999; padding-bottom: -6px;">
 									<td colspan="12" style="padding-right: -40px; padding-left: -25px;">
 										<p><span>Aprobaciones especiales: </span></p>
-										<p>&nbsp;</p>
-										<p>&nbsp;</p>
+										<p>{{solicitud.aprobaciones}}</p>
 										<p>&nbsp;</p>
 									</td>
 								</tr>
 								<tr style="border: 2px solid #999; padding-bottom: -1px;">
 									<td colspan="12" style="padding-right: -40px; padding-left: -25px;">
-										<span>Punto de Entrega.</span>
-										<span>Ejecutivo que lo solicita.</span>
-										<span>Adelantar por correo al ejecutivo?</span><span>Sí</span><span></span><span>No</span><span></span>
-										<span>Con Logo</span><span></span><span>Sin logo</span><span></span>
+										<span>Punto de Entrega.&nbsp;</span>
+										<span>Ejecutivo que lo solicita.&nbsp;</span>
+										<span>Adelantar por correo al ejecutivo?</span><span>&nbsp;Sí</span><span></span><span>&nbsp;No</span><span></span>
+										<span>&nbsp;Con Logo</span><span></span><span>&nbsp;Sin logo</span><span></span>
 									</td>
 								</tr>
 								<tr style="padding-bottom: -1px;">
@@ -721,17 +908,51 @@
 								</tr>
 								<tr style="border: 2px solid #999; padding-bottom: -1px;">
 									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px; padding-bottom: -1px;">
-										<span style="font-weight: bold;">Nombre y apellido del funcionario que revisa: </span><span></span>
+										<span style="font-weight: bold;">Nombre y apellido del funcionario que revisa: </span><span>{{solicitud.funcionario}}</span>
 									</td>
 									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
 										<p style="padding-bottom: -15px;"><span>Área de negocio: </span><span></span></p>
-										<p>
-											<span>Comercial</span><span></span>
-											<span>At. al Cliente</span><span></span>
-											<span>Fianzas</span><span></span>
-											<span>Seguros</span><span></span>
-											<span>Otros</span><span></span>
-										</p>
+										{% if solicitud.area_funcionario == 'Comercial' %}
+											<p>
+												<span>Comercial</span><span>_X_</span>
+												<span>At. al Cliente</span><span>__</span>
+												<span>Fianzas</span><span>__</span>
+												<span>Seguros</span><span>__</span>
+												<span>Otros: </span><span>N/A</span>
+											</p>
+										{% elif solicitud.area_funcionario == 'At. al Cliente' %}
+											<p>
+												<span>Comercial</span><span>__</span>
+												<span>At. al Cliente</span><span>_X_</span>
+												<span>Fianzas</span><span>__</span>
+												<span>Seguros</span><span>__</span>
+												<span>Otros: </span><span>N/A</span>
+											</p>
+										{% elif solicitud.area_funcionario == 'Fianzas' %}
+											<p>
+												<span>Comercial</span><span>__</span>
+												<span>At. al Cliente</span><span>__</span>
+												<span>Fianzas</span><span>_X_</span>
+												<span>Seguros</span><span>__</span>
+												<span>Otros: </span><span>N/A</span>
+											</p>
+										{% elif solicitud.area_funcionario == 'Seguros' %}
+											<p>
+												<span>Comercial</span><span>__</span>
+												<span>At. al Cliente</span><span>__</span>
+												<span>Fianzas</span><span>__</span>
+												<span>Seguros</span><span>_X_</span>
+												<span>Otros: </span><span>N/A</span>
+											</p>
+										{% else %}
+											<p>
+												<span>Comercial</span><span>__</span>
+												<span>At. al Cliente</span><span>__</span>
+												<span>Fianzas</span><span>__</span>
+												<span>Seguros</span><span>__</span>
+												<span>Otros: </span><span>{{solicitud.otra_area}}</span>
+											</p>
+										{% endif %}
 									</td>
 								</tr>
 								<tr style="border: 2px solid #999; padding-bottom: -1px;">
@@ -739,7 +960,7 @@
 										<span>Firma: </span><span></span>
 									</td>
 									<td colspan="3" style="padding-right: -40px; padding-left: -25px; width: 100px;">
-										<span>Cargo: </span><span></span>
+										<span>Cargo: </span><span>{{solicitud.cargo_funcionario}}</span>
 									</td>
 									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
 										<span>Fecha: </span><span></span><span>(dd/mm/aaaa)</span>
