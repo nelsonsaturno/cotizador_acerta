@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
@@ -11,10 +11,9 @@ from darientSessions.models import *
 from administrador.models import *
 from django.template import Context
 from django.template.loader import get_template
-from django.core.mail import EmailMessage
-from django.views.defaults import page_not_found
 from django.contrib.humanize.templatetags.humanize import *
-import json
+from xhtml2pdf import pisa
+from easy_pdf.views import PDFTemplateView
 
 
 class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
@@ -22,7 +21,31 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
     form_class = SolicitudClienteForm
     model = SolicitudPoliza
 
+    def form_valid(self, form):
+
+        ########################################################
+        # Metodo a ejecutarse luego de que el formulario es
+        # completado y valido. Renderiza el PDF.
+        ########################################################
+
+        context = Context({'pagesize': 'letter'})
+        template = get_template('polizas/prueba_pdf.html')
+        html = template.render(context)
+
+        file = open("polizas/" + 'prueba.pdf', "w+b")
+        pisa.CreatePDF(
+            html.encode('utf-8'),
+            dest=file,
+            encoding='utf-8'
+        )
+
+        file.seek(0)
+        pdf = file.read()
+        file.close()
+        return HttpResponse(pdf, 'application/pdf')
+
     def get(self, request, *args, **kwargs):
+
         self.object = None
         context = self.get_context_data(**kwargs)
         cot = Cotizacion.objects.get(pk=kwargs['pk'])
@@ -127,7 +150,15 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             solicitud.save()
             return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
         else:
-            return render(request, self.template_name, {'form': form,'cotizacion': cotizacion, 'corredor_pol': corredor})
+            return render(
+                request,
+                self.template_name,
+                {
+                    'form': form,
+                    'cotizacion': cotizacion,
+                    'corredor_pol': corredor
+                }
+            )
 
 
 class DetallePoliza(LoginRequiredMixin, generic.TemplateView):
@@ -156,3 +187,39 @@ class PagoTarjeta(generic.FormView):
     form_class = PagoForm
     template_name = "polizas/pago.html"
     success_url = reverse_lazy('confirmacion_pago')
+
+
+########################################################
+# Vistas de prueba
+########################################################
+
+class Test(generic.TemplateView):
+    template_name = "polizas/generacion_PDF.html"
+
+
+class GeneracionPDF(LoginRequiredMixin, generic.CreateView):
+    model = SolicitudPoliza
+    template_name = 'polizas/prueba_pdf.html'
+
+    def get(self, request, *args, **kwargs):
+
+        context = Context({'pagesize': 'letter'})
+        template = get_template('polizas/prueba_pdf.html')
+        html = template.render(context)
+
+        file = open("polizas/" + 'prueba.pdf', "w+b")
+        pisa.CreatePDF(
+            html.encode('utf-8'),
+            dest=file,
+            encoding='utf-8'
+        )
+
+        file.seek(0)
+        pdf = file.read()
+        file.close()
+
+        return HttpResponse(pdf, 'application/pdf')
+
+
+class HelloPDFView(PDFTemplateView):
+    template_name = "polizas/pdf_personaNatural.html"

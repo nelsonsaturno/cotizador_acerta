@@ -1,0 +1,705 @@
+{% load static %}
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+  <style type="text/css">
+	  @page {
+		    size: Legal portrait;
+		    margin: 0.25in
+		}
+	  .page{
+		margin: 27mm 16mm 27mm 16mm;
+	}
+  </style>
+</head>
+
+<body>
+	<div class="row page">
+		<img src="{% static 'img/AcertaSeguros.png' %}">
+			<table>
+				<tr>
+					<td style="font-weight: bold; padding-left: -30px;">
+						<p>
+							SOLICITUD DE PÓLIZA NUEVA DE AUTO
+						</p>
+						<p>
+							FORMULARIO ÚNICO DATOS DEL CLIENTE
+						</p>
+						<p>
+							PERSONA NATURAL
+						</p>
+					</td>
+					<td style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
+						<p style="text-decoration: underline; font-weight: bold; padding-bottom: -10px;">Para uso de la compañía:</p>
+						<p style="padding-bottom: -10px;"><span>No. póliza: </span><span></span><span>Riesgo: </span><span></span></p>
+						<p>Código del cliente: </p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
+					<td colspan="2">
+						<p style="text-decoration: underline; font-weight: bold; padding-bottom: -6px;">
+							Datos generales del cliente contratante de la póliza:
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Primer Nombre: </span><span></span>
+							<span>Segundo Nombre: </span><span></span>
+							<span>Apellido Paterno: </span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Apellido Materno: </span><span></span>
+							<span>Apellido de Casada: </span><span></span>
+							<span>Cédula/Pasaporte: </span><span></span>
+							<span>D.V. </span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Fecha de nacimiento: </span><span></span><span>(dd/mm/aaaa)</span>
+							<span>País de Nacimiento: </span><span></span>
+							<span>Género: </span><span></span>
+						</p>
+						<p>
+							<span>Estado civil: </span><span></span>
+							<span>Nacionalidad(es)</span><span></span>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
+					<td colspan="2">
+						<p style="text-decoration: underline; font-weight: bold; padding-bottom: -6px;">
+							Dirección residencial:
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>País de residencia: </span><span></span>
+							<span>provincia: </span><span></span>
+							<span>Distrito: </span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Corregimiento: </span><span></span>
+							<span>Urbanización: </span><span></span>
+							<span>Calle o Ave: </span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Edificio: </span><span></span>
+							<span>Piso: </span><span></span>
+							<span>Apto: </span><span></span>
+							<span>No. Casa: </span><span></span>
+							<span>Apartado postal : </span><span></span>
+							<span>Estafeta : </span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Teléfono residencial: </span><span></span>
+							<span>Teléfono celular: </span><span></span>
+							<span>Correo electrónico personal: </span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+						<span style="text-decoration: underline; font-weight: bold;">
+							Datos Ocupacionales:
+						</span>
+						<span>Profesión: </span><span></span>
+						<span>Ocupación actual: </span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Lugar de trabajo: </span><span></span>
+							<span>Actividad de la empresa: </span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Dirección de la empresa: </span><span></span>
+						</p>
+						<p>
+							<span>Teléfono Oficina: </span><span></span>
+							<span>Fax: </span><span></span>
+							<span>Correo electrónico de la oficina: </span><span></span>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr style="border: 2px solid #999; text-align: left; padding-top: 5px; padding-left: -20px; padding-right: -30px;">
+					<td colspan="2">
+						<p style="padding-bottom: -6px;"><span>Indique si es o ha sido objeto de investigación, indagación o condena por actividades ilícitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo</span><span></span><span>&nbsp;No</span><span></span><span>&nbsp;Sí</span></p>
+
+						<p style="padding-bottom: -6px;"><span>Es o ha sido una persona (1) Persona Políticamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta? </span><span></span><span>No</span><span></span><span>Sí</span><span style="font-size: 9px;">(Definiciones en la parte inferior)</span></p>
+
+						<p style="padding-bottom: -6px;">
+							<span>Cargo actual o anterior: </span><span></span>
+							<span>Período: </span><span></span>
+						</p>
+						<p>
+							<span>Caso 2 y 3: Nombre: </span><span></span>
+							<span>Relación: </span><span></span>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr style="border: 2px solid #999; text-align: left; padding-top: 5px; padding-left: -20px; padding-right: -30px">
+					<td colspan="2">
+						<p><span>Si su respuesta anterior fue Si y/o la prima sel segura es igual, anual o mayor a B/. 10,000.00 complete la siguiente información, en caso que no diríjase a la seccion de Datos Generales: </span><span style="font-size: 9px;"> Acerta Seguros, con base en la Matriz de riesgo, podrá solicitar en algunos otros casos que esta sección sea completada (Ley 23 del 27/04/2015).</span></p>
+
+						<p><span>Actividad fuente principal de sus ingresos (Especifique): </span><span></span></p>
+						<p>
+							<table>
+								<tr>
+								<td style="width: 45px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Ingreso Anual:
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Menos de 10mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									10mil y 30mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									30mil y 50mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Más de 50mil USD$
+								</td>
+								<td style="width: 45px;">
+								</tr>
+							</table>
+						</p>
+
+						<p><span>Actividad de otras fuentes de ingreso: </span><span></span></p>
+						<p>
+							<table>
+								<tr>
+								<td style="width: 45px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Ingreso Anual:
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Menos de 10mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									10mil y 30mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									30mil y 50mil USD$
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Más de 50mil USD$
+								</td>
+								<td style="width: 45px;">
+								</tr>
+							</table>
+						</p>
+
+						<p><span>Referencias (1. Personal, 2. Bancaria, 3. Comercial)</span><span></span></p>
+						<p>
+							<table>
+								<tr>
+								<td style="width: 45px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Nombre o razón Social
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Actividad
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Relación con el cliente
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									Teléfono de contacto
+								</td>
+								<td style="width: 45px;">
+								</tr>
+								<tr>
+								<td style="width: 45px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									1.
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+
+								</td>
+								<td style="width: 45px;">
+								</tr>
+								<tr>
+								<td style="width: 45px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									2.
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+
+								</td>
+								<td style="width: 45px;">
+								</tr>
+								<tr>
+								<td style="width: 45px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+									3.
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+
+								</td>
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+
+								</td>
+								<td style="width: 45px;">
+								</tr>
+								<tr>
+								<td style="width: 45px;">
+								<td>
+								</td>
+								<td >
+								</td>
+								<td>
+								</td>
+								<td>
+								</td>
+								<td style="width: 45px;">
+								</tr>
+							</table>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr style="border: 2px solid #999; text-align: left; padding-top: 5px; padding-left: -20px;">
+					<td colspan="2" style="padding-right: -23px; padding-left: -25px;">
+						<p style="text-align: justify; font-size: 9px;">(1) Las personas políticamente expuestas son aquellos, nacionales o extranjeros, que desempeñan o han desempeñado funciones públicas destacadas en un país extranjero o en su propio país, por ejemplo: Jefes de Estado o de un gobierno, políticos de alta jerarquía, funcionarios gubernamentales, judiciales o militares de alta jeraruía, altos ejecutivos de empresas estatales, funcionarios importantes de partidos políticos. (2) Únicamente el cónyugue, los padres, los hermanos y los hijos de una persona políticamente expuesta. (3) Persona conocida por su íntima relación con respecto a la persona expuesta políticamente, esto incluye a quienes están en posición de realizar transacciones financieras, comerciales o de cualquier naturaleza, ya sean locales o internacionales, en nombre de la persona expuesta políticamente.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
+					<td colspan="2">
+						<p style="padding-bottom: -6px;">
+							<span style="text-decoration: underline; font-weight: bold;">Datos generales: </span>
+							<span>Si el asegurado es distinto al cliente contratante deberá completar un Formulario Único de Datos del Cliente.</span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span style="font-weight: bold; text-decoration: underline">Asegurado:</span>
+							<span></span>
+							<span>Cédula/Pasaporte/RUC:</span>
+							<span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span style="font-weight: bold; text-decoration: underline">Conductor Adicional:</span>
+							<span></span>
+							<span>Cédula/Pasaporte:</span>
+							<span></span>
+						</p>
+						<p style="font-size: 9px;">
+							Si la póliza tiene más unidades y/o más personas que puedan operar el o los vehículos, favor indicarlo en documento adjunto con el detalle del vehículo, nombre completo y cédula o pasaporte de la persona conductor del vehículo.
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
+					<td colspan="2">
+						<p style="padding-bottom: -6px;">
+							<span style="text-decoration: underline; font-weight: bold;">Datos de la póliza y bien a asegurar: </span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Vigencia: </span>
+							<span>Desde: </span><span>(dd/mm/aaa)</span><span></span>
+							<span>Hasta: </span><span>(dd/mm/aaa)</span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Acreedor Hipotecario: </span><span></span>
+							<span>o Leasing: </span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Valor actual de la unidad: </span><span></span>
+							<span>Placa No.: </span><span></span><span style="font-size:7px;">(Obligatorio en auto usado)</span>
+							<span>Año: </span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span>Marca: </span><span></span>
+							<span>Modelo: </span><span></span>
+							<span>Uso: </span><span></span>
+						</p>
+						<p>
+							<span>Motor: </span><span></span>
+							<span>Chasis: </span><span></span>
+							<span>Tipo: </span><span></span>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="font-weight: bold; padding-left: -30px;">
+						<p>
+							SOLICITUD DE PÓLIZA NUEVA DE AUTO
+						</p>
+						<p>
+							FORMULARIO ÚNICO DATOS DEL CLIENTE
+						</p>
+						<p>
+							PERSONA NATURAL
+						</p>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
+					<td colspan="2">
+						<p style="padding-bottom: -6px;">
+							<span>Prima anual: </span><span></span>
+							<span>Plan: </span><span></span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							<span style="text-decoration: underline; font-weight: bold; font-size: 11px;">Observaciones: </span>
+							<span></span>
+						</p>
+						<p>&nbsp;</p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="2" style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -15px; padding-right: -50px;">
+						<p>
+							<table>
+								<tr style="padding-bottom: -5px;">
+									<td><span style="text-decoration: underline; font-weight: bold;">Datos de Cobranza: </span><span style="text-decoration: underline">Responsable de pago: </span></td>
+								</tr>
+								<tr style="padding-bottom: -5px;">
+									<td><span></span><span>Igual al contratante de la póliza</span></td>
+									<td><span></span><span>Igual al asegurado de la póliza</span></td>
+								</tr>
+								<tr style="padding-bottom: -5px;">
+									<td><span></span><span>El responsable de pago es distinto, favor completar:</span></td>
+								</tr>
+								<tr style="padding-bottom: -5px;">
+									<td>
+										<span>Cédula/Pasaporte o RUC: </span>
+										<span></span>
+									</td>
+									<td>
+										<span>Nombre Completo: </span>
+										<span></span>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3" style="font-size: 7px;">Si el responsable de pago es distinto al cliente contratante o al asegurado deberá completar un Formulario Único de Datos del Cliente</td>
+								</tr>
+								<tr>
+									<td style="text-decoration: underline;">Forma de pago: </td>
+								</tr>
+								<tr>
+									<td colspan="4" style="padding-left: 30px;">
+										<p>
+											<table>
+												<tr>
+													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">
+														<p style="padding-bottom: -10px;">a) Descuento por tarjeta de crédito</p>
+														<p style="padding-bottom: -10px;">
+														<span>Visa</span><span></span>
+														<span>Master Card</span><span></span>
+														<span>Dinners</span><span></span>
+														<span>American Express</span><span></span>
+														</p>
+														<p style="padding-bottom: -10px;">
+														<span>Nro. Tarjeta: </span><span></span>-<span></span>-<span></span>-<span></span>
+														</p>
+														<p>
+														<span>Banco: </span><span></span>
+														<span>Fecha de expiración: </span><span></span><span>(mm/aaaa)</span>
+														</p>
+													</td>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
+												</tr>
+												<tr>
+													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;"><p>b) Débito a cuenta de ahorros o cuenta corriente (hasta 10 pagos mensuales) (adjuntar formulario)</p></td>
+													<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
+												</tr>
+												<tr>
+													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;"><p>c) Remesa (solo corredor autorizado)</p></td>
+													<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
+												</tr>
+												<tr>
+													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;"><p>d) Directo en caja (hasta 6 pagos mensuales)</p></td>
+													<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
+												</tr>
+												<tr>
+													<td colspan="3" style="text-decoration: underline;">Cantidad de pago: </td>
+													<td colspan="2">Día de pago: </td>
+												</tr>
+												<tr>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">* Un pago anual</td>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">* <span></span><span>Pagos mensuales</span></td>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
+													<td></td>
+												</tr>
+											</table>
+										</p>
+									</td>
+								</tr>
+							</table>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr style="border: 2px solid #999; text-align: left; padding-top: 5px; padding-left: -20px;">
+					<td colspan="2" style="padding-right: -23px; padding-left: -25px;">
+						<p style="text-align: justify; font-size: 9px; padding-bottom: -6px;">
+							<span style="font-weight: bold;">FIRMA Y DECLARACION: </span><span>&nbsp;</span><span style="font-weight: bold;">Documentos de Identidad Personal (Copia Legible): </span><span>&nbsp;</span><span>Para Nacionales: Favor incluya copia de su cédula de identidad personal. Para extranjeros: Favor incluya copia de su pasaporte o documento equivalente que acredite su estancia legal en el país.</span>
+						</p>
+						<p style="padding-bottom: -6px;">
+							Declaro que todas mis actividades las ejerzo dentro de las normas legales y que los recursos utilizados para el pago de los seguros a adquirir, provienen de los ingresos antes declarados.
+						</p>
+						<p style="padding-bottom: -6px;">
+							Declaro que la información contenida en este formulario es verdadera, completa y proporciona la información de modo confiable y actualizada sobre todos los aspectos sobre los cuales se han hecho preguntas. En todos los casos la Compañía se reserva el derecho de aceptar, recargar o declinar esta y cualquier otra solicitud de seguro.
+						</p>
+						<p>
+							<span></span>Firma del cliente: ___________________________________<span>el </span><span>__________________________</span><span>de </span><span>___________________________________</span>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
+					<td colspan="2" style="padding-left: -15px;">
+						<p>
+							<table>
+								<tr style="padding-bottom: -6px;">
+									<td style="text-decoration: underline; font-weight: bold; padding-right: -40px;">Datos del corredor: </td>
+									<td colspan="2">Nombre o Razón Social: </td>
+									<td>Licencia: </td>
+								</tr>
+								<tr style="padding-bottom: -6px;">
+									<td>Nombre de quien firma: </td>
+								</tr>
+								<tr>
+									<td colspan="2" style="padding-right: -10px;">Firma del corredor o colaborador autorizado: </td>
+									<td></td>
+									<td><span>Fecha: </span><span></span><span>(dd/mm/aaaa)</span></td>
+								</tr>
+							</table>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px;">
+					<td colspan="2" style="padding-left: 15px; padding-right: 10px; padding-bottom: 10px;">
+						<p>
+							<table>
+								<tr style="border: 2px solid #999;">
+									<td colspan="7" style="padding-right: -40px; padding-left: -25px;">
+										<p style="padding-bottom: -6px;">
+										<span style="text-decoration: underline; font-weight: bold;">Información para uso interno: </span><span>Tipo de producción</span>
+										</p>
+										<p style="padding-bottom: -6px;">
+											<span>Prod. Propia</span><span></span>
+											<span>Coaseguro Líder</span><span></span>
+											<span>Coaseguro No Líder</span><span></span>
+											<span>Reaseguro Cedido</span><span></span>
+										</p>
+									</td>
+									<td colspan="5" style="padding-right: -40px; padding-left: -25px;">
+										<p style="padding-bottom: -6px;">
+										<span>Tipo de suscripción: </span><span></span>
+										</p>
+										<p style="padding-bottom: -6px;">
+											<span>Individual</span><span></span>
+											<span>Colectiva</span><span></span>
+										</p>
+									</td>
+								</tr>
+								<tr style="border: 2px solid #999;">
+									<td colspan="4" style="padding-right: -40px; padding-left: -25px;">
+										<p style="padding-bottom: -15px;">
+										<span>Forma de facturación: </span><span></span>
+										</p>
+										<p style="padding-bottom: -6px;">
+											<span>Por póliza: </span><span></span>
+											<span>Por certificado: </span><span></span>
+										</p>
+									</td>
+									<td colspan="3" style="padding-right: -40px; padding-left: -25px;">
+										<p style="padding-bottom: -15px;">
+										<span>Renovación automática: </span><span></span>
+										</p>
+										<p style="padding-bottom: -6px;">
+											<span>Sí</span><span></span>
+											<span>No</span><span></span>
+										</p>
+									</td>
+									<td colspan="5" style="padding-right: -40px; padding-left: -25px;">
+										<p style="padding-bottom: -15px;">
+										<span>Comisión estándar: </span><span></span>
+										</p>
+										<p style="padding-bottom: -6px;">
+											<span>Sí</span><span></span>
+											<span>No</span><span></span>
+											<span>Definir</span><span></span>
+										</p>
+									</td>
+								</tr>
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="12" style="padding-right: -40px; padding-left: -25px;"><span>Grupo económico: </span><span></span></td>
+								</tr>
+								<tr style="border: 2px solid #999; padding-bottom: -6px;">
+									<td colspan="12" style="padding-right: -40px; padding-left: -25px;">
+										<p><span>Aprobaciones especiales: </span></p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="12" style="padding-right: -40px; padding-left: -25px;">
+										<span>Punto de Entrega.</span>
+										<span>Ejecutivo que lo solicita.</span>
+										<span>Adelantar por correo al ejecutivo?</span><span>Sí</span><span></span><span>No</span><span></span>
+										<span>Con Logo</span><span></span><span>Sin logo</span><span></span>
+									</td>
+								</tr>
+								<tr style="padding-bottom: -1px;">
+									<td colspan="8" style="text-decoration: underline; font-weight: bold; padding-right: -40px; padding-left: -25px;">Requisitos obligatorios: </td>
+								</tr>
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px; width: 100px;">
+										<span style="font-size: 9px;">1. Solicitud de póliza </span><span style="font-size: 7px;">completa, legible y <br>debidamente firmada</span>
+									</td>
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
+									</td>
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px; width: 50%;">
+										<span style="font-size: 9px;">5. Registro de Propiedad Vehicular (auto <br> usado) o Proforma (auto nuevo)</span>
+									</td>
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
+									</td>
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
+										<span style="font-size: 9px;">9. Formulario de pago TCR o ACH <br>(si aplica por forma de pago)</span>
+									</td>
+									<td>
+									</td>
+								</tr>
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
+										<span style="font-size: 9px;">2. Otros formularios CTC </span><span style="font-size: 7px;">que sean requeridos completos, legibles y debidamente firmados</span>
+									</td>
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
+									</td>
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px; width: 50%;">
+										<span style="font-size: 9px;">6. Informe de inspección (auto usado)</span>
+									</td>
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
+									</td>
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
+										<span style="font-size: 9px;">10. Confirmación de pago de la primera letra</span>
+									</td>
+									<td style="width: 5%;">
+									</td>
+								</tr>
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
+										<span style="font-size: 9px;">3. Cotización</span>
+									</td>
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
+									</td>
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px; width: 50%;">
+										<span style="font-size: 9px;">7. Consulta de tránsito</span>
+									</td>
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
+									</td>
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
+										<span style="font-size: 9px;">11. Correos u otros del cliente, coaseguradoras <br> o reaseguradores (opcional)</span>
+									</td>
+									<td style="width: 5%;">
+									</td>
+								</tr>
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
+										<span style="font-size: 9px;">4. Copia de cédula</span>
+									</td>
+									<td style="padding-right: -40px; padding-left: -25px; width: 100px;width: 5%;">
+									</td>
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px; width: 50%;">
+										<span style="font-size: 9px;">8. Consulta de claimssearch</span>
+									</td>
+									<td style="padding-right: -40px; padding-left: -25px; width: 100px;width: 5%;">
+									</td>
+									<td colspan="3" style="padding-right: -35px; padding-left: -25px;">
+									</td>
+									<td style="width: 5%;">
+									</td>
+								</tr>
+								<tr style="padding-bottom: -10px; width: 5%;">
+									<td></td>
+								</tr>
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px; padding-bottom: -1px;">
+										<span style="font-weight: bold;">Nombre y apellido del funcionario que revisa: </span><span></span>
+									</td>
+									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
+										<p style="padding-bottom: -15px;"><span>Área de negocio: </span><span></span></p>
+										<p>
+											<span>Comercial</span><span></span>
+											<span>At. al Cliente</span><span></span>
+											<span>Fianzas</span><span></span>
+											<span>Seguros</span><span></span>
+											<span>Otros</span><span></span>
+										</p>
+									</td>
+								</tr>
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="3" style="padding-right: -40px; padding-left: -25px; width: 100px;">
+										<span>Firma: </span><span></span>
+									</td>
+									<td colspan="3" style="padding-right: -40px; padding-left: -25px; width: 100px;">
+										<span>Cargo: </span><span></span>
+									</td>
+									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
+										<span>Fecha: </span><span></span><span>(dd/mm/aaaa)</span>
+									</td>
+								</tr>
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
+										<span>Firma supervisor que autoriza: </span><span></span>
+									</td>
+									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
+										<span>Fecha: </span><span></span><span>(dd/mm/aaaa)</span>
+									</td>
+								</tr>
+							</table>
+						</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+</body>
+</html>

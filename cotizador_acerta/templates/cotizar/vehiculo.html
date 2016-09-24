@@ -184,12 +184,7 @@
                     <div class="login-box-body">
                         <h3 id="subtitulo"><strong>Datos del Cliente</strong></h3>
                         <div class="col-md-6">
-                            <h3 id="subtitulo"><strong>Planes: </strong></h3>
-                            <select class="form-control" id="sel1">
-                                {% for plan in planes %}
-                                <option>{{plan}}</option>
-                                {% endfor %}
-                            </select>
+
                             <h3 id="subtitulo"><strong>Persona</strong></h3>
                             {% bootstrap_field form.nombre layout='horizontal' show_label=False field_class='form-field' %}
                             {% bootstrap_field form.apellido layout='horizontal' show_label=False field_class='form-field' %}
@@ -332,6 +327,7 @@
         $( '#id_endoso' ).parent().parent().css("margin-top", "-8%");
         {% if not update %}
             $( '#id_endoso' ).prepend('<option value="" selected=selected disabled>Endoso</option>');
+            $( '#id_historial_transito' ).prepend('<option value="" selected=selected disabled>Historial de Tránsito</option>');
             $('#id_endoso').after('<div class="input-group-btn button-endoso"><button class="endoso btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-question-sign" style="color: #E76C42;"></span></button></div>');
             $('.endoso').prop("disabled",true);
             $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" selected=selected disabled>Estado Civil</option>');
@@ -349,6 +345,7 @@
             $("#id_endoso option[value='11']").remove();
         {% else %}
             $( '#id_endoso' ).prepend('<option value="" disabled>Endoso</option>');
+            $( '#id_historial_transito' ).prepend('<option value="" disabled>Historial de Tránsito</option>');
             $( '#id_estado_civil' ).prepend('<option class="placeholder" value="" disabled>Estado Civil</option>');
             $( '#id_sexo' ).prepend('<option class="placeholder" value="" disabled>Sexo</option>');
             $( '#id_lesiones_corporales' ).prepend('<option class="placeholder" value="" disabled>Lesiones Corporales</option>');
@@ -356,6 +353,25 @@
             $( '#id_gastos_medicos' ).prepend('<option class="placeholder" value="" disabled>Gastos Médicos</option>');
             $( '#id_muerte_accidental' ).prepend('<option class="placeholder" value="" disabled>Muerte Accidental</option>');
             document.getElementById("id_valor_text").value = $("#id_valor").val() + ".00";
+            var anio = $("#id_anio").val();
+            var today = new Date();
+            var year1 = today.getFullYear() -1;
+            var year = today.getFullYear();
+            var year2 = today.getFullYear() +1;
+            if (anio == year || anio == year1 || anio == year2) {
+                $(".km-field").css('display','block');
+            }
+            else {
+                $(".km-field").css('display','none');
+                $(".km-field > div > label > .icheckbox_square-grey").attr("aria-checked", "false");
+                $(".km-field > div > label > .icheckbox_square-grey").removeClass("checked");
+                $('#id_cero_km').prop('checked', false);
+            }
+            {% if vehiculo.tipo_id == 'cedula' %}
+                $('#id_tipo_id_0').iCheck('check');
+            {% else %}
+                $('#id_tipo_id_1').iCheck('check');
+            {% endif %}
         {% endif %}
     });
 

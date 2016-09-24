@@ -444,7 +444,10 @@
                                                 {% if tipo_pago == 'Contado' %}
                                                   <h5 style="text-align: right;"><strong>Tipo de pago: Contado</strong></h5>
                                                 {% elif tipo_pago == 'Visa' %}
-                                                  <h5 style="text-align: right;"><strong>Tipo de pago: AHC/Visa</strong></h5>
+                                                  <h5 style="text-align: right;"><strong>Tipo de pago: TCR</strong></h5>
+                                                  <h5 style="text-align: right;">A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
+                                                {% elif tipo_pago == 'ACH' %}
+                                                  <h5 style="text-align: right;"><strong>Tipo de pago: AHC</strong></h5>
                                                   <h5 style="text-align: right;">A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
                                                 {% else %}
                                                     <h5 style="text-align: right;"><strong>Tipo de pago: Otros</strong></h5>

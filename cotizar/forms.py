@@ -41,6 +41,13 @@ class ConductorVehiculoForm(forms.ModelForm):
         widgets = {
             'marca': forms.Select(attrs={'class': 'select2'}),
             'modelo': forms.Select(attrs={'class': 'select2'}),
+            'historial_transito': forms.Select(
+                choices=[
+                    (0, "0"), (1, "1"), (2, "2"), (3, "3"),
+                    (4, "4"), (5, "5"), (6, "6"), (7, "7"),
+                    (8, "8")
+                ]
+            )
         }
 
     def clean_fecha_nacimiento(self):
@@ -76,6 +83,10 @@ class ConductorVehiculoForm(forms.ModelForm):
 
     def save(self, commit=True):
         conductor = super(ConductorVehiculoForm, self).save(commit=False)
+        if self.cleaned_data['tipo_id'] == 0:
+            conductor.tipo_id = 'cedula'
+        else:
+            conductor.tipo_id = 'pasaporte'
         if commit:
             conductor.save()
             return conductor
@@ -85,8 +96,29 @@ class ConductorVehiculoForm(forms.ModelForm):
 
 class CotizacionUpdateForm(forms.Form):
 
-    cuotas = forms.IntegerField(min_value=1, max_value=10, label="Cuotas", required=False, initial=1)
-    cuotas2 = forms.IntegerField(min_value=1, max_value=6, label="Cuotas", required=False, initial=1)
-    tipo_pago = forms.ChoiceField(choices=[(0, 'Pago de Contado'), (1, 'Pago Prima ACH/Visa'), (2, 'Otro')],
-                                widget=forms.RadioSelect(), label="", required=True)
+    cuotas = forms.IntegerField(
+        min_value=1, max_value=10,
+        label="Cuotas", required=False,
+        initial=1
+    )
+    cuotas2 = forms.IntegerField(
+        min_value=1, max_value=6,
+        label="Cuotas", required=False,
+        initial=1
+    )
+    cuotas3 = forms.IntegerField(
+        min_value=2, max_value=10,
+        label="Cuotas", required=False,
+        initial=2
+    )
+    tipo_pago = forms.ChoiceField(
+        choices=[
+            (0, 'Pago de Contado'),
+            (1, 'Pago Prima ACH'),
+            (2, 'Pago TCR'),
+            (3, 'Otro')
+        ],
+        widget=forms.RadioSelect(),
+        label="", required=True
+    )
     guardar = forms.CharField(widget=forms.HiddenInput(), required=False)

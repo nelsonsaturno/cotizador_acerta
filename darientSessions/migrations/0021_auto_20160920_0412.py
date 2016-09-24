@@ -8,13 +8,13 @@ import datetime
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('darientSessions', '0017_auto_20160918_1629'),
+        ('darientSessions', '0019_auto_20160919_0022'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='userprofile',
             name='key_expires',
-            field=models.DateTimeField(default=datetime.date(2016, 9, 19)),
+            field=models.DateTimeField(default=datetime.date(2016, 9, 20)),
         ),
     ]

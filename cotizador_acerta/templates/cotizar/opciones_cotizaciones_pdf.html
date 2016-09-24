@@ -1,0 +1,966 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+  <style type="text/css">
+    @page {
+        size: Legal portrait;
+        margin: 0.25in;
+    }
+    .page{
+    margin: 27mm 16mm 27mm 16mm;
+  }
+    #titulo {
+        font-family: Arial;
+        font-size: 16px;
+        color: #B5B6B8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="row page">
+    <img src="{% static 'img/AcertaSeguros.png' %}">
+    <h1 id="titulo" class="text-center"><strong>OPCIONES DE COTIZACIÓN DE PÓLIZA DE SEGUROS PARA AUTOMÓVIL</strong></h1>
+    <hr>
+          Estimado (a) Sr. (a). <strong>{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}</strong>. De acuerdo a su elección, le presentamos la propuesta de Acerta Seguros, para la póliza de AUTOMOVIL.
+      <table>
+        <tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
+          <td colspan="2">
+            <p style="text-decoration: underline; font-weight: bold; padding-bottom: -6px;">
+              Datos generales del cliente:
+            </p>
+            <p style="padding-bottom: -6px;">
+              <span><strong>Nombre: </strong></span><span> {{ cotizacion.conductor.nombre }} </span>
+              <span><strong>Apellido: </strong></span><span> {{ cotizacion.conductor.apellido }}</span>
+            </p>
+            <p style="padding-bottom: -6px;">
+              <span class="col-md-6"><strong>Cédula/Pasaporte: </strong></span><span>{{ cotizacion.conductor.identificacion }}</span></p>
+            <p>
+              <span class="col-md-6"><strong>Teléfono Celular: </strong></span><span>{{ cotizacion.conductor.telefono1 }}</span>
+            </p>
+            <p style="padding-bottom: -6px;">
+              <span><strong>Email: </strong></span><span>{{ cotizacion.conductor.correo }}</span>
+            </p>
+          </td>
+          <td colspan="2">
+            <p style="text-decoration: underline; font-weight: bold; padding-bottom: -6px;">
+              Datos del vehículo:
+            </p>
+            <p style="padding-bottom: -6px;">
+              <span class="col-md-4"><strong>Marca: </strong></span><span> {{ cotizacion.conductor.marca.nombre }} </span></p>
+            <p>
+              <span class="col-md-4"><strong>Modelo: </strong></span><span> {{ cotizacion.conductor.modelo.nombre }}</span></p>
+            <p>
+              <span class="col-md-4"><strong>Valor: </strong></span><span> {{ cotizacion.conductor.valor }}</span>
+            </p>
+            <p style="padding-bottom: -6px;">
+              <span><strong>Año: </strong></span><span>{{ cotizacion.conductor.anio }}</span>
+            </p>
+          </td>
+        </tr>
+      </table>
+      <!--<table>
+        <tr style="border: 1px solid #E76C42; padding-top: 5px; padding-left: -20px;">
+          <td>
+            <div class="panel panel-default col-md-4">
+                <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><h4><strong>COBERTURAS</strong></h4></div>
+                <div id="panel-body" class='panel-body'>
+                    <table style='width:100%'>
+                        <tr>
+                            <th id="subtitulo">Cobertura</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Otros daños</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Colisión y Vuelco</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Incendio y Rayo</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Robo y Hurto</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+          </td>
+          <td>
+            <div class="panel panel-default col-md-2">
+                <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><h4><strong>OPCIÓN 1 </strong></h4></div>
+                <div id="panel-body" class='panel-body'>
+                    <table style='width:100%'>
+                        <tr>
+                            <td id="subtitulo">Deducible</td>
+                            <td class='text-right' id="subtitulo">Prima</td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion1.otros_danios|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong>B/. {{ cotizacion1.prima_otrosDanios|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion1.colision_vuelco|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong>B/. {{ cotizacion1.prima_colisionVuelco|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion1.incendio_rayo|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong></strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion1.robo_hurto|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                    </table>
+                    <br>
+                </div>
+            </div>
+            </td>
+            <td>
+            <div class="panel panel-default col-md-2">
+                <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><h4><strong>OPCIÓN 2 </strong></h4></div>
+                <div id="panel-body" class='panel-body'>
+                    <table style='width:100%'>
+                        <tr>
+                            <td id="subtitulo">Deducible</td>
+                            <td class='text-right' id="subtitulo">Prima</td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion2.otros_danios|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong>B/. {{ cotizacion2.prima_otrosDanios|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion2.colision_vuelco|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong>B/. {{ cotizacion2.prima_colisionVuelco|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion2.incendio_rayo|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong></strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion2.robo_hurto|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                    </table>
+                    <br>
+                </div>
+            </div>
+            </td>
+            <td>
+            <div class="panel panel-default col-md-2">
+                <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><h4><strong>OPCIÓN 3 </strong></h4></div>
+                <div id="panel-body" class='panel-body'>
+                    <table style='width:100%'>
+                        <tr>
+                            <td id="subtitulo">Deducible</td>
+                            <td class='text-right' id="subtitulo">Prima</td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion3.otros_danios|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong>B/. {{ cotizacion3.prima_otrosDanios|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion3.colision_vuelco|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong>B/. {{ cotizacion3.prima_colisionVuelco|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion3.incendio_rayo|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong></strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion3.robo_hurto|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                    </table>
+                    <br>
+                </div>
+            </div>
+            </td>
+            <td>
+            <div class="panel panel-default col-md-2">
+                <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><h4><strong>OPCIÓN 4 </strong></h4></div>
+                <div id="panel-body" class='panel-body'>
+                    <table style='width:100%'>
+                        <tr>
+                            <td id="subtitulo">Deducible</td>
+                            <td class='text-right' id="subtitulo">Prima</td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion4.otros_danios|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong>B/. {{ cotizacion4.prima_otrosDanios|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion4.colision_vuelco|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong>B/. {{ cotizacion4.prima_colisionVuelco|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion4.incendio_rayo|floatformat:0|intcomma }}</strong></td>
+                            <td class='text-right'><strong></strong></td>
+                        </tr>
+                        <tr>
+                            <td class='text-right'><strong>B/. {{ cotizacion4.robo_hurto|floatformat:0|intcomma }}</strong></td>
+                        </tr>
+                    </table>
+                    <br>
+                </div>
+            </div>
+            </td>
+          </tr>
+          </table>
+          </div>
+      <table class="table" style="width:100%">
+        <tr>
+          <th>Descp. de Cobertura</th>
+          <th>Suma Asegurada<br>Por persona/Por accidente</th>
+          <th>Deducible</th>
+          <th>Prima</th>
+        </tr>
+        <tr>
+          <td>Lesiones Corporales</td>
+          <td>{{ cotizacion.lesiones_corporales }}</td>
+          <td></td>
+          <td>{{ cotizacion.prima_lesiones|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Daños a la Propiedad Ajena</td>
+          <td>{{ cotizacion.danios_propiedad }}</td>
+          <td></td>
+          <td>{{ cotizacion.prima_daniosProp|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Gastos Médicos por Accidente</td>
+          <td>{{ cotizacion.gastos_medicos }}</td>
+          <td></td>
+          <td>{{ cotizacion.prima_gastosMedicos|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Otros Daños</td>
+          <td>{{ cotizacion.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion.otros_danios|floatformat:0 }}</td>
+          <td>{{ cotizacion.prima_otrosDanios|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Colisión y Vuelco</td>
+          <td>{{ cotizacion.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion.colision_vuelco|floatformat:0 }}</td>
+          <td>{{ cotizacion.prima_colisionVuelco|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Incendio y Rayo</td>
+          <td>{{ cotizacion.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion.incendio_rayo|floatformat:0 }}</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Robo y Hurto</td>
+          <td>{{ cotizacion.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion.robo_hurto|floatformat:0 }}</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Muerte Accidental</td>
+          <td>{{ cotizacion.muerte_accidental }}</td>
+          <td></td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Asistencia Legal</td>
+          <td>Incluido</td>
+          <td></td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Importación de Piezas</td>
+          {% if cotizacion.importacion_piezas%}
+            <td>Incluido</td>
+            <td></td>
+            <td>{{ cotizacion.prima_importacion|floatformat:2 }}</td>
+          {% else %}
+            <td>No Incluido</td>
+            <td></td>
+            <td>-</td>
+          {% endif %}
+        </tr>
+        <tr>
+          <td>{{ cotizacion.endoso }}</td>
+          <td>Incluido</td>
+          <td></td>
+          <td>{{ cotizacion.prima_endoso|floatformat:2 }}</td>
+        </tr>
+      </table>
+      <div class="text-right">
+        {% if tipo_pago == 'Contado' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: Contado</strong></h5>
+        {% elif tipo_pago == 'Visa' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: TCR</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
+        {% elif tipo_pago == 'ACH' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: AHC</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
+        {% else %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: Otros</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
+        {% endif %}
+          <h5 style="text-align: right;">Subtotal: B/. {{ subtotal }}</h5>
+          <h5 style="text-align: right;">Impuestos: B/. {{ impuestos }}</h5>
+          {% if tipo_pago == 'Otro'%}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ total }}</strong></h5>
+          {% else %}
+          <h5 style="text-align: right;">Total: B/. {{ total }}</h5>
+          {% endif %}
+          {% if tipo_pago == 'Contado'%}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</strong></h5>
+          <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
+          <h5 style="text-align: right;"> Puedes pagar con tu ACH/Visa por: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }} en 10 cuotas.</h5>
+          {% elif tipo_pago == 'Visa' %}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }}</strong></h5>
+          <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
+          <h5 style="text-align: right;">Puedes pagar de Contado por: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</h5>
+          {% endif %}
+        </div>
+    </div>
+    <div class="row page" style="page-break-after: always;">
+    <strong>OTRA OPCION A</strong>
+    <img src="{% static 'img/AcertaSeguros.png' %}">
+      <table class="table" style="width:100%">
+        <tr>
+          <th>Descp. de Cobertura</th>
+          <th>Suma Asegurada<br>Por persona/Por accidente</th>
+          <th>Deducible</th>
+          <th>Prima</th>
+        </tr>
+        <tr>
+          <td>Lesiones Corporales</td>
+          <td>{{ cotizacion1.lesiones_corporales }}</td>
+          <td></td>
+          <td>{{ cotizacion1.prima_lesiones|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Daños a la Propiedad Ajena</td>
+          <td>{{ cotizacion1.danios_propiedad }}</td>
+          <td></td>
+          <td>{{ cotizacion1.prima_daniosProp|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Gastos Médicos por Accidente</td>
+          <td>{{ cotizacion1.gastos_medicos }}</td>
+          <td></td>
+          <td>{{ cotizacion1.prima_gastosMedicos|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Otros Daños</td>
+          <td>{{ cotizacion1.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion1.otros_danios|floatformat:0 }}</td>
+          <td>{{ cotizacion1.prima_otrosDanios|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Colisión y Vuelco</td>
+          <td>{{ cotizacion1.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion1.colision_vuelco|floatformat:0 }}</td>
+          <td>{{ cotizacion1.prima_colisionVuelco|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Incendio y Rayo</td>
+          <td>{{ cotizacion1.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion1.incendio_rayo|floatformat:0 }}</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Robo y Hurto</td>
+          <td>{{ cotizacion1.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion1.robo_hurto|floatformat:0 }}</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Muerte Accidental</td>
+          <td>{{ cotizacion1.muerte_accidental }}</td>
+          <td></td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Asistencia Legal</td>
+          <td>Incluido</td>
+          <td></td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Importación de Piezas</td>
+          {% if cotizacion1.importacion_piezas%}
+            <td>Incluido</td>
+            <td></td>
+            <td>{{ cotizacion1.prima_importacion|floatformat:2 }}</td>
+          {% else %}
+            <td>No Incluido</td>
+            <td></td>
+            <td>-</td>
+          {% endif %}
+        </tr>
+        <tr>
+          <td>{{ cotizacion1.endoso }}</td>
+          <td>Incluido</td>
+          <td></td>
+          <td>{{ cotizacion1.prima_endoso|floatformat:2 }}</td>
+        </tr>
+      </table>
+      <div class="text-right">
+        {% if tipo_pago == 'Contado' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: Contado</strong></h5>
+        {% elif tipo_pago == 'Visa' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: TCR</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{cuotas}} Cuota(s)</h5>
+        {% elif tipo_pago == 'ACH' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: AHC</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{cuotas}} Cuota(s)</h5>
+        {% else %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: Otros</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{cuotas}} Cuota(s)</h5>
+        {% endif %}
+          <h5 style="text-align: right;">Subtotal: B/. {{ subtotal }}</h5>
+          <h5 style="text-align: right;">Impuestos: B/. {{ impuestos }}</h5>
+          {% if tipo_pago == 'Otro'%}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ total }}</strong></h5>
+          {% else %}
+          <h5 style="text-align: right;">Total: B/. {{ total }}</h5>
+          {% endif %}
+          {% if tipo_pago == 'Contado'%}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion1.prima_pagoContado|floatformat:2 }}</strong></h5>
+          <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion1.prima_mensual|floatformat:2 }}</h5>
+          <h5 style="text-align: right;"> Puedes pagar con tu ACH/Visa por: B/. {{ cotizacion1.prima_pagoVisa|floatformat:2 }} en 10 cuotas.</h5>
+          {% elif tipo_pago == 'Visa' %}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion1.prima_pagoVisa|floatformat:2 }}</strong></h5>
+          <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion1.prima_mensual|floatformat:2 }}</h5>
+          <h5 style="text-align: right;">Puedes pagar de Contado por: B/. {{ cotizacion1.prima_pagoContado|floatformat:2 }}</h5>
+          {% endif %}
+        </div>
+    </div>
+    <div class="row page" style="page-break-after: always;">
+    <strong>OTRA OPCION B: </strong>
+    <img src="{% static 'img/AcertaSeguros.png' %}">
+      <table class="table" style="width:100%">
+        <tr>
+          <th>Descp. de Cobertura</th>
+          <th>Suma Asegurada<br>Por persona/Por accidente</th>
+          <th>Deducible</th>
+          <th>Prima</th>
+        </tr>
+        <tr>
+          <td>Lesiones Corporales</td>
+          <td>{{ cotizacion2.lesiones_corporales }}</td>
+          <td></td>
+          <td>{{ cotizacion2.prima_lesiones|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Daños a la Propiedad Ajena</td>
+          <td>{{ cotizacion2.danios_propiedad }}</td>
+          <td></td>
+          <td>{{ cotizacion2.prima_daniosProp|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Gastos Médicos por Accidente</td>
+          <td>{{ cotizacion2.gastos_medicos }}</td>
+          <td></td>
+          <td>{{ cotizacion2.prima_gastosMedicos|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Otros Daños</td>
+          <td>{{ cotizacion2.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion2.otros_danios|floatformat:0 }}</td>
+          <td>{{ cotizacion2.prima_otrosDanios|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Colisión y Vuelco</td>
+          <td>{{ cotizacion2.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion2.colision_vuelco|floatformat:0 }}</td>
+          <td>{{ cotizacion2.prima_colisionVuelco|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Incendio y Rayo</td>
+          <td>{{ cotizacion2.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion2.incendio_rayo|floatformat:0 }}</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Robo y Hurto</td>
+          <td>{{ cotizacion2.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion2.robo_hurto|floatformat:0 }}</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Muerte Accidental</td>
+          <td>{{ cotizacion2.muerte_accidental }}</td>
+          <td></td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Asistencia Legal</td>
+          <td>Incluido</td>
+          <td></td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Importación de Piezas</td>
+          {% if cotizacion2.importacion_piezas%}
+            <td>Incluido</td>
+            <td></td>
+            <td>{{ cotizacion2.prima_importacion|floatformat:2 }}</td>
+          {% else %}
+            <td>No Incluido</td>
+            <td></td>
+            <td>-</td>
+          {% endif %}
+        </tr>
+        <tr>
+          <td>{{ cotizacion2.endoso }}</td>
+          <td>Incluido</td>
+          <td></td>
+          <td>{{ cotizacion2.prima_endoso|floatformat:2 }}</td>
+        </tr>
+      </table>
+      <div class="text-right">
+        {% if tipo_pago == 'Contado' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: Contado</strong></h5>
+        {% elif tipo_pago == 'Visa' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: TCR</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{cuotas}} Cuota(s)</h5>
+        {% elif tipo_pago == 'ACH' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: AHC</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{cuotas}} Cuota(s)</h5>
+        {% else %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: Otros</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{cuotas}} Cuota(s)</h5>
+        {% endif %}
+          <h5 style="text-align: right;">Subtotal: B/. {{ subtotal }}</h5>
+          <h5 style="text-align: right;">Impuestos: B/. {{ impuestos }}</h5>
+          {% if tipo_pago == 'Otro'%}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ total }}</strong></h5>
+          {% else %}
+          <h5 style="text-align: right;">Total: B/. {{ total }}</h5>
+          {% endif %}
+          {% if tipo_pago == 'Contado'%}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion2.prima_pagoContado|floatformat:2 }}</strong></h5>
+          <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion2.prima_mensual|floatformat:2 }}</h5>
+          <h5 style="text-align: right;"> Puedes pagar con tu ACH/Visa por: B/. {{ cotizacion2.prima_pagoVisa|floatformat:2 }} en 10 cuotas.</h5>
+          {% elif tipo_pago == 'Visa' %}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion2.prima_pagoVisa|floatformat:2 }}</strong></h5>
+          <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion2.prima_mensual|floatformat:2 }}</h5>
+          <h5 style="text-align: right;">Puedes pagar de Contado por: B/. {{ cotizacion2.prima_pagoContado|floatformat:2 }}</h5>
+          {% endif %}
+        </div>
+    </div>
+    <div class="row page">
+    <strong>OTRA OPCION C:</strong>
+    <img src="{% static 'img/AcertaSeguros.png' %}">
+      <table class="table" style="width:100%">
+        <tr>
+          <th>Descp. de Cobertura</th>
+          <th>Suma Asegurada<br>Por persona/Por accidente</th>
+          <th>Deducible</th>
+          <th>Prima</th>
+        </tr>
+        <tr>
+          <td>Lesiones Corporales</td>
+          <td>{{ cotizacion3.lesiones_corporales }}</td>
+          <td></td>
+          <td>{{ cotizacion3.prima_lesiones|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Daños a la Propiedad Ajena</td>
+          <td>{{ cotizacion3.danios_propiedad }}</td>
+          <td></td>
+          <td>{{ cotizacion3.prima_daniosProp|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Gastos Médicos por Accidente</td>
+          <td>{{ cotizacion3.gastos_medicos }}</td>
+          <td></td>
+          <td>{{ cotizacion3.prima_gastosMedicos|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Otros Daños</td>
+          <td>{{ cotizacion3.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion3.otros_danios|floatformat:0 }}</td>
+          <td>{{ cotizacion3.prima_otrosDanios|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Colisión y Vuelco</td>
+          <td>{{ cotizacion3.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion3.colision_vuelco|floatformat:0 }}</td>
+          <td>{{ cotizacion3.prima_colisionVuelco|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td>Incendio y Rayo</td>
+          <td>{{ cotizacion3.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion3.incendio_rayo|floatformat:0 }}</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Robo y Hurto</td>
+          <td>{{ cotizacion3.conductor.valor|floatformat:2 }}</td>
+          <td>{{ cotizacion3.robo_hurto|floatformat:0 }}</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Muerte Accidental</td>
+          <td>{{ cotizacion3.muerte_accidental }}</td>
+          <td></td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Asistencia Legal</td>
+          <td>Incluido</td>
+          <td></td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Importación de Piezas</td>
+          {% if cotizacion3.importacion_piezas%}
+            <td>Incluido</td>
+            <td></td>
+            <td>{{ cotizacion3.prima_importacion|floatformat:2 }}</td>
+          {% else %}
+            <td>No Incluido</td>
+            <td></td>
+            <td>-</td>
+          {% endif %}
+        </tr>
+        <tr>
+          <td>{{ cotizacion3.endoso }}</td>
+          <td>Incluido</td>
+          <td></td>
+          <td>{{ cotizacion3.prima_endoso|floatformat:2 }}</td>
+        </tr>
+      </table>
+      <div class="text-right">
+        {% if tipo_pago == 'Contado' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: Contado</strong></h5>
+        {% elif tipo_pago == 'Visa' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: TCR</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{cuotas}} Cuota(s)</h5>
+        {% elif tipo_pago == 'ACH' %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: AHC</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{cuotas}} Cuota(s)</h5>
+        {% else %}
+          <h5 style="text-align: right;"><strong>Tipo de pago: Otros</strong></h5>
+          <h5 style="text-align: right;">A pagar en {{cuotas}} Cuota(s)</h5>
+        {% endif %}
+          <h5 style="text-align: right;">Subtotal: B/. {{ subtotal }}</h5>
+          <h5 style="text-align: right;">Impuestos: B/. {{ impuestos }}</h5>
+          {% if tipo_pago == 'Otro'%}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ total }}</strong></h5>
+          {% else %}
+          <h5 style="text-align: right;">Total: B/. {{ total }}</h5>
+          {% endif %}
+          {% if tipo_pago == 'Contado'%}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion3.prima_pagoContado|floatformat:2 }}</strong></h5>
+          <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion3.prima_mensual|floatformat:2 }}</h5>
+          <h5 style="text-align: right;"> Puedes pagar con tu ACH/Visa por: B/. {{ cotizacion3.prima_pagoVisa|floatformat:2 }} en 10 cuotas.</h5>
+          {% elif tipo_pago == 'Visa' %}
+          <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion3.prima_pagoVisa|floatformat:2 }}</strong></h5>
+          <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion3.prima_mensual|floatformat:2 }}</h5>
+          <h5 style="text-align: right;">Puedes pagar de Contado por: B/. {{ cotizacion3.prima_pagoContado|floatformat:2 }}</h5>
+          {% endif %}
+        </div>
+    </div>-->
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-xs-2">
+    </div>
+    <div class="col-md-3 col-xs-8">
+        <div class="panel panel-default border: 1px solid #E76C42;">
+            {% if elegida == 1 %}
+            <div id='heading1' class='panel-heading text-center' style='background: #ffffff; color: #E76C42; border: 1px solid #E76C42;'><h4><strong>OPCIÓN 1 - ELEGIDA</strong></h4></div>
+            <div id="panel-body" class='panel-body'>
+                <table style='width:100%; background: #E76C42'>
+            {% else %}
+            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><h4><strong>OPCIÓN 1</strong></h4></div>
+            <div id="panel-body" class='panel-body'>
+                <table style='width:100%;'>
+            {% endif %}
+                    <tr>
+                        <td id="subtitulo">Cobertura</td>
+                        <td class='text-right' id="subtitulo">Deducible</td>
+                        {% if tipo_pago == 'Contado' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>Contado</strong></td>
+                        {% elif tipo_pago == 'Visa' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>TCR</strong></td>
+                        {% elif tipo_pago == 'ACH' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>AHC</strong></td>
+                        {% else %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>Otros</strong></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td><strong>Otros daños</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.0.otros_danios|floatformat:0|intcomma }}</strong></td>
+                        {% if tipo_pago == 'Contado' %}
+                        <td><strong></strong></td>
+                          <td><strong></strong></td>
+                      {% elif tipo_pago == 'Visa' %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% elif tipo_pago == 'ACH' %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% else %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% endif %}
+                    </tr>
+                    <tr>
+                        <td><strong>Colisión y Vuelco</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.0.colision_vuelco|floatformat:0|intcomma }}</strong></td>
+                        <td><strong>Subtotal:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.0.subtotal }}<strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Incendio y Rayo</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.0.incendio_rayo|floatformat:0|intcomma }}</strong></td>
+                        <td><strong>Impuestos:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.0.impuestos }}<strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Robo y Hurto</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.0.robo_hurto|floatformat:0|intcomma }}</strong></td>
+                        {% if tipo_pago == 'Otro'%}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.0.total }}<strong></td>
+                        {% else %}
+                        <td><strong>Total:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.0.total }}<strong></td>                   {% endif %}
+                    </tr>
+                </table>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="row hidden-md hidden-lg"></div>
+    <div class="col-xs-2 hidden-md hidden-lg"></div>
+    <div class="col-md-3 col-xs-8">
+        <div class="panel panel-default border: 1px solid #E76C42;">
+            {% if elegida == 2 %}
+            <div id='heading1' class='panel-heading text-center' style='background: #ffffff; color: #E76C42; border: 1px solid #E76C42;'><h4><strong>OPCIÓN 2 - ELEGIDA</strong></h4></div>
+            <div id="panel-body" class='panel-body'>
+                <table style='width:100%; background: #E76C42'>
+            {% else %}
+            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><h4><strong>OPCIÓN 2</strong></h4></div>
+            <div id="panel-body" class='panel-body'>
+                <table style='width:100%;'>
+            {% endif %}
+                    <tr>
+                        <td id="subtitulo">Cobertura</td>
+                        <td class='text-right' id="subtitulo">Deducible</td>
+                        {% if tipo_pago == 'Contado' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>Contado</strong></td>
+                        {% elif tipo_pago == 'Visa' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>TCR</strong></td>
+                        {% elif tipo_pago == 'ACH' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>AHC</strong></td>
+                        {% else %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>Otros</strong></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td><strong>Otros daños</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.1.otros_danios|floatformat:0|intcomma }}</strong></td>
+                        {% if tipo_pago == 'Contado' %}
+                        <td><strong></strong></td>
+                          <td><strong></strong></td>
+                      {% elif tipo_pago == 'Visa' %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% elif tipo_pago == 'ACH' %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% else %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% endif %}
+                    </tr>
+                    <tr>
+                        <td><strong>Colisión y Vuelco</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.1.colision_vuelco|floatformat:0|intcomma }}</strong></td>
+                        <td><strong>Subtotal:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.1.subtotal }}<strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Incendio y Rayo</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.1.incendio_rayo|floatformat:0|intcomma }}</strong></td>
+                        <td><strong>Impuestos:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.1.impuestos }}<strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Robo y Hurto</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.1.robo_hurto|floatformat:0|intcomma }}</strong></td>
+                        {% if tipo_pago == 'Otro'%}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.1.total }}<strong></td>
+                        {% else %}
+                        <td><strong>Total:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.1.total }}<strong></td>                   {% endif %}
+                    </tr>
+                </table>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-xs-4"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-xs-2">
+        <img src="{% static 'img/melissa_acerta_300x130_3.png' %}" style=" float: right; z-index: -1;" class="hidden-xs hidden-sm">
+    </div>
+    <div class="col-md-3 col-xs-8">
+        <div class="panel panel-default border: 1px solid #E76C42;">
+            {% if elegida == 3 %}
+            <div id='heading1' class='panel-heading text-center' style='background: #ffffff; color: #E76C42; border: 1px solid #E76C42;'><h4><strong>OPCIÓN 3 - ELEGIDA</strong></h4></div>
+            <div id="panel-body" class='panel-body'>
+                <table style='width:100%; background: #E76C42'>
+            {% else %}
+            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><h4><strong>OPCIÓN 3</strong></h4></div>
+            <div id="panel-body" class='panel-body'>
+                <table style='width:100%;'>
+            {% endif %}
+                    <tr>
+                        <td id="subtitulo">Cobertura</td>
+                        <td class='text-right' id="subtitulo">Deducible</td>
+                        {% if tipo_pago == 'Contado' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>Contado</strong></td>
+                        {% elif tipo_pago == 'Visa' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>TCR</strong></td>
+                        {% elif tipo_pago == 'ACH' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>AHC</strong></td>
+                        {% else %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>Otros</strong></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td><strong>Otros daños</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.2.otros_danios|floatformat:0|intcomma }}</strong></td>
+                        {% if tipo_pago == 'Contado' %}
+                        <td><strong></strong></td>
+                          <td><strong></strong></td>
+                      {% elif tipo_pago == 'Visa' %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% elif tipo_pago == 'ACH' %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% else %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% endif %}
+                    </tr>
+                    <tr>
+                        <td><strong>Colisión y Vuelco</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.2.colision_vuelco|floatformat:0|intcomma }}</strong></td>
+                        <td><strong>Subtotal:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.2.subtotal }}<strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Incendio y Rayo</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.2.incendio_rayo|floatformat:0|intcomma }}</strong></td>
+                        <td><strong>Impuestos:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.2.mpuestos }}<strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Robo y Hurto</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.2.robo_hurto|floatformat:0|intcomma }}</strong></td>
+                        {% if tipo_pago == 'Otro'%}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.2.total }}<strong></td>
+                        {% else %}
+                        <td><strong>Total:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.2.total }}<strong></td>                   {% endif %}
+                    </tr>
+                </table>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="row hidden-md hidden-lg"></div>
+    <div class="col-xs-2 hidden-md hidden-lg"></div>
+    <div class="col-md-3 col-xs-8">
+        <div class="panel panel-default border: 1px solid #E76C42;">
+            {% if elegida == 4 %}
+            <div id='heading1' class='panel-heading text-center' style='background: #ffffff; color: #E76C42; border: 1px solid #E76C42;'><h4><strong>OPCIÓN 4 - ELEGIDA</strong></h4></div>
+            <div id="panel-body" class='panel-body'>
+                <table style='width:100%; background: #E76C42'>
+            {% else %}
+            <div id='heading1' class='panel-heading text-center' style='background: #E76C42; color: #ffffff; border-radius: 1px;'><h4><strong>OPCIÓN 4</strong></h4></div>
+            <div id="panel-body" class='panel-body'>
+                <table style='width:100%;'>
+            {% endif %}
+                    <tr>
+                        <td id="subtitulo">Cobertura</td>
+                        <td class='text-right' id="subtitulo">Deducible</td>
+                        {% if tipo_pago == 'Contado' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>Contado</strong></td>
+                        {% elif tipo_pago == 'Visa' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>TCR</strong></td>
+                        {% elif tipo_pago == 'ACH' %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>AHC</strong></td>
+                        {% else %}
+                          <td><strong>Tipo de pago: </strong></td>
+                          <td><strong>Otros</strong></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td><strong>Otros daños</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.3.otros_danios|floatformat:0|intcomma }}</strong></td>
+                        {% if tipo_pago == 'Contado' %}
+                        <td><strong></strong></td>
+                          <td><strong></strong></td>
+                      {% elif tipo_pago == 'Visa' %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% elif tipo_pago == 'ACH' %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% else %}
+                          <td><strong>A pagar en: </strong></td>
+                          <td><strong>{{cuotas}} cuotas</strong></td>
+                      {% endif %}
+                    </tr>
+                    <tr>
+                        <td><strong>Colisión y Vuelco</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.3.colision_vuelco|floatformat:0|intcomma }}</strong></td>
+                        <td><strong>Subtotal:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.3.subtotal }}<strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Incendio y Rayo</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.3.incendio_rayo|floatformat:0|intcomma }}</strong></td>
+                        <td><strong>Impuestos:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.3.impuestos }}<strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Robo y Hurto</strong></td>
+                        <td class='text-right'><strong>B/. {{ cotizaciones.3.robo_hurto|floatformat:0|intcomma }}</strong></td>
+                        {% if tipo_pago == 'Otro'%}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.3.total }}<strong></td>
+                        {% else %}
+                        <td><strong>Total:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.3.total }}<strong></td>                   {% endif %}
+                    </tr>
+                </table>
+                <br>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>

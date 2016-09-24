@@ -293,7 +293,7 @@
 									<table width="540" border="0" cellpadding="0" cellspacing="0" align="center" style="text-align: center; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="fullCenter2">
 										<tbody><tr>
 											<td valign="middle" width="100%" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(63, 67, 69); line-height: 24px;" mc:edit="41">
-												<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]-->A continuación le presentamos la siguiente cotización realizada por el corredor {{cotizacion.corredor.first_name}} {{ cotizacion.corredor.last_name }} para el vehiculo {{cotizacion.conductor.marca.nombre}} {{cotizacion.conductor.modelo.nombre}} {{cotizacion.conductor.anio}}, valorado en B/. {{valor_vehiculo}} <!--[if !mso]><!--></span><!--<![endif]-->
+												<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]-->A continuación le presentamos la siguiente cotización realizada por el corredor {{cotizacion.corredor.first_name}} {{ cotizacion.corredor.last_name }} para el vehiculo {{cotizacion.conductor.marca.nombre}} {{cotizacion.conductor.modelo.nombre}} {{cotizacion.conductor.anio}}, valorado en B/. {{valor_vehiculo}}. La opción sugerida por su corredor es la {{elegida}}. Para ver en detalle las diferentes opciones que varían según los deducibles, vea el PDF adjunto. <!--[if !mso]><!--></span><!--<![endif]-->
 											</td>
 										</tr>
 									</tbody></table>
@@ -431,7 +431,10 @@
 					                            {% if tipo_pago == 'Contado' %}
 					                              <h5 style="text-align: right;"><strong>Tipo de pago: Contado</strong></h5>
 					                            {% elif tipo_pago == 'Visa' %}
-					                              <h5 style="text-align: right;"><strong>Tipo de pago: AHC/Visa</strong></h5>
+					                              <h5 style="text-align: right;"><strong>Tipo de pago: TCR</strong></h5>
+					                              <h5 style="text-align: right;">A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
+					                            {% elif tipo_pago == 'ACH' %}
+					                              <h5 style="text-align: right;"><strong>Tipo de pago: AHC</strong></h5>
 					                              <h5 style="text-align: right;">A pagar en {{ cotizacion.cuota }} Cuota(s)</h5>
 					                            {% else %}
 					                            	<h5 style="text-align: right;"><strong>Tipo de pago: Otros</strong></h5>
