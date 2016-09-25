@@ -19,6 +19,11 @@ urlpatterns = patterns(
         name='generacion'
     ),
     url(
+        r'^generarPDFPolizas/(?P<pk>\d+)/$',
+        GeneracionPDFPolizas.as_view(),
+        name='generacion-pdf-polizas'
+    ),
+    url(
         r'^realizar-pago/$',
         PagoTarjeta.as_view(),
         name='realizar_pago'

@@ -15,6 +15,13 @@ from django.contrib.humanize.templatetags.humanize import *
 from xhtml2pdf import pisa
 from easy_pdf.views import PDFTemplateView
 
+from django.template.loader import render_to_string
+from django.template import RequestContext
+import ho.pisa as pisa
+import cStringIO as StringIO
+import cgi
+import os
+
 
 class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
     template_name = "polizas/solicitud.html"
@@ -155,7 +162,11 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 tipo='Solicitada'
             )
             solicitud.save()
+<<<<<<< HEAD
             return HttpResponseRedirect(reverse_lazy('polizas_list'))
+=======
+            return HttpResponseRedirect(reverse_lazy('generacion-pdf-polizas', kwargs={'pk': solicitud.pk}))
+>>>>>>> 9ba91ca5fd00f6586ac5e3e81303a05502b5b550
         else:
             return render(
                 request,
@@ -197,6 +208,53 @@ class GeneracionPDF(LoginRequiredMixin, generic.CreateView):
         html = template.render(context)
 
         file = open("polizas/" + 'prueba.pdf', "w+b")
+        # pisa.CreatePDF(
+        #     html.encode('utf-8'),
+        #     dest=file,
+        #     encoding='utf-8',
+        #     base_url=request.build_absolute_uri(),
+        # )
+        
+
+        #html  = render_to_string('polizas/prueba_pdf.html', { 'pagesize' : 'letter', }, context_instance=RequestContext(request))
+        result = StringIO.StringIO()
+        links = lambda uri, rel: os.path.join(settings.STATIC_ROOT2, uri.replace(settings.STATIC_URL, ""))
+        pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("UTF-8")), dest=result, encoding='UTF-8', link_callback=links)
+
+ 
+        if not pdf.err:
+            return HttpResponse(result.getvalue(), 'application/pdf')
+        return HttpResponse('Gremlins ate your pdf! %s' % cgi.escape(html))
+
+
+        #return HttpResponse(pdf, 'application/pdf')
+
+    def fetch_resources(uri, rel):
+        import os.path
+        from django.conf import settings
+        path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+
+        return path
+
+
+class GeneracionPDFPolizas(LoginRequiredMixin, generic.CreateView):
+    model = SolicitudPoliza
+    template_name = 'polizas/pdf_personaNatural.html'
+
+    def get(self, request, *args, **kwargs):
+
+        solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
+        datos_extra = ExtraDatosCliente.objects.get(
+            conductor=solicitud.cotizacion.conductor)
+        context = Context({'pagesize': 'letter'})
+        context['solicitud'] = solicitud
+        context['cotizacion'] = solicitud.cotizacion
+        context['conductor1'] = solicitud.cotizacion.conductor
+        context['conductor2'] = datos_extra
+        template = get_template('polizas/pdf_personaNatural.html')
+        html = template.render(context)
+
+        file = open("polizas/" + 'personaNatural.pdf', "w+b")
         pisa.CreatePDF(
             html.encode('utf-8'),
             dest=file,

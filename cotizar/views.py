@@ -21,6 +21,13 @@ import math
 from xhtml2pdf import pisa
 from easy_pdf.views import PDFTemplateView
 
+from django.template.loader import render_to_string
+from django.template import RequestContext
+import ho.pisa as pisa
+import cStringIO as StringIO
+import cgi
+import os
+
 
 def CargarCarros(request):
     file = open("carros.txt")
@@ -842,6 +849,11 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
         context['pk4'] = kwargs['pk4']
         return self.render_to_response(context)
 
+    def fetch_resources(self, uri, rel):
+            path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+
+            return path    
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
@@ -980,16 +992,15 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
             template = get_template('cotizar/opciones_cotizaciones_pdf.html')
             html = template.render(context)
 
-            file = open("cotizar/" + 'opciones.pdf', "w+b")
-            pisa.CreatePDF(
-                html.encode('utf-8'),
-                dest=file,
-                encoding='utf-8'
-            )
+            file = open("polizas/" + 'opciones.pdf', "w+b")
+
+            context = Context({'pagesize': 'letter'})
+            links = lambda uri, rel: os.path.join(settings.STATIC_ROOT2, uri.replace(settings.STATIC_URL, ""))
+            pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("UTF-8")), dest=file, encoding='UTF-8', link_callback=links)
 
             file.seek(0)
             pdf = file.read()
-            file.close()
+            file.close()    
 
             for cotiz in cotizaciones:
                 if cotiz != kwargs['pk']:

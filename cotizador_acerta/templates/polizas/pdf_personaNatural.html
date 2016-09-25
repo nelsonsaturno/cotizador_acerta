@@ -148,6 +148,7 @@
 						<p>
 							<span>Caso 2 y 3: Nombre: </span><span>{{conductor2.nombre_politico}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Relación: </span><span>{{conductor2.relacion_politico}}</span>
+
 						</p>
 					</td>
 				</tr>
@@ -159,6 +160,7 @@
 						<p><span>Si su respuesta anterior fue Si y/o la prima sel segura es igual, anual o mayor a B/. 10,000.00 complete la siguiente información, en caso que no diríjase a la seccion de Datos Generales: </span><span style="font-size: 9px;"> Acerta Seguros, con base en la Matriz de riesgo, podrá solicitar en algunos otros casos que esta sección sea completada (Ley 23 del 27/04/2015).</span></p>
 
 						<p><span>Actividad fuente principal de sus ingresos (Especifique): </span><span>{{conductor2.actividad_principal}}</span></p>
+
 						<p>
 							<table>
 								<tr>
@@ -181,6 +183,7 @@
 								</td>
 								<td style="width: 45px;">
 								{% elif conductor2.ingreso_principal == '10,000.00-30,000.00' %}
+
 								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Menos de 10mil USD$
 								</td>
@@ -209,6 +212,7 @@
 								</td>
 								<td style="width: 45px;">
 								{% elif conductor2.ingreso_principal == '>50,000.00' %}
+
 								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Menos de 10mil USD$
 								</td>
