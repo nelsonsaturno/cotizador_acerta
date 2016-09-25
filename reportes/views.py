@@ -842,11 +842,16 @@ class PolizasListView(LoginRequiredMixin, ListView):
         cotizaciones = Cotizacion.objects.filter(corredor=corredor, status='Aprobada')
         solicitudes = []
         for cot in cotizaciones:
-            solicitud = SolicitudPoliza.objects.filter(cotizacion=cot)
-            print(solicitud)
+            solicitud = SolicitudPoliza.objects.filter(cotizacion=cot,tipo='Solicitada')
             if solicitud:
                 solicitudes.append(solicitud[0])
         context['solicitudes'] = solicitudes
+        solicitudes = []
+        for cot in cotizaciones:
+            solicitud = SolicitudPoliza.objects.filter(cotizacion=cot,tipo='Emitida')
+            if solicitud:
+                solicitudes.append(solicitud[0])
+        context['emitidas'] = solicitudes
         return self.render_to_response(context)
 
 

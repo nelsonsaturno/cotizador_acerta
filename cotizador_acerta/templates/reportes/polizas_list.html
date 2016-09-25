@@ -31,6 +31,7 @@
 				    	<th>Correo</th>
 				    	<th>Marca</th>
 				    	<th>Modelo</th>
+				    	<th>Ilicito o Politico</th>
 				    	<th>Corredor</th>
 				    	<th>Detalles</th>
 				    </tr>
@@ -43,7 +44,61 @@
 				      <td>{{ solicitud.cotizacion.conductor.correo }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.marca.nombre }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.modelo.nombre }}</td>
-			          <td><span class="badge bg-green">{{ solicitud.cotizacion.corredor.email }}</span></td>
+				      {% if cliente.ilicito or cliente.politico_expuesto %}
+				      	<td><span class="badge bg-red">Si</span></td>
+				      {% else %}
+				      	<td><span class="badge bg-green">No</span></td>
+				      {% endif %}
+			          <td><span class="badge bg-orange">{{ solicitud.cotizacion.corredor.email }}</span></td>
+				      <td><a id="id_submit" href="" onclick="window.open('{% url 'generacion-pdf-polizas' solicitud.pk %}');">Ver</a></td>
+				    </tr>
+			    {% endfor %}
+			    </tbody>
+			    <tfoot>
+				    <tr>
+				    	<th>Conductor</th>
+				    	<th>Tlf. Celular</th>
+				    	<th>Correo</th>
+				    	<th>Marca</th>
+				    	<th>Modelo</th>
+				    	<th>Ilicito o Politico</th>
+				    	<th>Corredor</th>
+				    	<th>Detalles</th>
+				    </tr>
+			    </tfoot>
+			  </table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12" style="padding-right: 2%;">
+		<div class="box box-default color-palette-box">
+			<div class="box-header">
+				<h3 class="box-title">Mis Polizas Emitidas</h3>
+			</div>
+			<div class="box-body table-responsive no-padding">
+			  <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+			    <thead>
+				    <tr>
+				    	<th>Conductor</th>
+				    	<th>Tlf. Celular</th>
+				    	<th>Correo</th>
+				    	<th>Marca</th>
+				    	<th>Modelo</th>
+				    	<th>Corredor</th>
+				    	<th>Detalles</th>
+				    </tr>
+			    </thead>
+			    <tbody>
+			    {% for solicitud in emitidas %}
+			    	<tr role="row">
+				      <td> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+				      <td>{{ solicitud.cotizacion.conductor.telefono1 }}</td>
+				      <td>{{ solicitud.cotizacion.conductor.correo }}</td>
+				      <td>{{ solicitud.cotizacion.conductor.marca.nombre }}</td>
+				      <td>{{ solicitud.cotizacion.conductor.modelo.nombre }}</td>
+			          <td><span class="badge bg-orange">{{ solicitud.cotizacion.corredor.email }}</span></td>
 				      <td><a id="id_submit" href="" onclick="window.open('{% url 'generacion-pdf-polizas' solicitud.pk %}');">Ver</a></td>
 				    </tr>
 			    {% endfor %}

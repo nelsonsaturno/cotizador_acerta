@@ -77,6 +77,12 @@ class SolicitudPoliza(models.Model):
     banco_tdc = models.CharField(max_length=20, blank=False, null=True)
     expiracion_tdc = models.CharField(max_length=20, blank=False, null=True)
     dia_pago = models.DateField()
+    tipo = models.CharField(max_length=30, blank=False,
+                                   default='Solicitada',
+                                   choices=[('Solicitada',
+                                             'Solicitada'),
+                                            ('Emitida',
+                                             'Emitida')])
 
 
 class Referencia(models.Model):
@@ -88,7 +94,7 @@ class Referencia(models.Model):
 
 # Datos extras para el formulario unico.
 class ExtraDatosCliente(models.Model):
-    conductor = models.ForeignKey(ConductorVehiculo, null=True)
+    conductor = models.ForeignKey(ConductorVehiculo, null=True, related_name='datos')
     placa = models.CharField(max_length=40, blank=False)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
