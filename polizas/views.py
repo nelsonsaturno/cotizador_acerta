@@ -163,7 +163,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 tipo='Solicitada'
             )
             solicitud.save()
-            return HttpResponseRedirect(reverse_lazy('polizas_list'))
+            return HttpResponseRedirect(reverse_lazy('confirmar-solicitud', kwargs={'pk': solicitud.pk}))
         else:
             return render(
                 request,
