@@ -34,11 +34,11 @@ class DatosCorredor(models.Model):
     razon_social = models.CharField(max_length=100, null=True, blank=True)
     planes = models.CharField(
         max_length=100, default='-',
-        choices=(
+        choices=[
             ('Plan 1', 'Plan 1'),
             ('Plan 2', 'Plan 2'),
             ('Plan 3', 'Plan 3')
-        )
+        ]
     )
 
     def __str__(self):
