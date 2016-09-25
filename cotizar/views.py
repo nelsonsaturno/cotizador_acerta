@@ -88,24 +88,24 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         context = self.get_context_data(**kwargs)
 
         # Chequeamos si es corredor, y creamos los planes para mostrar
-        # if (request.user.groups.first().name == "corredor"):
-        #     corredor = DatosCorredor.objects.get(user=request.user)
-        #     planes = corredor.planes
-        #     crear_planes = re.findall('"([^"]*)"', planes)
+        if (request.user.groups.first().name == "corredor"):
+            corredor = DatosCorredor.objects.get(user=request.user)
+            planes = corredor.planes
+            crear_planes = re.findall(r"['\"](.*?)['\"]", planes)
 
-        # # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
-        # elif (request.user.groups.first().name == "vendedor"):
-        #     vendedor = CorredorVendedor.objects.get(vendedor=request.user)
-        #     corredor = DatosCorredor.objects.get(user=vendedor.corredor)
-        #     planes = corredor.planes
-        #     crear_planes = re.findall('"([^"]*)"', planes)
+        # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
+        elif (request.user.groups.first().name == "vendedor"):
+            vendedor = CorredorVendedor.objects.get(vendedor=request.user)
+            corredor = DatosCorredor.objects.get(user=vendedor.corredor)
+            planes = corredor.planes
+            crear_planes = re.findall(r"['\"](.*?)['\"]", planes)
 
-        # else:
-        #     corredor = None
-        #     crear_planes = []
+        else:
+            corredor = None
+            crear_planes = []
 
         context['form'] = ConductorVehiculoForm
-        #context['planes'] = crear_planes 
+        context['planes'] = crear_planes
         return self.render_to_response(context)
 
     def crear_cotizacion(self, request, vehiculo):
@@ -274,7 +274,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         form = ConductorVehiculoForm(request.POST)
         if form.is_valid():
             vehiculo = form.save()
-            
+
             tipo_id = form.cleaned_data['tipo_id']
             if tipo_id == '0':
                 provincia = form.cleaned_data['provincia']
@@ -852,7 +852,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
     def fetch_resources(self, uri, rel):
             path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
 
-            return path    
+            return path
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -1000,7 +1000,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
 
             file.seek(0)
             pdf = file.read()
-            file.close()    
+            file.close()
 
             for cotiz in cotizaciones:
                 if cotiz != kwargs['pk']:
@@ -1129,7 +1129,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                            open(cotizacion.endoso.archivo.name,
                                 'rb').read(),
                            'application/pdf')
-                
+
                 msg.send()
 
                 # Correo Corredor
