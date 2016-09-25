@@ -143,7 +143,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 dia_pago=request.POST['dia_pago']
             )
             solicitud.save()
-            return HttpResponseRedirect(reverse_lazy('cotizaciones_list'))
+            return HttpResponseRedirect(reverse_lazy('generacion-pdf-polizas', kwargs={'pk': solicitud.pk}))
         else:
             return render(
                 request,
@@ -214,5 +214,32 @@ class GeneracionPDF(LoginRequiredMixin, generic.CreateView):
         return path
 
 
-class HelloPDFView(PDFTemplateView):
-    template_name = "polizas/pdf_personaNatural.html"
+class GeneracionPDFPolizas(LoginRequiredMixin, generic.CreateView):
+    model = SolicitudPoliza
+    template_name = 'polizas/pdf_personaNatural.html'
+
+    def get(self, request, *args, **kwargs):
+
+        solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
+        datos_extra = ExtraDatosCliente.objects.get(
+            conductor=solicitud.cotizacion.conductor)
+        context = Context({'pagesize': 'letter'})
+        context['solicitud'] = solicitud
+        context['cotizacion'] = solicitud.cotizacion
+        context['conductor1'] = solicitud.cotizacion.conductor
+        context['conductor2'] = datos_extra
+        template = get_template('polizas/pdf_personaNatural.html')
+        html = template.render(context)
+
+        file = open("polizas/" + 'personaNatural.pdf', "w+b")
+        pisa.CreatePDF(
+            html.encode('utf-8'),
+            dest=file,
+            encoding='utf-8'
+        )
+
+        file.seek(0)
+        pdf = file.read()
+        file.close()
+
+        return HttpResponse(pdf, 'application/pdf')
