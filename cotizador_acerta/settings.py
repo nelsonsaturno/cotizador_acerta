@@ -14,9 +14,14 @@ import os
 import dj_database_url
 from django.core.urlresolvers import reverse_lazy
 
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+def ABS_DIR(rel):
+    return os.path.join(BASE_DIR, rel.replace('/', os.path.sep))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -129,16 +134,16 @@ DATABASES['default'] = dj_database_url.config()
 #       DESARROLLO!!
 ########################################
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'd339j965q98db5',
-#         'USER': 'rthjlipirhwtsb',
-#         'PASSWORD': 'YpQrpQvkg5p1AyXJ83OqCRA2tH',
-#         'HOST': 'ec2-54-243-190-37.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd339j965q98db5',
+        'USER': 'rthjlipirhwtsb',
+        'PASSWORD': 'YpQrpQvkg5p1AyXJ83OqCRA2tH',
+        'HOST': 'ec2-54-243-190-37.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 #####################################################
 
@@ -195,12 +200,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT2 = ABS_DIR('cotizador_acerta/static/')
+
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "cotizador_acerta/static"),
 )
 
-MEDIA_URL = '/media/'
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = ABS_DIR('cotizador_acerta/media/')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
