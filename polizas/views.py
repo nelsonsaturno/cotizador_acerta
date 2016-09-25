@@ -11,6 +11,7 @@ from darientSessions.models import *
 from administrador.models import *
 from django.template import Context
 from django.template.loader import get_template
+from django.core.mail import EmailMessage
 from django.contrib.humanize.templatetags.humanize import *
 from xhtml2pdf import pisa
 from easy_pdf.views import PDFTemplateView
@@ -313,7 +314,7 @@ class ConfirmarSolicitud(LoginRequiredMixin, generic.TemplateView):
         return self.render_to_response(context)
 
 
-def SendMailSolicitud(request, pk):
+def SendEmailSolicitud(request, pk):
     subject = "Acerta Seguros - Solicitud PEP"
     solicitud = SolicitudPoliza.objects.get(pk=pk)
     datos_extras = ExtraDatosCliente.objects.filter(
@@ -345,7 +346,7 @@ def SendMailSolicitud(request, pk):
     message = get_template('polizas/email_solicitud.html').render(Context(ctx))
     msg = EmailMessage(subject, message, to=to, from_email=from_email)
     msg.content_subtype = 'html'
-    msg.attach("opciones.pdf",
+    msg.attach("solicitud.pdf",
        pdf,
        'application/pdf')
     msg.send()

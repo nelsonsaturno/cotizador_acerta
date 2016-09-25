@@ -43,4 +43,9 @@ urlpatterns = patterns(
         ConfirmarSolicitud.as_view(),
         name='confirmar-solicitud'
     ),
+    url(
+        r'^solicitud/send/(?P<pk>\d+)/$',
+        'polizas.views.SendEmailSolicitud',
+        name='send-solicitud'
+    ),
 )
