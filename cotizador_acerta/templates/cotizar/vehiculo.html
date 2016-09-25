@@ -186,8 +186,8 @@
                         <div class="col-md-6">
 
                           <h3 id="subtitulo"><strong>Planes: </strong></h3>
-                           <label for="sel1">Seleccione el plan que corresponda: </label>
-                           <select class="form-control" id="sel1">
+                           <label for="planes">Seleccione el plan que corresponda: </label>
+                           <select class="form-control" id="planes">
                                {% for plan in planes %}
                                <option>{{plan}}</option>
                                {% endfor %}
@@ -1294,6 +1294,11 @@
                 $('#id_conductor').unmask();
             }
         });
+    });
+
+    $(document).on("change", "#planes", function(e){
+        e.preventDefault();
+        $("#id_endoso").val("4");
     });
 
 </script>
