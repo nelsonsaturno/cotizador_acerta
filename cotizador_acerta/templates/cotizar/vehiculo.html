@@ -1268,6 +1268,14 @@
     });
 
     $(document).ready(function(){
+        var anio_ret = document.getElementById("id_anio").value;
+        var today = new Date();
+        var year11 = today.getFullYear() -1;
+        var year12 = today.getFullYear();
+        var year13 = today.getFullYear() +1;
+        if (anio_ret == year12 || anio_ret == year11 || anio_ret == year13) {
+            $(".km-field").css('display','block');
+        }
         $('#id_valor_text').maskMoney();
         $('#id_fecha_nacimiento').mask('0000-00-00', {placeholder: "F. Nacimiento (aaaa-mm-dd)"});
 
@@ -1280,6 +1288,24 @@
         });
     });
 
+</script>
+<script>
+jQuery(document).ready(function($) {
+      var testHistorial =    /^[0-8]$/;
+      jQuery('input#id_historial_transito').bind('input propertychange', function() {
+        if (testHistorial.test(jQuery(this).val()))
+        {
+            $(".historial_transito-validacion").remove();
+           jQuery('button.calculate').prop("disabled",false);
+         } else
+         {
+           $(".historial_transito-validacion").remove();
+            $('#id_submit').prop('disabled', true);
+            $(this).parent().after("<div class='form-field historial_transito-validacion' style='color:red; margin-top: 5%; margin-bottom: -4%;'>Introduzca un historial entre 0-8</div>");
+           jQuery('button.calculate').prop("disabled",true);
+         }
+       });
+});
 </script>
 
 {% endblock custom_script %}

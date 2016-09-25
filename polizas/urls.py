@@ -9,11 +9,6 @@ urlpatterns = patterns(
         name='solicitar'
     ),
     url(
-        r'^detalles/(?P<pk>\d+)/$',
-        DetallePoliza.as_view(),
-        name='detalles-poliza'
-    ),
-    url(
         r'^prueba/$',
         Test.as_view(),
         name='prueba'
@@ -37,5 +32,10 @@ urlpatterns = patterns(
         r'^generarPDF/(?P<pk>\d+)/$',
         GeneracionPDFPolizas.as_view(),
         name='generacion-pdf-polizas'
+    ),
+    url(
+        r'^confirmar/(?P<pk>\d+)/$',
+        ConfirmarSolicitud.as_view(),
+        name='confirmar-solicitud'
     ),
 )

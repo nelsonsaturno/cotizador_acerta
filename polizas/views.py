@@ -128,8 +128,8 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 id_conductor=conductor[1],
                 vigencia_desde=request.POST['valido_desde'],
                 vigencia_hasta=request.POST['valido_hasta'],
-                acreedor=request.POST['acreedor'],
-                leasing=request.POST['leasing'],
+                acreedor=request.POST.get('acreedor','N/A'),
+                leasing=request.POST.get('leasing','N/A'),
                 firmador=request.POST['firmador'],
                 observaciones=request.POST.get('observaciones','N/A'),
                 responsable=request.POST['responsable'],
@@ -151,7 +151,8 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 num_tdc=request.POST.get('num_tdc','N/A'),
                 banco_tdc=request.POST.get('banco_tdc','N/A'),
                 expiracion_tdc=request.POST.get('expiracion_tdc',date.today()),
-                dia_pago=request.POST['dia_pago']
+                dia_pago=request.POST['dia_pago'],
+                tipo='Solicitada'
             )
             solicitud.save()
             return HttpResponseRedirect(reverse_lazy('polizas_list'))
@@ -165,24 +166,6 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                     'corredor_pol': corredor
                 }
             )
-
-
-class DetallePoliza(LoginRequiredMixin, generic.TemplateView):
-    template_name = "polizas/detalle_poliza.html"
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        context = self.get_context_data(object=self.object)
-        poliza = SolicitudPoliza.objects.get(pk=kwargs['pk'])
-        user = User.objects.get(username=poliza.cotizacion.corredor)
-        if user.groups.first().name != 'super_admin'\
-           and user.groups.first().name != 'admin':
-            corredor = DatosCorredor.objects.get(user=user)
-            context['corredor'] = corredor
-        context['poliza'] = poliza
-        extra_datos = ExtraDatosCliente.objects.get(conductor=poliza.cotizacion.conductor)
-        context['extra_datos'] = extra_datos
-        return self.render_to_response(context)
 
 
 class ConfirmacionPago(generic.TemplateView):
@@ -262,3 +245,15 @@ class GeneracionPDFPolizas(LoginRequiredMixin, generic.CreateView):
 
         return HttpResponse(pdf, 'application/pdf')
 
+
+class ConfirmarSolicitud(LoginRequiredMixin, generic.TemplateView):
+    template_name = "polizas/confirmacion_solicitud.html"
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        poliza = SolicitudPoliza.objects.get(pk=kwargs['pk'])
+        user = User.objects.get(username=poliza.cotizacion.corredor)
+        context['solicitud'] = poliza
+        extra_datos = ExtraDatosCliente.objects.get(conductor=poliza.cotizacion.conductor)
+        context['cliente'] = extra_datos
+        return self.render_to_response(context)

@@ -1,0 +1,278 @@
+{% extends "administrador/base_admin.html" %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{% load l10n %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% load static %}
+{% block extrahead %}
+  {{form.media}}
+{% endblock extrahead %}
+{% block extracss %}
+<link href="{% static 'plugins/iCheck/square/grey.css' %}" rel="stylesheet">
+<!-- Select2 -->
+<link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+<style type="text/css">
+    select:invalid { color: gray; }
+    .select2 .select2-selection {
+        display: block !important;
+        width: 100% !important;
+        height: 34px !important;
+        padding: 6px 12px !important;
+        font-size: 14px !important;
+        line-height: 1.42857143 !important;
+        color: #555 !important;
+        background-color: #fff !important;
+        background-image: none !important;
+        border: 1px solid #ccc !important;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
+    }
+    .select2-container--default .select2-selection--single {
+        border-radius: 1px !important;
+    }
+    #titulo-login {
+        font-family: Arial;
+        font-size: 25px;
+        color: #B5B6B8;
+    }
+    @media only screen and (max-width: 435px) {
+        #titulo-login {
+            font-family: Arial;
+            font-size: 15px;
+            color: #B5B6B8;
+        }
+    }
+    #link-acerta {
+        color: #E76C42;
+    }
+    input:focus {
+        border-color: #E76C42 !important;
+        color: #E76C42 !important;
+    }
+    input:focus::-webkit-input-placeholder {
+        color: #E76C42 !important;
+    }
+    input:focus::-moz-placeholder {
+        color: #E76C42 !important;
+    }
+    input:focus:-moz-placeholder {
+        color: #E76C42 !important;
+    }
+    input:focus:-ms-input-placeholder {
+        color: #E76C42 !important;
+    }
+    input:focus:-ms-input-placeholder { /* IE10–11 */
+        color: #E76C42 !important;
+    }
+
+    input:focus::-ms-input-placeholder { /* Edge */
+        color: #E76C42 !important;
+    }
+    .login-box-body {
+        margin-left: 20%;
+        margin-right: 20%
+    }
+    .form-field {
+        margin-left: 10px;
+    }
+    .form-control{
+        margin-top: 10px;
+    }
+    #subtitulo {
+        font-family: Arial;
+        font-size: 18px;
+        color: #828489;
+    }
+    #subtitulo2 {
+        font-family: Arial;
+        font-size: 18px;
+        color: #B5B6B8;
+    }
+    .button {
+        color: #FFFFFF;
+        background-color: #727270;
+        width: 45%;
+        text-align: center;
+        margin:0 auto;
+        display:block;
+        cursor: pointer;
+        transition: all 0.5s;
+    }
+    .calculate2 {
+        color: #FFFFFF;
+        background-color: #727270;
+        width: 25%;
+        text-align: center;
+        display: inline-block;
+    }
+    .calculate2 {
+      transition: all 0.8s ease;
+    }
+    .calculate2:hover {
+      background: #E76C42;
+      color: #FFFFFF;
+    }
+    .button span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+    }
+
+    .button span:after {
+      content: '»';
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+    }
+
+    .button:hover span {
+      padding-right: 25px;
+    }
+
+    .button:hover span:after {
+      opacity: 1;
+      right: 0;
+    }
+    .first {
+        padding-top: 10%;
+    }
+    #id_endoso{
+        z-index: 0;
+    }
+    .button-endoso{
+        z-index: 0;
+    }
+    @media only screen and (max-width: 435px) {
+        .first {
+          padding-top: 20%;
+        }
+    }
+    .caption {
+        text-align: center;
+        font-weight: bold;
+        background-color: #E76C42;
+        color: white;
+    }
+    .melissa {
+        float: left;
+        vertical-align: text-bottom;
+        display: inline-block;
+        position: relative;
+    }
+    .carro {
+        float: left;
+        vertical-align: text-bottom;
+        display: inline-block;
+        position: absolute;
+    }
+    .helper {
+        display: inline-block;
+        height: 100%;
+        vertical-align: bottom;
+    }
+</style>
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/css/icons/icomoon/styles.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/css/core.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/css/stepy_components.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/css/colors.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+{% endblock extracss %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h1 id="titulo-login" class="text-center"><strong>SOLICITUD DE PÓLIZA DE SEGUROS PARA AUTOMÓVILES</strong></h1>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-12">
+                            <img  style="width:15%; margin:auto; display:block;" src="{% static 'img/check_orange.png' %}">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <h4 id="subtitulo" class="text-center"><strong>¡SOLICITUD CREADA EXITOSAMENTE!</strong></h4>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <br><br>
+                        <div class="col-md-12">
+                            <p> <h5 class="text-center">Su solicitud ha sido creada exitosamente. Confirme los datos datos del cliente imprimiendo o enviando la solicitud.</h5></p>
+                        </div>
+                        <div class="col-md-12" style="text-align:center;">
+                            <button class="btn btn-lg calculate2" onclick="window.open('{% url 'generacion-pdf-polizas' solicitud.pk %}');">
+                                <i class="fa fa-print"></i>&nbsp;Imprimir
+                            </button>
+                            <button class="btn btn-lg calculate2">
+                                <i class="fa fa-send-o"></i>&nbsp;Enviar
+                            </button>
+                            <button class="btn btn-lg calculate2">
+                                <i class="fa fa-edit"></i>&nbsp;Editar
+                            </button>
+                        </div>
+                            {% if cliente.ilicito or cliente.politico_expuesto %}
+                                <div class="col-md-12" style="padding-top:20px;">
+                                    <p><span><h5 class="text-center"><font color="red"><strong><i class="fa fa-warning"></i>&nbsp;Atención: El cliente es una persona que ha sido investigada o es un político expuesto. No podrá emitir la póliza mientras se investiga el caso.</strong></font></h5></span></p>
+                                </div>
+                            {% else %}
+                                <div class="col-md-12" style="padding-top:20px;">
+                                    <p> <h5 class="text-center">Si ya confirmó los datos del cliente, puede proceder a emitir la póliza.</h5></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-sm-4 col-md-6 text-center">
+                                        <button class="btn btn-lg button">
+                                            Emitir póliza
+                                        </button>
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </div>
+                            {% endif %}
+                        <br><br>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block custom_script %}
+    <!-- Core JS files -->
+    <script type="text/javascript" src="{% static 'assets/js/plugins/loaders/pace.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/plugins/loaders/blockui.min.js' %}"></script>
+    <!-- /core JS files -->
+
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="{% static 'assets/js/plugins/forms/wizards/stepy.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/plugins/forms/selects/select2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/plugins/forms/styling/uniform.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/core/libraries/jasny_bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/plugins/forms/validation/validate.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/pages/wizard_stepy.js' %}"></script>
+    <!-- /theme JS files -->
+<script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
+<script src="{% static 'js/jquery.mask.min.js' %}"></script>
+<script src="{% static 'js/jquery.mask2.min.js' %}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<script src="{% static 'plugins/datepicker/locales/bootstrap-datepicker.es.js' %}"></script>
+<script type="text/javascript">
+
+</script>
+
+{% endblock custom_script %}

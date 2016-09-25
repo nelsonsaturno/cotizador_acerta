@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import date
 from administrador.models import Endoso
+from django.conf import settings
 
 
 # Redefined django field.
@@ -85,16 +86,18 @@ class ConductorVehiculo(models.Model):
     correo = models.EmailField(blank=False)
     telefono1 = models.CharField(max_length=20, blank=False)
     telefono2 = models.CharField(max_length=20, blank=True, default="")
-    historial_transito = models.PositiveSmallIntegerField(
-        blank=False,
-        validators=[MaxValueValidator(10), MinValueValidator(0)]
+    historial_transito = PositiveSmallIntegerField(blank=False,
+                                     min_value=0,
+                                     max_value=8,
+                                    validators=[MaxValueValidator(8), MinValueValidator(0)]
     )
     fecha_nacimiento = models.DateField()
     marca = models.ForeignKey(Marca, blank=False)
     modelo = models.ForeignKey(Modelo, blank=False)
     anio = PositiveSmallIntegerField(blank=False,
                                      min_value=1900,
-                                     max_value=date.today().year + 1)
+                                     max_value=date.today().year + 1,
+    validators=[MaxValueValidator(date.today().year + 1), MinValueValidator(1900)])
     cero_km = models.BooleanField(default=False)
     valor = models.PositiveIntegerField(blank=False)
     importacion_piezas = models.BooleanField(default=False)

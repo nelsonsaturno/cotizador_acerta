@@ -306,7 +306,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.9,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.9,
-                colision_vuelco=colision_vuelco2,
+                colision_vuelco=math.ceil(colision_vuelco2),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Premium",
@@ -356,7 +356,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.8,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.8,
-                colision_vuelco=colision_vuelco3,
+                colision_vuelco=math.ceil(colision_vuelco3),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Gold",
@@ -408,7 +408,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 prima_gastosMedicos=cotizacion1.prima_gastosMedicos,
                 prima_otrosDanios=cotizacion1.prima_otrosDanios * 0.7,
                 prima_colisionVuelco=cotizacion1.prima_colisionVuelco * 0.7,
-                colision_vuelco=colision_vuelco4,
+                colision_vuelco=math.ceil(colision_vuelco4),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
                 plan="Silver",
@@ -1004,8 +1004,88 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 to_corredor = [request.user.email]
                 from_email = request.user.email
 
+                valor_vehiculo = intcomma(
+                    float("{0:.2f}".format(cotizacion.conductor.valor)))
+                prima_lesiones = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_lesiones)))
+                prima_daniosProp = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_daniosProp)))
+                prima_gastosMedicos = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_gastosMedicos)))
+                colision_vuelco = intcomma(
+                    float("{0:.2f}".format(cotizacion.colision_vuelco)))
+                prima_colisionVuelco = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_colisionVuelco)))
+                otros_danios = intcomma(
+                    float("{0:.2f}".format(cotizacion.otros_danios)))
+                prima_otrosDanios = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_otrosDanios)))
+                incendio_rayo = intcomma(
+                    float("{0:.2f}".format(cotizacion.incendio_rayo)))
+                robo_hurto = intcomma(
+                    float("{0:.2f}".format(cotizacion.robo_hurto)))
+                prima_importacion = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_importacion)))
+                subtotal = intcomma(
+                    float("{0:.2f}".format(cotizacion.subtotal)))
+                impuestos = intcomma(
+                    float("{0:.2f}".format(cotizacion.impuestos)))
+                total = intcomma(
+                    float("{0:.2f}".format(cotizacion.total)))
+                prima_pagoVisa = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_pagoVisa)))
+                prima_contado = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_pagoContado)))
+                pago = cotizacion.tipo_pago
+                prima_endoso = intcomma(
+                    float("{0:.2f}".format(cotizacion.prima_endoso)))
+                if valor_vehiculo[-2] == '.':
+                    valor_vehiculo = valor_vehiculo + '0'
+                if prima_lesiones[-2] == '.':
+                    prima_lesiones = prima_lesiones + '0'
+                if prima_daniosProp[-2] == '.':
+                    prima_daniosProp = prima_daniosProp + '0'
+                if prima_gastosMedicos[-2] == '.':
+                    prima_gastosMedicos = prima_gastosMedicos + '0'
+                if colision_vuelco[-2] == '.':
+                    colision_vuelco = colision_vuelco + '0'
+                if prima_colisionVuelco[-2] == '.':
+                    prima_colisionVuelco = prima_colisionVuelco + '0'
+                if otros_danios[-2] == '.':
+                    otros_danios = otros_danios + '0'
+                if prima_otrosDanios[-2] == '.':
+                    prima_otrosDanios = prima_otrosDanios + '0'
+                if incendio_rayo[-2] == '.':
+                    incendio_rayo = incendio_rayo + '0'
+                if robo_hurto[-2] == '.':
+                    robo_hurto = robo_hurto + '0'
+                if prima_importacion[-2] == '.':
+                    prima_importacion = prima_importacion + '0'
+                if subtotal[-2] == '.':
+                    subtotal = subtotal + '0'
+                if impuestos[-2] == '.':
+                    impuestos = impuestos + '0'
+                if total[-2] == '.':
+                    total = total + '0'
+                if prima_pagoVisa[-2] == '.':
+                    prima_pagoVisa = prima_pagoVisa + '0'
+                if prima_contado[-2] == '.':
+                    prima_contado = prima_contado + '0'
+                if prima_endoso[-2] == '.':
+                    prima_endoso = prima_endoso + '0'
+
+                opcion = 1
+                if kwargs['pk'] > kwargs['pk1']:
+                    opcion += 1
+                if kwargs['pk'] > kwargs['pk2']:
+                    opcion += 1
+                if kwargs['pk'] > kwargs['pk3']:
+                    opcion += 1
+                if kwargs['pk'] > kwargs['pk4']:
+                    opcion += 1
+
                 ctx = {
-                    'elegida': elegida,
+                    'opcion': opcion,
                     'cotizacion': cotizacion,
                     'valor_vehiculo': valor_vehiculo,
                     'prima_lesiones': prima_lesiones,
