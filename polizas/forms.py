@@ -23,7 +23,7 @@ class SolicitudClienteForm(forms.ModelForm):
     acreedor = forms.CharField(label='Acreedor Hipotecario', required=False)
     leasing = forms.CharField(label='o Leasing', required=False)
     observaciones = forms.CharField(label='Observaciones', widget=forms.Textarea(), required=False)
-    tipo_tdc = forms.ChoiceField(choices=[(0, 'Visa'), (1, 'Master Card'), (2, 'Dinners'), (3, 'American Express')],
+    tipo_tdc = forms.ChoiceField(choices=[(0, 'Visa'), (1, 'Master Card')],
                                 widget=forms.RadioSelect(), label="", required=False)
     num_tdc = forms.CharField(label='Numero de Tarjeta',required=False)
     banco_tdc = forms.CharField(label='Banco',required=False)

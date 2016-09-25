@@ -72,11 +72,7 @@ class SolicitudPoliza(models.Model):
                                    choices=[('Visa',
                                              'Visa'),
                                             ('Mastercard',
-                                             'Mastercad'),
-                                            ('Dinners',
-                                             'Dinners'),
-                                            ('American Express',
-                                             'American Express')])
+                                             'Mastercad')])
     num_tdc = models.CharField(max_length=20, blank=False, null=True)
     banco_tdc = models.CharField(max_length=20, blank=False, null=True)
     expiracion_tdc = models.CharField(max_length=20, blank=False, null=True)
