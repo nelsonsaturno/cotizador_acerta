@@ -95,6 +95,11 @@ def user_registration(request):
                     if request.user.groups.first().name == "super_admin"\
                        or request.user.groups.first().name == "admin":
                         if form.cleaned_data['ruc'] or form.cleaned_data['licencia']:
+                            print "-----------------"
+                            print form.cleaned_data['planes']
+                            print "-----------------"
+                            print request.POST['planes']
+                            print "-----------------"
                             datos_corredor = DatosCorredor(user=user,
                                                            ruc=request.POST['ruc'],
                                                            licencia=request.POST['licencia'],
