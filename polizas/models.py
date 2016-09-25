@@ -123,7 +123,7 @@ class ExtraDatosCliente(models.Model):
     actividad_empresa = models.CharField(max_length=30, blank=False)
     direccion_empresa = models.CharField(max_length=100, blank=False)
     telefono_empresa = models.CharField(max_length=30, blank=True)
-    fax_empresa = models.CharField(max_length=30, blank=False)
+    fax_empresa = models.CharField(max_length=30, blank=True)
     correo_trabajo = models.EmailField(blank=True)
     ilicito = models.BooleanField(default=False)
     politico_expuesto = models.BooleanField(default=False)
