@@ -21,11 +21,11 @@ import math
 from xhtml2pdf import pisa
 from easy_pdf.views import PDFTemplateView
 
-from django.template.loader import render_to_string
-from django.template import RequestContext
-import ho.pisa as pisa
+# from django.template.loader import render_to_string
+# from django.template import RequestContext
+# import ho.pisa as pisa
 import cStringIO as StringIO
-import cgi
+# import cgi
 import os
 
 
