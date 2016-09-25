@@ -15,9 +15,9 @@ from django.contrib.humanize.templatetags.humanize import *
 from xhtml2pdf import pisa
 from easy_pdf.views import PDFTemplateView
 
-from django.template.loader import render_to_string
-from django.template import RequestContext
-import ho.pisa as pisa
+# from django.template.loader import render_to_string
+# from django.template import RequestContext
+# import ho.pisa as pisa
 import cStringIO as StringIO
 import cgi
 import os
@@ -162,11 +162,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 tipo='Solicitada'
             )
             solicitud.save()
-<<<<<<< HEAD
             return HttpResponseRedirect(reverse_lazy('polizas_list'))
-=======
-            return HttpResponseRedirect(reverse_lazy('generacion-pdf-polizas', kwargs={'pk': solicitud.pk}))
->>>>>>> 9ba91ca5fd00f6586ac5e3e81303a05502b5b550
         else:
             return render(
                 request,
@@ -315,3 +311,43 @@ class ConfirmarSolicitud(LoginRequiredMixin, generic.TemplateView):
         extra_datos = ExtraDatosCliente.objects.get(conductor=poliza.cotizacion.conductor)
         context['cliente'] = extra_datos
         return self.render_to_response(context)
+
+
+def SendMailSolicitud(request, pk):
+    subject = "Acerta Seguros - Solicitud PEP"
+    solicitud = SolicitudPoliza.objects.get(pk=pk)
+    datos_extras = ExtraDatosCliente.objects.filter(
+        conductor=solicitud.cotizacion.conductor)
+    datos_extra = datos_extras.last()
+    context = Context({'pagesize': 'letter'})
+    context['solicitud'] = solicitud
+    context['cotizacion'] = solicitud.cotizacion
+    context['conductor1'] = solicitud.cotizacion.conductor
+    context['conductor2'] = datos_extra
+    template = get_template('polizas/pdf_personaNatural.html')
+    html = template.render(context)
+
+    file = open("polizas/" + 'personaNatural.pdf', "w+b")
+    pisa.CreatePDF(
+        html.encode('utf-8'),
+        dest=file,
+        encoding='utf-8'
+    )
+
+    file.seek(0)
+    pdf = file.read()
+    file.close()
+    to = [solicitud.cotizacion.conductor.correo]
+    from_email = request.user.email
+    ctx = {
+        'solicitud': solicitud
+    }
+    message = get_template('polizas/email_solicitud.html').render(Context(ctx))
+    msg = EmailMessage(subject, message, to=to, from_email=from_email)
+    msg.content_subtype = 'html'
+    msg.attach("opciones.pdf",
+       pdf,
+       'application/pdf')
+    msg.send()
+    return HttpResponseRedirect(
+        reverse_lazy('polizas_list'))
