@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import date
 from administrador.models import Endoso
+from django.conf import settings
 
 
 # Redefined django field.
