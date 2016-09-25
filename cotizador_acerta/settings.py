@@ -134,16 +134,16 @@ DATABASES['default'] = dj_database_url.config()
 #       DESARROLLO!!
 ########################################
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'd339j965q98db5',
-#         'USER': 'rthjlipirhwtsb',
-#         'PASSWORD': 'YpQrpQvkg5p1AyXJ83OqCRA2tH',
-#         'HOST': 'ec2-54-243-190-37.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd339j965q98db5',
+        'USER': 'rthjlipirhwtsb',
+        'PASSWORD': 'YpQrpQvkg5p1AyXJ83OqCRA2tH',
+        'HOST': 'ec2-54-243-190-37.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 #####################################################
 
@@ -151,16 +151,16 @@ DATABASES['default'] = dj_database_url.config()
 #       BD LOCAL!!
 ########################################
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cotizador_acerta_polizas',
-        'USER': 'acerta',
-        'PASSWORD': 'acerta123',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'cotizador_acerta_polizas',
+#         'USER': 'acerta',
+#         'PASSWORD': 'acerta123',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 # Password validation
