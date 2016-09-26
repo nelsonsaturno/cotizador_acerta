@@ -194,6 +194,8 @@
                                    <option>{{plan}}</option>
                                    {% endfor %}
                                </select>
+                            {% else %}
+                                <input type="hidden" name="planes" value="">
                            {% endif %}
                         {% else %}
                             <input type="hidden" name="planes" value="">
