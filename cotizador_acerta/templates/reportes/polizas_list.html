@@ -60,8 +60,10 @@
 		                  <ul class="dropdown-menu" role="menu">
 		                    <li><a href=""><i class="fa fa-edit">  Editar</i></a></li>
 		                    <li class="divider"></li>
-		                    <li><a href=""><i class="fa fa-send"> Enviar</i></a></li>
-		                    <li><a href=""><i class="fa fa-check">  Emitir</i></a></li>
+		                    <li><a href="{% url 'send-solicitud' solicitud.pk %}"><i class="fa fa-send"> Enviar</i></a></li>
+		                    {% if not solicitud.cotizacion.conductor.datos.first.ilicito and not solicitud.cotizacion.conductor.datos.first.politico_expuesto %}
+		                    	<li><a href=""><i class="fa fa-check">  Emitir</i></a></li>
+		                    {% endif %}
 		                    <li><a href="" onclick="window.open('{% url 'generacion-pdf-polizas' solicitud.pk %}');"><i class="fa fa-eye">  Ver</i></a></li>
 		                  </ul>
 		                </div>
