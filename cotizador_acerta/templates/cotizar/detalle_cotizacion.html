@@ -235,6 +235,12 @@
                         <td></td>
                         <td>{{ cotizacion.prima_endoso|floatformat:2|intcomma }}</td>
                       </tr>
+                      <tr>
+                        <td>Plan</td>
+                        <td>{{ cotizacion.plan }}</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
                     </table>
                     {% bootstrap_form_errors form %}
                     <form id="form-enviar" action="" method="post" role="form" class="form-horizontal">

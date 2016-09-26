@@ -147,7 +147,9 @@ class ConductorVehiculo(models.Model):
                                                    '5,000.00/25,000.00')])
     endoso = models.ForeignKey(Endoso)
     tipo_id = models.CharField(max_length=30, blank=True,
-                               null=True, default='cedula')
+                               null=True, choices=[
+                                                    ("0", 'Cédula'), ("1", 'Pasaporte')
+                                                    ])
 
     def __str__(self):
         return self.correo

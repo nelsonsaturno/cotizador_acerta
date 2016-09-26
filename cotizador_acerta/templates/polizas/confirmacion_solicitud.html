@@ -218,7 +218,7 @@
                             <button class="btn btn-lg calculate2" onclick="window.open('{% url 'generacion-pdf-polizas' solicitud.pk %}');">
                                 <i class="fa fa-print"></i>&nbsp;Imprimir
                             </button>
-                            <button class="btn btn-lg calculate2">
+                            <button class="btn btn-lg calculate2" onclick="location.href='{% url 'send-solicitud' solicitud.pk %}'">
                                 <i class="fa fa-send-o"></i>&nbsp;Enviar
                             </button>
                             <button class="btn btn-lg calculate2">

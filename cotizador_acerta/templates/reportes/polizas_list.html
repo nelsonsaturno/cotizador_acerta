@@ -44,13 +44,30 @@
 				      <td>{{ solicitud.cotizacion.conductor.correo }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.marca.nombre }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.modelo.nombre }}</td>
-				      {% if cliente.ilicito or cliente.politico_expuesto %}
+				      {% if solicitud.cotizacion.conductor.datos.first.ilicito or solicitud.cotizacion.conductor.datos.first.politico_expuesto %}
 				      	<td><span class="badge bg-red">Si</span></td>
 				      {% else %}
 				      	<td><span class="badge bg-green">No</span></td>
 				      {% endif %}
 			          <td><span class="badge bg-orange">{{ solicitud.cotizacion.corredor.email }}</span></td>
-				      <td><a id="id_submit" href="" onclick="window.open('{% url 'generacion-pdf-polizas' solicitud.pk %}');">Ver</a></td>
+				      <td>
+				      	<div class="btn-group">
+		                  	  <button type="button" class="btn btn-default">Acción</button>
+		                  	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			                    <span class="caret"></span>
+			                    <span class="sr-only">Toggle Dropdown</span>
+			                  </button>
+		                  <ul class="dropdown-menu" role="menu">
+		                    <li><a href=""><i class="fa fa-edit">  Editar</i></a></li>
+		                    <li class="divider"></li>
+		                    <li><a href="{% url 'send-solicitud' solicitud.pk %}"><i class="fa fa-send"> Enviar</i></a></li>
+		                    {% if not solicitud.cotizacion.conductor.datos.first.ilicito and not solicitud.cotizacion.conductor.datos.first.politico_expuesto %}
+		                    	<li><a href=""><i class="fa fa-check">  Emitir</i></a></li>
+		                    {% endif %}
+		                    <li><a href="" onclick="window.open('{% url 'generacion-pdf-polizas' solicitud.pk %}');"><i class="fa fa-eye">  Ver</i></a></li>
+		                  </ul>
+		                </div>
+				      </td>
 				    </tr>
 			    {% endfor %}
 			    </tbody>
@@ -78,7 +95,7 @@
 				<h3 class="box-title">Mis Polizas Emitidas</h3>
 			</div>
 			<div class="box-body table-responsive no-padding">
-			  <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+			  <table id="example2" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example2_info">
 			    <thead>
 				    <tr>
 				    	<th>Conductor</th>
@@ -126,9 +143,9 @@
 	$(document).ready(function(){
 		$(function () {
 	    	$("#example1").DataTable();
+	    	$("#example2").DataTable();
 	    });
 	});
 </script>
 
 {% endblock custom_script %}
-

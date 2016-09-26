@@ -21,6 +21,13 @@ import math
 from xhtml2pdf import pisa
 from easy_pdf.views import PDFTemplateView
 
+# from django.template.loader import render_to_string
+# from django.template import RequestContext
+# import ho.pisa as pisa
+import cStringIO as StringIO
+# import cgi
+import os
+
 
 def CargarCarros(request):
     file = open("carros.txt")
@@ -81,24 +88,24 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         context = self.get_context_data(**kwargs)
 
         # Chequeamos si es corredor, y creamos los planes para mostrar
-        # if (request.user.groups.first().name == "corredor"):
-        #     corredor = DatosCorredor.objects.get(user=request.user)
-        #     planes = corredor.planes
-        #     crear_planes = re.findall('"([^"]*)"', planes)
+        if (request.user.groups.first().name == "corredor"):
+            corredor = DatosCorredor.objects.get(user=request.user)
+            planes = corredor.planes
+            crear_planes = re.findall(r"['\"](.*?)['\"]", planes)
 
-        # # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
-        # elif (request.user.groups.first().name == "vendedor"):
-        #     vendedor = CorredorVendedor.objects.get(vendedor=request.user)
-        #     corredor = DatosCorredor.objects.get(user=vendedor.corredor)
-        #     planes = corredor.planes
-        #     crear_planes = re.findall('"([^"]*)"', planes)
+        # Chequeamos si es vendedor, y creamos los planes del corredor correspondiente para mostrar
+        elif (request.user.groups.first().name == "vendedor"):
+            vendedor = CorredorVendedor.objects.get(vendedor=request.user)
+            corredor = DatosCorredor.objects.get(user=vendedor.corredor)
+            planes = corredor.planes
+            crear_planes = re.findall(r"['\"](.*?)['\"]", planes)
 
-        # else:
-        #     corredor = None
-        #     crear_planes = []
+        else:
+            corredor = None
+            crear_planes = []
 
         context['form'] = ConductorVehiculoForm
-        #context['planes'] = crear_planes 
+        context['planes'] = crear_planes
         return self.render_to_response(context)
 
     def crear_cotizacion(self, request, vehiculo):
@@ -233,6 +240,13 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
 
         user = User.objects.get(pk=request.user.id)
 
+        print request.POST['planes']
+        if request.POST['planes'] != '':
+            plan1 = request.POST['planes']
+        else:
+            print "No hay planes"
+            plan1 = "Básico"
+
         cotizacion = Cotizacion(
             conductor=conductor,
             corredor=user,
@@ -256,7 +270,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             colision_vuelco=deducible_colision,
             impuestos=impuestos,
             prima_importacion=importacion_piezas,
-            plan="Básico",
+            plan=plan1,
             endoso=endoso,
             prima_endoso=prima_endoso)
         cotizacion.save()
@@ -267,7 +281,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
         form = ConductorVehiculoForm(request.POST)
         if form.is_valid():
             vehiculo = form.save()
-            
+
             tipo_id = form.cleaned_data['tipo_id']
             if tipo_id == '0':
                 provincia = form.cleaned_data['provincia']
@@ -291,6 +305,18 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                     int(cotizacion1.colision_vuelco * 1.20)))
             if colision_vuelco2 < 250.00:
                 colision_vuelco2 = float("{0:.2f}".format(250.00))
+
+            print request.POST['planes']
+            if request.POST['planes'] != '':
+                plan2 = request.POST['planes']
+                plan3 = request.POST['planes']
+                plan4 = request.POST['planes']
+            else:
+                print "No hay planes"
+                plan2 = "Premium"
+                plan3 ="Gold"
+                plan4 = "Silver"
+
             cotizacion2 = Cotizacion(
                 conductor=vehiculo,
                 corredor=user,
@@ -309,7 +335,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 colision_vuelco=math.ceil(colision_vuelco2),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
-                plan="Premium",
+                plan=plan2,
                 endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal2 = cotizacion2.prima_lesiones +\
@@ -359,7 +385,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 colision_vuelco=math.ceil(colision_vuelco3),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
-                plan="Gold",
+                plan=plan3,
                 endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal3 = cotizacion3.prima_lesiones +\
@@ -411,7 +437,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 colision_vuelco=math.ceil(colision_vuelco4),
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
-                plan="Silver",
+                plan=plan4,
                 endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal4 = cotizacion4.prima_lesiones +\
@@ -587,6 +613,13 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
 
         user = User.objects.get(pk=request.user.id)
 
+        print request.POST['planes']
+        if request.POST['planes'] != '':
+            plan1 = request.POST['planes']
+        else:
+            print "No hay planes"
+            plan1 = "Básico"
+
         cotizacion = Cotizacion(
             conductor=conductor,
             corredor=user,
@@ -610,7 +643,7 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
             colision_vuelco=deducible_colision,
             impuestos=impuestos,
             prima_importacion=importacion_piezas,
-            plan="Básico",
+            plan=plan1,
             endoso=endoso,
             prima_endoso=prima_endoso)
         cotizacion.save()
@@ -635,6 +668,18 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
                     int(cotizacion1.colision_vuelco * 1.20)))
             if colision_vuelco2 < 250.00:
                 colision_vuelco2 = float("{0:.2f}".format(250.00))
+
+            print request.POST['planes']
+            if request.POST['planes'] != '':
+                plan2 = request.POST['planes']
+                plan3 = request.POST['planes']
+                plan4 = request.POST['planes']
+            else:
+                print "No hay planes"
+                plan2 = "Premium"
+                plan3 ="Gold"
+                plan4 = "Silver"
+
             cotizacion2 = Cotizacion(
                 conductor=vehiculo,
                 corredor=user,
@@ -653,7 +698,7 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
                 colision_vuelco=colision_vuelco2,
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
-                plan="Premium",
+                plan=plan2,
                 endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal2 = cotizacion2.prima_lesiones +\
@@ -703,7 +748,7 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
                 colision_vuelco=colision_vuelco3,
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
-                plan="Gold",
+                plan=plan3,
                 endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal3 = cotizacion3.prima_lesiones +\
@@ -755,7 +800,7 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
                 colision_vuelco=colision_vuelco4,
                 descuento=cotizacion1.descuento,
                 prima_importacion=cotizacion1.prima_importacion,
-                plan="Silver",
+                plan=plan4,
                 endoso=cotizacion1.endoso,
                 prima_endoso=prima_endoso)
             subtotal4 = cotizacion4.prima_lesiones +\
@@ -841,6 +886,11 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
         context['pk3'] = kwargs['pk3']
         context['pk4'] = kwargs['pk4']
         return self.render_to_response(context)
+
+    def fetch_resources(self, uri, rel):
+            path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+
+            return path
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -980,12 +1030,11 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
             template = get_template('cotizar/opciones_cotizaciones_pdf.html')
             html = template.render(context)
 
-            file = open("cotizar/" + 'opciones.pdf', "w+b")
-            pisa.CreatePDF(
-                html.encode('utf-8'),
-                dest=file,
-                encoding='utf-8'
-            )
+            file = open("polizas/" + 'opciones.pdf', "w+b")
+
+            context = Context({'pagesize': 'letter'})
+            links = lambda uri, rel: os.path.join(settings.STATIC_ROOT2, uri.replace(settings.STATIC_URL, ""))
+            pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("UTF-8")), dest=file, encoding='UTF-8', link_callback=links)
 
             file.seek(0)
             pdf = file.read()
@@ -1118,7 +1167,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                            open(cotizacion.endoso.archivo.name,
                                 'rb').read(),
                            'application/pdf')
-                
+
                 msg.send()
 
                 # Correo Corredor

@@ -95,16 +95,21 @@ def user_registration(request):
                     if request.user.groups.first().name == "super_admin"\
                        or request.user.groups.first().name == "admin":
                         if form.cleaned_data['ruc'] or form.cleaned_data['licencia']:
+                            print "-----------------"
+                            print form.cleaned_data['planes']
+                            print "-----------------"
                             datos_corredor = DatosCorredor(user=user,
                                                            ruc=request.POST['ruc'],
                                                            licencia=request.POST['licencia'],
                                                            razon_social=form.cleaned_data['razon_social'],
+                                                           planes=form.cleaned_data['planes']
                                                            )
                         else:
                             datos_corredor = DatosCorredor(user=user,
                                                            ruc='-',
                                                            licencia='-',
                                                            razon_social='-',
+                                                           planes=form.cleaned_data['planes']
                                                            )
                         datos_corredor.save()
                         print datos_corredor.planes

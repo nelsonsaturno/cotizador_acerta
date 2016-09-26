@@ -185,6 +185,23 @@
                         <h3 id="subtitulo"><strong>Datos del Cliente</strong></h3>
                         <div class="col-md-6">
 
+                        {% if user.groups.all.0.name != 'super_admin' and user.groups.all.0.name != 'admin'%}
+                            {% if planes|length > 0 %}
+                              <h3 id="subtitulo"><strong>Planes: </strong></h3>
+                               <label for="planes">Seleccione el plan que corresponda: </label>
+                               <select name="planes" class="form-control" id="planes">
+                                    <option selected disabled>---------</option>
+                                   {% for plan in planes %}
+                                   <option>{{plan}}</option>
+                                   {% endfor %}
+                               </select>
+                            {% else %}
+                                <input type="hidden" name="planes" value="">
+                           {% endif %}
+                        {% else %}
+                            <input type="hidden" name="planes" value="">
+                        {% endif %}
+
                             <h3 id="subtitulo"><strong>Persona</strong></h3>
                             {% bootstrap_field form.nombre layout='horizontal' show_label=False field_class='form-field' %}
                             {% bootstrap_field form.apellido layout='horizontal' show_label=False field_class='form-field' %}
@@ -334,10 +351,20 @@
 
     $(document).ready(function(){
 
+    $('#id_tipo_id').on('change',function(){
+        if ($(this).val()=="0"){
+            $(".ced").removeClass("hidden");
+            $(".passp").addClass("hidden");
+        }
+        if ($(this).val()=="1"){
+            $(".ced").addClass("hidden");
+            $(".passp").removeClass("hidden");
+        }
+    });
+
         $(".ced").addClass("hidden");
         $(".passp").addClass("hidden");
         $('#id_fecha_nacimiento').datepicker({
-            format: 'yyyy-mm-dd',
             language: 'es',
             todayHighlight: true,
             autoclose: true,
@@ -1277,7 +1304,7 @@
             $(".km-field").css('display','block');
         }
         $('#id_valor_text').maskMoney();
-        $('#id_fecha_nacimiento').mask('0000-00-00', {placeholder: "F. Nacimiento (aaaa-mm-dd)"});
+        $('#id_fecha_nacimiento').mask('00-00-0000', {placeholder: "F. Nacimiento (dd-mm-aaaa)"});
 
         $(document).click(function() {
             if($('#id_tipo_id_conductor_0').is(":checked")) {
@@ -1286,6 +1313,11 @@
                 $('#id_conductor').unmask();
             }
         });
+    });
+
+    $(document).on("change", "#planes", function(e){
+        e.preventDefault();
+        $("#id_endoso").val("4");
     });
 
 </script>
