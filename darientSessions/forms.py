@@ -131,7 +131,8 @@ class CorredorCreateForm(forms.ModelForm):
                                     required=False,
                                     label="",
                                      widget=forms.TextInput(attrs={'placeholder': 'Razón Social'}))
-    planes = forms.MultipleChoiceField(choices=[
+    planes = forms.MultipleChoiceField(required=False, initial="",
+                                       choices=[
                                         ('Plan 1', 'Plan 1'),
                                         ('Plan 2', 'Plan 2'),
                                         ('Plan 3', 'Plan 3')
