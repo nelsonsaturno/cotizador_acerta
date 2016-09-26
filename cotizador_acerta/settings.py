@@ -151,16 +151,16 @@ DATABASES = {
 #       BD LOCAL!!
 ########################################
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cotizador_acerta_polizas',
-        'USER': 'acerta',
-        'PASSWORD': 'acerta123',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'cotizador_acerta_polizas',
+#         'USER': 'acerta',
+#         'PASSWORD': 'acerta123',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 # Password validation
