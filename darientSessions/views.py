@@ -98,8 +98,6 @@ def user_registration(request):
                             print "-----------------"
                             print form.cleaned_data['planes']
                             print "-----------------"
-                            print request.POST['planes']
-                            print "-----------------"
                             datos_corredor = DatosCorredor(user=user,
                                                            ruc=request.POST['ruc'],
                                                            licencia=request.POST['licencia'],
