@@ -350,6 +350,17 @@
 
     $(document).ready(function(){
 
+    $('#id_tipo_id').on('change',function(){
+        if ($(this).val()=="0"){
+            $(".ced").removeClass("hidden");
+            $(".passp").addClass("hidden");
+        }
+        if ($(this).val()=="1"){
+            $(".ced").addClass("hidden");
+            $(".passp").removeClass("hidden");
+        }
+    });
+
         $(".ced").addClass("hidden");
         $(".passp").addClass("hidden");
         $('#id_fecha_nacimiento').datepicker({
