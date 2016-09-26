@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
 from polizas.forms import *
-from datetime import date
+from datetime import date, datetime
 from cotizador_acerta.views_mixins import LoginRequiredMixin
 from polizas.models import *
 from cotizar.models import *
@@ -14,6 +14,14 @@ from django.template.loader import get_template
 from django.contrib.humanize.templatetags.humanize import *
 from xhtml2pdf import pisa
 from easy_pdf.views import PDFTemplateView
+
+from django.template import RequestContext
+import ho.pisa as pisa
+import cStringIO as StringIO
+import cgi
+import os
+
+
 
 
 class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
@@ -154,7 +162,39 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 dia_pago=request.POST['dia_pago'],
                 tipo='Solicitada'
             )
+            
+            subtotal = cotizacion.subtotal - cotizacion.descuento
+            lesiones_corporales = cotizacion.lesiones_corporales.split('/')
+            gastos_medicos = cotizacion.gastos_medicos.split('/')
+            muerte_accidental = cotizacion.muerte_accidental.split('/')
+            fecha = datetime.now()
+
+            context = Context({'pagesize': 'letter',
+                               #'nombre_conductor': slnombre_conductor,
+                               'solicitud': solicitud,
+                               'extra_cliente': extra_cliente,
+                               'conductor': cotizacion.conductor,
+                               'subtotal': subtotal,
+                               'lesiones_corporales': lesiones_corporales,
+                               'gastos_medicos': gastos_medicos,
+                               'muerte_accidental': muerte_accidental,
+                               'fecha':fecha,
+                               'corredor': corredor})
+            template = get_template('polizas/prueba_pdf.html')
+            html = template.render(context)
+
+            file = open("polizas/" + 'prueba.pdf', "w+b")
+            result = StringIO.StringIO()
+            links = lambda uri, rel: os.path.join(settings.STATIC_ROOT2, uri.replace(settings.STATIC_URL, ""))
+            pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=result, encoding='UTF-8', link_callback=links)
+            pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=file, encoding='UTF-8', link_callback=links)
+
+            file.seek(0)
+            pdf = file.read()
+            file.close()
+
             solicitud.save()
+            #return HttpResponse(result.getvalue(), 'application/pdf')
             return HttpResponseRedirect(reverse_lazy('polizas_list'))
         else:
             return render(
