@@ -11,7 +11,7 @@ import datetime
 
 class ConductorVehiculoForm(forms.ModelForm):
 
-    tipo_id = forms.Select(choices=[(0, 'Cédula'), (1, 'Pasaporte')])
+    tipo_id = forms.Select(choices=[("0", 'Cédula'), ("1", 'Pasaporte')])
     valor_text = forms.CharField(label="Valor", help_text='Ex: 99,999.99')
 
     mail_corredor = forms.CharField(widget=forms.HiddenInput())
@@ -70,6 +70,7 @@ class ConductorVehiculoForm(forms.ModelForm):
             'tipo': 'tipo',
         }
         widgets = {
+            'fecha_nacimiento': forms.DateInput(format='%d-%m-%Y'),
             'marca': forms.Select(attrs={'class': 'select2'}),
             'modelo': forms.Select(attrs={'class': 'select2'}),
             'historial_transito': forms.Select(
