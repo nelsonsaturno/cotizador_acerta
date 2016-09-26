@@ -28,7 +28,7 @@ class ConductorVehiculoForm(forms.ModelForm):
     )
 
     tipo = forms.ChoiceField(
-        choices=[('PI', 'PI'), ('AV', 'AV')],
+        choices=[('',''), ('PI', 'PI'), ('AV', 'AV')],
         required=False
     )
 
