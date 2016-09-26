@@ -164,38 +164,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 tipo='Solicitada'
             )
             
-            subtotal = cotizacion.subtotal - cotizacion.descuento
-            lesiones_corporales = cotizacion.lesiones_corporales.split('/')
-            gastos_medicos = cotizacion.gastos_medicos.split('/')
-            muerte_accidental = cotizacion.muerte_accidental.split('/')
-            fecha = datetime.now()
-
-            context = Context({'pagesize': 'letter',
-                               #'nombre_conductor': slnombre_conductor,
-                               'solicitud': solicitud,
-                               'extra_cliente': extra_cliente,
-                               'conductor': cotizacion.conductor,
-                               'subtotal': subtotal,
-                               'lesiones_corporales': lesiones_corporales,
-                               'gastos_medicos': gastos_medicos,
-                               'muerte_accidental': muerte_accidental,
-                               'fecha':fecha,
-                               'corredor': corredor})
-            template = get_template('polizas/prueba_pdf.html')
-            html = template.render(context)
-
-            file = open("polizas/" + 'prueba.pdf', "w+b")
-            result = StringIO.StringIO()
-            links = lambda uri, rel: os.path.join(settings.STATIC_ROOT2, uri.replace(settings.STATIC_URL, ""))
-            pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=result, encoding='UTF-8', link_callback=links)
-            pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=file, encoding='UTF-8', link_callback=links)
-
-            file.seek(0)
-            pdf = file.read()
-            file.close()
-
             solicitud.save()
-            #return HttpResponse(result.getvalue(), 'application/pdf')
             return HttpResponseRedirect(reverse_lazy('confirmar-solicitud', kwargs={'pk': solicitud.pk}))
         else:
             return render(
@@ -342,9 +311,59 @@ class ConfirmarSolicitud(LoginRequiredMixin, generic.TemplateView):
         poliza = SolicitudPoliza.objects.get(pk=kwargs['pk'])
         user = User.objects.get(username=poliza.cotizacion.corredor)
         context['solicitud'] = poliza
-        extra_datos = ExtraDatosCliente.objects.get(conductor=poliza.cotizacion.conductor)
-        context['cliente'] = extra_datos
+        #extra_datos = ExtraDatosCliente.objects.get(conductor=poliza.cotizacion.conductor)
+        #context['cliente'] = extra_datos
         return self.render_to_response(context)
+
+
+class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
+    template_name = 'polizas/prueba_pdf.html'
+
+    def get(self, request, *args, **kwargs):
+
+
+        solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
+        cotizacion = solicitud.cotizacion
+        user = User.objects.get(username=cotizacion.corredor)
+        if user.groups.first().name != 'super_admin'\
+           and user.groups.first().name != 'admin':
+            corredor = DatosCorredor.objects.get(user=user)
+        else:
+            corredor = ''
+        #extra_cliente = ExtraDatosCliente.objects.get(conductor=cotizacion.conductor)
+        extra_cliente = ''
+
+        subtotal = cotizacion.subtotal - cotizacion.descuento
+        lesiones_corporales = cotizacion.lesiones_corporales.split('/')
+        gastos_medicos = cotizacion.gastos_medicos.split('/')
+        muerte_accidental = cotizacion.muerte_accidental.split('/')
+        fecha = datetime.now()
+
+        context = Context({'pagesize': 'letter',
+                           'solicitud': solicitud,
+                           'extra_cliente': extra_cliente,
+                           'conductor': cotizacion.conductor,
+                           'subtotal': subtotal,
+                           'lesiones_corporales': lesiones_corporales,
+                           'gastos_medicos': gastos_medicos,
+                           'muerte_accidental': muerte_accidental,
+                           'fecha':fecha,
+                           'corredor': corredor})
+        template = get_template('polizas/prueba_pdf.html')
+        html = template.render(context)
+
+        file = open("polizas/" + 'prueba.pdf', "w+b")
+        result = StringIO.StringIO()
+        links = lambda uri, rel: os.path.join(settings.STATIC_ROOT2, uri.replace(settings.STATIC_URL, ""))
+        pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=result, encoding='UTF-8', link_callback=links)
+        pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=file, encoding='UTF-8', link_callback=links)
+
+        file.seek(0)
+        pdf = file.read()
+        file.close()
+
+        return HttpResponse(result.getvalue(), 'application/pdf')
+
 
 
 def SendEmailSolicitud(request, pk):

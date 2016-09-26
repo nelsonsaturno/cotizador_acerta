@@ -8,6 +8,11 @@ urlpatterns = patterns(
         SolicitudPolizaView.as_view(),
         name='solicitar'
     ),
+     url(
+        r'^emitirPoliza/(?P<pk>\d+)/$',
+        EmitirPoliza.as_view(),
+        name='emitir'
+    ),
     url(
         r'^prueba/$',
         Test.as_view(),
