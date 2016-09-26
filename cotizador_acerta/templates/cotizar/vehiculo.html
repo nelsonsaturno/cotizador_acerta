@@ -186,13 +186,15 @@
                         <div class="col-md-6">
 
                         {% if user.groups.all.0.name != 'super_admin' and user.groups.all.0.name != 'admin'%}
-                          <h3 id="subtitulo"><strong>Planes: </strong></h3>
-                           <label for="planes">Seleccione el plan que corresponda: </label>
-                           <select name="planes" class="form-control" id="planes">
-                               {% for plan in planes %}
-                               <option>{{plan}}</option>
-                               {% endfor %}
-                           </select>
+                            {% if planes|length > 0 %}
+                              <h3 id="subtitulo"><strong>Planes: </strong></h3>
+                               <label for="planes">Seleccione el plan que corresponda: </label>
+                               <select name="planes" class="form-control" id="planes">
+                                   {% for plan in planes %}
+                                   <option>{{plan}}</option>
+                                   {% endfor %}
+                               </select>
+                           {% endif %}
                         {% else %}
                             <input type="hidden" name="planes" value="">
                         {% endif %}
