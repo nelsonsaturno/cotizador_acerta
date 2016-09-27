@@ -65,7 +65,7 @@
     <td style="border: none; margin-left: 10px;" align="left">
       polifact<br>
       Fecha de impresión<br>
-      <font size="2">dd/mm/aaaa hh:mm PM</font><br>
+      <font size="2">{{ fecha }}</font><br>
       <b>EMISIÓN</b>
     </td>
     </tr>
@@ -75,99 +75,176 @@
   <tr>
     <td><b>PÓLIZA:</b></td>
     <td><b>FACTURA:</b></td>
-    <td><b>AGENCIA:</b></td> 
-    <td colspan="3"><b>FECHA:</b></td>
+    <td colspan="2"><b>AGENCIA:</b></td> 
+    <td colspan="3"><b>FECHA:</b> {{ fecha }}</td>
   </tr>
   <tr>
-    <td colspan="3"><b>CONTRATANTE:</b></td>
-    <td colspan="3"><b>CÉDULA/RUC:</b></td>
+    <td colspan="4"><b>CONTRATANTE:</b> {{ solicitud.nombre_conductor }}</td>
+    <td colspan="3"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
   </tr>
   <tr>
-    <td colspan="3" style="border-top: 1px white;"><b>ASEGURADO:</b></td>
-    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b></td>
+    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.nombre_conductor }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
   </tr>
   <tr>
-    <td colspan="6"><b>ACREEDOR:</b></td>
+    <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor }}</td>
   </tr>
   <tr>
     <td colspan="4"><b>INFORMACIÓN DE CONTACTO DEL CONTRATANTE:</b></td>
-    <td colspan="2" rowspan="1"><font size="2"><div align="right">AL MEDIODÍA HORA OFICIAL (dd/mm/aaaa)</div></font> <b>VIGENCIA DESDE(*) HASTA(*)</b></td>
+    <td colspan="3" rowspan="1"><font size="2"><div align="right">AL MEDIODÍA HORA OFICIAL (dd/mm/aaaa)</div></font> <b>VIGENCIA DESDE(*)</b>  {{ solicitud.vigencia_desde }} <b> HASTA(*)</b> {{ solicitud.vigencia_hasta }}</td>
   </tr> 
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>DIRECCIÓN DE COBRO:</b></td>
-    <td colspan="2" style="border-top: 1px white;"><b>MONEDA</b></td>
+    <td colspan="4" style="border-top: 1px white;"><b>DIRECCIÓN DE COBRO:</b> {{ extra_cliente.provincia }} {{ extra_cliente.distrito }} {{ extra_cliente.corregimiento }} {{ extra_cliente.urbanizacion }} {{ extra_cliente.edificio }} {{ extra_cliente.piso }} {{ extra_cliente.apto }} {{ extra_cliente.calle_ave }} {{ extra_cliente.no_casa }} </td>
+    <td colspan="3" style="border-top: 1px white;"><b>MONEDA</b></td>
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>DIRECCIÓN PRINCIPAL:</b></td>
-    <td colspan="2"><b>FRECUENCIA DE FACTURACIÓN</b></td>
+    <td colspan="4" style="border-top: 1px white;"><b>DIRECCIÓN PRINCIPAL:</b> {{ extra_cliente.provincia }} {{ extra_cliente.distrito }} {{ extra_cliente.corregimiento }} {{ extra_cliente.urbanizacion }} {{ extra_cliente.edificio }} {{ extra_cliente.piso }} {{ extra_cliente.apto }} {{ extra_cliente.calle_ave }} {{ extra_cliente.no_casa }} </td>
+    <td colspan="3"><b>FRECUENCIA DE FACTURACIÓN</b></td>
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>EMAIL:</b></td>
-    <td colspan="2" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b></td>
+    <td colspan="4" style="border-top: 1px white;"><b>EMAIL:</b> {{ conductor.correo }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b></td>
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:</b></td>
-    <td colspan="2" style="border-top: 1px white;"><b>CONDUCTO DE PAGOS</b></td>
+    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:</b> {{ conductor.telefono1 }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGOS</b></td>
   </tr>
   <tr>
-    <td colspan="3"><b>CORREDOR:</b></td>
-    <td colspan="3"><b>LICENCIA</b></td>
+    <td colspan="3"><b>CORREDOR:</b>{{ corredor }} </td>
+    <td colspan="4"><b>LICENCIA</b>{{ corredor.ruc }}</td>
   </tr>
   <tr>
-    <th colspan="6" rowspan="1">DESCRIPCIÓN DEL AUTOMÓVIL</th>
+    <th colspan="7" rowspan="1">DESCRIPCIÓN DEL AUTOMÓVIL</th>
   </tr>
   <tr>
-    <td colspan="6">Unidad No.</td>
+    <td colspan="7">Unidad No.</td>
   </tr>
   <tr>
-    <td>MARCA:</td>
-    <td colspan="2">MODELO:</td>
+    <td colspan="2">MARCA: {{ conductor.marca }}</td>
+    <td colspan="2">MODELO: {{ conductor.modelo }}</td>
     <td>CLASE:</td>
-    <td colspan="2">TIPO:</td>
+    <td colspan="2">TIPO: {{ extra_cliente.tipo }}</td>
   </tr>
   <tr>
-    <td>SERIAL MOTOR:</td>
+    <td colspan="2">SERIAL MOTOR: {{ extra_cliente.motor }}</td>
     <td colspan="2">SERIAL CARROCERÍA:</td>
-    <td>NUM. PLACA:</td>
+    <td>NUM. PLACA: {{ extra_cliente.placa }}</td>
     <td colspan="2" >CARGA:</td>
   </tr>
   <tr>
-    <td>COLOR:</td>
-    <td colspan="2">AÑO:</td>
+    <td colspan="2">COLOR:</td>
+    <td colspan="2">AÑO: {{ conductor.anio }}</td>
     <td>USO:</td>
     <td colspan="2">PUESTOS:</td>
   </tr>
   <tr>
-    <td colspan="6">SUMA ASEGURADA:</td>
+    <td colspan="7">SUMA ASEGURADA:</td>
   </tr>
   <tr style="height: 100%; ">
-    <th>RIESGOS CUBIERTOS</th>
-    <th>LÍM. PERSONAS</th>
+    <th colspan="2">RIESGOS CUBIERTOS</th>
+    <th>LÍM. PERS.</th>
     <th>LÍM. ACC.</th>
     <th>LÍM. RESP.</th>
     <th>DEDUCIBLE</th>
     <th>PRIMA</th>
   </tr>
-  <tr>
-    <td colspan="6"><br><br><br><br></td>
+  <tr style="height: 40;">
+    <td colspan="2">LESIONES CORPORALES</td>
+    <td colspan="1" style="text-align: center;">{{ lesiones_corporales.0 }}</td>
+    <td colspan="1" style="text-align: center;">{{ lesiones_corporales.1 }}</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_lesiones }}</td>
+  </tr>
+  <tr style="height: 40; ">
+    <td colspan="2">DAÑOS A LA PROPIEDAD AJENA</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.danios_propiedad }}</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_daniosProp }}</td>
+  </tr>
+  <tr style="height: 40; ">
+    <td colspan="2">GASTOS MÉDICOS POR ACCIDENTE</td>
+    <td colspan="1" style="text-align: center;">{{ gastos_medicos.0 }}</td>
+    <td colspan="1" style="text-align: center;">{{ gastos_medicos.1 }}</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_gastosMedicos }}</td>
+  </tr>
+  <tr style="height: 40; ">
+    <td colspan="2">MUERTE ACCIDENTAL</td>
+    <td style="text-align: center;">{{ muerte_accidental.0 }}</td>
+    <td style="text-align: center;">{{ muerte_accidental.1 }}</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+  </tr>
+  <tr style="height: 40; ">
+    <td colspan="2">OTROS RIESGOS</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.otros_danios }}</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_otrosDanios }}</td>
+  </tr>
+  <tr style="height: 40; ">
+    <td colspan="2">COLISIÓN O VUELCO</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.colision_vuelco }}</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_colisionVuelco }}</td>
+  </tr>
+  <tr style="height: 40; ">
+    <td colspan="2">INCENDIO Y RAYO</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.incendio_rayo }}</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+  </tr>
+  <tr style="height: 40; ">
+    <td colspan="2">ROBO O HURTO</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.robo_hurto }}</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+  </tr>
+  <tr style="height: 40; ">
+    <td colspan="4">ASISTENCIA LEGAL</td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.asistencia_legal }}</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
+  </tr>
+  <tr style="height: 40; ">
+    <td colspan="4">ACERTA PREFERENCIAL PLUS</td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.referencial_plus }}</td>
+    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;"> </td>
   </tr>
   <tr>
-    <td colspan="4">EMISIÓN PÓLIZA NUEVA<br><br><br><br></td>
-    <td colspan="1"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %:<br><b>TOTAL A PAGAR:</b></td>
-    <td colspan="1"><br><br><br><br></td>
+    <td colspan="7"><br></td>
+  </tr>
+  <tr>
+    <td colspan="3">EMISIÓN PÓLIZA NUEVA<br><br><br><br></td>
+    <td colspan="2" style="margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %:<br><b>TOTAL A PAGAR:</b></td>
+    <td colspan="1" style="text-align: right;">B/.<br>B/.<br>B/.<br>B/.<br>B/.<br>B/.</td>
+    <td colspan="1" style="text-align: right;">{{ solicitud.cotizacion.subtotal }}<br>{{ solicitud.cotizacion.descuento }}<br>.00<br>{{ subtotal }}<br>{{ solicitud.cotizacion.impuestos }}<br>{{ solicitud.cotizacion.total }}</td>
   </tr>
 
 
   <tr style="height: 100%;">
-    <td colspan="6"><b>NOTA IMPORTANTE:</b> ESTA POLIZA PUEDE SER CANCELADA POR FALTA DE PAGO DE CONFORMIDAD CON LA LEY 12 DEL 3 DE ABRIL DE 2012 Y POR LA OPCIÓN DE AMBAS PARTES SEGÚN SE DISPONGA EN LAS CONDICIONES GENERALES DE LA POLIZA, SE ACUERDA QUE SOLO LOS ENDOSOS AQUÍ MENCIONADOS Y/O ADHERIDOS Y LOS QUE SE ADHIERAN EN EL FUTURO SON PARTES INTEGRALES DE LA POLIZA.
+    <td colspan="7"><b>NOTA IMPORTANTE:</b> ESTA POLIZA PUEDE SER CANCELADA POR FALTA DE PAGO DE CONFORMIDAD CON LA LEY 1br2 DEL 3 DE ABRIL DE 2012 Y POR LA OPCIÓN DE AMBAS PARTES SEGÚN SE DISPONGA EN LAS CONDICIONES GENERALES DE LA POLIZA, SE ACUERDA QUE SOLO LOS ENDOSOS AQUÍ MENCIONADOS Y/O ADHERIDOS Y LOS QUE SE ADHIERAN EN EL FUTURO SON PARTES INTEGRALES DE LA POLIZA.
     </td>
   </tr>
   <tr>
-    <td colspan="6"; style="font-size:8px">Queda entendido que el ASEGURADO y Acerta Seguros, S.A. han leído y convenido las Condiciones Generales y articulares aprobadas por la Superintendencia de Seguros y Reaseguro de Panamá que forman parte de esta póliza, en fé de lo cual firman en Panamá, República de Panamá, hoy, 08 de SEPTIEMBRE de 2016
+    <td colspan="7"; style="font-size:8px">Queda entendido que el ASEGURADO y Acerta Seguros, S.A. han leído y convenido las Condiciones Generales y articulares aprobadas por la Superintendencia de Seguros y Reaseguro de Panamá que forman parte de esta póliza, en fé de lo cual firman en Panamá, República de Panamá, hoy, 08 de SEPTIEMBRE de 2016
     </td>
   </tr>
    <tr>
-    <td style="text-align: center;" colspan="3"><br><br>_____________________________ <br> Asegurado</td>
+    <td style="text-align: center;" colspan="4"><br><br>_____________________________ <br> Asegurado</td>
     <td style="text-align: center;" colspan="3"><br><br>_____________________________ <br>Acerta Seguros S.A.</td>
   </tr>
  </table>
