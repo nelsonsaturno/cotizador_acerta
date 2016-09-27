@@ -116,8 +116,6 @@ class ExtraDatosCliente(models.Model):
     no_casa = models.CharField(max_length=5, blank=True, default='')
     apartado_postal = models.CharField(max_length=30, blank=True)
     telefono_res = models.CharField(max_length=20, blank=True)
-    fax = models.CharField(max_length=20, blank=True)
-    estafeta = models.CharField(max_length=30, blank=True)
     profesion = models.CharField(max_length=30, blank=False)
     ocupacion = models.CharField(max_length=30, blank=False)
     cargo_empresa = models.CharField(max_length=30, blank=False)

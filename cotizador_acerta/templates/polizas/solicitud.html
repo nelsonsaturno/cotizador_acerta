@@ -259,10 +259,8 @@
                                                 {% bootstrap_field form.telefono_res layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                             <div class="col-md-3">
-                                                {% bootstrap_field form.fax layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                             <div class="col-md-3">
-                                                {% bootstrap_field form.estafeta layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                     </div>
@@ -795,7 +793,7 @@
         }
     } );
 
-    $("#id_aseguradoConductor").on("change", function(event) { 
+    $("#id_aseguradoConductor").on("change", function(event) {
         if (this.checked) {
             var element = document.querySelector("#id_tipo_id_conductor");
             element.classList.add("hidden");
@@ -815,7 +813,7 @@
         }
     } );
 
-    $("#id_comision").on("change", function(event) { 
+    $("#id_comision").on("change", function(event) {
         if (this.checked) {
             var element = document.querySelector("#id_def_comision");
             element.classList.add("hidden");
@@ -825,7 +823,7 @@
         }
     } );
 
-    $("#id_declaracion_prima").on("change", function(event) { 
+    $("#id_declaracion_prima").on("change", function(event) {
         var select = document.querySelector("#id_politico_expuesto:checked");
         var select2 = document.querySelector("#id_declaracion_prima:checked");
         if (select || select2) {

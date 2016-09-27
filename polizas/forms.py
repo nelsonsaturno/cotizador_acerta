@@ -85,8 +85,6 @@ class SolicitudClienteForm(forms.ModelForm):
             'no_casa': 'No. Casa',
             'apartado_postal': 'Apartado Postal',
             'telefono_res': 'Telefono Residencial',
-            'fax': 'Fax',
-            'estafeta': 'Estafeta',
             'ocupacion': 'Ocupacion',
             'profesion': 'Profesion',
             'cargo_empresa': 'Cargo',
