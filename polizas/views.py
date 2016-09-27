@@ -124,6 +124,20 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             if conductor[1] == 'n/a':
                 conductor[1] = cotizacion.conductor.identificacion
 
+            conductor2 = [request.POST.get('nombre_conductor2','n/a'),
+                         request.POST.get('id_conductor2','n/a')]
+            if conductor2[0] == 'n/a':
+                conductor2[0] = cotizacion.conductor2.nombre + ' ' + cotizacion.conductor2.apellido
+            if conductor2[1] == 'n/a':
+                conductor2[1] = cotizacion.conductor2.identificacion
+
+            conductor3 = [request.POST.get('nombre_conductor3','n/a'),
+                         request.POST.get('id_conductor3','n/a')]
+            if conductor3[0] == 'n/a':
+                conductor3[0] = cotizacion.conductor3.nombre + ' ' + cotizacion.conductor3.apellido
+            if conductor3[1] == 'n/a':
+                conductor3[1] = cotizacion.conductor3.identificacion
+
             responsable = [request.POST.get('nombre_responsable','n/a'),
                          request.POST.get('id_responsable','n/a')]
             if responsable[0] == 'n/a':
@@ -135,6 +149,10 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 cotizacion=cotizacion,
                 nombre_conductor=conductor[0],
                 id_conductor=conductor[1],
+                nombre_conductor2=conductor2[0],
+                id_conductor2=conductor2[1],
+                nombre_conductor3=conductor3[0],
+                id_conductor3=conductor3[1],
                 vigencia_desde=request.POST['valido_desde'],
                 vigencia_hasta=request.POST['valido_hasta'],
                 acreedor=request.POST.get('acreedor','N/A'),

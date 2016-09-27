@@ -10,13 +10,23 @@ class SolicitudClienteForm(forms.ModelForm):
     aseguradoConductor = forms.BooleanField(label='Asegurado es Conductor', required=False)
     valido_desde = forms.DateField(label='Vigencia Desde', required=True)
     valido_hasta = forms.DateField(label='Vigencia Hasta', required=True)
+    
     nombre_conductor = forms.CharField(label='Nombre', required=False)
     id_conductor = forms.CharField(label='Identificacion', required=False)
+    nombre_conductor2 = forms.CharField(label='Nombre', required=False)
+    id_conductor2 = forms.CharField(label='Identificacion', required=False)
+    nombre_conductor3 = forms.CharField(label='Nombre', required=False)
+    id_conductor3 = forms.CharField(label='Identificacion', required=False)
+
     responsable = forms.ChoiceField(choices=[(0, 'Contratante'), (1, 'Asegurado'), (2, 'Otro')],
                                 widget=forms.RadioSelect(), label="")
     nombre_responsable = forms.CharField(label='Nombre Completo', required=False)
     id_responsable = forms.CharField(label='Identificacion', required=False)
     tipo_id_conductor = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
+                                widget=forms.RadioSelect(), label="", required=False)
+    tipo_id_conductor2 = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
+                                widget=forms.RadioSelect(), label="", required=False)
+    tipo_id_conductor3 = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
                                 widget=forms.RadioSelect(), label="", required=False)
     tipo_id_responsable = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
                                 widget=forms.RadioSelect(), label="", required=False)
