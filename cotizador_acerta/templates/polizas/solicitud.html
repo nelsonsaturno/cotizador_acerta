@@ -259,10 +259,8 @@
                                                 {% bootstrap_field form.telefono_res layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                             <div class="col-md-3">
-                                                {% bootstrap_field form.fax layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                             <div class="col-md-3">
-                                                {% bootstrap_field form.estafeta layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                     </div>
@@ -314,10 +312,16 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-12">
+                                                <label>Es o ha sido objeto de investigacion, indagacion o condena por actividades ilicitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo</label>
+                                            </div>
+                                            <div class="col-md-12">
                                                 {% bootstrap_field form.ilicito layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                         <div class="col-md-12">
+                                            <div class="col-md-12">
+                                                <label>Es o ha sido una (1) Persona Politicamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta</label>
+                                            </div>
                                             <div class="col-md-12">
                                                 {% bootstrap_field form.politico_expuesto layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
@@ -349,6 +353,9 @@
 
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <div class="col-md-12">
+                                                <label>Prima de Seguros mayor o igual a B./ 10,000.00</label>
+                                            </div>
                                             <div class="col-md-12">
                                                 {% bootstrap_field form.declaracion_prima layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
@@ -429,6 +436,20 @@
 
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <label>Acreedor o Leasing</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                {% bootstrap_field form.acreedor_leasing layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-6 acreedor">
+                                                {% bootstrap_field form.acreedor layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-6 leasing">
+                                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
                                             Asegurado:
                                         </div>
                                         <div class="col-md-12">
@@ -489,14 +510,6 @@
                                             </div>
                                             <div class="col-md-6">
                                                 {% bootstrap_field form.valido_hasta layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-6">
-                                                {% bootstrap_field form.acreedor layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-6">
-                                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -779,8 +792,8 @@
     var element = document.querySelector("#id_otra_area");
     element.classList.add("hidden");
 
-    var select = document.querySelector("#id_politico_expuesto:checked");
-    var select2 = document.querySelector("#id_declaracion_prima:checked");
+    var select = ($("#id_politico_expuesto").val()=="Si");
+    var select2 = ($("#id_declaracion_prima").val()=="Si");
     if (select || select2) {
         var element = document.querySelector(".datos-financieros");
         element.classList.remove("hidden");
@@ -789,8 +802,27 @@
         element.classList.add("hidden");
     }
 
+    var acreedor = document.querySelector(".acreedor");
+    acreedor.classList.add("hidden");
+    var leasing = document.querySelector(".leasing");
+    leasing.classList.add("hidden");
+    $("#id_acreedor_leasing").on("change", function(event) {
+        if ($(this).val() == "Acreedor"){
+            acreedor.classList.remove("hidden");
+            leasing.classList.add("hidden");
+        }
+        if ($(this).val() == "Leasing"){
+            acreedor.classList.add("hidden");
+            leasing.classList.remove("hidden");
+        }
+        if ($(this).val() == "Ninguno"){
+            acreedor.classList.add("hidden");
+            leasing.classList.add("hidden");
+        }
+    });
+
     $("#id_politico_expuesto").on("change", function(event) {
-        if (this.checked) {
+        if ($(this).val() == "Si") {
             var element = document.querySelector(".politico");
             element.classList.remove("hidden");
             var element = document.querySelector(".politico2");
@@ -806,8 +838,8 @@
             element.classList.add("hidden");
         }
 
-        var select = document.querySelector("#id_politico_expuesto:checked");
-        var select2 = document.querySelector("#id_declaracion_prima:checked");
+        var select = ($("#id_politico_expuesto").val()=="Si");
+        var select2 = ($("#id_declaracion_prima").val()=="Si");
         if (select || select2) {
             var element = document.querySelector(".datos-financieros");
             element.classList.remove("hidden");
@@ -817,7 +849,7 @@
         }
     } );
 
-    $("#id_aseguradoConductor").on("change", function(event) { 
+    $("#id_aseguradoConductor").on("change", function(event) {
         if (this.checked) {
             var element = document.querySelector("#id_tipo_id_conductor");
             element.classList.add("hidden");
@@ -837,7 +869,7 @@
         }
     } );
 
-    $("#id_comision").on("change", function(event) { 
+    $("#id_comision").on("change", function(event) {
         if (this.checked) {
             var element = document.querySelector("#id_def_comision");
             element.classList.add("hidden");
@@ -847,9 +879,9 @@
         }
     } );
 
-    $("#id_declaracion_prima").on("change", function(event) { 
-        var select = document.querySelector("#id_politico_expuesto:checked");
-        var select2 = document.querySelector("#id_declaracion_prima:checked");
+    $("#id_declaracion_prima").on("change", function(event) {
+        var select = ($("#id_politico_expuesto").val()=="Si");
+        var select2 = ($("#id_declaracion_prima").val()=="Si");
         if (select || select2) {
             var element = document.querySelector(".datos-financieros");
             element.classList.remove("hidden");

@@ -15,6 +15,14 @@ class SolicitudPoliza(models.Model):
     id_conductor3 = models.CharField(max_length=20, null=True)
     vigencia_desde = models.DateField()
     vigencia_hasta = models.DateField()
+    acreedor_leasing = models.CharField(max_length=30, blank=False,
+                                   default='Ninguno',
+                                   choices=[('Acreedor',
+                                             'Acreedor'),
+                                            ('Leasing',
+                                             'Leasing'),
+                                            ('Ninguno',
+                                             'Ninguno')])
     acreedor = models.CharField(max_length=40, blank=False)
     leasing = models.CharField(max_length=40, blank=False)
     firmador = models.CharField(max_length=40, blank=False)
@@ -120,8 +128,6 @@ class ExtraDatosCliente(models.Model):
     no_casa = models.CharField(max_length=5, blank=True, default='')
     apartado_postal = models.CharField(max_length=30, blank=True)
     telefono_res = models.CharField(max_length=20, blank=True)
-    fax = models.CharField(max_length=20, blank=True)
-    estafeta = models.CharField(max_length=30, blank=True)
     profesion = models.CharField(max_length=30, blank=False)
     ocupacion = models.CharField(max_length=30, blank=False)
     cargo_empresa = models.CharField(max_length=30, blank=False)
@@ -131,13 +137,25 @@ class ExtraDatosCliente(models.Model):
     telefono_empresa = models.CharField(max_length=30, blank=True)
     fax_empresa = models.CharField(max_length=30, blank=True)
     correo_trabajo = models.EmailField(blank=True)
-    ilicito = models.BooleanField(default=False)
-    politico_expuesto = models.BooleanField(default=False)
+    ilicito = models.CharField(max_length=30,
+                               blank=True,
+                               default='',
+                               choices=[('Si', 'Si'),
+                               ('No', 'No')])
+    politico_expuesto = models.CharField(max_length=30,
+                                         blank=True,
+                                         default='',
+                                         choices=[('Si', 'Si'),
+                                         ('No', 'No')])
     cargo_politico = models.CharField(max_length=30, blank=True)
     periodo_politico = models.CharField(max_length=30, blank=True)
     nombre_politico = models.CharField(max_length=30, blank=True)
     relacion_politico = models.CharField(max_length=30, blank=True)
-    declaracion_prima = models.BooleanField(default=False)
+    declaracion_prima = models.CharField(max_length=30,
+                                         blank=True,
+                                         default='',
+                                         choices=[('Si', 'Si'),
+                                         ('No', 'No')])
     # Perfil Financiero
     actividad_principal = models.CharField(max_length=100, blank=True)
     ingreso_principal = models.CharField(max_length=30, blank=True,
