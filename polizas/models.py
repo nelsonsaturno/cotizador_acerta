@@ -125,8 +125,16 @@ class ExtraDatosCliente(models.Model):
     telefono_empresa = models.CharField(max_length=30, blank=True)
     fax_empresa = models.CharField(max_length=30, blank=True)
     correo_trabajo = models.EmailField(blank=True)
-    ilicito = models.BooleanField(default=False)
-    politico_expuesto = models.BooleanField(default=False)
+    ilicito = models.CharField(max_length=30,
+                               blank=True,
+                               default='',
+                               choices=[('Si', 'Si'),
+                               ('No', 'No')])
+    politico_expuesto = models.CharField(max_length=30,
+                                         blank=True,
+                                         default='',
+                                         choices=[('Si', 'Si'),
+                                         ('No', 'No')])
     cargo_politico = models.CharField(max_length=30, blank=True)
     periodo_politico = models.CharField(max_length=30, blank=True)
     nombre_politico = models.CharField(max_length=30, blank=True)
