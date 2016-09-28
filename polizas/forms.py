@@ -172,6 +172,8 @@ class SolicitudClienteForm(forms.ModelForm):
 
     placa = forms.CharField(label='Placa No.', required=False)
 
+    nombre2 = forms.CharField(label='Segundo Nombre', required=False)
+
     class Meta:
         model = ExtraDatosCliente
         exclude = ['conductor', 'ref_personal', 'ref_bancaria', 'ref_comercial', ]

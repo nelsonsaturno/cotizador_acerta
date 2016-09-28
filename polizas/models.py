@@ -111,7 +111,7 @@ class ExtraDatosCliente(models.Model):
     placa = models.CharField(max_length=40, blank=False, null=True)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
-    tipo = models.CharField(max_length=40, blank=False)
+    tipo = models.CharField(max_length=40, blank=False, null=True)
     nombre2 = models.CharField(max_length=20, blank=False)
     apellido_mat = models.CharField(max_length=20, blank=False)
     apellido_cas = models.CharField(max_length=20, blank=True)
