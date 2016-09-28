@@ -173,14 +173,6 @@
                                     <legend class="text-semibold">Datos Personales</legend>
 
                                     <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-6">
-                                                {% bootstrap_field form.valido_desde layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        <div class="col-md-6">
-                                                {% bootstrap_field form.valido_hasta layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                    </div>
                                         <div class="col-md-12">
                                             <div class="col-md-4">
                                                 <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.nombre }}" disabled>
