@@ -174,6 +174,12 @@ class SolicitudClienteForm(forms.ModelForm):
 
     nombre2 = forms.CharField(label='Segundo Nombre', required=False)
 
+    profesion = forms.CharField(label='Profesión', required=False)
+    ocupacion = forms.CharField(label='Ocupación', required=False)
+    empresa = forms.CharField(label='Lugar de Trabajo', required=False)
+    actividad_empresa = forms.CharField(label='Actividad de Empresa', required=False)
+    direccion_empresa = forms.CharField(label='Dirección Empresa', required=False)
+
     class Meta:
         model = ExtraDatosCliente
         exclude = ['conductor', 'ref_personal', 'ref_bancaria', 'ref_comercial', ]
@@ -202,12 +208,10 @@ class SolicitudClienteForm(forms.ModelForm):
             'telefono_res': 'Telefono Residencial',
             'ocupacion': 'Ocupacion',
             'profesion': 'Profesion',
-            'cargo_empresa': 'Cargo',
             'empresa': 'Lugar de Trabajo',
             'actividad_empresa': 'Actividad de Empresa',
             'direccion_empresa': 'Direccion Empresa',
             'telefono_empresa': 'Telefono de Trabajo',
-            'fax_empresa': 'Fax de Trabajo',
             'correo_trabajo': 'Correo Electronico de Oficina',
             'ilicito': 'Es o ha sido objeto de investigacion, indagacion o condena por actividades ilicitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo',
             'politico_expuesto': 'Es o ha sido una (1) Persona Politicamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta',
