@@ -312,10 +312,16 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-12">
+                                                <label>Es o ha sido objeto de investigacion, indagacion o condena por actividades ilicitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo</label>
+                                            </div>
+                                            <div class="col-md-12">
                                                 {% bootstrap_field form.ilicito layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                         <div class="col-md-12">
+                                            <div class="col-md-12">
+                                                <label>Es o ha sido una (1) Persona Politicamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta</label>
+                                            </div>
                                             <div class="col-md-12">
                                                 {% bootstrap_field form.politico_expuesto layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
@@ -347,6 +353,9 @@
 
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <div class="col-md-12">
+                                                <label>Prima de Seguros mayor o igual a B./ 10,000.00</label>
+                                            </div>
                                             <div class="col-md-12">
                                                 {% bootstrap_field form.declaracion_prima layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
@@ -757,7 +766,6 @@
 
     var select = ($("#id_politico_expuesto").val()=="Si");
     var select2 = ($("#id_declaracion_prima").val()=="Si");
-    alert(select);
     if (select || select2) {
         var element = document.querySelector(".datos-financieros");
         element.classList.remove("hidden");
@@ -767,7 +775,6 @@
     }
 
     $("#id_politico_expuesto").on("change", function(event) {
-        alert($(this).val());
         if ($(this).val() == "Si") {
             var element = document.querySelector(".politico");
             element.classList.remove("hidden");
