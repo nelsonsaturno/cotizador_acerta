@@ -436,6 +436,20 @@
 
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <label>Acreedor o Leasing</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                {% bootstrap_field form.acreedor_leasing layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-6 acreedor">
+                                                {% bootstrap_field form.acreedor layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-6 leasing">
+                                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
                                             Asegurado:
                                         </div>
                                         <div class="col-md-12">
@@ -474,14 +488,6 @@
                                             </div>
                                             <div class="col-md-6">
                                                 {% bootstrap_field form.valido_hasta layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-6">
-                                                {% bootstrap_field form.acreedor layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-6">
-                                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -773,6 +779,25 @@
         var element = document.querySelector(".datos-financieros");
         element.classList.add("hidden");
     }
+
+    var acreedor = document.querySelector(".acreedor");
+    acreedor.classList.add("hidden");
+    var leasing = document.querySelector(".leasing");
+    leasing.classList.add("hidden");
+    $("#id_acreedor_leasing").on("change", function(event) {
+        if ($(this).val() == "Acreedor"){
+            acreedor.classList.remove("hidden");
+            leasing.classList.add("hidden");
+        }
+        if ($(this).val() == "Leasing"){
+            acreedor.classList.add("hidden");
+            leasing.classList.remove("hidden");
+        }
+        if ($(this).val() == "Ninguno"){
+            acreedor.classList.add("hidden");
+            leasing.classList.add("hidden");
+        }
+    });
 
     $("#id_politico_expuesto").on("change", function(event) {
         if ($(this).val() == "Si") {

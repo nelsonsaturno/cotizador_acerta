@@ -11,6 +11,14 @@ class SolicitudPoliza(models.Model):
     id_conductor = models.CharField(max_length=20, blank=False)
     vigencia_desde = models.DateField()
     vigencia_hasta = models.DateField()
+    acreedor_leasing = models.CharField(max_length=30, blank=False,
+                                   default='Ninguno',
+                                   choices=[('Acreedor',
+                                             'Acreedor'),
+                                            ('Leasing',
+                                             'Leasing'),
+                                            ('Ninguno',
+                                             'Ninguno')])
     acreedor = models.CharField(max_length=40, blank=False)
     leasing = models.CharField(max_length=40, blank=False)
     firmador = models.CharField(max_length=40, blank=False)
