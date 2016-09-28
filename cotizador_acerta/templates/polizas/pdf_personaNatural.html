@@ -18,7 +18,7 @@
 		<img src="{% static 'img/AcertaSeguros.png' %}">
 			<table>
 				<tr>
-					<td style="font-weight: bold; right: 0px 0px 0px -30px;">
+					<td style="font-weight: bold; padding-left: -30px;">
 						<p>
 							SOLICITUD DE PÓLIZA NUEVA DE AUTO
 						</p>
@@ -29,37 +29,37 @@
 							PERSONA NATURAL
 						</p>
 					</td>
-					<td style="border: 1px solid #E76C42; text-align: left; right: 5px 0px 0px -20px;">
-						<p style="text-decoration: underline; font-weight: bold; right:0px 0px -10px 0px;">Para uso de la compañía:</p>
-						<p style="right:0px 0px -10px 0px;"><span>No. póliza: </span><span></span>{{solicitud.pk}}  <span>&nbsp;&nbsp;&nbsp;Riesgo: </span><span></span></p>
+					<td style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
+						<p style="text-decoration: underline; font-weight: bold; padding-bottom: -10px;">Para uso de la compañía:</p>
+						<p style="padding-bottom: -10px;"><span>No. póliza: </span><span></span>{{solicitud.pk}}  <span>&nbsp;&nbsp;&nbsp;Riesgo: </span><span></span></p>
 						<p>Código del cliente: {{conductor1.pk}} </p>
 					</td>
 				</tr>
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 1px solid #E76C42; text-align: left; right: 5px 0px 3px -20px;">
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
 					<td colspan="2">
-						<p style="text-decoration: underline; font-weight: bold; right: 0px 0px -6px 0px;">
+						<p style="text-decoration: underline; font-weight: bold; padding-bottom: -6px;">
 							Datos generales del cliente contratante de la póliza:
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Primer Nombre: </span><span>{{conductor1.nombre}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Segundo Nombre: </span><span>{{conductor2.nombre2}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apellido Paterno: </span>{{conductor1.apellido}}<span></span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Apellido Materno: </span><span>{{conductor2.apellido_mat}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apellido de Casada: </span>{{conductor2.apellido_cas}}<span></span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte: </span>{{conductor1.identificacion}}<span></span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D.V. </span><span></span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Fecha de nacimiento: </span>{{conductor1.fecha_nacimiento}}<span></span><span>(dd/mm/aaaa)</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;País de Nacimiento: </span><span>{{conductor2.pais_nacimiento}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Género: </span><span>{{conductor1.sexo}}</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p>
 							<span>Estado civil: </span><span>{{conductor1.estado_civil}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nacionalidad(es): </span><span>{{conductor2.nacionalidad}}</span>
 						</p>
@@ -68,48 +68,48 @@
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 1px solid #E76C42; text-align: left; right: 5px 0px 3px -20px;">
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
 					<td colspan="2">
-						<p style="text-decoration: underline; font-weight: bold; right: 0px 0px -6px 0px;">
+						<p style="text-decoration: underline; font-weight: bold; padding-bottom: -6px;">
 							Dirección residencial:
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>País de residencia: </span><span>{{conductor2.pais_residencia}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Provincia: </span><span>{{conductor2.provincia}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Distrito: </span><span>{{conductor2.distrito}}</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Corregimiento: </span><span>{{conductor2.corregimiento}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Urbanización: </span><span>{{conductor2.urbanizacion}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calle o Ave: </span><span>{{conductor2.calle_ave}}</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Edificio: </span><span>{{conductor2.edificio}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Piso: </span><span>{{conductor2.piso}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apto: </span><span>{{conductor2.apto}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No. Casa: </span><span>{{conductor2.no_casa}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apartado postal : </span><span>{{conductor2.apartado_postal}}</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Teléfono residencial: </span>{{conductor2.telefono_res}}<span></span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Teléfono celular: </span><span>{{conductor1.telefono1}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Correo electrónico personal: </span><span></span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 						<span style="text-decoration: underline; font-weight: bold;">
 							Datos Ocupacionales:
 						</span>
 						<span>Profesión: </span><span>{{conductor2.profesion}}</span>
 						<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ocupación actual: </span><span>{{conductor2.ocupacion}}</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Lugar de trabajo: </span><span>{{conductor2.empresa}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actividad de la empresa: </span>{{conductor2.actividad_empresa}}<span></span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Dirección de la empresa: </span>{{conductor2.direccion_empresa}}<span></span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;" >
+						<p>
 							<span>Teléfono Oficina: </span><span>{{conductor2.telefono_empresa}}</span>
 							<span>&nbsp;&nbsp;&nbsp;Fax: </span><span>{{conductor2.fax_empresa}}</span>
 							<span>&nbsp;&nbsp;&nbsp;Correo electrónico de la oficina: </span><span>{{conductor2.correo_trabajo}}</span>
@@ -119,10 +119,10 @@
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 2px solid #999; text-align: left; right: 5px -30px 3px -20px;">
+				<tr style="border: 2px solid #999; text-align: left; padding-top: 5px; padding-left: -20px; padding-right: -30px;">
 					<td colspan="2">
-						<p style="right: 0px 0px -6px 0px;"><span>Indique si es o ha sido objeto de investigación, indagación o condena por actividades ilícitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo</span>
-						{% if conductor2.ilicito == False %}
+						<p style="padding-bottom: -6px;"><span>Indique si es o ha sido objeto de investigación, indagación o condena por actividades ilícitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo</span>
+						{% if conductor2.ilicito == "No" %}
 						<span style="text-decoration: underline; font-size: 12px;">&nbsp;_X_</span><span>&nbsp;No</span>
 						<span>&nbsp;___</span><span>&nbsp;Sí</span></p>
 						{% else %}
@@ -130,8 +130,8 @@
 						<span style="text-decoration: underline; font-size: 12px;">&nbsp;_X_</span><span>&nbsp;Sí</span></p>
 						{% endif %}
 
-						<p style="right: 0px 0px -6px 0px;"><span>Es o ha sido una persona (1) Persona Políticamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta? </span>
-						{% if conductor2.politico_expuesto == False %}
+						<p style="padding-bottom: -6px;"><span>Es o ha sido una persona (1) Persona Políticamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta? </span>
+						{% if conductor2.politico_expuesto == "No" %}
 						<span style="text-decoration: underline; font-size: 12px;">_X_</span>&nbsp;<span>&nbsp;No</span>
 						<span>&nbsp;___</span><span>&nbsp;Sí</span>
 						{% else %}
@@ -140,11 +140,11 @@
 						{% endif %}
 						<span style="font-size: 9px;">(Definiciones en la parte inferior)</span></p>
 
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Cargo actual o anterior: </span><span>{{conductor2.cargo_politico}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Período: </span><span>{{conductor2.periodo_politico}}</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p>
 							<span>Caso 2 y 3: Nombre: </span><span>{{conductor2.nombre_politico}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Relación: </span><span>{{conductor2.relacion_politico}}</span>
 
@@ -154,9 +154,9 @@
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 2px solid #999; text-align: left; right: 5px -30px 3px -20px;">
+				<tr style="border: 2px solid #999; text-align: left; padding-left: -20px; padding-right: -30px;">
 					<td colspan="2">
-						<p><span>Si su respuesta anterior fue Si y/o la prima sel segura es igual, anual o mayor a B/. 10,000.00 complete la siguiente información, en caso que no diríjase a la seccion de Datos Generales: </span><span style="font-size: 9px;"> Acerta Seguros, con base en la Matriz de riesgo, podrá solicitar en algunos otros casos que esta sección sea completada (Ley 23 del 27/04/2015).</span></p>
+						<p style="padding-top: 8px;"><span>Si su respuesta anterior fue Si y/o la prima sel segura es igual, anual o mayor a B/. 10,000.00 complete la siguiente información, en caso que no diríjase a la seccion de Datos Generales: </span><span style="font-size: 9px;"> Acerta Seguros, con base en la Matriz de riesgo, podrá solicitar en algunos otros casos que esta sección sea completada (Ley 23 del 27/04/2015).</span></p>
 
 						<p><span>Actividad fuente principal de sus ingresos (Especifique): </span><span>{{conductor2.actividad_principal}}</span></p>
 
@@ -164,64 +164,64 @@
 							<table>
 								<tr>
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Ingreso Anual:
 								</td>
 								{% if conductor2.ingreso_principal == '<10,000.00' %}
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									<span style="text-decoration: underline; font-size: 12px;">_X_</span>Menos de 10mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									10mil y 30mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									30mil y 50mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
 								{% elif conductor2.ingreso_principal == '10,000.00-30,000.00' %}
 
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Menos de 10mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									<span style="text-decoration: underline; font-size: 12px;">_X_</span>10mil y 30mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									30mil y 50mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
 								{% elif conductor2.ingreso_principal == '30,000.00-50,000.00' %}
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Menos de 10mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									10mil y 30mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									<span style="text-decoration: underline; font-size: 12px;">_X_</span>30mil y 50mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
 								{% elif conductor2.ingreso_principal == '>50,000.00' %}
 
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Menos de 10mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									10mil y 30mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									30mil y 50mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									<span style="text-decoration: underline; font-size: 12px;">_X_</span>Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
@@ -235,62 +235,62 @@
 							<table>
 								<tr>
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Ingreso Anual:
 								</td>
 								{% if conductor2.otro_ingreso == '<10,000.00' %}
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									<span style="text-decoration: underline; font-size: 12px;">_X_</span>Menos de 10mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									10mil y 30mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									30mil y 50mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
 								{% elif conductor2.otro_ingreso == '10,000.00-30,000.00' %}
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Menos de 10mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									<span style="text-decoration: underline; font-size: 12px;">_X_</span>10mil y 30mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									30mil y 50mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
 								{% elif conductor2.otro_ingreso == '30,000.00-50,000.00' %}
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Menos de 10mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									10mil y 30mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									<span style="text-decoration: underline; font-size: 12px;">_X_</span>30mil y 50mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
 								{% elif conductor2.otro_ingreso == '>50,000.00' %}
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									Menos de 10mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									10mil y 30mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									30mil y 50mil USD$
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
 									<span style="text-decoration: underline; font-size: 12px;">_X_</span>Más de 50mil USD$
 								</td>
 								<td style="width: 45px;">
@@ -304,70 +304,70 @@
 							<table>
 								<tr>
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Nombre o razón Social
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Actividad
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Relación con el cliente
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Teléfono de contacto
 								</td>
 								<td style="width: 45px;">
 								</tr>
 								<tr>
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									1. {{conductor2.ref_personal.nombre}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_personal.actividad}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_personal.relacion}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									{{conductor2.ref_personal.telefono}}
 								</td>
 								<td style="width: 45px;">
 								</tr>
 								<tr>
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									2. {{conductor2.ref_bancaria.nombre}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_bancaria.actividad}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_bancaria.relacion}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_bancaria.telefono}}
 								</td>
 								<td style="width: 45px;">
 								</tr>
-								<tr>
+								<tr style="padding-bottom: -1px;">
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									3. {{conductor2.ref_comercial.nombre}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_comercial.actividad}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_comercial.relacion}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_comercial.telefono}}
 								</td>
-								<td style="width: 45px;">
+								<td style="width: 45px;"></td>
 								</tr>
 								<tr>
-								<td style="width: 45px;">
+								<td style="width: 45px;"></td>
 								<td>
 								</td>
 								<td >
@@ -376,7 +376,10 @@
 								</td>
 								<td>
 								</td>
-								<td style="width: 45px;">
+								<td style="width: 45px;"></td>
+								</tr>
+								<tr style="padding-bottom: -10px; width: 5%;">
+									<td></td>
 								</tr>
 							</table>
 						</p>
@@ -385,8 +388,8 @@
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 2px solid #999; text-align: left; right: 5px 0px 0px -20px;">
-					<td colspan="2" style="right: 0px -23px 0px -25px;">
+				<tr style="border: 2px solid #999; text-align: left; padding-top: 5px; padding-left: -20px;">
+					<td colspan="2" style="padding-right: -23px; padding-left: -25px;">
 						<p style="text-align: justify; font-size: 9px;">(1) Las personas políticamente expuestas son aquellos, nacionales o extranjeros, que desempeñan o han desempeñado funciones públicas destacadas en un país extranjero o en su propio país, por ejemplo: Jefes de Estado o de un gobierno, políticos de alta jerarquía, funcionarios gubernamentales, judiciales o militares de alta jeraruía, altos ejecutivos de empresas estatales, funcionarios importantes de partidos políticos. (2) Únicamente el cónyugue, los padres, los hermanos y los hijos de una persona políticamente expuesta. (3) Persona conocida por su íntima relación con respecto a la persona expuesta políticamente, esto incluye a quienes están en posición de realizar transacciones financieras, comerciales o de cualquier naturaleza, ya sean locales o internacionales, en nombre de la persona expuesta políticamente.
 						</p>
 					</td>
@@ -394,20 +397,20 @@
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 1px solid #E76C42; text-align: left; right: 5px 0px 0px -20px;">
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
 					<td colspan="2">
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span style="text-decoration: underline; font-weight: bold;">Datos generales: </span>
 							<span>Si el asegurado es distinto al cliente contratante deberá completar un Formulario Único de Datos del Cliente.</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span style="font-weight: bold; text-decoration: underline">Asegurado:</span><span>{{conductor1.nombre}} {{conductor1.apellido}}</span>
 							<span></span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte/RUC:</span><span>{{conductor1.identificacion}}</span>
 							<span></span>
 						</p>
 						{% if conductor1.identificacion == solicitud.id_conductor %}
-							<p style="right: 0px 0px -6px 0px;">
+							<p style="padding-bottom: -6px;">
 								<span style="font-weight: bold; text-decoration: underline">Conductor Adicional: </span>
 								<span>N/A</span>
 								<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte:</span>
@@ -417,7 +420,7 @@
 								Si la póliza tiene más unidades y/o más personas que puedan operar el o los vehículos, favor indicarlo en documento adjunto con el detalle del vehículo, nombre completo y cédula o pasaporte de la persona conductor del vehículo.
 							</p>
 						{% else %}
-							<p style="right: 0px 0px -6px 0px;">
+							<p style="padding-bottom: -6px;">
 								<span style="font-weight: bold; text-decoration: underline">Conductor Adicional: <span>{{ solicitud.nombre_conductor }} </span></span>
 								<span></span>
 								<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte: <span>{{ solicitud.id_conductor }}</span></span>
@@ -432,31 +435,31 @@
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 1px solid #E76C42; text-align: left; right: 5px 0px 0px -20px;">
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
 					<td colspan="2">
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span style="text-decoration: underline; font-weight: bold;">Datos de la póliza y bien a asegurar: </span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Vigencia: </span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde: </span><span>{{solicitud.vigencia_desde}}</span><span></span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hasta: </span><span>{{solicitud.vigencia_hasta}}</span><span></span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Acreedor Hipotecario: </span><span>{{solicitud.acreedor}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Leasing: </span><span>{{solicitud.leasing}}</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Valor actual de la unidad: </span><span>{{conductor1.valor}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Placa No.: </span><span>{{conductor2.placa}}</span><span style="font-size:7px;">&nbsp;(Obligatorio en auto usado)</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Año: </span><span>{{conductor1.anio}}</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Marca: </span><span>{{conductor1.marca.nombre}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modelo: </span><span>{{conductor1.modelo.nombre}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uso: </span><span>{{conductor1.anio}}</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p>
 							<span>Motor: </span><span>{{conductor2.motor}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chasis: </span><span>{{conductor2.chasis}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo: </span><span>{{conductor2.tipo}}</span>
@@ -467,7 +470,7 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td style="font-weight: bold; right: 0px 0px 0px -30px;">
+					<td style="font-weight: bold; padding-left: -30px;">
 						<p>
 							SOLICITUD DE PÓLIZA NUEVA DE AUTO
 						</p>
@@ -484,13 +487,13 @@
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 1px solid #E76C42; text-align: left; right: 5px 0px 0px -20px;">
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
 					<td colspan="2">
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span>Prima anual: </span><span>{{cotizacion.total}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Plan: </span><span>{{cotizacion.plan}}</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							<span style="text-decoration: underline; font-weight: bold; font-size: 11px;">Observaciones: </span>
 							<span>{{solicitud.observaciones}}</span>
 						</p>
@@ -501,21 +504,21 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td colspan="2" style="border: 1px solid #E76C42; text-align: left; right: 5px -50px 0px -15px;">
+					<td colspan="2" style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -15px; padding-right: -50px;">
 						<p>
 							<table>
-								<tr style="right: 0px 0px -5px 0px;">
+								<tr style="padding-bottom: -5px;">
 									<td><span style="text-decoration: underline; font-weight: bold;">Datos de Cobranza: </span><span style="text-decoration: underline">Responsable de pago: </span></td>
 								</tr>
 								{% if solicitud.responsable == 'Contratante' %}
-									<tr style="right: 0px 0px -5px 0px;">
+									<tr style="padding-bottom: -5px;">
 										<td><span></span><span>Igual al contratante de la póliza    X</span></td>
 										<td><span></span><span>Igual al asegurado de la póliza</span></td>
 									</tr>
-									<tr style="right: 0px 0px -5px 0px;">
+									<tr style="padding-bottom: -5px;">
 										<td><span></span><span>El responsable de pago es distinto, favor completar:</span></td>
 									</tr>
-									<tr style="right: 0px 0px -5px 0px;">
+									<tr style="padding-bottom: -5px;">
 										<td>
 											<span>Cédula/Pasaporte o RUC: </span>
 											<span>N/A</span>
@@ -526,14 +529,14 @@
 										</td>
 									</tr>
 								{% elif solicitud.responsable == 'Asegurado' %}
-									<tr style="right: 0px 0px -5px 0px;">
+									<tr style="padding-bottom: -5px;">
 										<td><span></span><span>Igual al contratante de la póliza </span></td>
 										<td><span></span><span>Igual al asegurado de la póliza    X</span></td>
 									</tr>
-									<tr style="right: 0px 0px -5px 0px;">
+									<tr style="padding-bottom: -5px;">
 										<td><span></span><span>El responsable de pago es distinto, favor completar:</span></td>
 									</tr>
-									<tr style="right: 0px 0px -5px 0px;">
+									<tr style="padding-bottom: -5px;">
 										<td>
 											<span>Cédula/Pasaporte o RUC: </span>
 											<span>N/A</span>
@@ -544,14 +547,14 @@
 										</td>
 									</tr>
 								{% else %}
-									<tr style="right: 0px 0px -5px 0px;">
+									<tr style="padding-bottom: -5px;">
 										<td><span></span><span>Igual al contratante de la póliza </span></td>
 										<td><span></span><span>Igual al asegurado de la póliza</span></td>
 									</tr>
-									<tr style="right: 0px 0px -5px 0px;">
+									<tr style="padding-bottom: -5px;">
 										<td><span></span><span>El responsable de pago es distinto X, favor completar:</span></td>
 									</tr>
-									<tr style="right: 0px 0px -5px 0px;">
+									<tr style="padding-bottom: -5px;">
 										<td>
 											<span>Cédula/Pasaporte o RUC: </span>
 											<span>{{ solicitud.id_responsable}}</span>
@@ -570,25 +573,25 @@
 									<td style="text-decoration: underline;">Forma de pago: </td>
 								</tr>
 								<tr>
-									<td colspan="4" style="right: 0px 0px 0px 30px;">
+									<td colspan="4" style="padding-left: 30px;">
 										<p>
 											<table>
 												<tr>
-													<td colspan="3" style="border: 2px solid #999; right: 0px -60px 0px -25px;">
+													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">
 														{% if cotizacion.tipo_pago == 'Visa' %}
-															<p style="right: 0px 0px -10px 0px;">a) Descuento por tarjeta de crédito</p>
+															<p style="padding-bottom: -10px;">a) Descuento por tarjeta de crédito</p>
 															{% if solicitud.tipo_tdc == 'Visa' %}
-																<p style="right: 0px 0px -10px 0px;">
+																<p style="padding-bottom: -10px;">
 																<span>Visa</span>_X_<span></span>
 																<span>Master Card</span><span>__</span>
 																</p>
 															{% else %}
-																<p style="right: 0px 0px -10px 0px;">
+																<p style="padding-bottom: -10px;">
 																<span>Visa</span>__<span></span>
 																<span>Master Card</span><span>_X_</span>
 																</p>
 															{% endif %}
-															<p style="right: 0px 0px -10px 0px;">
+															<p style="padding-bottom: -10px;">
 															<span>Nro. Tarjeta: </span><span>{{solicitud.num_tdc}}</span>
 															</p>
 															<p>
@@ -596,12 +599,12 @@
 															<span>Fecha de expiración: </span><span>{{solicitud.expiracion_tdc}}</span></span>
 															</p>
 														{% else %}
-														<p style="right: 0px 0px -10px 0px;">a) Descuento por tarjeta de crédito</p>
-															<p style="right: 0px 0px -10px 0px;">
+														<p style="padding-bottom: -10px;">a) Descuento por tarjeta de crédito</p>
+															<p style="padding-bottom: -10px;">
 															<span>Visa</span>__<span></span>
 															<span>Master Card</span><span>__</span>
 															</p>
-															<p style="right: 0px 0px -10px 0px;">
+															<p style="padding-bottom: -10px;">
 															<span>Nro. Tarjeta: </span><span>N/A</span>
 															</p>
 															<p>
@@ -610,30 +613,30 @@
 															</p>
 														{% endif %}
 													</td>
-													<td style="border: 2px solid #999; right: 0px -60px 0px -25px; width: 15%;"></td>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
 												</tr>
 												<tr>
-													<td colspan="3" style="border: 2px solid #999; right: 0px -60px 0px -25px;"><p>b) Débito a cuenta de ahorros o cuenta corriente (hasta 10 pagos mensuales) (adjuntar formulario)</p></td>
-													<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px; width: 15%;"></td>
+													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;"><p>b) Débito a cuenta de ahorros o cuenta corriente (hasta 10 pagos mensuales) (adjuntar formulario)</p></td>
+													<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
 												</tr>
 												<tr>
-													<td colspan="3" style="border: 2px solid #999; right: 0px -60px 0px -25px;"><p>c) Remesa (solo corredor autorizado)</p></td>
-													<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px; width: 15%;"></td>
+													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;"><p>c) Remesa (solo corredor autorizado)</p></td>
+													<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
 												</tr>
 												<tr>
-													<td colspan="3" style="border: 2px solid #999; right: 0px -60px 0px -25px;"><p>d) Directo en caja (hasta 6 pagos mensuales)</p></td>
-													<td style="border: 2px solid #999; width: 170px; right: 0px -60px 0px -25px; width: 15%;"></td>
+													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;"><p>d) Directo en caja (hasta 6 pagos mensuales)</p></td>
+													<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
 												</tr>
 												<tr>
 													<td colspan="3" style="text-decoration: underline;">Cantidad de pago: </td>
 													<td colspan="2">Día de pago: </td>
 												</tr>
 												<tr>
-													<td style="border: 2px solid #999; right: 0px -60px 0px -25px;">* Un pago anual</td>
-													<td style="border: 2px solid #999; right: 0px -60px 0px -25px; width: 15%;"></td>
-													<td style="border: 2px solid #999; right: 0px -60px 0px -25px;">* <span></span><span>Pagos mensuales</span></td>
-													<td style="border: 2px solid #999; right: 0px -60px 0px -25px; width: 15%;"></td>
-													<td style="right: 0px 0px 0px -25px;"><span>{{solicitud.dia_pago}}</span></td>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">* Un pago anual</td>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">* <span></span><span>Pagos mensuales</span></td>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
+													<td style="padding-left: -25px;"><span>{{solicitud.dia_pago}}</span></td>
 												</tr>
 											</table>
 										</p>
@@ -646,15 +649,15 @@
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 2px solid #999; text-align: left; right: 5px 0px 0px -20px;">
-					<td colspan="2" style="right: 0px -23px 0px -25px;">
-						<p style="text-align: justify; font-size: 9px; right: 0px 0px -6px 0px;">
+				<tr style="border: 2px solid #999; text-align: left; padding-top: 5px; padding-left: -20px;">
+					<td colspan="2" style="padding-right: -23px; padding-left: -25px;">
+						<p style="text-align: justify; font-size: 9px; padding-bottom: -6px;">
 							<span style="font-weight: bold;">FIRMA Y DECLARACION: </span><span>&nbsp;</span><span style="font-weight: bold;">Documentos de Identidad Personal (Copia Legible): </span><span>&nbsp;</span><span>Para Nacionales: Favor incluya copia de su cédula de identidad personal. Para extranjeros: Favor incluya copia de su pasaporte o documento equivalente que acredite su estancia legal en el país.</span>
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							Declaro que todas mis actividades las ejerzo dentro de las normas legales y que los recursos utilizados para el pago de los seguros a adquirir, provienen de los ingresos antes declarados.
 						</p>
-						<p style="right: 0px 0px -6px 0px;">
+						<p style="padding-bottom: -6px;">
 							Declaro que la información contenida en este formulario es verdadera, completa y proporciona la información de modo confiable y actualizada sobre todos los aspectos sobre los cuales se han hecho preguntas. En todos los casos la Compañía se reserva el derecho de aceptar, recargar o declinar esta y cualquier otra solicitud de seguro.
 						</p>
 						<p>
@@ -665,21 +668,21 @@
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 1px solid #E76C42; text-align: left; right: 5px 0px 0px -20px;">
-					<td colspan="2" style="right: 0px 0px 0px -15px;">
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px; padding-left: -20px;">
+					<td colspan="2" style="padding-left: -15px;">
 						<p>
 							<table>
-								<tr style="right: 0px 0px -6px 0px;">
-									<td style="text-decoration: underline; font-weight: bold; right: 0px -40px 0px 0px;">Datos del corredor: </td>
+								<tr style="padding-bottom: -6px;">
+									<td style="text-decoration: underline; font-weight: bold; padding-right: -40px;">Datos del corredor: </td>
 									<td colspan="2">Nombre o Razón Social: <span>{{cotizacion.corredor.first_name}} {{cotizacion.corredor.last_name}}</span></td>
 									<td>Licencia: </td>
 								</tr>
-								<tr style="right: 0px 0px -6px 0px;">
+								<tr style="padding-bottom: -6px;">
 									<td>Nombre de quien firma: </td>
 									<td><span>{{solicitud.firmador}}</span></td>
 								</tr>
 								<tr>
-									<td colspan="2" style="right: 0px -10px 0px 0px;">Firma del corredor o colaborador autorizado: </td>
+									<td colspan="2" style="padding-right: -10px;">Firma del corredor o colaborador autorizado: </td>
 									<td></td>
 									<td><span>Fecha: </span><span></span><span>(dd/mm/aaaa)</span></td>
 								</tr>
@@ -690,221 +693,184 @@
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 1px solid #E76C42; text-align: left; top: 5px;">
-					<td colspan="2" style="left: 15px; right: 10px; bottom: 10px;">
+				<tr style="border: 1px solid #E76C42; text-align: left; padding-top: 5px;">
+					<td colspan="2" style="padding-left: 15px; padding-right: 10px; padding-bottom: 10px;">
 						<p>
 							<table>
 								<tr style="border: 2px solid #999;">
-									<td colspan="7" style="right: 0px -40px 0px -25px;">
-										<p style="right: 0px 0px -6px 0px;">
+									<td colspan="7" style="padding-right: -40px; padding-left: -25px;">
+										<p style="padding-bottom: -6px;">
 										<span style="text-decoration: underline; font-weight: bold;">Información para uso interno: </span><span>Tipo de producción</span>
 										</p>
-										<p style="right: 0px 0px -6px 0px;">
+										<p style="padding-bottom: -6px;">
 											<span>Prod. Propia</span><span>__</span>
 											<span>Coaseguro Líder</span><span>__</span>
 											<span>Coaseguro No Líder</span><span>__</span>
 											<span>Reaseguro Cedido</span><span>__</span>
 										</p>
 									</td>
-									<td colspan="5" style="right: 0px -40px 0px -25px;">
-										<p style="right: 0px 0px -6px 0px;">
+									<td colspan="5" style="padding-right: -40px; padding-left: -25px;">
+										<p style="padding-bottom: -6px;">
 										<span>Tipo de suscripción: </span><span></span>
 										</p>
-										<p style="right: 0px 0px -6px 0px;">
+										<p style="padding-bottom: -6px;">
 											<span>Individual</span><span>__</span>
 											<span>Colectiva</span><span>__</span>
 										</p>
 									</td>
 								</tr>
 								<tr style="border: 2px solid #999;">
-									<td colspan="4" style="right: 0px -40px 0px -25px;">
-										<p style="right: 0px 0px -15px 0px;">
+									<td colspan="4" style="padding-right: -40px; padding-left: -25px;">
+										<p style="padding-bottom: -15px;">
 										<span>Forma de facturación: </span><span></span>
 										</p>
-										<p style="right: 0px 0px -6px 0px;">
+										<p style="padding-bottom: -6px;">
 											<span>Por póliza: </span><span>__</span>
 											<span>Por certificado: </span>__<span></span>
 										</p>
 									</td>
-									<td colspan="3" style="right: 0px -40px 0px -25px;">
-										<p style="right: 0px 0px -15px 0px;">
+									<td colspan="3" style="padding-right: -40px; padding-left: -25px;">
+										<p style="padding-bottom: -15px;">
 										<span>Renovación automática: </span><span></span>
 										</p>
-										<p style="right: 0px 0px -6px 0px;">
+										<p style="padding-bottom: -6px;">
 											<span>Sí</span><span>__</span>
 											<span>No</span><span>__</span>
 										</p>
 									</td>
-									<td colspan="5" style="right: 0px -40px 0px -25px;">
-										<p style="right: 0px 0px -15px 0px;">
+									<td colspan="5" style="padding-right: -40px; padding-left: -25px;">
+										<p style="padding-bottom: -15px;">
 										<span>Comisión estándar: </span><span></span>
 										</p>
-										<p style="right: 0px 0px -6px 0px;">
+										<p style="padding-bottom: -6px;">
 											<span>Sí</span><span>__</span>
 											<span>No</span><span>__</span>
 											<span>Definir: </span><span>______</span>
 										</p>
 									</td>
 								</tr>
-								<tr style="border: 2px solid #999; right: 0px 0px -1px 0px;">
-									<td colspan="12" style="right: 0px -40px 0px -25px;"><span>Grupo económico: </span><span></span></td>
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="12" style="padding-right: -40px; padding-left: -25px;"><span>Grupo económico: </span><span></span></td>
 								</tr>
-								<tr style="border: 2px solid #999; right: 0px 0px -6px 0px;">
-									<td colspan="12" style="right: 0px -40px 0px -25px;">
+								<tr style="border: 2px solid #999; padding-bottom: -6px;">
+									<td colspan="12" style="padding-right: -40px; padding-left: -25px;">
 										<p><span>Aprobaciones especiales: </span></p>
-										<p></p>
-										<p>&nbsp;</p>
-										<p>&nbsp;</p>
 										<p>&nbsp;</p>
 										<p>&nbsp;</p>
 									</td>
 								</tr>
-								<tr style="border: 2px solid #999; right: 0px 0px -1px 0px;">
-									<td colspan="12" style="right: 0px -40px 0px -25px;">
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="12" style="padding-right: -40px; padding-left: -25px;">
 										<span>Punto de Entrega.&nbsp;</span>
 										<span>Ejecutivo que lo solicita.&nbsp;</span>
 										<span>Adelantar por correo al ejecutivo?</span><span>&nbsp;Sí</span><span></span><span>&nbsp;No</span><span></span>
 										<span>&nbsp;Con Logo</span><span></span><span>&nbsp;Sin logo</span><span></span>
 									</td>
 								</tr>
-								<tr style="right: 0px 0px -1px 0px;">
-									<td colspan="8" style="text-decoration: underline; font-weight: bold; right: 0px -40px 0px -25px;">Requisitos obligatorios: </td>
+								<tr style="padding-bottom: -1px;">
+									<td colspan="8" style="text-decoration: underline; font-weight: bold; padding-right: -40px; padding-left: -25px;">Requisitos obligatorios: </td>
 								</tr>
-								<tr style="border: 2px solid #999; right: 0px 0px -1px 0px;">
-									<td colspan="3" style="right: 0px -35px 0px -29px; width: 100px;">
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px; width: 100px;">
 										<span style="font-size: 9px;">1. Solicitud de póliza </span><span style="font-size: 7px;">completa, legible y <br>debidamente firmada</span>
 									</td>
-									<td style="right: 0px -40px 0px -25px; width: 5%;">
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
 									</td>
-									<td colspan="3" style="right: 0px -35px 0px -29px; width: 50%;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px; width: 50%;">
 										<span style="font-size: 9px;">5. Registro de Propiedad Vehicular (auto <br> usado) o Proforma (auto nuevo)</span>
 									</td>
-									<td style="right: 0px -40px 0px -25px; width: 5%;">
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
 									</td>
-									<td colspan="3" style="right: 0px -35px 0px -29px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
 										<span style="font-size: 9px;">9. Formulario de pago TCR o ACH <br>(si aplica por forma de pago)</span>
 									</td>
 									<td>
 									</td>
 								</tr>
-								<tr style="border: 2px solid #999; right: 0px 0px -1px 0px;">
-									<td colspan="3" style="right: 0px -35px 0px -29px;">
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
 										<span style="font-size: 9px;">2. Otros formularios CTC </span><span style="font-size: 7px;">que sean requeridos completos, legibles y debidamente firmados</span>
 									</td>
-									<td style="right: 0px -40px 0px -25px; width: 5%;">
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
 									</td>
-									<td colspan="3" style="right: 0px -35px 0px -29px; width: 50%;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px; width: 50%;">
 										<span style="font-size: 9px;">6. Informe de inspección (auto usado)</span>
 									</td>
-									<td style="right: 0px -40px 0px -25px; width: 5%;">
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
 									</td>
-									<td colspan="3" style="right: 0px -35px 0px -29px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
 										<span style="font-size: 9px;">10. Confirmación de pago de la primera letra</span>
 									</td>
 									<td style="width: 5%;">
 									</td>
 								</tr>
-								<tr style="border: 2px solid #999; right: 0px 0px -1px 0px;">
-									<td colspan="3" style="right: 0px -35px 0px -29px;">
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
 										<span style="font-size: 9px;">3. Cotización</span>
 									</td>
-									<td style="right: 0px -40px 0px -25px;width: 5%;">
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
 									</td>
-									<td colspan="3" style="right: 0px -35px 0px -29px; width: 50%;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px; width: 50%;">
 										<span style="font-size: 9px;">7. Consulta de tránsito</span>
 									</td>
-									<td style="right: 0px -40px 0px -25px;width: 5%;">
+									<td style="padding-right: -40px; padding-left: -25px;width: 5%;">
 									</td>
-									<td colspan="3" style="right: 0px -35px 0px -29px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
 										<span style="font-size: 9px;">11. Correos u otros del cliente, coaseguradoras <br> o reaseguradores (opcional)</span>
 									</td>
 									<td style="width: 5%;">
 									</td>
 								</tr>
-								<tr style="border: 2px solid #999; right: 0px 0px -1px 0px;">
-									<td colspan="3" style="right: 0px -35px 0px -29px;">
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px;">
 										<span style="font-size: 9px;">4. Copia de cédula</span>
 									</td>
-									<td style="right: 0px -40px 0px -25px; width: 100px;width: 5%;">
+									<td style="padding-right: -40px; padding-left: -25px; width: 100px;width: 5%;">
 									</td>
-									<td colspan="3" style="right: 0px -35px 0px -29px; width: 50%;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -29px; width: 50%;">
 										<span style="font-size: 9px;">8. Consulta de claimssearch</span>
 									</td>
-									<td style="right: 0px -40px 0px -25px; width: 100px;width: 5%;">
+									<td style="padding-right: -40px; padding-left: -25px; width: 100px;width: 5%;">
 									</td>
-									<td colspan="3" style="right: 0px -35px 0px -25px;">
+									<td colspan="3" style="padding-right: -35px; padding-left: -25px;">
 									</td>
 									<td style="width: 5%;">
 									</td>
 								</tr>
-								<tr style="right: 0px 0px -10px 0px; width: 5%;">
+								<tr style="padding-bottom: -10px; width: 5%;">
 									<td></td>
 								</tr>
-								<tr style="border: 2px solid #999; right: 0px 0px -1px 0px;">
-									<td colspan="6" style="right: 0px -40px 0px -25px; width: 100px; right: 0px 0px -1px 0px;">
-										<span style="font-weight: bold;">Nombre y apellido del funcionario que revisa: </span><span>{{solicitud.funcionario}}</span>
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px; padding-bottom: -1px;">
+										<span style="font-weight: bold;">Nombre y apellido del funcionario que revisa: </span><span></span>
 									</td>
-									<td colspan="6" style="right: 0px -40px 0px -25px; width: 100px;">
-										<p style="right: 0px 0px -15px 0px;"><span>Área de negocio: </span><span></span></p>
-										{% if solicitud.area_funcionario == 'Comercial' %}
-											<p>
-												<span>Comercial</span><span>_X_</span>
-												<span>At. al Cliente</span><span>__</span>
-												<span>Fianzas</span><span>__</span>
-												<span>Seguros</span><span>__</span>
-												<span>Otros: </span><span>N/A</span>
-											</p>
-										{% elif solicitud.area_funcionario == 'At. al Cliente' %}
-											<p>
-												<span>Comercial</span><span>__</span>
-												<span>At. al Cliente</span><span>_X_</span>
-												<span>Fianzas</span><span>__</span>
-												<span>Seguros</span><span>__</span>
-												<span>Otros: </span><span>N/A</span>
-											</p>
-										{% elif solicitud.area_funcionario == 'Fianzas' %}
-											<p>
-												<span>Comercial</span><span>__</span>
-												<span>At. al Cliente</span><span>__</span>
-												<span>Fianzas</span><span>_X_</span>
-												<span>Seguros</span><span>__</span>
-												<span>Otros: </span><span>N/A</span>
-											</p>
-										{% elif solicitud.area_funcionario == 'Seguros' %}
-											<p>
-												<span>Comercial</span><span>__</span>
-												<span>At. al Cliente</span><span>__</span>
-												<span>Fianzas</span><span>__</span>
-												<span>Seguros</span><span>_X_</span>
-												<span>Otros: </span><span>N/A</span>
-											</p>
-										{% else %}
-											<p>
-												<span>Comercial</span><span>__</span>
-												<span>At. al Cliente</span><span>__</span>
-												<span>Fianzas</span><span>__</span>
-												<span>Seguros</span><span>__</span>
-												<span>Otros: </span><span>{{solicitud.otra_area}}</span>
-											</p>
-										{% endif %}
+									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
+										<p style="padding-bottom: -15px;"><span>Área de negocio: </span><span></span></p>
+										<p>
+											<span>Comercial</span><span>__</span>
+											<span>At. al Cliente</span><span>__</span>
+											<span>Fianzas</span><span>__</span>
+											<span>Seguros</span><span>__</span>
+											<span>Otros: </span><span>____</span>
+										</p>
 									</td>
 								</tr>
-								<tr style="border: 2px solid #999; right: 0px 0px -1px 0px;">
-									<td colspan="3" style="right: 0px -40px 0px -25px; width: 100px;">
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="3" style="padding-right: -40px; padding-left: -25px; width: 100px;">
 										<span>Firma: </span><span></span>
 									</td>
-									<td colspan="3" style="right: 0px -40px 0px -25px; width: 100px;">
-										<span>Cargo: </span><span>{{solicitud.cargo_funcionario}}</span>
+									<td colspan="3" style="padding-right: -40px; padding-left: -25px; width: 100px;">
+										<span>Cargo: </span><span></span>
 									</td>
-									<td colspan="6" style="right: 0px -40px 0px -25px; width: 100px;">
+									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
 										<span>Fecha: </span><span></span><span>(dd/mm/aaaa)</span>
 									</td>
 								</tr>
-								<tr style="border: 2px solid #999; right: 0px 0px -1px 0px;">
-									<td colspan="6" style="right: 0px -40px 0px -25px; width: 100px;">
+								<tr style="border: 2px solid #999; padding-bottom: -1px;">
+									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
 										<span>Firma supervisor que autoriza: </span><span></span>
 									</td>
-									<td colspan="6" style="right: 0px -40px 0px -25px; width: 100px;">
+									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
 										<span>Fecha: </span><span></span><span>(dd/mm/aaaa)</span>
 									</td>
 								</tr>
