@@ -415,7 +415,7 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
 
 def SendEmailSolicitud(request, pk):
-    subject = "Acerta Seguros - Solicitud PEP"
+    subject = "Acerta Seguros - Solicitud Poliza"
     solicitud = SolicitudPoliza.objects.get(pk=pk)
     datos_extras = ExtraDatosCliente.objects.filter(
         conductor=solicitud.cotizacion.conductor)
