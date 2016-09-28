@@ -928,6 +928,8 @@
         if (this.checked) {
             var element = document.querySelector("#id_tipo_id_conductor");
             element.classList.add("hidden");
+            $(".ced1").addClass("hidden");
+            $(".passp1").removeClass("hidden");
             var val1 = $("#nombre-conductor").val();
             var val2 = $("#id-conductor").val();
             $("#id_nombre_conductor").val(val1);
@@ -937,10 +939,29 @@
         } else {
             var element = document.querySelector("#id_tipo_id_conductor");
             element.classList.remove("hidden");
-            $("#id_nombre_conductor").val('');
-            $("#id_nombre_conductor").prop("disabled", false);
-            $("#id_id_conductor").val('');
-            $("#id_id_conductor").prop("disabled", false);
+            $("#id_tipo_id_conductor_1").prop("checked",true);
+            
+            if ($("#id_tipo_id_conductor").val()=="0"){
+                $("#id_nombre_conductor").val('');
+                $("#id_nombre_conductor").prop("disabled", false);
+                $("#id_provicia_1").val('');
+                $("#id_tipo_1").val('');
+                $("#id_campo_1_1").val('');
+                $("#id_campo_2_1").val('');
+                $("#id_id_conductor").prop("disabled", false);
+                $(".passp1").addClass("hidden");
+                $(".ced1").removeClass("hidden");
+
+            }
+            else{
+                $("#id_nombre_conductor").val('');
+                $("#id_nombre_conductor").prop("disabled", false);
+                $("#id_id_conductor").val('');
+                $("#id_id_conductor").prop("disabled", false);
+            }
+            //$("#id_tipo_id_conductor").val("1");
+            
+            
         }
     } );
     // $("#id_comision").on("change", function(event) {
