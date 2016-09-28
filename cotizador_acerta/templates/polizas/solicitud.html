@@ -869,9 +869,33 @@
     if (select || select2) {
         var element = document.querySelector(".datos-financieros");
         element.classList.remove("hidden");
+        $("#id_nom_ref_personal").attr('required', true);
+        $("#id_actividad_ref_personal").attr('required',true);
+        $("#id_relacion_ref_personal").attr('required',true);
+        $("#id_telefono_ref_personal").attr('required',true);
+        $("#id_nom_ref_bancaria").attr('required',true);
+        $("#id_actividad_ref_bancaria").attr('required',true);
+        $("#id_relacion_ref_bancaria").attr('required',true);
+        $("#id_telefono_ref_bancaria").attr('required',true);
+        $("#id_nom_ref_comercial").attr('required',true);
+        $("#id_actividad_ref_comercial").attr('required',true);
+        $("#id_relacion_ref_comercial").attr('required',true);
+        $("#id_telefono_ref_comercial").attr('required',true);
     } else {
         var element = document.querySelector(".datos-financieros");
         element.classList.add("hidden");
+        $("#id_nom_ref_personal").attr('required',false);
+        $("#id_actividad_ref_personal").attr('required',false);
+        $("#id_relacion_ref_personal").attr('required',false);
+        $("#id_telefono_ref_personal").attr('required',false);
+        $("#id_nom_ref_bancaria").attr('required',false);
+        $("#id_actividad_ref_bancaria").attr('required',false);
+        $("#id_relacion_ref_bancaria").attr('required',false);
+        $("#id_telefono_ref_bancaria").attr('required',false);
+        $("#id_nom_ref_comercial").attr('required',false);
+        $("#id_actividad_ref_comercial").attr('required',false);
+        $("#id_relacion_ref_comercial").attr('required',false);
+        $("#id_telefono_ref_comercial").attr('required',false);
     }
     var acreedor = document.querySelector(".acreedor");
     acreedor.classList.add("hidden");
@@ -912,9 +936,33 @@
         if (select || select2) {
             var element = document.querySelector(".datos-financieros");
             element.classList.remove("hidden");
+            $("#id_nom_ref_personal").attr('required', true);
+            $("#id_actividad_ref_personal").attr('required',true);
+            $("#id_relacion_ref_personal").attr('required',true);
+            $("#id_telefono_ref_personal").attr('required',true);
+            $("#id_nom_ref_bancaria").attr('required',true);
+            $("#id_actividad_ref_bancaria").attr('required',true);
+            $("#id_relacion_ref_bancaria").attr('required',true);
+            $("#id_telefono_ref_bancaria").attr('required',true);
+            $("#id_nom_ref_comercial").attr('required',true);
+            $("#id_actividad_ref_comercial").attr('required',true);
+            $("#id_relacion_ref_comercial").attr('required',true);
+            $("#id_telefono_ref_comercial").attr('required',true);
         } else {
             var element = document.querySelector(".datos-financieros");
             element.classList.add("hidden");
+            $("#id_nom_ref_personal").attr('required',false);
+            $("#id_actividad_ref_personal").attr('required',false);
+            $("#id_relacion_ref_personal").attr('required',false);
+            $("#id_telefono_ref_personal").attr('required',false);
+            $("#id_nom_ref_bancaria").attr('required',false);
+            $("#id_actividad_ref_bancaria").attr('required',false);
+            $("#id_relacion_ref_bancaria").attr('required',false);
+            $("#id_telefono_ref_bancaria").attr('required',false);
+            $("#id_nom_ref_comercial").attr('required',false);
+            $("#id_actividad_ref_comercial").attr('required',false);
+            $("#id_relacion_ref_comercial").attr('required',false);
+            $("#id_telefono_ref_comercial").attr('required',false);
         }
     } );
     $("#id_aseguradoConductor").on("change", function(event) {
@@ -951,9 +999,33 @@
         if (select || select2) {
             var element = document.querySelector(".datos-financieros");
             element.classList.remove("hidden");
+            $("#id_nom_ref_personal").attr('required', true);
+            $("#id_actividad_ref_personal").attr('required',true);
+            $("#id_relacion_ref_personal").attr('required',true);
+            $("#id_telefono_ref_personal").attr('required',true);
+            $("#id_nom_ref_bancaria").attr('required',true);
+            $("#id_actividad_ref_bancaria").attr('required',true);
+            $("#id_relacion_ref_bancaria").attr('required',true);
+            $("#id_telefono_ref_bancaria").attr('required',true);
+            $("#id_nom_ref_comercial").attr('required',true);
+            $("#id_actividad_ref_comercial").attr('required',true);
+            $("#id_relacion_ref_comercial").attr('required',true);
+            $("#id_telefono_ref_comercial").attr('required',true);
         } else {
             var element = document.querySelector(".datos-financieros");
             element.classList.add("hidden");
+            $("#id_nom_ref_personal").attr('required',false);
+            $("#id_actividad_ref_personal").attr('required',false);
+            $("#id_relacion_ref_personal").attr('required',false);
+            $("#id_telefono_ref_personal").attr('required',false);
+            $("#id_nom_ref_bancaria").attr('required',false);
+            $("#id_actividad_ref_bancaria").attr('required',false);
+            $("#id_relacion_ref_bancaria").attr('required',false);
+            $("#id_telefono_ref_bancaria").attr('required',false);
+            $("#id_nom_ref_comercial").attr('required',false);
+            $("#id_actividad_ref_comercial").attr('required',false);
+            $("#id_relacion_ref_comercial").attr('required',false);
+            $("#id_telefono_ref_comercial").attr('required',false);
         }
     } );
     $(document).on("change", "#id_id_conductor", function(e){
@@ -1080,6 +1152,21 @@
         $("#id_id_responsable").val('');
         $("#id_id_responsable").prop("disabled", false);
     }
+    $(document).on("change", "#id_valido_desde", function(){
+        var fecha = $(this).val();
+        var valido = new Date(fecha);
+        var today = new Date();
+        if (valido < today) {
+            $(".valor-validacion-valido").remove();
+            $('#id_submit').prop('disabled', true);
+            $('.button-next').attr('disabled', true);
+            $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>No puede introducir una fecha menor a la de hoy.</div>");
+        } else {
+            $('#id_submit').prop('disabled', false);
+            $('.button-next').attr('disabled', false);
+            $(".valor-validacion-valido").remove();
+        }
+    });
 </script>
 
 {% endblock custom_script %}

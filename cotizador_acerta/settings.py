@@ -110,8 +110,8 @@ WSGI_APPLICATION = 'cotizador_acerta.wsgi.application'
 #       CONEXION HEROKU!!!
 ##############################################
 
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config()
+# DATABASES = {}
+# DATABASES['default'] = dj_database_url.config()
 
 ##############################################
 #       PRODUCCION!!!
