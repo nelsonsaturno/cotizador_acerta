@@ -86,7 +86,7 @@
     }
     #subtitulo {
         font-family: Arial;
-        font-size: 13px;
+        font-size: 18px;
         color: #828489;
     }
     #subtitulo2 {
@@ -699,63 +699,18 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="col-md-12">
-                                                {% bootstrap_field form.firmador layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            Informacion para Uso Interno:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-4">
-                                                {% bootstrap_field form.tipo_produccion layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-4">
-                                                {% bootstrap_field form.tipo_suscripcion layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-4">
-                                                {% bootstrap_field form.forma_facturacion layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-8">
-                                                {% bootstrap_field form.renovacion layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.comision layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.def_comision layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
+                                            Nombre de quien firma:
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-12">
-                                                {% bootstrap_field form.grupo_economico layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-12">
-                                                {% bootstrap_field form.aprobaciones layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            Funcionario que revisa:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-6">
-                                                {% bootstrap_field form.funcionario layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.cargo_funcionario layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.area_funcionario layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.otra_area layout='horizontal' show_label=False field_class='form-field' %}
+                                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}" disabled>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <h3 id="subtitulo" class="text-center"><strong>¡Ya estás listo para solicitar la póliza!</strong></h3>
+                                    </div>
+                                    <br><br>
                                 </fieldset>
 
                                 <button type="submit" id="id_submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>
@@ -866,8 +821,8 @@
     element.classList.add("hidden");
     var element = document.querySelector(".datos-financieros");
     element.classList.add("hidden");
-    var element = document.querySelector("#id_otra_area");
-    element.classList.add("hidden");
+    // var element = document.querySelector("#id_otra_area");
+    // element.classList.add("hidden");
     var select = ($("#id_politico_expuesto").val()=="Si");
     var select2 = ($("#id_declaracion_prima").val()=="Si");
     if (select || select2) {
@@ -988,15 +943,15 @@
             $("#id_id_conductor").prop("disabled", false);
         }
     } );
-    $("#id_comision").on("change", function(event) {
-        if (this.checked) {
-            var element = document.querySelector("#id_def_comision");
-            element.classList.add("hidden");
-        } else {
-            var element = document.querySelector("#id_def_comision");
-            element.classList.remove("hidden");
-        }
-    } );
+    // $("#id_comision").on("change", function(event) {
+    //     if (this.checked) {
+    //         var element = document.querySelector("#id_def_comision");
+    //         element.classList.add("hidden");
+    //     } else {
+    //         var element = document.querySelector("#id_def_comision");
+    //         element.classList.remove("hidden");
+    //     }
+    // } );
     $("#id_declaracion_prima").on("change", function(event) {
         var select = ($("#id_politico_expuesto").val()=="Si");
         var select2 = ($("#id_declaracion_prima").val()=="Si");
@@ -1120,10 +1075,10 @@
         });
         $( '#id_ingreso_principal' ).prepend('<option class="placeholder" value="" selected=selected disabled>Ingreso Anual</option>');
         $( '#id_otro_ingreso' ).prepend('<option class="placeholder" value="" selected=selected disabled>Ingreso Anual</option>');
-        $( '#id_tipo_produccion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Produccion</option>');
-        $( '#id_tipo_suscripcion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Suscripcion</option>');
-        $( '#id_forma_facturacion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Forma de facturacion</option>');
-        $( '#id_area_funcionario' ).prepend('<option class="placeholder" value="" selected=selected disabled>Area</option>');
+        // $( '#id_tipo_produccion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Produccion</option>');
+        // $( '#id_tipo_suscripcion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Suscripcion</option>');
+        // $( '#id_forma_facturacion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Forma de facturacion</option>');
+        // $( '#id_area_funcionario' ).prepend('<option class="placeholder" value="" selected=selected disabled>Area</option>');
     });
     var element = document.querySelector("#id_responsable_0");
     element.onclick = function () {

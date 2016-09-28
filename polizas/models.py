@@ -38,7 +38,7 @@ class SolicitudPoliza(models.Model):
                                              'Otro')])
     nombre_responsable = models.CharField(max_length=20, blank=False)
     id_responsable = models.CharField(max_length=20, blank=False)
-    tipo_produccion = models.CharField(max_length=30, blank=False,
+    tipo_produccion = models.CharField(max_length=30, blank=True,
                                    default='Propia',
                                    choices=[('Propia',
                                              'Propia'),
@@ -48,26 +48,26 @@ class SolicitudPoliza(models.Model):
                                              'Coaseguro No Lider'),
                                             ('Reaseguro Cedido',
                                              'Reaseguro Cedido')])
-    tipo_suscripcion = models.CharField(max_length=30, blank=False,
+    tipo_suscripcion = models.CharField(max_length=30, blank=True,
                                    default='Individual',
                                    choices=[('Individual',
                                              'Individual'),
                                             ('Colectiva',
                                              'Colectiva')])
-    forma_facturacion = models.CharField(max_length=30, blank=False,
+    forma_facturacion = models.CharField(max_length=30, blank=True,
                                    default='Por Poliza',
                                    choices=[('Por Poliza',
                                              'Por Poliza'),
                                             ('Por Certificado',
                                              'Por Certificado')])
-    renovacion_automatica = models.BooleanField(default=False)
-    comision = models.BooleanField(default=False)
-    def_comision = models.CharField(max_length=30, blank=False)
-    grupo_economico = models.CharField(max_length=50, blank=False)
-    aprobaciones = models.CharField(max_length=200, blank=False)
-    funcionario = models.CharField(max_length=50, blank=False)
-    cargo_funcionario = models.CharField(max_length=20, blank=False)
-    area_funcionario = models.CharField(max_length=30, blank=False,
+    renovacion_automatica = models.BooleanField(default=False,blank=True)
+    comision = models.BooleanField(default=False,blank=True)
+    def_comision = models.CharField(max_length=30, blank=True)
+    grupo_economico = models.CharField(max_length=50, blank=True)
+    aprobaciones = models.CharField(max_length=200, blank=True)
+    funcionario = models.CharField(max_length=50, blank=True)
+    cargo_funcionario = models.CharField(max_length=20, blank=True)
+    area_funcionario = models.CharField(max_length=30, blank=True,
                                    default='Comercial',
                                    choices=[('Comercial',
                                              'Comercial'),
@@ -79,7 +79,7 @@ class SolicitudPoliza(models.Model):
                                              'Seguros'),
                                             ('Otro',
                                              'Otro')])
-    otra_area = models.CharField(max_length=20, blank=False)
+    otra_area = models.CharField(max_length=20, blank=True)
     tipo_tdc = models.CharField(max_length=30, blank=False, null=True,
                                    default='Visa',
                                    choices=[('Visa',
