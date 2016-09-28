@@ -7,11 +7,22 @@ from polizas.models import *
 from datetime import datetime as dt
 import datetime
 
+def default_desde():
+    if len(str(dt.now().month)) == 1:
+        return str(dt.now().year) + '0' + str(dt.now().month) + str(dt.now().day)
+    else:
+        return str(dt.now().year) +  str(dt.now().month) + str(dt.now().day)
+
+def default_hasta():
+    if len(str(dt.now().month)) == 1:
+        return str(dt.now().year + 1) + '0' + str(dt.now().month) + str(dt.now().day)
+    else:
+        return str(dt.now().year + 1) +  str(dt.now().month) + str(dt.now().day)
+
 
 class SolicitudClienteForm(forms.ModelForm):
     aseguradoConductor = forms.BooleanField(label='Asegurado es Conductor', required=False)
-    valido_desde = forms.DateField(label='Vigencia Desde', required=True, initial=dt.now)
-    default_hasta = dt.now() + datetime.timedelta(days=365)
+    valido_desde = forms.DateField(label='Vigencia Desde', required=True, initial=default_desde)
     valido_hasta = forms.DateField(label='Vigencia Hasta', required=True, initial=default_hasta)
     
     nombre_conductor = forms.CharField(label='Nombre', required=False)
@@ -127,7 +138,7 @@ class SolicitudClienteForm(forms.ModelForm):
                                 widget=forms.RadioSelect(), label="", required=False)
     num_tdc = forms.CharField(label='Numero de Tarjeta',required=False)
     banco_tdc = forms.CharField(label='Banco',required=False)
-    expiracion_tdc = forms.CharField(label='Expiracion',required=False)
+    expiracion_tdc = forms.CharField(label='Expiracion',required=False, initial=dt.now)
     dia_pago = forms.DateField(label='Dia de pago (aaaa/mm/dd)', required=True)
     nom_ref_personal = forms.CharField(label='Nombre o Razon Social', required=False)
     actividad_ref_personal = forms.CharField(label='Actividad', required=False)
@@ -222,6 +233,7 @@ class SolicitudClienteForm(forms.ModelForm):
         if hasta < desde:
             raise forms.ValidationError(u'Las fechas de validez son incorrectas.')
         return self.cleaned_data
+
 
 
 class PagoForm(forms.Form):
