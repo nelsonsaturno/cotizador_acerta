@@ -452,3 +452,10 @@ def SendEmailSolicitud(request, pk):
     msg.send()
     return HttpResponseRedirect(
         reverse_lazy('polizas_list'))
+
+def changeEmitida(request, pk):
+    solicitud = SolicitudPoliza.objects.get(pk=pk)
+    solicitud.tipo = 'Emitida'
+    solicitud.save()
+    return HttpResponseRedirect(
+        reverse_lazy('polizas_list'))
