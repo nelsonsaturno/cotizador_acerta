@@ -18,18 +18,99 @@ class SolicitudClienteForm(forms.ModelForm):
     nombre_conductor3 = forms.CharField(label='Nombre', required=False)
     id_conductor3 = forms.CharField(label='Identificacion', required=False)
 
+    provincia_1 = forms.ChoiceField(
+        choices=[
+            ('',''),
+            (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'),
+            (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10'),
+            (11, '11'), (12, '12'), (13, '13'), ('PE', 'PE'),
+            ('N', 'N'), ('E', 'E')
+        ],
+        required=False
+    )
+
+    tipo_1 = forms.ChoiceField(
+        choices=[('',''), ('PI', 'PI'), ('AV', 'AV')],
+        required=False
+    )
+
+    campo_id_1_1 = forms.CharField(
+        label="Campo 1", required=False,
+        localize=True, max_length=3
+    )
+
+    campo_id_2_1 = forms.CharField(
+        label="Campo 2", required=False,
+        localize=True, max_length=4
+    )
+
+    provincia_2 = forms.ChoiceField(
+        choices=[
+            ('',''),
+            (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'),
+            (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10'),
+            (11, '11'), (12, '12'), (13, '13'), ('PE', 'PE'),
+            ('N', 'N'), ('E', 'E')
+        ],
+        required=False
+    )
+
+    tipo_2 = forms.ChoiceField(
+        choices=[('',''), ('PI', 'PI'), ('AV', 'AV')],
+        required=False
+    )
+
+    campo_id_1_2 = forms.CharField(
+        label="Campo 1", required=False,
+        localize=True, max_length=3
+    )
+
+    campo_id_2_2 = forms.CharField(
+        label="Campo 2", required=False,
+        localize=True, max_length=4
+    )
+
+    provincia_3 = forms.ChoiceField(
+        choices=[
+            ('',''),
+            (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'),
+            (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10'),
+            (11, '11'), (12, '12'), (13, '13'), ('PE', 'PE'),
+            ('N', 'N'), ('E', 'E')
+        ],
+        required=False
+    )
+
+    tipo_3 = forms.ChoiceField(
+        choices=[('',''), ('PI', 'PI'), ('AV', 'AV')],
+        required=False
+    )
+
+    campo_id_1_3 = forms.CharField(
+        label="Campo 1", required=False,
+        localize=True, max_length=3
+    )
+
+    campo_id_2_3 = forms.CharField(
+        label="Campo 2", required=False,
+        localize=True, max_length=4
+    )
+
+
+
+
     responsable = forms.ChoiceField(choices=[(0, 'Contratante'), (1, 'Asegurado'), (2, 'Otro')],
                                 widget=forms.RadioSelect(), label="")
     nombre_responsable = forms.CharField(label='Nombre Completo', required=False)
     id_responsable = forms.CharField(label='Identificacion', required=False)
     tipo_id_conductor = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
-                                widget=forms.RadioSelect(), label="", required=False)
+                                widget=forms.Select(), label="", required=False)
     tipo_id_conductor2 = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
-                                widget=forms.RadioSelect(), label="", required=False)
+                                widget=forms.Select(), label="", required=False)
     tipo_id_conductor3 = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
-                                widget=forms.RadioSelect(), label="", required=False)
+                                widget=forms.Select(), label="", required=False)
     tipo_id_responsable = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
-                                widget=forms.RadioSelect(), label="", required=False)
+                                widget=forms.Select(), label="", required=False)
     acreedor_leasing = forms.ChoiceField(choices=[('Ninguno',
                                              'Ninguno'),
                                             ('Acreedor',

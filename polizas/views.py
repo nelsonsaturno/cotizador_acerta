@@ -80,6 +80,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
         return super(SolicitudPolizaView, self).get_context_data(**kwargs)
 
     def post(self, request, *args, **kwargs):
+
         form = SolicitudClienteForm(request.POST)
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
         user = User.objects.get(username=cotizacion.corredor)
@@ -90,6 +91,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             corredor = ''
         if form.is_valid():
             extra_cliente = form.save()
+
             if request.POST.get('nom_ref_personal', '') != '':
                 ref1 = Referencia(
                     nombre=request.POST['nom_ref_personal'],
@@ -145,6 +147,34 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             if responsable[1] == 'n/a':
                 responsable[1] = cotizacion.conductor.identificacion
             
+
+            tipo_id_conductor = form.cleaned_data['tipo_id_conductor']
+            if tipo_id_conductor == '0':
+                provincia_1 = form.cleaned_data['provincia_1']
+                tipo_1 = form.cleaned_data['tipo_1']
+                campo_id_1_1 = form.cleaned_data['campo_id_1_1']
+                campo_id_2_1 = form.cleaned_data['campo_id_2_1']
+                cedula = str(provincia_1) + '-' + str(tipo_1) + '-' + str(campo_id_1_1) + '-' + str(campo_id_2_1)
+                conductor[1] = cedula
+
+            tipo_id_conductor2 = form.cleaned_data['tipo_id_conductor2']
+            if tipo_id_conductor2 == '0':
+                provincia_2 = form.cleaned_data['provincia_2']
+                tipo_2 = form.cleaned_data['tipo_2']
+                campo_id_1_2 = form.cleaned_data['campo_id_1_2']
+                campo_id_2_2 = form.cleaned_data['campo_id_2_2']
+                cedula = str(provincia_2) + '-' + str(tipo_2) + '-' + str(campo_id_1_2) + '-' + str(campo_id_2_2)
+                conductor2[1] = cedula
+
+            tipo_id_conductor3 = form.cleaned_data['tipo_id_conductor3']
+            if tipo_id_conductor3 == '0':
+                provincia_3 = form.cleaned_data['provincia_3']
+                tipo_3 = form.cleaned_data['tipo_3']
+                campo_id_1_3 = form.cleaned_data['campo_id_1_3']
+                campo_id_2_3 = form.cleaned_data['campo_id_2_3']
+                cedula = str(provincia_3) + '-' + str(tipo_3) + '-' + str(campo_id_1_3) + '-' + str(campo_id_2_3)
+                conductor3[1] = cedula
+
             solicitud = SolicitudPoliza(
                 cotizacion=cotizacion,
                 nombre_conductor=conductor[0],
@@ -191,7 +221,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 {
                     'form': form,
                     'cotizacion': cotizacion,
-                    'corredor_pol': corredor
+                    'corredor_pol': corredor,
                 }
             )
 
