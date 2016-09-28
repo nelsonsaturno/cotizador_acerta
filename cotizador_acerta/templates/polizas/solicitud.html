@@ -756,7 +756,7 @@
     element.classList.add("hidden");
 
     var select = ($("#id_politico_expuesto").val()=="Si");
-    var select2 = document.querySelector("#id_declaracion_prima:checked");
+    var select2 = ($("#id_declaracion_prima").val()=="Si");
     alert(select);
     if (select || select2) {
         var element = document.querySelector(".datos-financieros");
@@ -785,7 +785,7 @@
         }
 
         var select = ($("#id_politico_expuesto").val()=="Si");
-        var select2 = document.querySelector("#id_declaracion_prima:checked");
+        var select2 = ($("#id_declaracion_prima").val()=="Si");
         if (select || select2) {
             var element = document.querySelector(".datos-financieros");
             element.classList.remove("hidden");
@@ -827,7 +827,7 @@
 
     $("#id_declaracion_prima").on("change", function(event) {
         var select = ($("#id_politico_expuesto").val()=="Si");
-        var select2 = document.querySelector("#id_declaracion_prima:checked");
+        var select2 = ($("#id_declaracion_prima").val()=="Si");
         if (select || select2) {
             var element = document.querySelector(".datos-financieros");
             element.classList.remove("hidden");

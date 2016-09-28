@@ -139,7 +139,11 @@ class ExtraDatosCliente(models.Model):
     periodo_politico = models.CharField(max_length=30, blank=True)
     nombre_politico = models.CharField(max_length=30, blank=True)
     relacion_politico = models.CharField(max_length=30, blank=True)
-    declaracion_prima = models.BooleanField(default=False)
+    declaracion_prima = models.CharField(max_length=30,
+                                         blank=True,
+                                         default='',
+                                         choices=[('Si', 'Si'),
+                                         ('No', 'No')])
     # Perfil Financiero
     actividad_principal = models.CharField(max_length=100, blank=True)
     ingreso_principal = models.CharField(max_length=30, blank=True,
