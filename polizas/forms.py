@@ -156,6 +156,8 @@ class SolicitudClienteForm(forms.ModelForm):
                                 widget=forms.Select(), label="")
     otra_area = forms.CharField(label='Otra area', required=False)
 
+    placa = forms.CharField(label='Placa No.', required=False)
+
     class Meta:
         model = ExtraDatosCliente
         exclude = ['conductor', 'ref_personal', 'ref_bancaria', 'ref_comercial', ]

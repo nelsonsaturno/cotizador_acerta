@@ -107,7 +107,7 @@ class Referencia(models.Model):
 # Datos extras para el formulario unico.
 class ExtraDatosCliente(models.Model):
     conductor = models.ForeignKey(ConductorVehiculo, null=True, related_name='datos')
-    placa = models.CharField(max_length=40, blank=False)
+    placa = models.CharField(max_length=40, blank=False, null=True)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
     tipo = models.CharField(max_length=40, blank=False)
