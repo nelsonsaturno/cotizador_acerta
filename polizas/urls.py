@@ -53,4 +53,9 @@ urlpatterns = patterns(
         'polizas.views.SendEmailSolicitud',
         name='send-solicitud'
     ),
+    url(
+        r'^solicitud/emitir/(?P<pk>\d+)/$',
+        'polizas.views.changeEmitida',
+        name='emitir-poliza'
+    ),
 )
