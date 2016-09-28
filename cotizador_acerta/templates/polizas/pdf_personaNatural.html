@@ -699,51 +699,21 @@
 										<p style="padding-bottom: -6px;">
 										<span style="text-decoration: underline; font-weight: bold;">Información para uso interno: </span><span>Tipo de producción</span>
 										</p>
-										{% if solicitud.tipo_produccion == 'Propia' %}
-											<p style="padding-bottom: -6px;">
-												<span>Prod. Propia</span><span>_X_</span>
-												<span>Coaseguro Líder</span><span>__</span>
-												<span>Coaseguro No Líder</span><span>__</span>
-												<span>Reaseguro Cedido</span><span>__</span>
-											</p>
-										{% elif solicitud.tipo_produccion == 'Coaseguro Lider' %}
-											<p style="padding-bottom: -6px;">
-												<span>Prod. Propia</span><span>__</span>
-												<span>Coaseguro Líder</span><span>_X_</span>
-												<span>Coaseguro No Líder</span><span>__</span>
-												<span>Reaseguro Cedido</span><span>__</span>
-											</p>
-										{% elif solicitud.tipo_produccion == 'Coaseguro No Lider' %}
-											<p style="padding-bottom: -6px;">
-												<span>Prod. Propia</span><span>__</span>
-												<span>Coaseguro Líder</span><span>__</span>
-												<span>Coaseguro No Líder</span><span>_X_</span>
-												<span>Reaseguro Cedido</span><span>__</span>
-											</p>
-										{% else %}
-											<p style="padding-bottom: -6px;">
-												<span>Prod. Propia</span><span>__</span>
-												<span>Coaseguro Líder</span><span>__</span>
-												<span>Coaseguro No Líder</span><span>__</span>
-												<span>Reaseguro Cedido</span><span>_X_</span>
-											</p>
-										{% endif %}
+										<p style="padding-bottom: -6px;">
+											<span>Prod. Propia</span><span>__</span>
+											<span>Coaseguro Líder</span><span>__</span>
+											<span>Coaseguro No Líder</span><span>__</span>
+											<span>Reaseguro Cedido</span><span>__</span>
+										</p>
 									</td>
 									<td colspan="5" style="padding-right: -40px; padding-left: -25px;">
 										<p style="padding-bottom: -6px;">
 										<span>Tipo de suscripción: </span><span></span>
 										</p>
-										{% if solicitud.tipo_suscripcion == 'Individual' %}
-											<p style="padding-bottom: -6px;">
-												<span>Individual</span><span>_X_</span>
-												<span>Colectiva</span><span>__</span>
-											</p>
-										{% else %}
-											<p style="padding-bottom: -6px;">
-												<span>Individual</span><span>__</span>
-												<span>Colectiva</span><span>_X_</span>
-											</p>
-										{% endif %}
+										<p style="padding-bottom: -6px;">
+											<span>Individual</span><span>__</span>
+											<span>Colectiva</span><span>__</span>
+										</p>
 									</td>
 								</tr>
 								<tr style="border: 2px solid #999;">
@@ -751,60 +721,41 @@
 										<p style="padding-bottom: -15px;">
 										<span>Forma de facturación: </span><span></span>
 										</p>
-										{% if solicitud.forma_facturacion == 'Por Poliza' %}
-											<p style="padding-bottom: -6px;">
-												<span>Por póliza: </span><span>_X_</span>
-												<span>Por certificado: </span>__<span></span>
-											</p>
-										{% else %}
-											<p style="padding-bottom: -6px;">
-												<span>Por póliza: </span><span>__</span>
-												<span>Por certificado: </span>_X_<span></span>
-											</p>
-										{% endif %}
+										<p style="padding-bottom: -6px;">
+											<span>Por póliza: </span><span>__</span>
+											<span>Por certificado: </span>__<span></span>
+										</p>
 									</td>
 									<td colspan="3" style="padding-right: -40px; padding-left: -25px;">
 										<p style="padding-bottom: -15px;">
 										<span>Renovación automática: </span><span></span>
 										</p>
-										{% if solicitud.renovacion %}
-											<p style="padding-bottom: -6px;">
-												<span>Sí</span><span>_X_</span>
-												<span>No</span><span>__</span>
-											</p>
-										{% else %}
-											<p style="padding-bottom: -6px;">
-												<span>Sí</span><span>__</span>
-												<span>No</span><span>_X_</span>
-											</p>
-										{% endif %}
+										<p style="padding-bottom: -6px;">
+											<span>Sí</span><span>__</span>
+											<span>No</span><span>__</span>
+										</p>
 									</td>
 									<td colspan="5" style="padding-right: -40px; padding-left: -25px;">
 										<p style="padding-bottom: -15px;">
 										<span>Comisión estándar: </span><span></span>
 										</p>
-										{% if solicitud.comision %}
-											<p style="padding-bottom: -6px;">
-												<span>Sí</span><span>_X_</span>
-												<span>No</span><span>__</span>
-												<span>Definir: </span><span>N/A</span>
-											</p>
-										{% else %}
-											<p style="padding-bottom: -6px;">
-												<span>Sí</span><span>__</span>
-												<span>No</span><span>_X_</span>
-												<span>Definir: </span><span>{{solicitud.def_comision}}</span>
-											</p>
-										{% endif %}
+										<p style="padding-bottom: -6px;">
+											<span>Sí</span><span>__</span>
+											<span>No</span><span>__</span>
+											<span>Definir: </span><span>______</span>
+										</p>
 									</td>
 								</tr>
 								<tr style="border: 2px solid #999; padding-bottom: -1px;">
-									<td colspan="12" style="padding-right: -40px; padding-left: -25px;"><span>Grupo económico: </span><span>{{solicitud.grupo_economico}}</span></td>
+									<td colspan="12" style="padding-right: -40px; padding-left: -25px;"><span>Grupo económico: </span><span></span></td>
 								</tr>
 								<tr style="border: 2px solid #999; padding-bottom: -6px;">
 									<td colspan="12" style="padding-right: -40px; padding-left: -25px;">
 										<p><span>Aprobaciones especiales: </span></p>
-										<p>{{solicitud.aprobaciones}}</p>
+										<p></p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
 										<p>&nbsp;</p>
 									</td>
 								</tr>

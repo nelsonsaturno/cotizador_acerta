@@ -152,22 +152,22 @@ class SolicitudClienteForm(forms.ModelForm):
     actividad_ref_comercial = forms.CharField(label='Actividad', required=False)
     relacion_ref_comercial = forms.CharField(label='Relacion con el cliente', required=False)
     telefono_ref_comercial = forms.CharField(label='Telefono de contacto', required=False)
-    firmador = forms.CharField(label='Nombre de quien firma')
+    firmador = forms.CharField(label='Nombre de quien firma', required=False)
     tipo_produccion = forms.ChoiceField(choices=[(0, 'Produccion Propia'), (1, 'Coaseguro Lider'), (2, 'Coaseguro No Lider'), (3, 'Reaseguro Cedido')],
-                                widget=forms.Select(), label="")
+                                widget=forms.Select(), label="", required=False)
     tipo_suscripcion = forms.ChoiceField(choices=[(0, 'Individual'), (1, 'Colectiva')],
-                                widget=forms.Select(), label="")
+                                widget=forms.Select(), label="", required=False)
     forma_facturacion = forms.ChoiceField(choices=[(0, 'Por Poliza'), (1, 'Por Certificado')],
-                                widget=forms.Select(), label="")
+                                widget=forms.Select(), label="", required=False)
     renovacion = forms.BooleanField(label='Renovacion Automatica', required=False)
     comision = forms.BooleanField(label='Comision estandar', required=False)
     def_comision = forms.CharField(label='Definir Comision', required=False)
-    grupo_economico = forms.CharField(label='Grupo Economico')
+    grupo_economico = forms.CharField(label='Grupo Economico', required=False)
     aprobaciones = forms.CharField(label='Aprobaciones especiales', widget=forms.Textarea(), required=False)
-    funcionario = forms.CharField(label='Nombre Completo')
-    cargo_funcionario = forms.CharField(label='Cargo')
+    funcionario = forms.CharField(label='Nombre Completo', required=False)
+    cargo_funcionario = forms.CharField(label='Cargo', required=False)
     area_funcionario = forms.ChoiceField(choices=[(0, 'Comercial'), (1, 'At. al Cliente'), (2, 'Fianzas'), (3, 'Seguros'), (4, 'Otras')],
-                                widget=forms.Select(), label="")
+                                widget=forms.Select(), label="", required=False)
     otra_area = forms.CharField(label='Otra area', required=False)
 
     placa = forms.CharField(label='Placa No.', required=False)
@@ -228,8 +228,8 @@ class SolicitudClienteForm(forms.ModelForm):
     def clean(self):
         valido_desde = str(self.cleaned_data['valido_desde'])
         valido_hasta = str(self.cleaned_data['valido_hasta'])
-        desde = datetime.strptime(valido_desde, '%Y-%m-%d')
-        hasta = datetime.strptime(valido_hasta, '%Y-%m-%d')
+        desde = dt.strptime(valido_desde, '%Y-%m-%d')
+        hasta = dt.strptime(valido_hasta, '%Y-%m-%d')
         if hasta < desde:
             raise forms.ValidationError(u'Las fechas de validez son incorrectas.')
         return self.cleaned_data
