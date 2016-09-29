@@ -108,10 +108,18 @@ class Referencia(models.Model):
 # Datos extras para el formulario unico.
 class ExtraDatosCliente(models.Model):
     conductor = models.ForeignKey(ConductorVehiculo, null=True, related_name='datos')
+    es_juridico = models.BooleanField(default=False)
+    juridico_RUC = models.CharField(max_length=30, blank=True, default='')
+    juridico_razon_social = models.CharField(max_length=30,
+                                             blank=True, default='')
+    juridico_pais_procedencia = models.CharField(max_length=30,
+                                                 blank=True, default='')
+    juridico_fecha_constitucion = models.CharField(max_length=30,
+                                                   blank=True, default='')
     placa = models.CharField(max_length=40, blank=False, null=True)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
-    tipo = models.CharField(max_length=40, blank=False)
+    tipo = models.CharField(max_length=40, blank=False, null=True)
     nombre2 = models.CharField(max_length=20, blank=False)
     apellido_mat = models.CharField(max_length=20, blank=False)
     apellido_cas = models.CharField(max_length=20, blank=True)
@@ -129,14 +137,14 @@ class ExtraDatosCliente(models.Model):
     no_casa = models.CharField(max_length=5, blank=True, default='')
     apartado_postal = models.CharField(max_length=30, blank=True)
     telefono_res = models.CharField(max_length=20, blank=True)
-    profesion = models.CharField(max_length=30, blank=False)
-    ocupacion = models.CharField(max_length=30, blank=False)
-    cargo_empresa = models.CharField(max_length=30, blank=False)
-    empresa = models.CharField(max_length=30, blank=False)
-    actividad_empresa = models.CharField(max_length=30, blank=False)
-    direccion_empresa = models.CharField(max_length=100, blank=False)
+    profesion = models.CharField(max_length=30, blank=False, null=True)
+    ocupacion = models.CharField(max_length=30, blank=False, null=True)
+    cargo_empresa = models.CharField(max_length=30, blank=False, null=True)
+    empresa = models.CharField(max_length=30, blank=False, null=True)
+    actividad_empresa = models.CharField(max_length=30, blank=False, null=True)
+    direccion_empresa = models.CharField(max_length=100, blank=False, null=True)
     telefono_empresa = models.CharField(max_length=30, blank=True)
-    fax_empresa = models.CharField(max_length=30, blank=True)
+    fax_empresa = models.CharField(max_length=30, blank=True, null=True)
     correo_trabajo = models.EmailField(blank=True)
     ilicito = models.CharField(max_length=30,
                                blank=True,

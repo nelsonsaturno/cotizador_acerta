@@ -257,9 +257,24 @@
                                             <div class="col-md-3">
                                                 {% bootstrap_field form.telefono_res layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
+                                        </div>
+                                        <div class="col-md-12">
                                             <div class="col-md-3">
+                                                {% bootstrap_field form.es_juridico layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
-                                            <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3 j_RUC" hidden="True">
+                                                {% bootstrap_field form.juridico_RUC layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3 j_rs" hidden="True">
+                                                {% bootstrap_field form.juridico_razon_social layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3 j_pp" hidden="True">
+                                                {% bootstrap_field form.juridico_pais_procedencia layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3 j_fc" hidden="True">
+                                                {% bootstrap_field form.juridico_fecha_constitucion layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                     </div>
@@ -277,14 +292,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             {% bootstrap_field form.empresa layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             {% bootstrap_field form.actividad_empresa layout='horizontal' show_label=False field_class='form-field' %}
-                                        </div>
-                                        <div class="col-md-4">
-                                            {% bootstrap_field form.cargo_empresa layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -293,11 +305,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             {% bootstrap_field form.telefono_empresa layout='horizontal' show_label=False field_class='form-field' %}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {% bootstrap_field form.fax_empresa layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
                                         <div class="col-md-6">
                                             {% bootstrap_field form.correo_trabajo layout='horizontal' show_label=False field_class='form-field' %}
@@ -306,7 +315,7 @@
                                 </fieldset>
 
                                 <fieldset title="3">
-                                    <legend class="text-semibold">Datos Políticos</legend>
+                                    <legend class="text-semibold">Datos Políticos y Financieros</legend>
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -348,13 +357,6 @@
                                             <p style="text-align: justify; font-size: 12px;">(1) Las personas políticamente expuestas son aquellos, nacionales o extranjeros, que desempeñan o han desempeñado funciones públicas destacadas en un país extranjero o en su propio país, por ejemplo: Jefes de Estado o de un gobierno, políticos de alta jerarquía, funcionarios gubernamentales, judiciales o militares de alta jeraruía, altos ejecutivos de empresas estatales, funcionarios importantes de partidos políticos. (2) Únicamente el cónyugue, los padres, los hermanos y los hijos de una persona políticamente expuesta. (3) Persona conocida por su íntima relación con respecto a la persona expuesta políticamente, esto incluye a quienes están en posición de realizar transacciones financieras, comerciales o de cualquier naturaleza, ya sean locales o internacionales, en nombre de la persona expuesta políticamente.
                                             </p>
                                         </div>
-                                    </div>
-                                </fieldset>
-
-                                <fieldset title="4">
-                                    <legend class="text-semibold">Datos Financieros</legend>
-
-                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-12">
                                                 <label>Prima de Seguros mayor o igual a B./ 10,000.00</label>
@@ -432,12 +434,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset title="5">
-                                    <legend class="text-semibold">Datos Adicionales</legend>
-
-                                    <div class="row">
                                         <div class="col-md-12">
                                             <label>Acreedor o Leasing</label>
                                         </div>
@@ -452,15 +448,21 @@
                                                 {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset title="4">
+                                    <legend class="text-semibold">Datos Adicionales</legend>
+
+                                    <div class="row">
                                         <div class="col-md-12">
                                             Asegurado:
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control form-disabled" id="nombre-conductor" value="{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}" disabled>
+                                                <input type="text" class="form-control" id="nombre-conductor" value="{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}" >
                                             </div>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control form-disabled" id="id-conductor" value="{{ cotizacion.conductor.identificacion }}" disabled>
+                                                <input type="text" class="form-control" id="id-conductor" value="{{ cotizacion.conductor.identificacion }}">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -540,7 +542,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <fieldset title="6">
+                                <fieldset title="5">
                                     <legend class="text-semibold">Poliza y Bien</legend>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -599,7 +601,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <fieldset title="7">
+                                <fieldset title="6">
                                     <legend class="text-semibold">Cobranza</legend>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -687,35 +689,6 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <fieldset title="8">
-                                    <legend class="text-semibold">¡Solicitar!</legend>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            Datos del corredor:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control form-disabled" value="{{ corredor_pol.user.first_name }} {{ corredor_pol.user.last_name }}" disabled>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control form-disabled" value="{{ corredor_pol.licencia }}" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            Nombre de quien firma:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-12">
-                                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}/ WEB" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <h3 id="subtitulo" class="text-center"><strong>¡Ya estás listo para solicitar la póliza!</strong></h3>
-                                    </div>
-                                    <br><br>
-                                </fieldset>
-
                                 <button type="submit" id="id_submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>
                             </form>
                         </div>
@@ -877,6 +850,22 @@
             leasing.classList.add("hidden");
         }
     });
+
+    $("#id_es_juridico").on("change", function(event) {
+        if( $(this).is(':checked') ){
+            $(".j_RUC").show();
+            $(".j_rs").show();
+            $(".j_pp").show();
+            $(".j_fc").show();
+        }
+        else{
+            $(".j_RUC").hide();
+            $(".j_rs").hide();
+            $(".j_pp").hide();
+            $(".j_fc").hide();
+        }
+    });
+
     $("#id_politico_expuesto").on("change", function(event) {
         if ($(this).val() == "Si") {
             var element = document.querySelector(".politico");
@@ -931,6 +920,8 @@
         if (this.checked) {
             var element = document.querySelector("#id_tipo_id_conductor");
             element.classList.add("hidden");
+            $(".ced1").addClass("hidden");
+            $(".passp1").removeClass("hidden");
             var val1 = $("#nombre-conductor").val();
             var val2 = $("#id-conductor").val();
             $("#id_nombre_conductor").val(val1);
@@ -940,10 +931,29 @@
         } else {
             var element = document.querySelector("#id_tipo_id_conductor");
             element.classList.remove("hidden");
-            $("#id_nombre_conductor").val('');
-            $("#id_nombre_conductor").prop("disabled", false);
-            $("#id_id_conductor").val('');
-            $("#id_id_conductor").prop("disabled", false);
+            $("#id_tipo_id_conductor_1").prop("checked",true);
+
+            if ($("#id_tipo_id_conductor").val()=="0"){
+                $("#id_nombre_conductor").val('');
+                $("#id_nombre_conductor").prop("disabled", false);
+                $("#id_provicia_1").val('');
+                $("#id_tipo_1").val('');
+                $("#id_campo_1_1").val('');
+                $("#id_campo_2_1").val('');
+                $("#id_id_conductor").prop("disabled", false);
+                $(".passp1").addClass("hidden");
+                $(".ced1").removeClass("hidden");
+
+            }
+            else{
+                $("#id_nombre_conductor").val('');
+                $("#id_nombre_conductor").prop("disabled", false);
+                $("#id_id_conductor").val('');
+                $("#id_id_conductor").prop("disabled", false);
+            }
+            //$("#id_tipo_id_conductor").val("1");
+
+
         }
     } );
     // $("#id_comision").on("change", function(event) {
