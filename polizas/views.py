@@ -208,7 +208,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 num_tdc=request.POST.get('num_tdc','N/A'),
                 banco_tdc=request.POST.get('banco_tdc','N/A'),
                 expiracion_tdc=request.POST.get('expiracion_tdc',date.today()),
-                dia_pago=request.POST['dia_pago'],
+                dia_pago=request.POST.get('dia_pago',date.today()),
                 tipo='Solicitada'
             )
             
