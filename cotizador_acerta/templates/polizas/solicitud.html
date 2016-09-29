@@ -671,35 +671,6 @@
                                         {% endif %}
                                     </div>
                                 </fieldset>
-                                <fieldset title="7">
-                                    <legend class="text-semibold">¡Solicitar!</legend>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            Datos del corredor:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control form-disabled" value="{{ corredor_pol.user.first_name }} {{ corredor_pol.user.last_name }}" disabled>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control form-disabled" value="{{ corredor_pol.licencia }}" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            Nombre de quien firma:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-12">
-                                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}/ WEB" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <h3 id="subtitulo" class="text-center"><strong>¡Ya estás listo para solicitar la póliza!</strong></h3>
-                                    </div>
-                                    <br><br>
-                                </fieldset>
-
                                 <button type="submit" id="id_submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>
                             </form>
                         </div>
