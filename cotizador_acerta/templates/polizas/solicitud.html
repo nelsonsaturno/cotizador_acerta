@@ -437,13 +437,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-6">
-                                                {% bootstrap_field form.acreedor_leasing layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-6 acreedor">
-                                                {% bootstrap_field form.acreedor layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-6 leasing">
-                                                {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
+                                                {% bootstrap_field form.acreedor_leasing_id layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                     </div>
@@ -842,24 +836,24 @@
         $("#id_relacion_ref_comercial").attr('required',false);
         $("#id_telefono_ref_comercial").attr('required',false);
     }
-    var acreedor = document.querySelector(".acreedor");
-    acreedor.classList.add("hidden");
-    var leasing = document.querySelector(".leasing");
-    leasing.classList.add("hidden");
-    $("#id_acreedor_leasing").on("change", function(event) {
-        if ($(this).val() == "Acreedor"){
-            acreedor.classList.remove("hidden");
-            leasing.classList.add("hidden");
-        }
-        if ($(this).val() == "Leasing"){
-            acreedor.classList.add("hidden");
-            leasing.classList.remove("hidden");
-        }
-        if ($(this).val() == "Ninguno"){
-            acreedor.classList.add("hidden");
-            leasing.classList.add("hidden");
-        }
-    });
+    //var acreedor = document.querySelector(".acreedor");
+    //acreedor.classList.add("hidden");
+    //var leasing = document.querySelector(".leasing");
+    //leasing.classList.add("hidden");
+    // $("#id_acreedor_leasing").on("change", function(event) {
+    //     if ($(this).val() == "Acreedor"){
+    //         acreedor.classList.remove("hidden");
+    //         leasing.classList.add("hidden");
+    //     }
+    //     if ($(this).val() == "Leasing"){
+    //         acreedor.classList.add("hidden");
+    //         leasing.classList.remove("hidden");
+    //     }
+    //     if ($(this).val() == "Ninguno"){
+    //         acreedor.classList.add("hidden");
+    //         leasing.classList.add("hidden");
+    //     }
+    // });
 
     $("#id_es_juridico").on("change", function(event) {
         if( $(this).is(':checked') ){
