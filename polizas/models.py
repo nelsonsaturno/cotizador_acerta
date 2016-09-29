@@ -143,12 +143,12 @@ class ExtraDatosCliente(models.Model):
     telefono_empresa = models.CharField(max_length=30, blank=True)
     correo_trabajo = models.EmailField(blank=True)
     ilicito = models.CharField(max_length=30,
-                               blank=True,
+                               blank=False,
                                default='',
                                choices=[('Si', 'Si'),
                                ('No', 'No')])
     politico_expuesto = models.CharField(max_length=30,
-                                         blank=True,
+                                         blank=False,
                                          default='',
                                          choices=[('Si', 'Si'),
                                          ('No', 'No')])
@@ -157,7 +157,7 @@ class ExtraDatosCliente(models.Model):
     nombre_politico = models.CharField(max_length=30, blank=True)
     relacion_politico = models.CharField(max_length=30, blank=True)
     declaracion_prima = models.CharField(max_length=30,
-                                         blank=True,
+                                         blank=False,
                                          default='',
                                          choices=[('Si', 'Si'),
                                          ('No', 'No')])
