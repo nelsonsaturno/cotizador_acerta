@@ -4,12 +4,15 @@ from django import forms
 from datetime import *
 from bootstrap3_datetime.widgets import DateTimePicker
 from polizas.models import *
+from datetime import datetime as dt
+import datetime
 
 
 class SolicitudClienteForm(forms.ModelForm):
     aseguradoConductor = forms.BooleanField(label='Asegurado es Conductor', required=False)
-    valido_desde = forms.DateField(label='Vigencia Desde', required=True)
-    valido_hasta = forms.DateField(label='Vigencia Hasta', required=True)
+    valido_desde = forms.DateField(label='Vigencia Desde', required=True, initial=dt.now)
+    default_hasta = dt.now() + datetime.timedelta(days=365)
+    valido_hasta = forms.DateField(label='Vigencia Hasta', required=True, initial=default_hasta)
     
     nombre_conductor = forms.CharField(label='Nombre', required=False)
     id_conductor = forms.CharField(label='Identificacion', required=False)
