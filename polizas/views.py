@@ -186,8 +186,8 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 id_conductor3=conductor3[1],
                 vigencia_desde=request.POST['valido_desde'],
                 vigencia_hasta=request.POST['valido_hasta'],
-                acreedor=request.POST.get('acreedor','N/A'),
-                leasing=request.POST.get('leasing','N/A'),
+                #acreedor=request.POST.get('acreedor','N/A'),
+                #leasing=request.POST.get('leasing','N/A'),
                 firmador=cotizacion.conductor.nombre+' '+cotizacion.conductor.apellido+ '/ WEB',
                 observaciones=request.POST.get('observaciones','N/A'),
                 responsable=request.POST['responsable'],
@@ -488,12 +488,10 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
         solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
         cotizacion = solicitud.cotizacion
-        user = User.objects.get(username=cotizacion.corredor)
-        if user.groups.first().name != 'super_admin'\
-           and user.groups.first().name != 'admin':
-            corredor = DatosCorredor.objects.get(user=user)
-        else:
-            corredor = ''
+        corredor = DatosCorredor.objects.get(user=request.user)
+        inicial = request.user.first_name[0]
+        etiqueta_corredor = str(inicial) + str(request.user.last_name)
+        etiqueta_corredor = etiqueta_corredor.upper()
         extra_cliente = ExtraDatosCliente.objects.filter(conductor=cotizacion.conductor)
         if extra_cliente.first():
             extra_cliente = extra_cliente.first()
@@ -515,7 +513,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'gastos_medicos': gastos_medicos,
                            'muerte_accidental': muerte_accidental,
                            'fecha':fecha,
-                           'corredor': corredor})
+                           'corredor': corredor,
+                           'etiqueta_corredor': etiqueta_corredor})
         template = get_template('polizas/prueba_pdf.html')
         html = template.render(context)
 
