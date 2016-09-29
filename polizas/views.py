@@ -488,7 +488,10 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
         solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
         cotizacion = solicitud.cotizacion
-        corredor = DatosCorredor.objects.get(user=request.user)
+        corredor = ''
+        if (request.user.groups.first().name != "super_admin")\
+           and (request.user.groups.first().name != "admin"): 
+           corredor = DatosCorredor.objects.get(user=request.user)
         inicial = request.user.first_name[0]
         etiqueta_corredor = str(inicial) + str(request.user.last_name)
         etiqueta_corredor = etiqueta_corredor.upper()

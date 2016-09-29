@@ -142,12 +142,12 @@ class ExtraDatosCliente(models.Model):
     correo_trabajo = models.EmailField(blank=True)
     ilicito = models.CharField(max_length=30,
                                blank=False,
-                               default='',
+                               default='No',
                                choices=[('Si', 'Si'),
                                ('No', 'No')])
     politico_expuesto = models.CharField(max_length=30,
                                          blank=False,
-                                         default='',
+                                         default='No',
                                          choices=[('Si', 'Si'),
                                          ('No', 'No')])
     cargo_politico = models.CharField(max_length=30, blank=True)
@@ -156,7 +156,7 @@ class ExtraDatosCliente(models.Model):
     relacion_politico = models.CharField(max_length=30, blank=True)
     declaracion_prima = models.CharField(max_length=30,
                                          blank=False,
-                                         default='',
+                                         default='No',
                                          choices=[('Si', 'Si'),
                                          ('No', 'No')])
     # Perfil Financiero
