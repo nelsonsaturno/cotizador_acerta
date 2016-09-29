@@ -185,8 +185,6 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 id_conductor3=conductor3[1],
                 vigencia_desde=request.POST['valido_desde'],
                 vigencia_hasta=request.POST['valido_hasta'],
-                #acreedor=request.POST.get('acreedor','N/A'),
-                #leasing=request.POST.get('leasing','N/A'),
                 firmador=cotizacion.conductor.nombre+' '+cotizacion.conductor.apellido+ '/ WEB',
                 observaciones=request.POST.get('observaciones','N/A'),
                 responsable=request.POST['responsable'],
@@ -212,6 +210,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 tipo='Solicitada'
             )
             
+            solicitud.acreedor_leasing = Acreedores.objects.filter(nombre_acreedor=request.POST['acreedor_leasing'])[0]
             solicitud.save()
             cotizacion.status = "Aprobada"
             cotizacion.save()
