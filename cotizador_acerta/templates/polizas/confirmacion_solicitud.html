@@ -227,7 +227,7 @@
                         </div>
                             {% if cliente.ilicito or cliente.politico_expuesto %}
                                 <div class="col-md-12" style="padding-top:20px;">
-                                    <p><span><h5 class="text-center"><font color="red"><strong><i class="fa fa-warning"></i>&nbsp;Atención: El cliente es una persona que ha sido investigada o es un político expuesto. No podrá emitir la póliza mientras se investiga el caso.</strong></font></h5></span></p>
+                                    <p><span><h5 class="text-center"><font color="orange"><strong><i class="fa fa-warning"></i>&nbsp;La póliza ha sido solicitada por un cliente que es político expuesto o ha sido objeto de investigación. Antes de poder emitirla pasará por una revisión especial.</strong></font></h5></span></p>
                                 </div>
                             {% else %}
                                 <div class="col-md-12" style="padding-top:20px;">
@@ -236,7 +236,7 @@
                                 <div class="col-md-12">
                                     <div class="col-md-3"></div>
                                     <div class="col-sm-4 col-md-6 text-center">
-                                        <button id="emitir" class="btn btn-lg button" onclick="window.open('{% url 'emitir' solicitud.pk %}')">
+                                        <button id="emitir" class="btn btn-lg button" onclick="window.open('{% url 'emitir-poliza' solicitud.pk %}','_self')">
                                             Emitir póliza
                                         </button>
                                     </div>
@@ -274,7 +274,7 @@
 <script type="text/javascript">
     $('document').ready(function(){
         $('#emitir').click(function(){
-            window.open("{% url 'emitir-poliza' solicitud.pk %}");
+            window.open("{% url 'emitir' solicitud.pk %}");
         });
     });
 </script>

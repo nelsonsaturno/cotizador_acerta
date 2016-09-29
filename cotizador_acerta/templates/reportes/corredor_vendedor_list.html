@@ -30,6 +30,7 @@
 				    <th>Apellido</th>
 				    <th>Correo</th>
 				    <th>Licencia</th>
+				    <th>Numeración</th>
 				    <th>Detalles</th>
 			    </tr>
 			    </thead>
@@ -41,11 +42,12 @@
 				      <td>{{ user.user.last_name }}</td>
 				      <td>{{ user.user.email }}</td>
 				      <td>{{ user.licencia }}</td>
+				      <td>{{ user.user.polizas.polizas_desde }} - {{ user.user.polizas.polizas_hasta }}</td>
 				      <td><a href="{% url 'corredor_vendedor_detail' user.user.pk %}">Ver</a></td>
 				    </tr>
 			    {% endfor %}</tbody>
 			    <tfoot>
-			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Correo</th><th rowspan="1" colspan="1">Licencia</th><th rowspan="1" colspan="1">Detalles</th></tr>
+			    <tr><th rowspan="1" colspan="1">Nombre</th><th rowspan="1" colspan="1">Apellido</th><th rowspan="1" colspan="1">Correo</th><th rowspan="1" colspan="1">Licencia</th><th rowspan="1" colspan="1">Numeración</th><th rowspan="1" colspan="1">Detalles</th></tr>
 			    </tfoot>
 			  </table>
 			</div>

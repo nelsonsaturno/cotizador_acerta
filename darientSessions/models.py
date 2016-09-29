@@ -46,13 +46,13 @@ class DatosCorredor(models.Model):
 
 
 class PolizasCorredor(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name='polizas')
     polizas_desde = models.PositiveIntegerField(
         null=False, blank=False, default=1)
     polizas_hasta = models.PositiveIntegerField(
         null=False, blank=False, default=50000)
-    polizas = models.PositiveIntegerField(
-        null=False, blank=False, default=1)
+    polizas = models.IntegerField(
+        null=False, blank=False, default=0)
 
     def __str__(self):
         return self.user.username + ' - ' + str(self.polizas)

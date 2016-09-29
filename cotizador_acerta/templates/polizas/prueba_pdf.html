@@ -75,7 +75,7 @@
 <br>
 <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
   <tr>
-    <td><b>PÓLIZA:</b></td>
+    <td><b>PÓLIZA:</b> {{solicitud.num}}</td>
     <td><b>FACTURA:</b></td>
     <td colspan="2"><b>AGENCIA:</b></td> 
     <td colspan="3"><b>FECHA:</b> {{ fecha }}</td>
@@ -129,8 +129,12 @@
   </tr>
   <tr>
     <td colspan="2">SERIAL MOTOR: {{ extra_cliente.motor }}</td>
-    <td colspan="2">SERIAL CARROCERÍA:</td>
-    <td>NUM. PLACA: {{ extra_cliente.placa }}</td>
+    <td colspan="2">SERIAL CARROCERÍA: {{ extra_cliente.chasis }}</td>
+    {% if extra_cliente.placa != None %}
+      <td>NUM. PLACA: {{ extra_cliente.placa }}</td>
+    {% else %}
+      <td>NUM. PLACA: </td>
+    {% endif %}
     <td colspan="2" >CARGA:</td>
   </tr>
   <tr>

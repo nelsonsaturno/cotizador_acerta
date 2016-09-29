@@ -15,6 +15,7 @@ from django.core.mail import EmailMessage
 from django.contrib.humanize.templatetags.humanize import *
 from xhtml2pdf import pisa
 from easy_pdf.views import PDFTemplateView
+from django.views.defaults import page_not_found
 
 from django.template import RequestContext
 import ho.pisa as pisa
@@ -469,6 +470,8 @@ class ConfirmarSolicitud(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data()
         poliza = SolicitudPoliza.objects.get(pk=kwargs['pk'])
+        if poliza.tipo == 'Emitida':
+            return page_not_found(request)
         user = User.objects.get(username=poliza.cotizacion.corredor)
         context['solicitud'] = poliza
         #extra_datos = ExtraDatosCliente.objects.get(conductor=poliza.cotizacion.conductor)
@@ -484,12 +487,18 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
         solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
         cotizacion = solicitud.cotizacion
-        corredor = DatosCorredor.objects.get(user=request.user)
+        corredor = ''
+        if (request.user.groups.first().name != "super_admin")\
+           and (request.user.groups.first().name != "admin"): 
+           corredor = DatosCorredor.objects.get(user=request.user)
         inicial = request.user.first_name[0]
         etiqueta_corredor = str(inicial) + str(request.user.last_name)
         etiqueta_corredor = etiqueta_corredor.upper()
-        #extra_cliente = ExtraDatosCliente.objects.get(conductor=cotizacion.conductor)
-        extra_cliente = ''
+        extra_cliente = ExtraDatosCliente.objects.filter(conductor=cotizacion.conductor)
+        if extra_cliente.first():
+            extra_cliente = extra_cliente.first()
+        else:
+            extra_cliente = ''
 
         subtotal = cotizacion.subtotal - cotizacion.descuento
         lesiones_corporales = cotizacion.lesiones_corporales.split('/')
@@ -558,15 +567,26 @@ def SendEmailSolicitud(request, pk):
     msg = EmailMessage(subject, message, to=to, from_email=from_email)
     msg.content_subtype = 'html'
     msg.attach("solicitud.pdf",
-       pdf,
-       'application/pdf')
+               pdf,
+               'application/pdf')
     msg.send()
     return HttpResponseRedirect(
         reverse_lazy('polizas_list'))
 
+
 def changeEmitida(request, pk):
     solicitud = SolicitudPoliza.objects.get(pk=pk)
-    solicitud.tipo = 'Emitida'
-    solicitud.save()
+    if solicitud.tipo == 'Emitida':
+            return page_not_found(request)
+    user = User.objects.get(username=solicitud.cotizacion.corredor)
+    poliza_corredor = PolizasCorredor.objects.filter(user=user)
+    poliza_corredor = poliza_corredor.first()
+    if poliza_corredor:
+        numero = poliza_corredor.polizas + poliza_corredor.polizas_desde
+        poliza_corredor.polizas += 1
+        poliza_corredor.save()
+        solicitud.num = str(solicitud.cotizacion.corredor.pk) + str(numero)
+        solicitud.tipo = 'Emitida'
+        solicitud.save()
     return HttpResponseRedirect(
         reverse_lazy('polizas_list'))

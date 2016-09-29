@@ -98,6 +98,7 @@
 			  <table id="example2" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example2_info">
 			    <thead>
 				    <tr>
+				    	<th>Número</th>
 				    	<th>Conductor</th>
 				    	<th>Tlf. Celular</th>
 				    	<th>Correo</th>
@@ -110,18 +111,20 @@
 			    <tbody>
 			    {% for solicitud in emitidas %}
 			    	<tr role="row">
+				      <td> {{ solicitud.num }}</td>
 				      <td> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.telefono1 }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.correo }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.marca.nombre }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.modelo.nombre }}</td>
 			          <td><span class="badge bg-orange">{{ solicitud.cotizacion.corredor.email }}</span></td>
-				      <td><a id="id_submit" href="{% url 'emitir' solicitud.pk %}"  onclick="window.open('{% url 'generacion-pdf-polizas' solicitud.pk %}');">Ver</a></td>
+				      <td><a id="id_submit" href="{% url 'emitir' solicitud.pk %}"  onclick="">Ver</a></td>
 				    </tr>
 			    {% endfor %}
 			    </tbody>
 			    <tfoot>
 				    <tr>
+				    	<th>Número</th>
 				    	<th>Conductor</th>
 				    	<th>Tlf. Celular</th>
 				    	<th>Correo</th>

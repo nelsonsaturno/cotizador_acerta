@@ -19,8 +19,6 @@ class SolicitudPoliza(models.Model):
     vigencia_desde = models.DateField()
     vigencia_hasta = models.DateField()
     acreedor_leasing = models.ForeignKey(Acreedores, default=0, blank=True, null=True)
-    #acreedor = models.CharField(max_length=40, blank=False)
-    #leasing = models.CharField(max_length=40, blank=False)
     firmador = models.CharField(max_length=40, blank=False)
     observaciones = models.CharField(max_length=100, blank=False, default='')
     responsable = models.CharField(max_length=30, blank=False,
@@ -140,13 +138,13 @@ class ExtraDatosCliente(models.Model):
     telefono_empresa = models.CharField(max_length=30, blank=True)
     correo_trabajo = models.EmailField(blank=True)
     ilicito = models.CharField(max_length=30,
-                               blank=True,
-                               default='',
+                               blank=False,
+                               default='No',
                                choices=[('Si', 'Si'),
                                ('No', 'No')])
     politico_expuesto = models.CharField(max_length=30,
-                                         blank=True,
-                                         default='',
+                                         blank=False,
+                                         default='No',
                                          choices=[('Si', 'Si'),
                                          ('No', 'No')])
     cargo_politico = models.CharField(max_length=30, blank=True)
@@ -154,8 +152,8 @@ class ExtraDatosCliente(models.Model):
     nombre_politico = models.CharField(max_length=30, blank=True)
     relacion_politico = models.CharField(max_length=30, blank=True)
     declaracion_prima = models.CharField(max_length=30,
-                                         blank=True,
-                                         default='',
+                                         blank=False,
+                                         default='No',
                                          choices=[('Si', 'Si'),
                                          ('No', 'No')])
     # Perfil Financiero
