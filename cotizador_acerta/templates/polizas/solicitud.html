@@ -693,8 +693,8 @@
                                                 </div>
                                             </div>
                                         {% endif %}
-                                        <div class="col-md-12 aviso-pago" style="padding-top:20px;">
-                                            <p><span><h5 class="text-center"><font color="red"><strong><i class="fa fa-warning"></i>&nbsp;Atención: El cliente es una persona que ha sido investigada o es un político expuesto. No podrá emitir la póliza mientras se investiga el caso.</strong></font></h5></span></p>
+                                        <div class="col-md-12" style="padding-top:20px;">
+                                            <p><span><h3 class="text-center"><font color="gray"><strong>&nbsp;¡Ya estás listo para solicitar la póliza!</strong></font></h3></span></p>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -807,14 +807,13 @@
     element.classList.add("hidden");
     var element = document.querySelector(".datos-financieros");
     element.classList.add("hidden");
-    // var element = document.querySelector("#id_otra_area");
-    // element.classList.add("hidden");
+    var element = document.querySelector(".aviso-pago");
+    element.classList.add("hidden");
     var select = ($("#id_politico_expuesto").val()=="Si");
     var select2 = ($("#id_declaracion_prima").val()=="Si");
     if (select || select2) {
         var element = document.querySelector(".datos-financieros");
-        element.classList.remove("hidden");
-        $("#id_nom_ref_personal").attr('required', true);
+        element.classList.remove("hidden");        $("#id_nom_ref_personal").attr('required', true);
         $("#id_actividad_ref_personal").attr('required',true);
         $("#id_relacion_ref_personal").attr('required',true);
         $("#id_telefono_ref_personal").attr('required',true);

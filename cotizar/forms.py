@@ -7,6 +7,8 @@ from bootstrap3_datetime.widgets import DateTimePicker
 from django.contrib.auth.models import User
 from darientSessions.models import CorredorVendedor
 import datetime
+from django.conf import settings
+
 
 class ConductorVehiculoForm(forms.ModelForm):
 

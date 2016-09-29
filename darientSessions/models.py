@@ -51,8 +51,8 @@ class PolizasCorredor(models.Model):
         null=False, blank=False, default=1)
     polizas_hasta = models.PositiveIntegerField(
         null=False, blank=False, default=50000)
-    polizas = models.PositiveIntegerField(
-        null=False, blank=False, default=1)
+    polizas = models.IntegerField(
+        null=False, blank=False, default=0)
 
     def __str__(self):
         return self.user.username + ' - ' + str(self.polizas)

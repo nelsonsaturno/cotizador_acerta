@@ -98,6 +98,7 @@
 			  <table id="example2" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example2_info">
 			    <thead>
 				    <tr>
+				    	<th>Número</th>
 				    	<th>Conductor</th>
 				    	<th>Tlf. Celular</th>
 				    	<th>Correo</th>
@@ -110,6 +111,7 @@
 			    <tbody>
 			    {% for solicitud in emitidas %}
 			    	<tr role="row">
+				      <td> {{ solicitud.num }}</td>
 				      <td> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.telefono1 }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.correo }}</td>
@@ -122,6 +124,7 @@
 			    </tbody>
 			    <tfoot>
 				    <tr>
+				    	<th>Número</th>
 				    	<th>Conductor</th>
 				    	<th>Tlf. Celular</th>
 				    	<th>Correo</th>
