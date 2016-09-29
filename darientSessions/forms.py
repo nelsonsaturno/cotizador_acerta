@@ -131,6 +131,10 @@ class CorredorCreateForm(forms.ModelForm):
                                     required=False,
                                     label="",
                                      widget=forms.TextInput(attrs={'placeholder': 'Razón Social'}))
+    polizas = forms.IntegerField(
+                                    required=True,
+                                    label="",
+                                    widget=forms.TextInput(attrs={'placeholder': 'Numeración de polizas desde'}))
     planes = forms.MultipleChoiceField(required=False, initial="",
                                        choices=[
                                         ('Plan 1', 'Plan 1'),

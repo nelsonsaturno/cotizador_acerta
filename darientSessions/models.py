@@ -43,3 +43,16 @@ class DatosCorredor(models.Model):
 
     def __str__(self):
         return self.user.username + ' - ' + self.licencia
+
+
+class PolizasCorredor(models.Model):
+    user = models.OneToOneField(User)
+    polizas_desde = models.PositiveIntegerField(
+        null=False, blank=False, default=1)
+    polizas_hasta = models.PositiveIntegerField(
+        null=False, blank=False, default=50000)
+    polizas = models.PositiveIntegerField(
+        null=False, blank=False, default=1)
+
+    def __str__(self):
+        return self.user.username + ' - ' + str(self.polizas)

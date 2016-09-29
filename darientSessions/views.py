@@ -94,6 +94,7 @@ def user_registration(request):
                         new_relat.save()
                     if request.user.groups.first().name == "super_admin"\
                        or request.user.groups.first().name == "admin":
+                        desde = int(request.POST['polizas'])
                         if form.cleaned_data['ruc'] or form.cleaned_data['licencia']:
                             print "-----------------"
                             print form.cleaned_data['planes']
@@ -104,6 +105,7 @@ def user_registration(request):
                                                            razon_social=form.cleaned_data['razon_social'],
                                                            planes=form.cleaned_data['planes']
                                                            )
+
                         else:
                             datos_corredor = DatosCorredor(user=user,
                                                            ruc='-',
@@ -112,6 +114,12 @@ def user_registration(request):
                                                            planes=form.cleaned_data['planes']
                                                            )
                         datos_corredor.save()
+                        polizas = PolizasCorredor(user=user,
+                                                  polizas_desde=desde,
+                                                  polizas_hasta=desde+50000,
+                                                  polizas=1
+                                                  )
+                        polizas.save()
                         print datos_corredor.planes
                     return HttpResponseRedirect(
                         reverse_lazy('register'))

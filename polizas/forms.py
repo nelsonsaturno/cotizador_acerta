@@ -132,7 +132,7 @@ class SolicitudClienteForm(forms.ModelForm):
                                             ('Leasing',
                                              'Leasing')])
     acreedor = forms.CharField(label='Acreedor Hipotecario', required=False)
-    leasing = forms.CharField(label='o Leasing', required=False)
+    leasing = forms.CharField(label='Leasing', required=False)
     observaciones = forms.CharField(label='Observaciones', widget=forms.Textarea(), required=False)
     tipo_tdc = forms.ChoiceField(choices=[(0, 'Visa'), (1, 'Master Card')],
                                 widget=forms.RadioSelect(), label="", required=False)
@@ -185,7 +185,7 @@ class SolicitudClienteForm(forms.ModelForm):
         exclude = ['conductor', 'ref_personal', 'ref_bancaria', 'ref_comercial', ]
 
         labels = {
-            'es_juridico': 'Es Juridico?',
+            'es_juridico': 'Contratante es persona juridica',
             'juridico_RUC': 'RUC',
             'juridico_razon_social': 'Razón Social',
             'juridico_pais_procedencia': 'País de procedencia',
@@ -220,7 +220,6 @@ class SolicitudClienteForm(forms.ModelForm):
             'correo_trabajo': 'Correo Electronico de Oficina',
             'ilicito': 'Es o ha sido objeto de investigacion, indagacion o condena por actividades ilicitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo',
             'politico_expuesto': 'Es o ha sido una (1) Persona Politicamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta',
-            'cargo_politico': 'Cargo',
             'periodo_politico': 'Periodo',
             'nombre_politico': 'Nombre',
             'relacion_politico': 'Relacion',

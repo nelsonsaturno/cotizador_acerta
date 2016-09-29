@@ -7,6 +7,7 @@ from datetime import datetime
 class SolicitudPoliza(models.Model):
 
     cotizacion = models.ForeignKey(Cotizacion, null=True)
+    num = models.CharField(max_length=20, null=True)
     # Extra fields.
     nombre_conductor = models.CharField(max_length=20, blank=False)
     id_conductor = models.CharField(max_length=20, blank=False)
@@ -139,12 +140,10 @@ class ExtraDatosCliente(models.Model):
     telefono_res = models.CharField(max_length=20, blank=True)
     profesion = models.CharField(max_length=30, blank=False, null=True)
     ocupacion = models.CharField(max_length=30, blank=False, null=True)
-    cargo_empresa = models.CharField(max_length=30, blank=False, null=True)
     empresa = models.CharField(max_length=30, blank=False, null=True)
     actividad_empresa = models.CharField(max_length=30, blank=False, null=True)
     direccion_empresa = models.CharField(max_length=100, blank=False, null=True)
     telefono_empresa = models.CharField(max_length=30, blank=True)
-    fax_empresa = models.CharField(max_length=30, blank=True, null=True)
     correo_trabajo = models.EmailField(blank=True)
     ilicito = models.CharField(max_length=30,
                                blank=True,

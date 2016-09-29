@@ -174,6 +174,23 @@
 
                                     <div class="row">
                                         <div class="col-md-12">
+                                            {% bootstrap_field form.es_juridico layout='horizontal' show_label=False field_class='form-field' %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3 j_RUC" hidden="True">
+                                                {% bootstrap_field form.juridico_RUC layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3 j_rs" hidden="True">
+                                                {% bootstrap_field form.juridico_razon_social layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3 j_pp" hidden="True">
+                                                {% bootstrap_field form.juridico_pais_procedencia layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3 j_fc" hidden="True">
+                                                {% bootstrap_field form.juridico_fecha_constitucion layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
                                             <div class="col-md-4">
                                                 <input type="text" class="form-control form-disabled" value="{{ cotizacion.conductor.nombre }}" disabled>
                                             </div>
@@ -256,25 +273,6 @@
                                             </div>
                                             <div class="col-md-3">
                                                 {% bootstrap_field form.telefono_res layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">
-                                                {% bootstrap_field form.es_juridico layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-3 j_RUC" hidden="True">
-                                                {% bootstrap_field form.juridico_RUC layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-3 j_rs" hidden="True">
-                                                {% bootstrap_field form.juridico_razon_social layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-3 j_pp" hidden="True">
-                                                {% bootstrap_field form.juridico_pais_procedencia layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-3 j_fc" hidden="True">
-                                                {% bootstrap_field form.juridico_fecha_constitucion layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                     </div>
@@ -547,6 +545,14 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="col-md-6">
+                                                Válido desde:
+                                            </div>
+                                            <div class="col-md-6">
+                                                Válido hasta:
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 {% bootstrap_field form.valido_desde layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                             <div class="col-md-6">
@@ -654,6 +660,7 @@
                                                     <input type="text" class="form-control form-disabled" value="{{ cotizacion.cuota }} pagos mensuales" disabled>
                                                 </div>
                                                 <div class="col-md-4">
+                                                    Dia de pago:
                                                     {% bootstrap_field form.dia_pago layout='horizontal' show_label=False field_class='form-field' %}
                                                 </div>
                                             </div>
@@ -667,6 +674,7 @@
                                                 </div>
 
                                                 <div class="col-md-4">
+                                                    Dia de pago:
                                                     {% bootstrap_field form.dia_pago layout='horizontal' show_label=False field_class='form-field' %}
                                                 </div>
                                             </div>
@@ -680,6 +688,7 @@
                                                 </div>
 
                                                 <div class="col-md-4">
+                                                    Dia de pago:
                                                     {% bootstrap_field form.dia_pago layout='horizontal' show_label=False field_class='form-field' %}
                                                 </div>
                                             </div>
@@ -775,6 +784,7 @@
 
         $('#id_valido_desde').mask('0000-00-00', {placeholder: "Valido desde (aaaa/mm/dd)"});
         $('#id_valido_hasta').mask('0000-00-00', {placeholder: "Hasta (aaaa/mm/dd)"});
+        $('#id_dia_pago').mask('0000-00-00', {placeholder: "Día Pago (aaaa/mm/dd)"});
         $('#id_expiracion_tdc').mask('00-00', {placeholder: "Expiracion (mm-aa)"});
         $('#id_num_tdc').mask('0000-0000-0000-0000', {placeholder: "Numero TDC"});
         $( document ).on('change', '#id_area_funcionario', function(e) {
@@ -857,12 +867,20 @@
             $(".j_rs").show();
             $(".j_pp").show();
             $(".j_fc").show();
+            $("#id_juridico_RUC").attr('required',true);
+            $("#id_juridico_razon_social").attr('required',true);
+            $("#id_juridico_pais_procedencia").attr('required',true);
+            $("#id_juridico_fecha_constitucion").attr('required',true);
         }
         else{
             $(".j_RUC").hide();
             $(".j_rs").hide();
             $(".j_pp").hide();
             $(".j_fc").hide();
+            $("#id_juridico_RUC").attr('required',false);
+            $("#id_juridico_razon_social").attr('required',false);
+            $("#id_juridico_pais_procedencia").attr('required',false);
+            $("#id_juridico_fecha_constitucion").attr('required',false);
         }
     });
 
