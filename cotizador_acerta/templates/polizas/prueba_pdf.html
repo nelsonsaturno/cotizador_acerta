@@ -127,8 +127,12 @@
   </tr>
   <tr>
     <td colspan="2">SERIAL MOTOR: {{ extra_cliente.motor }}</td>
-    <td colspan="2">SERIAL CARROCERÍA:</td>
-    <td>NUM. PLACA: {{ extra_cliente.placa }}</td>
+    <td colspan="2">SERIAL CARROCERÍA: {{ extra_cliente.chasis }}</td>
+    {% if extra_cliente.placa != None %}
+      <td>NUM. PLACA: {{ extra_cliente.placa }}</td>
+    {% else %}
+      <td>NUM. PLACA: </td>
+    {% endif %}
     <td colspan="2" >CARGA:</td>
   </tr>
   <tr>

@@ -494,8 +494,11 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
             corredor = DatosCorredor.objects.get(user=user)
         else:
             corredor = ''
-        #extra_cliente = ExtraDatosCliente.objects.get(conductor=cotizacion.conductor)
-        extra_cliente = ''
+        extra_cliente = ExtraDatosCliente.objects.filter(conductor=cotizacion.conductor)
+        if extra_cliente.first():
+            extra_cliente = extra_cliente.first()
+        else:
+            extra_cliente = ''
 
         subtotal = cotizacion.subtotal - cotizacion.descuento
         lesiones_corporales = cotizacion.lesiones_corporales.split('/')

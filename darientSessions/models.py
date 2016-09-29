@@ -46,7 +46,7 @@ class DatosCorredor(models.Model):
 
 
 class PolizasCorredor(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name='polizas')
     polizas_desde = models.PositiveIntegerField(
         null=False, blank=False, default=1)
     polizas_hasta = models.PositiveIntegerField(

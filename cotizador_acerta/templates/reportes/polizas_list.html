@@ -118,7 +118,7 @@
 				      <td>{{ solicitud.cotizacion.conductor.marca.nombre }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.modelo.nombre }}</td>
 			          <td><span class="badge bg-orange">{{ solicitud.cotizacion.corredor.email }}</span></td>
-				      <td><a id="id_submit" href="{% url 'emitir' solicitud.pk %}"  onclick="window.open('{% url 'generacion-pdf-polizas' solicitud.pk %}');">Ver</a></td>
+				      <td><a id="id_submit" href="{% url 'emitir' solicitud.pk %}"  onclick="">Ver</a></td>
 				    </tr>
 			    {% endfor %}
 			    </tbody>
