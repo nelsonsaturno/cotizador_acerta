@@ -19,11 +19,9 @@ class SolicitudPoliza(models.Model):
     vigencia_hasta = models.DateField()
     acreedor_leasing_id = models.IntegerField(max_length=30, blank=False,
                                    default=0,
-                                   choices=[(0,'Acreedor'),
-                                            (1,'Leasing'),
-                                            (2,'Ninguno')])
-    #acreedor = models.CharField(max_length=40, blank=False)
-    #leasing = models.CharField(max_length=40, blank=False)
+                                   choices=[(0,'Ninguno'),
+                                            (1,'Acreedor'),
+                                            (2,'Leasing')])
     firmador = models.CharField(max_length=40, blank=False)
     observaciones = models.CharField(max_length=100, blank=False, default='')
     responsable = models.CharField(max_length=30, blank=False,
