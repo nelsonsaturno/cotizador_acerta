@@ -258,9 +258,24 @@
                                             <div class="col-md-3">
                                                 {% bootstrap_field form.telefono_res layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
+                                        </div>
+                                        <div class="col-md-12">
                                             <div class="col-md-3">
+                                                {% bootstrap_field form.es_juridico layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
-                                            <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3 j_RUC" hidden="True">
+                                                {% bootstrap_field form.juridico_RUC layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3 j_rs" hidden="True">
+                                                {% bootstrap_field form.juridico_razon_social layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3 j_pp" hidden="True">
+                                                {% bootstrap_field form.juridico_pais_procedencia layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-3 j_fc" hidden="True">
+                                                {% bootstrap_field form.juridico_fecha_constitucion layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                     </div>
@@ -796,6 +811,21 @@
         if ($(this).val() == "Ninguno"){
             acreedor.classList.add("hidden");
             leasing.classList.add("hidden");
+        }
+    });
+
+    $("#id_es_juridico").on("change", function(event) {
+        if( $(this).is(':checked') ){
+            $(".j_RUC").show();
+            $(".j_rs").show();
+            $(".j_pp").show();
+            $(".j_fc").show();
+        }
+        else{
+            $(".j_RUC").hide();
+            $(".j_rs").hide();
+            $(".j_pp").hide();
+            $(".j_fc").hide();
         }
     });
 

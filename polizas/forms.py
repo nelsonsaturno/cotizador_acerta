@@ -70,6 +70,11 @@ class SolicitudClienteForm(forms.ModelForm):
         exclude = ['conductor', 'ref_personal', 'ref_bancaria', 'ref_comercial', ]
 
         labels = {
+            'es_juridico': 'Es Juridico?',
+            'juridico_RUC': 'RUC',
+            'juridico_razon_social': 'Razón Social',
+            'juridico_pais_procedencia': 'País de procedencia',
+            'juridico_fecha_constitucion': 'Fecha de constitución',
             'placa': 'Placa No.',
             'motor': 'Motor',
             'chasis': 'Chasis',

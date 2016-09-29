@@ -103,6 +103,14 @@ class Referencia(models.Model):
 # Datos extras para el formulario unico.
 class ExtraDatosCliente(models.Model):
     conductor = models.ForeignKey(ConductorVehiculo, null=True, related_name='datos')
+    es_juridico = models.BooleanField(default=False)
+    juridico_RUC = models.CharField(max_length=30, blank=True, default='')
+    juridico_razon_social = models.CharField(max_length=30,
+                                             blank=True, default='')
+    juridico_pais_procedencia = models.CharField(max_length=30,
+                                                 blank=True, default='')
+    juridico_fecha_constitucion = models.CharField(max_length=30,
+                                                   blank=True, default='')
     placa = models.CharField(max_length=40, blank=False)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
