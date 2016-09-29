@@ -54,7 +54,8 @@
 
 </head>
 <body>
-  
+
+
   <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
     <td colspan="5" align="center" style="border: none; margin-left: 120px;">
@@ -64,6 +65,7 @@
     </td>
     <td style="border: none; margin-left: 10px;" align="left">
       polifact<br>
+      {{ etiqueta_corredor }}<br>
       Fecha de impresión<br>
       <font size="2">{{ fecha }}</font><br>
       <b>EMISIÓN</b>
@@ -103,15 +105,15 @@
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>EMAIL:</b> {{ conductor.correo }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b></td>
+    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b> {{ solicitud.cotizacion.cuota }}</td>
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:</b> {{ conductor.telefono1 }}</td>
     <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGOS</b></td>
   </tr>
   <tr>
-    <td colspan="3"><b>CORREDOR:</b>{{ corredor }} </td>
-    <td colspan="4"><b>LICENCIA</b>{{ corredor.ruc }}</td>
+    <td colspan="3"><b>CORREDOR:</b> {{ corredor.user.first_name }} {{ corredor.user.last_name }} </td>
+    <td colspan="4"><b>LICENCIA:</b> {{ corredor.ruc }}</td>
   </tr>
   <tr>
     <th colspan="7" rowspan="1">DESCRIPCIÓN DEL AUTOMÓVIL</th>
@@ -261,6 +263,7 @@
     </td>
     <td style="border: none; margin-left: 10px;" align="left">
       polifact<br>
+      {{ etiqueta_corredor }}<br>
       Fecha de impresión<br>
       <font size="2">{{ fecha }}</font><br>
       <b>EMISIÓN</b>
@@ -300,15 +303,15 @@
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>EMAIL:</b> {{ conductor.correo }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b></td>
+    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b> {{ solicitud.cotizacion.cuota }}</td>
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:</b> {{ conductor.telefono1 }}</td>
     <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGOS</b></td>
   </tr>
   <tr>
-    <td colspan="3"><b>CORREDOR:</b>{{ corredor }} </td>
-    <td colspan="4"><b>LICENCIA</b>{{ corredor.ruc }}</td>
+    <td colspan="3"><b>CORREDOR:</b> {{ corredor.user.first_name }} {{ corredor.user.last_name }} </td>
+    <td colspan="4"><b>LICENCIA:</b> {{ corredor.ruc }}</td>
   </tr>
   <tr>
     <th colspan="7" rowspan="1">DESCRIPCIÓN DEL AUTOMÓVIL</th>
@@ -457,6 +460,7 @@
     </td>
     <td style="border: none; margin-left: 10px;" align="left">
       polifact<br>
+      {{ etiqueta_corredor }}<br>
       Fecha de impresión<br>
       <font size="2">{{ fecha }}</font><br>
       <b>EMISIÓN</b>
@@ -496,15 +500,15 @@
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>EMAIL:</b> {{ conductor.correo }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b></td>
+    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b> {{ solicitud.cotizacion.cuota }}</td>
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:</b> {{ conductor.telefono1 }}</td>
     <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGOS</b></td>
   </tr>
   <tr>
-    <td colspan="3"><b>CORREDOR:</b>{{ corredor }} </td>
-    <td colspan="4"><b>LICENCIA</b>{{ corredor.ruc }}</td>
+    <td colspan="3"><b>CORREDOR:</b> {{ corredor.user.first_name }} {{ corredor.user.last_name }} </td>
+    <td colspan="4"><b>LICENCIA:</b> {{ corredor.ruc }}</td>
   </tr>
   <tr>
     <th colspan="7" rowspan="1">DESCRIPCIÓN DEL AUTOMÓVIL</th>

@@ -485,12 +485,10 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
         solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
         cotizacion = solicitud.cotizacion
-        user = User.objects.get(username=cotizacion.corredor)
-        if user.groups.first().name != 'super_admin'\
-           and user.groups.first().name != 'admin':
-            corredor = DatosCorredor.objects.get(user=user)
-        else:
-            corredor = ''
+        corredor = DatosCorredor.objects.get(user=request.user)
+        inicial = request.user.first_name[0]
+        etiqueta_corredor = str(inicial) + str(request.user.last_name)
+        etiqueta_corredor = etiqueta_corredor.upper()
         #extra_cliente = ExtraDatosCliente.objects.get(conductor=cotizacion.conductor)
         extra_cliente = ''
 
@@ -509,7 +507,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'gastos_medicos': gastos_medicos,
                            'muerte_accidental': muerte_accidental,
                            'fecha':fecha,
-                           'corredor': corredor})
+                           'corredor': corredor,
+                           'etiqueta_corredor': etiqueta_corredor})
         template = get_template('polizas/prueba_pdf.html')
         html = template.render(context)
 
