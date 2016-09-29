@@ -1,5 +1,6 @@
 from django.db import models
 from cotizar.models import *
+from datetime import datetime
 
 
 # Modelo para la solicitud de la poliza.
@@ -9,6 +10,10 @@ class SolicitudPoliza(models.Model):
     # Extra fields.
     nombre_conductor = models.CharField(max_length=20, blank=False)
     id_conductor = models.CharField(max_length=20, blank=False)
+    nombre_conductor2 = models.CharField(max_length=20, null=True)
+    id_conductor2 = models.CharField(max_length=20, null=True)
+    nombre_conductor3 = models.CharField(max_length=20, null=True)
+    id_conductor3 = models.CharField(max_length=20, null=True)
     vigencia_desde = models.DateField()
     vigencia_hasta = models.DateField()
     acreedor_leasing = models.CharField(max_length=30, blank=False,
@@ -33,7 +38,7 @@ class SolicitudPoliza(models.Model):
                                              'Otro')])
     nombre_responsable = models.CharField(max_length=20, blank=False)
     id_responsable = models.CharField(max_length=20, blank=False)
-    tipo_produccion = models.CharField(max_length=30, blank=False,
+    tipo_produccion = models.CharField(max_length=30, blank=True,
                                    default='Propia',
                                    choices=[('Propia',
                                              'Propia'),
@@ -43,26 +48,26 @@ class SolicitudPoliza(models.Model):
                                              'Coaseguro No Lider'),
                                             ('Reaseguro Cedido',
                                              'Reaseguro Cedido')])
-    tipo_suscripcion = models.CharField(max_length=30, blank=False,
+    tipo_suscripcion = models.CharField(max_length=30, blank=True,
                                    default='Individual',
                                    choices=[('Individual',
                                              'Individual'),
                                             ('Colectiva',
                                              'Colectiva')])
-    forma_facturacion = models.CharField(max_length=30, blank=False,
+    forma_facturacion = models.CharField(max_length=30, blank=True,
                                    default='Por Poliza',
                                    choices=[('Por Poliza',
                                              'Por Poliza'),
                                             ('Por Certificado',
                                              'Por Certificado')])
-    renovacion_automatica = models.BooleanField(default=False)
-    comision = models.BooleanField(default=False)
-    def_comision = models.CharField(max_length=30, blank=False)
-    grupo_economico = models.CharField(max_length=50, blank=False)
-    aprobaciones = models.CharField(max_length=200, blank=False)
-    funcionario = models.CharField(max_length=50, blank=False)
-    cargo_funcionario = models.CharField(max_length=20, blank=False)
-    area_funcionario = models.CharField(max_length=30, blank=False,
+    renovacion_automatica = models.BooleanField(default=False,blank=True)
+    comision = models.BooleanField(default=False,blank=True)
+    def_comision = models.CharField(max_length=30, blank=True)
+    grupo_economico = models.CharField(max_length=50, blank=True)
+    aprobaciones = models.CharField(max_length=200, blank=True)
+    funcionario = models.CharField(max_length=50, blank=True)
+    cargo_funcionario = models.CharField(max_length=20, blank=True)
+    area_funcionario = models.CharField(max_length=30, blank=True,
                                    default='Comercial',
                                    choices=[('Comercial',
                                              'Comercial'),
@@ -74,7 +79,7 @@ class SolicitudPoliza(models.Model):
                                              'Seguros'),
                                             ('Otro',
                                              'Otro')])
-    otra_area = models.CharField(max_length=20, blank=False)
+    otra_area = models.CharField(max_length=20, blank=True)
     tipo_tdc = models.CharField(max_length=30, blank=False, null=True,
                                    default='Visa',
                                    choices=[('Visa',
@@ -111,10 +116,10 @@ class ExtraDatosCliente(models.Model):
                                                  blank=True, default='')
     juridico_fecha_constitucion = models.CharField(max_length=30,
                                                    blank=True, default='')
-    placa = models.CharField(max_length=40, blank=False)
+    placa = models.CharField(max_length=40, blank=False, null=True)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
-    tipo = models.CharField(max_length=40, blank=False)
+    tipo = models.CharField(max_length=40, blank=False, null=True)
     nombre2 = models.CharField(max_length=20, blank=False)
     apellido_mat = models.CharField(max_length=20, blank=False)
     apellido_cas = models.CharField(max_length=20, blank=True)
@@ -132,14 +137,14 @@ class ExtraDatosCliente(models.Model):
     no_casa = models.CharField(max_length=5, blank=True, default='')
     apartado_postal = models.CharField(max_length=30, blank=True)
     telefono_res = models.CharField(max_length=20, blank=True)
-    profesion = models.CharField(max_length=30, blank=False)
-    ocupacion = models.CharField(max_length=30, blank=False)
-    cargo_empresa = models.CharField(max_length=30, blank=False)
-    empresa = models.CharField(max_length=30, blank=False)
-    actividad_empresa = models.CharField(max_length=30, blank=False)
-    direccion_empresa = models.CharField(max_length=100, blank=False)
+    profesion = models.CharField(max_length=30, blank=False, null=True)
+    ocupacion = models.CharField(max_length=30, blank=False, null=True)
+    cargo_empresa = models.CharField(max_length=30, blank=False, null=True)
+    empresa = models.CharField(max_length=30, blank=False, null=True)
+    actividad_empresa = models.CharField(max_length=30, blank=False, null=True)
+    direccion_empresa = models.CharField(max_length=100, blank=False, null=True)
     telefono_empresa = models.CharField(max_length=30, blank=True)
-    fax_empresa = models.CharField(max_length=30, blank=True)
+    fax_empresa = models.CharField(max_length=30, blank=True, null=True)
     correo_trabajo = models.EmailField(blank=True)
     ilicito = models.CharField(max_length=30,
                                blank=True,

@@ -80,6 +80,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
         return super(SolicitudPolizaView, self).get_context_data(**kwargs)
 
     def post(self, request, *args, **kwargs):
+
         form = SolicitudClienteForm(request.POST)
         cotizacion = Cotizacion.objects.get(pk=kwargs['pk'])
         user = User.objects.get(username=cotizacion.corredor)
@@ -90,6 +91,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             corredor = ''
         if form.is_valid():
             extra_cliente = form.save()
+
             if request.POST.get('nom_ref_personal', '') != '':
                 ref1 = Referencia(
                     nombre=request.POST['nom_ref_personal'],
@@ -124,6 +126,20 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             if conductor[1] == 'n/a':
                 conductor[1] = cotizacion.conductor.identificacion
 
+            conductor2 = [request.POST.get('nombre_conductor2','n/a'),
+                         request.POST.get('id_conductor2','n/a')]
+            if conductor2[0] == 'n/a':
+                conductor2[0] = cotizacion.conductor2.nombre + ' ' + cotizacion.conductor2.apellido
+            if conductor2[1] == 'n/a':
+                conductor2[1] = cotizacion.conductor2.identificacion
+
+            conductor3 = [request.POST.get('nombre_conductor3','n/a'),
+                         request.POST.get('id_conductor3','n/a')]
+            if conductor3[0] == 'n/a':
+                conductor3[0] = cotizacion.conductor3.nombre + ' ' + cotizacion.conductor3.apellido
+            if conductor3[1] == 'n/a':
+                conductor3[1] = cotizacion.conductor3.identificacion
+
             responsable = [request.POST.get('nombre_responsable','n/a'),
                          request.POST.get('id_responsable','n/a')]
             if responsable[0] == 'n/a':
@@ -131,31 +147,63 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             if responsable[1] == 'n/a':
                 responsable[1] = cotizacion.conductor.identificacion
             
+
+            tipo_id_conductor = form.cleaned_data['tipo_id_conductor']
+            if tipo_id_conductor == '0':
+                provincia_1 = form.cleaned_data['provincia_1']
+                tipo_1 = form.cleaned_data['tipo_1']
+                campo_id_1_1 = form.cleaned_data['campo_id_1_1']
+                campo_id_2_1 = form.cleaned_data['campo_id_2_1']
+                cedula = str(provincia_1) + '-' + str(tipo_1) + '-' + str(campo_id_1_1) + '-' + str(campo_id_2_1)
+                conductor[1] = cedula
+
+            tipo_id_conductor2 = form.cleaned_data['tipo_id_conductor2']
+            if tipo_id_conductor2 == '0':
+                provincia_2 = form.cleaned_data['provincia_2']
+                tipo_2 = form.cleaned_data['tipo_2']
+                campo_id_1_2 = form.cleaned_data['campo_id_1_2']
+                campo_id_2_2 = form.cleaned_data['campo_id_2_2']
+                cedula = str(provincia_2) + '-' + str(tipo_2) + '-' + str(campo_id_1_2) + '-' + str(campo_id_2_2)
+                conductor2[1] = cedula
+
+            tipo_id_conductor3 = form.cleaned_data['tipo_id_conductor3']
+            if tipo_id_conductor3 == '0':
+                provincia_3 = form.cleaned_data['provincia_3']
+                tipo_3 = form.cleaned_data['tipo_3']
+                campo_id_1_3 = form.cleaned_data['campo_id_1_3']
+                campo_id_2_3 = form.cleaned_data['campo_id_2_3']
+                cedula = str(provincia_3) + '-' + str(tipo_3) + '-' + str(campo_id_1_3) + '-' + str(campo_id_2_3)
+                conductor3[1] = cedula
+
             solicitud = SolicitudPoliza(
                 cotizacion=cotizacion,
                 nombre_conductor=conductor[0],
                 id_conductor=conductor[1],
+                nombre_conductor2=conductor2[0],
+                id_conductor2=conductor2[1],
+                nombre_conductor3=conductor3[0],
+                id_conductor3=conductor3[1],
                 vigencia_desde=request.POST['valido_desde'],
                 vigencia_hasta=request.POST['valido_hasta'],
                 acreedor=request.POST.get('acreedor','N/A'),
                 leasing=request.POST.get('leasing','N/A'),
-                firmador=request.POST['firmador'],
+                firmador=cotizacion.conductor.nombre+' '+cotizacion.conductor.apellido+ '/ WEB',
                 observaciones=request.POST.get('observaciones','N/A'),
                 responsable=request.POST['responsable'],
                 nombre_responsable=responsable[0],
                 id_responsable=responsable[1],
-                tipo_produccion=request.POST['tipo_produccion'],
-                tipo_suscripcion=request.POST['tipo_suscripcion'],
-                forma_facturacion=request.POST['forma_facturacion'],
+                tipo_produccion=request.POST.get('tipo_produccion',''),
+                tipo_suscripcion=request.POST.get('tipo_suscripcion',''),
+                forma_facturacion=request.POST.get('forma_facturacion',''),
                 renovacion_automatica=request.POST.get('renovacion',False),
                 comision=request.POST.get('comision',False),
-                def_comision=request.POST.get('def_comision','N/A'),
-                grupo_economico=request.POST['grupo_economico'],
-                aprobaciones=request.POST.get('aprobaciones','N/A'),
-                funcionario=request.POST['funcionario'],
-                cargo_funcionario=request.POST['cargo_funcionario'],
-                area_funcionario=request.POST['area_funcionario'],
-                otra_area=request.POST.get('otra_area','N/A'),
+                def_comision=request.POST.get('def_comision',''),
+                grupo_economico=request.POST.get('grupo_economico',''),
+                aprobaciones=request.POST.get('aprobaciones',''),
+                funcionario=request.POST.get('funcionario',''),
+                cargo_funcionario=request.POST.get('cargo_funcionario',''),
+                area_funcionario=request.POST.get('area_funcionario',''),
+                otra_area=request.POST.get('otra_area',''),
                 tipo_tdc=request.POST.get('tipo_tdc','N/A'),
                 num_tdc=request.POST.get('num_tdc','N/A'),
                 banco_tdc=request.POST.get('banco_tdc','N/A'),
@@ -173,7 +221,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 {
                     'form': form,
                     'cotizacion': cotizacion,
-                    'corredor_pol': corredor
+                    'corredor_pol': corredor,
                 }
             )
 
@@ -367,7 +415,7 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
 
 def SendEmailSolicitud(request, pk):
-    subject = "Acerta Seguros - Solicitud PEP"
+    subject = "Acerta Seguros - Solicitud Poliza"
     solicitud = SolicitudPoliza.objects.get(pk=pk)
     datos_extras = ExtraDatosCliente.objects.filter(
         conductor=solicitud.cotizacion.conductor)
@@ -402,5 +450,12 @@ def SendEmailSolicitud(request, pk):
        pdf,
        'application/pdf')
     msg.send()
+    return HttpResponseRedirect(
+        reverse_lazy('polizas_list'))
+
+def changeEmitida(request, pk):
+    solicitud = SolicitudPoliza.objects.get(pk=pk)
+    solicitud.tipo = 'Emitida'
+    solicitud.save()
     return HttpResponseRedirect(
         reverse_lazy('polizas_list'))

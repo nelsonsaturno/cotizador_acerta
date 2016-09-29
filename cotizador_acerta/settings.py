@@ -134,16 +134,16 @@ DATABASES['default'] = dj_database_url.config()
 #       DESARROLLO!!
 ########################################
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'd339j965q98db5',
-#         'USER': 'rthjlipirhwtsb',
-#         'PASSWORD': 'YpQrpQvkg5p1AyXJ83OqCRA2tH',
-#         'HOST': 'ec2-54-243-190-37.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd339j965q98db5',
+        'USER': 'rthjlipirhwtsb',
+        'PASSWORD': 'YpQrpQvkg5p1AyXJ83OqCRA2tH',
+        'HOST': 'ec2-54-243-190-37.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 #####################################################
 
@@ -195,7 +195,6 @@ USE_L10N = False
 
 USE_TZ = True
 
-DATE_INPUT_FORMATS = ('%d-%m-%Y','%Y-%m-%d')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/

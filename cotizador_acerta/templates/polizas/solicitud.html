@@ -71,7 +71,6 @@
     input:focus:-ms-input-placeholder { /* IE10–11 */
         color: #E76C42 !important;
     }
-
     input:focus::-ms-input-placeholder { /* Edge */
         color: #E76C42 !important;
     }
@@ -87,7 +86,7 @@
     }
     #subtitulo {
         font-family: Arial;
-        font-size: 13px;
+        font-size: 18px;
         color: #828489;
     }
     #subtitulo2 {
@@ -293,14 +292,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             {% bootstrap_field form.empresa layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             {% bootstrap_field form.actividad_empresa layout='horizontal' show_label=False field_class='form-field' %}
-                                        </div>
-                                        <div class="col-md-4">
-                                            {% bootstrap_field form.cargo_empresa layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -309,11 +305,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             {% bootstrap_field form.telefono_empresa layout='horizontal' show_label=False field_class='form-field' %}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {% bootstrap_field form.fax_empresa layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
                                         <div class="col-md-6">
                                             {% bootstrap_field form.correo_trabajo layout='horizontal' show_label=False field_class='form-field' %}
@@ -322,7 +315,7 @@
                                 </fieldset>
 
                                 <fieldset title="3">
-                                    <legend class="text-semibold">Datos Políticos</legend>
+                                    <legend class="text-semibold">Datos Políticos y Financieros</legend>
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -360,13 +353,10 @@
                                                 {% bootstrap_field form.relacion_politico layout='horizontal' show_label=False field_class='form-field politico' %}
                                             </div>
                                         </div>
-                                    </div>
-                                </fieldset>
-
-                                <fieldset title="4">
-                                    <legend class="text-semibold">Datos Financieros</legend>
-
-                                    <div class="row">
+                                        <div class="col-md-12 politico4">
+                                            <p style="text-align: justify; font-size: 12px;">(1) Las personas políticamente expuestas son aquellos, nacionales o extranjeros, que desempeñan o han desempeñado funciones públicas destacadas en un país extranjero o en su propio país, por ejemplo: Jefes de Estado o de un gobierno, políticos de alta jerarquía, funcionarios gubernamentales, judiciales o militares de alta jeraruía, altos ejecutivos de empresas estatales, funcionarios importantes de partidos políticos. (2) Únicamente el cónyugue, los padres, los hermanos y los hijos de una persona políticamente expuesta. (3) Persona conocida por su íntima relación con respecto a la persona expuesta políticamente, esto incluye a quienes están en posición de realizar transacciones financieras, comerciales o de cualquier naturaleza, ya sean locales o internacionales, en nombre de la persona expuesta políticamente.
+                                            </p>
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="col-md-12">
                                                 <label>Prima de Seguros mayor o igual a B./ 10,000.00</label>
@@ -444,12 +434,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </fieldset>
-                                <fieldset title="5">
-                                    <legend class="text-semibold">Datos Adicionales</legend>
-
-                                    <div class="row">
                                         <div class="col-md-12">
                                             <label>Acreedor o Leasing</label>
                                         </div>
@@ -464,37 +448,101 @@
                                                 {% bootstrap_field form.leasing layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset title="4">
+                                    <legend class="text-semibold">Datos Adicionales</legend>
+
+                                    <div class="row">
                                         <div class="col-md-12">
                                             Asegurado:
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control form-disabled" id="nombre-conductor" value="{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}" disabled>
+                                                <input type="text" class="form-control" id="nombre-conductor" value="{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}" >
                                             </div>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control form-disabled" id="id-conductor" value="{{ cotizacion.conductor.identificacion }}" disabled>
+                                                <input type="text" class="form-control" id="id-conductor" value="{{ cotizacion.conductor.identificacion }}">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             {% bootstrap_field form.aseguradoConductor layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
                                         <div class="col-md-12">
-                                            Conductor:
+                                            Conductor(es):
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-6">
+                                        <div class="col-md-12" style="display: flex;">
+                                            <div class="col-md-4">
                                                 {% bootstrap_field form.nombre_conductor layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                             <div class="col-md-2">
                                                 {% bootstrap_field form.tipo_id_conductor layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
+                                            <div class="col-md-4 passp1">
+                                                {% bootstrap_field form.id_conductor layout='horizontal' show_label=False field_class='form-field passp1' %}
+                                            </div>
+                                            <div class="col-md-2 ced1">
+                                                {% bootstrap_field form.provincia_1 layout='horizontal' show_label=False field_class='form-field ced1' %}
+                                            </div>
+                                            <div class="col-md-2 ced1">
+                                                {% bootstrap_field form.tipo_1 layout='horizontal' show_label=False field_class='form-field ced1' %}
+                                            </div>
+                                            <div class="col-md-2 ced1">
+                                                {% bootstrap_field form.campo_id_1_1 layout='horizontal' show_label=False field_class='form-field ced1' %}
+                                            </div>
+                                            <div class="col-md-2 ced1">
+                                                {% bootstrap_field form.campo_id_2_1 layout='horizontal' show_label=False field_class='form-field ced1' %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="display: flex;">
                                             <div class="col-md-4">
-                                                {% bootstrap_field form.id_conductor layout='horizontal' show_label=False field_class='form-field' %}
+                                                {% bootstrap_field form.nombre_conductor2 layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-2">
+                                                {% bootstrap_field form.tipo_id_conductor2 layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-4 passp2">
+                                                {% bootstrap_field form.id_conductor2 layout='horizontal' show_label=False field_class='form-field passp2' %}
+                                            </div>
+                                            <div class="col-md-2 ced2">
+                                                {% bootstrap_field form.provincia_2 layout='horizontal' show_label=False field_class='form-field ced2' %}
+                                            </div>
+                                            <div class="col-md-2 ced2">
+                                                {% bootstrap_field form.tipo_2 layout='horizontal' show_label=False field_class='form-field ced2' %}
+                                            </div>
+                                            <div class="col-md-2 ced2">
+                                                {% bootstrap_field form.campo_id_1_2 layout='horizontal' show_label=False field_class='form-field ced2' %}
+                                            </div>
+                                            <div class="col-md-2 ced2">
+                                                {% bootstrap_field form.campo_id_2_2 layout='horizontal' show_label=False field_class='form-field ced2' %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="display: flex;">
+                                            <div class="col-md-4">
+                                                {% bootstrap_field form.nombre_conductor3 layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-2">
+                                                {% bootstrap_field form.tipo_id_conductor3 layout='horizontal' show_label=False field_class='form-field' %}
+                                            </div>
+                                            <div class="col-md-4 passp3">
+                                                {% bootstrap_field form.id_conductor3 layout='horizontal' show_label=False field_class='form-field passp3' %}
+                                            </div>
+                                            <div class="col-md-2 ced3">
+                                                {% bootstrap_field form.provincia_3 layout='horizontal' show_label=False field_class='form-field ced3' %}
+                                            </div>
+                                            <div class="col-md-2 ced3">
+                                                {% bootstrap_field form.tipo_3 layout='horizontal' show_label=False field_class='form-field ced3' %}
+                                            </div>
+                                            <div class="col-md-2 ced3">
+                                                {% bootstrap_field form.campo_id_1_3 layout='horizontal' show_label=False field_class='form-field ced3' %}
+                                            </div>
+                                            <div class="col-md-2 ced3">
+                                                {% bootstrap_field form.campo_id_2_3 layout='horizontal' show_label=False field_class='form-field ced3' %}
                                             </div>
                                         </div>
                                     </div>
                                 </fieldset>
-                                <fieldset title="6">
+                                <fieldset title="5">
                                     <legend class="text-semibold">Poliza y Bien</legend>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -553,7 +601,7 @@
                                         </div>
                                     </div>
                                 </fieldset>
-                                <fieldset title="7">
+                                <fieldset title="6">
                                     <legend class="text-semibold">Cobranza</legend>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -638,80 +686,6 @@
                                         {% endif %}
                                     </div>
                                 </fieldset>
-                                <fieldset title="8">
-                                    <legend class="text-semibold">¡Solicitar!</legend>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            Datos del corredor:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control form-disabled" value="{{ corredor_pol.user.first_name }} {{ corredor_pol.user.last_name }}" disabled>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control form-disabled" value="{{ corredor_pol.licencia }}" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-12">
-                                                {% bootstrap_field form.firmador layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            Informacion para Uso Interno:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-4">
-                                                {% bootstrap_field form.tipo_produccion layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-4">
-                                                {% bootstrap_field form.tipo_suscripcion layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-4">
-                                                {% bootstrap_field form.forma_facturacion layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-8">
-                                                {% bootstrap_field form.renovacion layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.comision layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.def_comision layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-12">
-                                                {% bootstrap_field form.grupo_economico layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-12">
-                                                {% bootstrap_field form.aprobaciones layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            Funcionario que revisa:
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-6">
-                                                {% bootstrap_field form.funcionario layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.cargo_funcionario layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.area_funcionario layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.otra_area layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-
                                 <button type="submit" id="id_submit" class="btn btn-primary stepy-finish">Submit <i class="icon-check position-right"></i></button>
                             </form>
                         </div>
@@ -758,6 +732,44 @@
 <script src="{% static 'plugins/datepicker/locales/bootstrap-datepicker.es.js' %}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+
+        $('#id_tipo_id_conductor').on('change',function(){
+            if ($(this).val()=="0"){
+                $(".ced1").removeClass("hidden");
+                $(".passp1").addClass("hidden");
+            }
+            if ($(this).val()=="1"){
+                $(".ced1").addClass("hidden");
+                $(".passp1").removeClass("hidden");
+            }
+        });
+
+        $('#id_tipo_id_conductor2').on('change',function(){
+            if ($(this).val()=="0"){
+                $(".ced2").removeClass("hidden");
+                $(".passp2").addClass("hidden");
+            }
+            if ($(this).val()=="1"){
+                $(".ced2").addClass("hidden");
+                $(".passp2").removeClass("hidden");
+            }
+        });
+
+        $('#id_tipo_id_conductor3').on('change',function(){
+            if ($(this).val()=="0"){
+                $(".ced3").removeClass("hidden");
+                $(".passp3").addClass("hidden");
+            }
+            if ($(this).val()=="1"){
+                $(".ced3").addClass("hidden");
+                $(".passp3").removeClass("hidden");
+            }
+        });
+
+        $(".passp1").addClass("hidden");
+        $(".passp2").addClass("hidden");
+        $(".passp3").addClass("hidden");
+
         $('#id_valido_desde').mask('0000-00-00', {placeholder: "Valido desde (aaaa/mm/dd)"});
         $('#id_valido_hasta').mask('0000-00-00', {placeholder: "Hasta (aaaa/mm/dd)"});
         $('#id_expiracion_tdc').mask('00-00', {placeholder: "Expiracion (mm-aa)"});
@@ -782,19 +794,41 @@
     element.classList.add("hidden");
     var element = document.querySelector(".datos-financieros");
     element.classList.add("hidden");
-    var element = document.querySelector("#id_otra_area");
-    element.classList.add("hidden");
-
+    // var element = document.querySelector("#id_otra_area");
+    // element.classList.add("hidden");
     var select = ($("#id_politico_expuesto").val()=="Si");
     var select2 = ($("#id_declaracion_prima").val()=="Si");
     if (select || select2) {
         var element = document.querySelector(".datos-financieros");
         element.classList.remove("hidden");
+        $("#id_nom_ref_personal").attr('required', true);
+        $("#id_actividad_ref_personal").attr('required',true);
+        $("#id_relacion_ref_personal").attr('required',true);
+        $("#id_telefono_ref_personal").attr('required',true);
+        $("#id_nom_ref_bancaria").attr('required',true);
+        $("#id_actividad_ref_bancaria").attr('required',true);
+        $("#id_relacion_ref_bancaria").attr('required',true);
+        $("#id_telefono_ref_bancaria").attr('required',true);
+        $("#id_nom_ref_comercial").attr('required',true);
+        $("#id_actividad_ref_comercial").attr('required',true);
+        $("#id_relacion_ref_comercial").attr('required',true);
+        $("#id_telefono_ref_comercial").attr('required',true);
     } else {
         var element = document.querySelector(".datos-financieros");
         element.classList.add("hidden");
+        $("#id_nom_ref_personal").attr('required',false);
+        $("#id_actividad_ref_personal").attr('required',false);
+        $("#id_relacion_ref_personal").attr('required',false);
+        $("#id_telefono_ref_personal").attr('required',false);
+        $("#id_nom_ref_bancaria").attr('required',false);
+        $("#id_actividad_ref_bancaria").attr('required',false);
+        $("#id_relacion_ref_bancaria").attr('required',false);
+        $("#id_telefono_ref_bancaria").attr('required',false);
+        $("#id_nom_ref_comercial").attr('required',false);
+        $("#id_actividad_ref_comercial").attr('required',false);
+        $("#id_relacion_ref_comercial").attr('required',false);
+        $("#id_telefono_ref_comercial").attr('required',false);
     }
-
     var acreedor = document.querySelector(".acreedor");
     acreedor.classList.add("hidden");
     var leasing = document.querySelector(".leasing");
@@ -845,22 +879,46 @@
             var element = document.querySelector(".politico3");
             element.classList.add("hidden");
         }
-
         var select = ($("#id_politico_expuesto").val()=="Si");
         var select2 = ($("#id_declaracion_prima").val()=="Si");
         if (select || select2) {
             var element = document.querySelector(".datos-financieros");
             element.classList.remove("hidden");
+            $("#id_nom_ref_personal").attr('required', true);
+            $("#id_actividad_ref_personal").attr('required',true);
+            $("#id_relacion_ref_personal").attr('required',true);
+            $("#id_telefono_ref_personal").attr('required',true);
+            $("#id_nom_ref_bancaria").attr('required',true);
+            $("#id_actividad_ref_bancaria").attr('required',true);
+            $("#id_relacion_ref_bancaria").attr('required',true);
+            $("#id_telefono_ref_bancaria").attr('required',true);
+            $("#id_nom_ref_comercial").attr('required',true);
+            $("#id_actividad_ref_comercial").attr('required',true);
+            $("#id_relacion_ref_comercial").attr('required',true);
+            $("#id_telefono_ref_comercial").attr('required',true);
         } else {
             var element = document.querySelector(".datos-financieros");
             element.classList.add("hidden");
+            $("#id_nom_ref_personal").attr('required',false);
+            $("#id_actividad_ref_personal").attr('required',false);
+            $("#id_relacion_ref_personal").attr('required',false);
+            $("#id_telefono_ref_personal").attr('required',false);
+            $("#id_nom_ref_bancaria").attr('required',false);
+            $("#id_actividad_ref_bancaria").attr('required',false);
+            $("#id_relacion_ref_bancaria").attr('required',false);
+            $("#id_telefono_ref_bancaria").attr('required',false);
+            $("#id_nom_ref_comercial").attr('required',false);
+            $("#id_actividad_ref_comercial").attr('required',false);
+            $("#id_relacion_ref_comercial").attr('required',false);
+            $("#id_telefono_ref_comercial").attr('required',false);
         }
     } );
-
     $("#id_aseguradoConductor").on("change", function(event) {
         if (this.checked) {
             var element = document.querySelector("#id_tipo_id_conductor");
             element.classList.add("hidden");
+            $(".ced1").addClass("hidden");
+            $(".passp1").removeClass("hidden");
             var val1 = $("#nombre-conductor").val();
             var val2 = $("#id-conductor").val();
             $("#id_nombre_conductor").val(val1);
@@ -870,36 +928,75 @@
         } else {
             var element = document.querySelector("#id_tipo_id_conductor");
             element.classList.remove("hidden");
-            $("#id_nombre_conductor").val('');
-            $("#id_nombre_conductor").prop("disabled", false);
-            $("#id_id_conductor").val('');
-            $("#id_id_conductor").prop("disabled", false);
+            $("#id_tipo_id_conductor_1").prop("checked",true);
+
+            if ($("#id_tipo_id_conductor").val()=="0"){
+                $("#id_nombre_conductor").val('');
+                $("#id_nombre_conductor").prop("disabled", false);
+                $("#id_provicia_1").val('');
+                $("#id_tipo_1").val('');
+                $("#id_campo_1_1").val('');
+                $("#id_campo_2_1").val('');
+                $("#id_id_conductor").prop("disabled", false);
+                $(".passp1").addClass("hidden");
+                $(".ced1").removeClass("hidden");
+
+            }
+            else{
+                $("#id_nombre_conductor").val('');
+                $("#id_nombre_conductor").prop("disabled", false);
+                $("#id_id_conductor").val('');
+                $("#id_id_conductor").prop("disabled", false);
+            }
+            //$("#id_tipo_id_conductor").val("1");
+
+
         }
     } );
-
-    $("#id_comision").on("change", function(event) {
-        if (this.checked) {
-            var element = document.querySelector("#id_def_comision");
-            element.classList.add("hidden");
-        } else {
-            var element = document.querySelector("#id_def_comision");
-            element.classList.remove("hidden");
-        }
-    } );
-
+    // $("#id_comision").on("change", function(event) {
+    //     if (this.checked) {
+    //         var element = document.querySelector("#id_def_comision");
+    //         element.classList.add("hidden");
+    //     } else {
+    //         var element = document.querySelector("#id_def_comision");
+    //         element.classList.remove("hidden");
+    //     }
+    // } );
     $("#id_declaracion_prima").on("change", function(event) {
         var select = ($("#id_politico_expuesto").val()=="Si");
         var select2 = ($("#id_declaracion_prima").val()=="Si");
         if (select || select2) {
             var element = document.querySelector(".datos-financieros");
             element.classList.remove("hidden");
+            $("#id_nom_ref_personal").attr('required', true);
+            $("#id_actividad_ref_personal").attr('required',true);
+            $("#id_relacion_ref_personal").attr('required',true);
+            $("#id_telefono_ref_personal").attr('required',true);
+            $("#id_nom_ref_bancaria").attr('required',true);
+            $("#id_actividad_ref_bancaria").attr('required',true);
+            $("#id_relacion_ref_bancaria").attr('required',true);
+            $("#id_telefono_ref_bancaria").attr('required',true);
+            $("#id_nom_ref_comercial").attr('required',true);
+            $("#id_actividad_ref_comercial").attr('required',true);
+            $("#id_relacion_ref_comercial").attr('required',true);
+            $("#id_telefono_ref_comercial").attr('required',true);
         } else {
             var element = document.querySelector(".datos-financieros");
             element.classList.add("hidden");
+            $("#id_nom_ref_personal").attr('required',false);
+            $("#id_actividad_ref_personal").attr('required',false);
+            $("#id_relacion_ref_personal").attr('required',false);
+            $("#id_telefono_ref_personal").attr('required',false);
+            $("#id_nom_ref_bancaria").attr('required',false);
+            $("#id_actividad_ref_bancaria").attr('required',false);
+            $("#id_relacion_ref_bancaria").attr('required',false);
+            $("#id_telefono_ref_bancaria").attr('required',false);
+            $("#id_nom_ref_comercial").attr('required',false);
+            $("#id_actividad_ref_comercial").attr('required',false);
+            $("#id_relacion_ref_comercial").attr('required',false);
+            $("#id_telefono_ref_comercial").attr('required',false);
         }
-
     } );
-
     $(document).on("change", "#id_id_conductor", function(e){
         e.preventDefault();
        if( $("#id_tipo_id_conductor_0").is(':checked') ){
@@ -917,7 +1014,6 @@
             $('#id_submit').prop('disabled', false);
        }
     });
-
     $("#id_id_conductor").focus(function(e){
         e.preventDefault();
        if( $("#id_tipo_id_conductor_0").is(':checked') ){
@@ -927,12 +1023,10 @@
             $(".cedula-help").remove();
        }
     });
-
     $("#id_id_conductor").focusout(function(e){
         e.preventDefault();
         $(".cedula-help").remove();
     });
-
     $(document).on("change", "#id_id_responsable", function(e){
         e.preventDefault();
        if( $("#id_tipo_id_responsable_0").is(':checked') ){
@@ -950,7 +1044,6 @@
             $('#id_submit').prop('disabled', false);
        }
     });
-
     $("#id_id_responsable").focus(function(e){
         e.preventDefault();
        if( $("#id_tipo_id_responsable_0").is(':checked') ){
@@ -960,12 +1053,10 @@
             $(".cedula-help").remove();
        }
     });
-
     $("#id_id_responsable").focusout(function(e){
         e.preventDefault();
         $(".cedula-help").remove();
     });
-
     $(document).ready(function(){
         $(document).click(function() {
             if($('#id_tipo_id_conductor_0').is(":checked")) {
@@ -974,7 +1065,6 @@
                 $('#id_id_conductor').unmask();
             }
         });
-
         $('#id_valido_desde').datepicker({
             format: 'yyyy-mm-dd',
             language: 'es',
@@ -993,15 +1083,13 @@
             todayHighlight: true,
             autoclose: true,
         });
-
         $( '#id_ingreso_principal' ).prepend('<option class="placeholder" value="" selected=selected disabled>Ingreso Anual</option>');
         $( '#id_otro_ingreso' ).prepend('<option class="placeholder" value="" selected=selected disabled>Ingreso Anual</option>');
-        $( '#id_tipo_produccion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Produccion</option>');
-        $( '#id_tipo_suscripcion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Suscripcion</option>');
-        $( '#id_forma_facturacion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Forma de facturacion</option>');
-        $( '#id_area_funcionario' ).prepend('<option class="placeholder" value="" selected=selected disabled>Area</option>');
+        // $( '#id_tipo_produccion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Produccion</option>');
+        // $( '#id_tipo_suscripcion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Suscripcion</option>');
+        // $( '#id_forma_facturacion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Forma de facturacion</option>');
+        // $( '#id_area_funcionario' ).prepend('<option class="placeholder" value="" selected=selected disabled>Area</option>');
     });
-
     var element = document.querySelector("#id_responsable_0");
     element.onclick = function () {
         var element = document.querySelector("#id_tipo_id_responsable");
@@ -1013,7 +1101,6 @@
         $("#id_id_responsable").val(val2);
         $("#id_id_responsable").prop("disabled", true);
     }
-
     var element = document.querySelector("#id_responsable_1");
     element.onclick = function () {
         var element = document.querySelector("#id_tipo_id_responsable");
@@ -1025,7 +1112,6 @@
         $("#id_id_responsable").val(val2);
         $("#id_id_responsable").prop("disabled", true);
     }
-
     var element = document.querySelector("#id_responsable_2");
     element.onclick = function () {
         var element = document.querySelector("#id_tipo_id_responsable");
@@ -1035,7 +1121,21 @@
         $("#id_id_responsable").val('');
         $("#id_id_responsable").prop("disabled", false);
     }
-
+    $(document).on("change", "#id_valido_desde", function(){
+        var fecha = $(this).val();
+        var valido = new Date(fecha);
+        var today = new Date();
+        if (valido < today) {
+            $(".valor-validacion-valido").remove();
+            $('#id_submit').prop('disabled', true);
+            $('.button-next').attr('disabled', true);
+            $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>No puede introducir una fecha menor a la de hoy.</div>");
+        } else {
+            $('#id_submit').prop('disabled', false);
+            $('.button-next').attr('disabled', false);
+            $(".valor-validacion-valido").remove();
+        }
+    });
 </script>
 
 {% endblock custom_script %}

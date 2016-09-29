@@ -122,7 +122,7 @@
 				<tr style="border: 2px solid #999; text-align: left; padding-top: 5px; padding-left: -20px; padding-right: -30px;">
 					<td colspan="2">
 						<p style="padding-bottom: -6px;"><span>Indique si es o ha sido objeto de investigación, indagación o condena por actividades ilícitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo</span>
-						{% if conductor2.ilicito == False %}
+						{% if conductor2.ilicito == "No" %}
 						<span style="text-decoration: underline; font-size: 12px;">&nbsp;_X_</span><span>&nbsp;No</span>
 						<span>&nbsp;___</span><span>&nbsp;Sí</span></p>
 						{% else %}
@@ -131,7 +131,7 @@
 						{% endif %}
 
 						<p style="padding-bottom: -6px;"><span>Es o ha sido una persona (1) Persona Políticamente Expuesta, (2) familiar cercano, o (3) estrecho colaborador de esta? </span>
-						{% if conductor2.politico_expuesto == False %}
+						{% if conductor2.politico_expuesto == "No" %}
 						<span style="text-decoration: underline; font-size: 12px;">_X_</span>&nbsp;<span>&nbsp;No</span>
 						<span>&nbsp;___</span><span>&nbsp;Sí</span>
 						{% else %}
@@ -154,9 +154,9 @@
 				<tr>
 					<td></td>
 				</tr>
-				<tr style="border: 2px solid #999; text-align: left; padding-top: 5px; padding-left: -20px; padding-right: -30px">
+				<tr style="border: 2px solid #999; text-align: left; padding-left: -20px; padding-right: -30px;">
 					<td colspan="2">
-						<p><span>Si su respuesta anterior fue Si y/o la prima sel segura es igual, anual o mayor a B/. 10,000.00 complete la siguiente información, en caso que no diríjase a la seccion de Datos Generales: </span><span style="font-size: 9px;"> Acerta Seguros, con base en la Matriz de riesgo, podrá solicitar en algunos otros casos que esta sección sea completada (Ley 23 del 27/04/2015).</span></p>
+						<p style="padding-top: 8px;"><span>Si su respuesta anterior fue Si y/o la prima sel segura es igual, anual o mayor a B/. 10,000.00 complete la siguiente información, en caso que no diríjase a la seccion de Datos Generales: </span><span style="font-size: 9px;"> Acerta Seguros, con base en la Matriz de riesgo, podrá solicitar en algunos otros casos que esta sección sea completada (Ley 23 del 27/04/2015).</span></p>
 
 						<p><span>Actividad fuente principal de sus ingresos (Especifique): </span><span>{{conductor2.actividad_principal}}</span></p>
 
@@ -164,7 +164,7 @@
 							<table>
 								<tr>
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Ingreso Anual:
 								</td>
 								{% if conductor2.ingreso_principal == '<10,000.00' %}
@@ -235,7 +235,7 @@
 							<table>
 								<tr>
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Ingreso Anual:
 								</td>
 								{% if conductor2.otro_ingreso == '<10,000.00' %}
@@ -304,70 +304,70 @@
 							<table>
 								<tr>
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Nombre o razón Social
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Actividad
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Relación con el cliente
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									Teléfono de contacto
 								</td>
 								<td style="width: 45px;">
 								</tr>
 								<tr>
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									1. {{conductor2.ref_personal.nombre}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_personal.actividad}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_personal.relacion}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									{{conductor2.ref_personal.telefono}}
 								</td>
 								<td style="width: 45px;">
 								</tr>
 								<tr>
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									2. {{conductor2.ref_bancaria.nombre}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_bancaria.actividad}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_bancaria.relacion}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_bancaria.telefono}}
 								</td>
 								<td style="width: 45px;">
 								</tr>
-								<tr>
+								<tr style="padding-bottom: -1px;">
 								<td style="width: 45px;">
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 									3. {{conductor2.ref_comercial.nombre}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_comercial.actividad}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_comercial.relacion}}
 								</td>
-								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px;">
+								<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; padding-top: 5px;">
 								{{conductor2.ref_comercial.telefono}}
 								</td>
-								<td style="width: 45px;">
+								<td style="width: 45px;"></td>
 								</tr>
 								<tr>
-								<td style="width: 45px;">
+								<td style="width: 45px;"></td>
 								<td>
 								</td>
 								<td >
@@ -376,7 +376,10 @@
 								</td>
 								<td>
 								</td>
-								<td style="width: 45px;">
+								<td style="width: 45px;"></td>
+								</tr>
+								<tr style="padding-bottom: -10px; width: 5%;">
+									<td></td>
 								</tr>
 							</table>
 						</p>
@@ -699,51 +702,21 @@
 										<p style="padding-bottom: -6px;">
 										<span style="text-decoration: underline; font-weight: bold;">Información para uso interno: </span><span>Tipo de producción</span>
 										</p>
-										{% if solicitud.tipo_produccion == 'Propia' %}
-											<p style="padding-bottom: -6px;">
-												<span>Prod. Propia</span><span>_X_</span>
-												<span>Coaseguro Líder</span><span>__</span>
-												<span>Coaseguro No Líder</span><span>__</span>
-												<span>Reaseguro Cedido</span><span>__</span>
-											</p>
-										{% elif solicitud.tipo_produccion == 'Coaseguro Lider' %}
-											<p style="padding-bottom: -6px;">
-												<span>Prod. Propia</span><span>__</span>
-												<span>Coaseguro Líder</span><span>_X_</span>
-												<span>Coaseguro No Líder</span><span>__</span>
-												<span>Reaseguro Cedido</span><span>__</span>
-											</p>
-										{% elif solicitud.tipo_produccion == 'Coaseguro No Lider' %}
-											<p style="padding-bottom: -6px;">
-												<span>Prod. Propia</span><span>__</span>
-												<span>Coaseguro Líder</span><span>__</span>
-												<span>Coaseguro No Líder</span><span>_X_</span>
-												<span>Reaseguro Cedido</span><span>__</span>
-											</p>
-										{% else %}
-											<p style="padding-bottom: -6px;">
-												<span>Prod. Propia</span><span>__</span>
-												<span>Coaseguro Líder</span><span>__</span>
-												<span>Coaseguro No Líder</span><span>__</span>
-												<span>Reaseguro Cedido</span><span>_X_</span>
-											</p>
-										{% endif %}
+										<p style="padding-bottom: -6px;">
+											<span>Prod. Propia</span><span>__</span>
+											<span>Coaseguro Líder</span><span>__</span>
+											<span>Coaseguro No Líder</span><span>__</span>
+											<span>Reaseguro Cedido</span><span>__</span>
+										</p>
 									</td>
 									<td colspan="5" style="padding-right: -40px; padding-left: -25px;">
 										<p style="padding-bottom: -6px;">
 										<span>Tipo de suscripción: </span><span></span>
 										</p>
-										{% if solicitud.tipo_suscripcion == 'Individual' %}
-											<p style="padding-bottom: -6px;">
-												<span>Individual</span><span>_X_</span>
-												<span>Colectiva</span><span>__</span>
-											</p>
-										{% else %}
-											<p style="padding-bottom: -6px;">
-												<span>Individual</span><span>__</span>
-												<span>Colectiva</span><span>_X_</span>
-											</p>
-										{% endif %}
+										<p style="padding-bottom: -6px;">
+											<span>Individual</span><span>__</span>
+											<span>Colectiva</span><span>__</span>
+										</p>
 									</td>
 								</tr>
 								<tr style="border: 2px solid #999;">
@@ -751,60 +724,38 @@
 										<p style="padding-bottom: -15px;">
 										<span>Forma de facturación: </span><span></span>
 										</p>
-										{% if solicitud.forma_facturacion == 'Por Poliza' %}
-											<p style="padding-bottom: -6px;">
-												<span>Por póliza: </span><span>_X_</span>
-												<span>Por certificado: </span>__<span></span>
-											</p>
-										{% else %}
-											<p style="padding-bottom: -6px;">
-												<span>Por póliza: </span><span>__</span>
-												<span>Por certificado: </span>_X_<span></span>
-											</p>
-										{% endif %}
+										<p style="padding-bottom: -6px;">
+											<span>Por póliza: </span><span>__</span>
+											<span>Por certificado: </span>__<span></span>
+										</p>
 									</td>
 									<td colspan="3" style="padding-right: -40px; padding-left: -25px;">
 										<p style="padding-bottom: -15px;">
 										<span>Renovación automática: </span><span></span>
 										</p>
-										{% if solicitud.renovacion %}
-											<p style="padding-bottom: -6px;">
-												<span>Sí</span><span>_X_</span>
-												<span>No</span><span>__</span>
-											</p>
-										{% else %}
-											<p style="padding-bottom: -6px;">
-												<span>Sí</span><span>__</span>
-												<span>No</span><span>_X_</span>
-											</p>
-										{% endif %}
+										<p style="padding-bottom: -6px;">
+											<span>Sí</span><span>__</span>
+											<span>No</span><span>__</span>
+										</p>
 									</td>
 									<td colspan="5" style="padding-right: -40px; padding-left: -25px;">
 										<p style="padding-bottom: -15px;">
 										<span>Comisión estándar: </span><span></span>
 										</p>
-										{% if solicitud.comision %}
-											<p style="padding-bottom: -6px;">
-												<span>Sí</span><span>_X_</span>
-												<span>No</span><span>__</span>
-												<span>Definir: </span><span>N/A</span>
-											</p>
-										{% else %}
-											<p style="padding-bottom: -6px;">
-												<span>Sí</span><span>__</span>
-												<span>No</span><span>_X_</span>
-												<span>Definir: </span><span>{{solicitud.def_comision}}</span>
-											</p>
-										{% endif %}
+										<p style="padding-bottom: -6px;">
+											<span>Sí</span><span>__</span>
+											<span>No</span><span>__</span>
+											<span>Definir: </span><span>______</span>
+										</p>
 									</td>
 								</tr>
 								<tr style="border: 2px solid #999; padding-bottom: -1px;">
-									<td colspan="12" style="padding-right: -40px; padding-left: -25px;"><span>Grupo económico: </span><span>{{solicitud.grupo_economico}}</span></td>
+									<td colspan="12" style="padding-right: -40px; padding-left: -25px;"><span>Grupo económico: </span><span></span></td>
 								</tr>
 								<tr style="border: 2px solid #999; padding-bottom: -6px;">
 									<td colspan="12" style="padding-right: -40px; padding-left: -25px;">
 										<p><span>Aprobaciones especiales: </span></p>
-										<p>{{solicitud.aprobaciones}}</p>
+										<p>&nbsp;</p>
 										<p>&nbsp;</p>
 									</td>
 								</tr>
@@ -891,51 +842,17 @@
 								</tr>
 								<tr style="border: 2px solid #999; padding-bottom: -1px;">
 									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px; padding-bottom: -1px;">
-										<span style="font-weight: bold;">Nombre y apellido del funcionario que revisa: </span><span>{{solicitud.funcionario}}</span>
+										<span style="font-weight: bold;">Nombre y apellido del funcionario que revisa: </span><span></span>
 									</td>
 									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
 										<p style="padding-bottom: -15px;"><span>Área de negocio: </span><span></span></p>
-										{% if solicitud.area_funcionario == 'Comercial' %}
-											<p>
-												<span>Comercial</span><span>_X_</span>
-												<span>At. al Cliente</span><span>__</span>
-												<span>Fianzas</span><span>__</span>
-												<span>Seguros</span><span>__</span>
-												<span>Otros: </span><span>N/A</span>
-											</p>
-										{% elif solicitud.area_funcionario == 'At. al Cliente' %}
-											<p>
-												<span>Comercial</span><span>__</span>
-												<span>At. al Cliente</span><span>_X_</span>
-												<span>Fianzas</span><span>__</span>
-												<span>Seguros</span><span>__</span>
-												<span>Otros: </span><span>N/A</span>
-											</p>
-										{% elif solicitud.area_funcionario == 'Fianzas' %}
-											<p>
-												<span>Comercial</span><span>__</span>
-												<span>At. al Cliente</span><span>__</span>
-												<span>Fianzas</span><span>_X_</span>
-												<span>Seguros</span><span>__</span>
-												<span>Otros: </span><span>N/A</span>
-											</p>
-										{% elif solicitud.area_funcionario == 'Seguros' %}
-											<p>
-												<span>Comercial</span><span>__</span>
-												<span>At. al Cliente</span><span>__</span>
-												<span>Fianzas</span><span>__</span>
-												<span>Seguros</span><span>_X_</span>
-												<span>Otros: </span><span>N/A</span>
-											</p>
-										{% else %}
-											<p>
-												<span>Comercial</span><span>__</span>
-												<span>At. al Cliente</span><span>__</span>
-												<span>Fianzas</span><span>__</span>
-												<span>Seguros</span><span>__</span>
-												<span>Otros: </span><span>{{solicitud.otra_area}}</span>
-											</p>
-										{% endif %}
+										<p>
+											<span>Comercial</span><span>__</span>
+											<span>At. al Cliente</span><span>__</span>
+											<span>Fianzas</span><span>__</span>
+											<span>Seguros</span><span>__</span>
+											<span>Otros: </span><span>____</span>
+										</p>
 									</td>
 								</tr>
 								<tr style="border: 2px solid #999; padding-bottom: -1px;">
@@ -943,7 +860,7 @@
 										<span>Firma: </span><span></span>
 									</td>
 									<td colspan="3" style="padding-right: -40px; padding-left: -25px; width: 100px;">
-										<span>Cargo: </span><span>{{solicitud.cargo_funcionario}}</span>
+										<span>Cargo: </span><span></span>
 									</td>
 									<td colspan="6" style="padding-right: -40px; padding-left: -25px; width: 100px;">
 										<span>Fecha: </span><span></span><span>(dd/mm/aaaa)</span>
