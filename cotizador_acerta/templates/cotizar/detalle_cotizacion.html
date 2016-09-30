@@ -278,7 +278,11 @@
                     </div>
                     <div class="col-md-2 col-xs-4 text-right" style="text:align:left;">
                       <h5><strong>{{ cotizacion.endoso }}</strong></h5>
-                      <h5>B/. {{ cotizacion.subtotal|floatformat:2|intcomma }}</h5>
+                      {% if cotizacion.endoso.endoso|length < 15 %}
+                        <h5 style="padding-top: 12.5%;">B/. {{ cotizacion.subtotal|floatformat:2|intcomma }}</h5>
+                      {% else %}
+                        <h5>B/. {{ cotizacion.subtotal|floatformat:2|intcomma }}</h5>
+                      {% endif %}
                       <h5>B/. {{ cotizacion.impuestos|floatformat:2|intcomma }}</h5>
                       <h5><strong>B/.{{ cotizacion.total|floatformat:2|intcomma }}</strong></h5>
                       <h5 class="prima-contado hidden"><strong>B/. {{ cotizacion.prima_pagoContado|floatformat:2|intcomma }}</strong></h5>
