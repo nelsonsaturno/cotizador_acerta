@@ -62,7 +62,10 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
         if solicitudes == []:
             new_pk = 1
         else:
-            new_pk = int(solicitudes.last().pk) + 1
+            if solicitudes.last() == None:
+                new_pk = 1
+            else:
+                new_pk = int(solicitudes.last().pk) + 1
         context['new_pk'] = new_pk
         cot = Cotizacion.objects.get(pk=kwargs['pk'])
         context['cotizacion'] = cot
@@ -156,7 +159,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 responsable[0] = cotizacion.conductor.nombre + ' ' + cotizacion.conductor.apellido
             if responsable[1] == 'n/a':
                 responsable[1] = cotizacion.conductor.identificacion
-            
+
 
             tipo_id_conductor = form.cleaned_data['tipo_id_conductor']
             if tipo_id_conductor == '0':
@@ -219,7 +222,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 dia_pago=request.POST.get('dia_pago',date.today()),
                 tipo='Solicitada'
             )
-            
+
             solicitud.acreedor_leasing = Acreedores.objects.filter(nombre_acreedor=request.POST['acreedor_leasing'])[0]
             solicitud.save()
             cotizacion.status = "Aprobada"
@@ -383,14 +386,14 @@ class GeneracionPDF(LoginRequiredMixin, generic.CreateView):
         #     encoding='utf-8',
         #     base_url=request.build_absolute_uri(),
         # )
-        
+
 
         #html  = render_to_string('polizas/prueba_pdf.html', { 'pagesize' : 'letter', }, context_instance=RequestContext(request))
         result = StringIO.StringIO()
         links = lambda uri, rel: os.path.join(settings.STATIC_ROOT2, uri.replace(settings.STATIC_URL, ""))
         pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("UTF-8")), dest=result, encoding='UTF-8', link_callback=links)
 
- 
+
         if not pdf.err:
             return HttpResponse(result.getvalue(), 'application/pdf')
         return HttpResponse('Gremlins ate your pdf! %s' % cgi.escape(html))
@@ -498,7 +501,7 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         cotizacion = solicitud.cotizacion
         corredor = ''
         if (request.user.groups.first().name != "super_admin")\
-           and (request.user.groups.first().name != "admin"): 
+           and (request.user.groups.first().name != "admin"):
            corredor = DatosCorredor.objects.get(user=request.user)
         inicial = request.user.first_name[0]
         etiqueta_corredor = str(inicial) + str(request.user.last_name)
