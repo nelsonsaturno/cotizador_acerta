@@ -151,16 +151,16 @@ DATABASES['default'] = dj_database_url.config()
 #       BD LOCAL!!
 ########################################
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cotizador_acerta_polizas',
-        'USER': 'acerta',
-        'PASSWORD': 'acerta123',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'cotizador_acerta_polizas',
+#         'USER': 'acerta',
+#         'PASSWORD': 'acerta123',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 # Password validation
@@ -195,6 +195,7 @@ USE_L10N = False
 
 USE_TZ = True
 
+DATE_INPUT_FORMATS = ('%d-%m-%Y','%Y-%m-%d')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
