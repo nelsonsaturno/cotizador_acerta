@@ -95,7 +95,7 @@ def CargarAcreedores(request):
                                       num_id=nline[3],
                                       dvid=nline[4][:2])
             new_acreedor.save()
-            
+
 
 def CargarTipoVehiculo(request):
     file = open("tipo_vehiculo.csv")
@@ -1166,6 +1166,12 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 if kwargs['pk'] > kwargs['pk4']:
                     opcion += 1
 
+                corredor = DatosCorredor.objects.get(user=cotizacion.corredor)
+                if (corredor.razon_social == '' or corredor.razon_social == '-'):
+                    cotizado_por = 'el corredor ' + cotizacion.corredor.first_name +' '+cotizacion.corredor.last_name
+                else:
+                    cotizado_por = corredor.razon_social
+
                 ctx = {
                     'opcion': opcion,
                     'cotizacion': cotizacion,
@@ -1187,6 +1193,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                     'prima_contado': prima_contado,
                     'tipo_pago': pago,
                     'prima_endoso': prima_endoso,
+                    'cotizado_por': cotizado_por
                 }
 
                 # Correo Cliente
