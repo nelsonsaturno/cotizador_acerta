@@ -97,7 +97,15 @@ def CargarAcreedores(request):
             new_acreedor.save()
             
 
-
+def CargarTipoVehiculo(request):
+    file = open("tipo_vehiculo.csv")
+    for line in file:
+        nline = line.split(',')
+        print nline
+        new_tipo_vehiculo = TipoVehiculo(tipolval=nline[0],
+                                         codlval=int(nline[1]),
+                                         descrip=nline[2][:2])
+        new_tipo_vehiculo.save()
 
 
 class CotizarAhora(LoginRequiredMixin, generic.TemplateView):
