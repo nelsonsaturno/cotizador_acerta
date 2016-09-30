@@ -501,10 +501,11 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
         cotizacion = solicitud.cotizacion
         corredor = ''
+
         if (request.user.groups.first().name != "super_admin")\
            and (request.user.groups.first().name != "admin"): 
-            if user.groups.first().name == 'corredor':
-                corredor = DatosCorredor.objects.get(user=user)
+            if request.user.groups.first().name == 'corredor':
+                corredor = DatosCorredor.objects.get(user=request.user)
             else:
                 vendedor = CorredorVendedor.objects.get(vendedor=user)
                 corredor = DatosCorredor.objects.get(user=vendedor.corredor)
@@ -512,6 +513,10 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         etiqueta_corredor = str(inicial) + str(request.user.last_name)
         etiqueta_corredor = etiqueta_corredor.upper()
         extra_cliente = ExtraDatosCliente.objects.filter(conductor=cotizacion.conductor)
+        if extra_cliente.first():
+            extra_cliente = extra_cliente.first()
+        else:
+            extra_cliente = ''
 
         subtotal = cotizacion.subtotal - cotizacion.descuento
         lesiones_corporales = cotizacion.lesiones_corporales.split('/')
@@ -519,6 +524,7 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         muerte_accidental = cotizacion.muerte_accidental.split('/')
         fecha = datetime.now()
 
+        print corredor
         context = Context({'pagesize': 'letter',
                            'solicitud': solicitud,
                            'extra_cliente': extra_cliente,
@@ -531,18 +537,69 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'corredor': corredor,
                            'etiqueta_corredor': etiqueta_corredor,
                            'extra_cliente': extra_cliente})
-        template = get_template('polizas/prueba_pdf.html')
-        html = template.render(context)
 
-        file = open("polizas/" + 'prueba.pdf', "w+b")
+        template = get_template('polizas/emision_todas_pdf.html')
+        html = template.render(context)
+        template1 = get_template('polizas/emision_acreedor_asegurado_pdf.html')
+        html1 = template1.render(context)
+        template2 = get_template('polizas/emision_intermediario_pdf.html')
+        html2 = template2.render(context)
+
+        file = open("polizas/" + 'emision_todas.pdf', "w+b")
+        file1 = open("polizas/" + 'emision_intermediario.pdf', "w+b")
+        file2 = open("polizas/" + 'emision_acreedor_asegurado.pdf', "w+b")
         result = StringIO.StringIO()
         links = lambda uri, rel: os.path.join(settings.STATIC_ROOT2, uri.replace(settings.STATIC_URL, ""))
         pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=result, encoding='UTF-8', link_callback=links)
+        
         pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=file, encoding='UTF-8', link_callback=links)
+        pdf1 = pisa.pisaDocument(StringIO.StringIO(html1.encode("utf-8")), dest=file1, encoding='UTF-8', link_callback=links)
+        pdf2 = pisa.pisaDocument(StringIO.StringIO(html2.encode("utf-8")), dest=file2, encoding='UTF-8', link_callback=links)
 
         file.seek(0)
         pdf = file.read()
         file.close()
+
+        file1.seek(0)
+        pdf1 = file1.read()
+        file1.close()
+
+        file2.seek(0)
+        pdf2 = file2.read()
+        file2.close()
+
+        # Email enviado al cliente (asegurado)
+        to = [solicitud.cotizacion.conductor.correo]
+        from_email = request.user.email
+        subject = 'Acerta Seguros - Emision Poliza'
+        message = get_template('polizas/email_emision_poliza_cliente.html').render(context)
+        msg = EmailMessage(subject, message, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.attach("polizas/emision_acreedor_asegurado.pdf",
+                    pdf2,
+                    'application/pdf')
+        msg.send()
+
+        # Email enviado al corredor
+        to = [request.user.email]
+        message = get_template('polizas/email_emision_poliza_corredor.html').render(context)
+        msg = EmailMessage(subject, message, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.attach("polizas/emision_intermediario.pdf",
+                    pdf1,
+                    'application/pdf')
+        msg.send()
+
+        # Email enviado para notificacion de aprobacion
+        #to = ['']
+        message = get_template('polizas/email_emision_poliza_notificacion.html').render(context)
+        msg = EmailMessage(subject, message, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.attach("polizas/emision.pdf",
+                    pdf,
+                    'application/pdf')
+        msg.send()
+
 
         return HttpResponse(result.getvalue(), 'application/pdf')
 
