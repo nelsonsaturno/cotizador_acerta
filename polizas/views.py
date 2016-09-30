@@ -69,7 +69,12 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
         user = User.objects.get(username=cot.corredor)
         if user.groups.first().name != 'super_admin'\
            and user.groups.first().name != 'admin':
-            context['corredor_pol'] = DatosCorredor.objects.get(user=user)
+            if user.groups.first().name == 'corredor':
+                context['corredor_pol'] = DatosCorredor.objects.get(user=user)
+            else:
+                vendedor = CorredorVendedor.objects.get(vendedor=user)
+                context['corredor_pol'] = DatosCorredor.objects.get(user=vendedor.corredor)
+
         return self.render_to_response(context)
 
     def get_context_data(self, **kwargs):
@@ -87,7 +92,11 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
         user = User.objects.get(username=cotizacion.corredor)
         if user.groups.first().name != 'super_admin'\
            and user.groups.first().name != 'admin':
-            corredor = DatosCorredor.objects.get(user=user)
+            if user.groups.first().name == 'corredor':
+                corredor = DatosCorredor.objects.get(user=user)
+            else:
+                vendedor = CorredorVendedor.objects.get(vendedor=user)
+                corredor = DatosCorredor.objects.get(user=vendedor.corredor)
         else:
             corredor = ''
         if form.is_valid():
