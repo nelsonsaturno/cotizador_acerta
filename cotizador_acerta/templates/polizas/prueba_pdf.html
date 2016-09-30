@@ -113,7 +113,7 @@
   </tr>
   <tr>
     <td colspan="3"><b>CORREDOR:</b> {{ corredor.user.first_name }} {{ corredor.user.last_name }} </td>
-    <td colspan="4"><b>LICENCIA:</b> {{ corredor.ruc }}</td>
+    <td colspan="4"><b>LICENCIA:</b> {{ corredor.licencia }}</td>
   </tr>
   <tr>
     <th colspan="7" rowspan="1">DESCRIPCIÓN DEL AUTOMÓVIL</th>
@@ -125,7 +125,7 @@
     <td colspan="2">MARCA: {{ conductor.marca }}</td>
     <td colspan="2">MODELO: {{ conductor.modelo }}</td>
     <td>CLASE:</td>
-    <td colspan="2">TIPO: {{ extra_cliente.tipo }}</td>
+    <td colspan="2">TIPO: {{ extra_cliente.tipo.descrip }}</td>
   </tr>
   <tr>
     <td colspan="2">SERIAL MOTOR: {{ extra_cliente.motor }}</td>
@@ -140,11 +140,11 @@
   <tr>
     <td colspan="2">COLOR:</td>
     <td colspan="2">AÑO: {{ conductor.anio }}</td>
-    <td>USO:</td>
+    <td>USO: Particular</td>
     <td colspan="2">PUESTOS:</td>
   </tr>
   <tr>
-    <td colspan="7">SUMA ASEGURADA:</td>
+    <td colspan="7">SUMA ASEGURADA: {{ solicitud.cotizacion.total }}</td>
   </tr>
   <tr style="height: 100%; ">
     <th colspan="2">RIESGOS CUBIERTOS</th>
@@ -315,7 +315,7 @@
   </tr>
   <tr>
     <td colspan="3"><b>CORREDOR:</b> {{ corredor.user.first_name }} {{ corredor.user.last_name }} </td>
-    <td colspan="4"><b>LICENCIA:</b> {{ corredor.ruc }}</td>
+    <td colspan="4"><b>LICENCIA:</b> {{ corredor.licencia }}</td>
   </tr>
   <tr>
     <th colspan="7" rowspan="1">DESCRIPCIÓN DEL AUTOMÓVIL</th>
@@ -327,7 +327,7 @@
     <td colspan="2">MARCA: {{ conductor.marca }}</td>
     <td colspan="2">MODELO: {{ conductor.modelo }}</td>
     <td>CLASE:</td>
-    <td colspan="2">TIPO: {{ extra_cliente.tipo }}</td>
+    <td colspan="2">TIPO: {{ extra_cliente.tipo.descrip }}</td>
   </tr>
   <tr>
     <td colspan="2">SERIAL MOTOR: {{ extra_cliente.motor }}</td>
@@ -338,11 +338,11 @@
   <tr>
     <td colspan="2">COLOR:</td>
     <td colspan="2">AÑO: {{ conductor.anio }}</td>
-    <td>USO:</td>
+    <td>USO: Particular</td>
     <td colspan="2">PUESTOS:</td>
   </tr>
   <tr>
-    <td colspan="7">SUMA ASEGURADA:</td>
+    <td colspan="7">SUMA ASEGURADA: {{ solicitud.cotizacion.total }}</td>
   </tr>
   <tr style="height: 100%; ">
     <th colspan="2">RIESGOS CUBIERTOS</th>
@@ -512,7 +512,7 @@
   </tr>
   <tr>
     <td colspan="3"><b>CORREDOR:</b> {{ corredor.user.first_name }} {{ corredor.user.last_name }} </td>
-    <td colspan="4"><b>LICENCIA:</b> {{ corredor.ruc }}</td>
+    <td colspan="4"><b>LICENCIA:</b> {{ corredor.licencia }}</td>
   </tr>
   <tr>
     <th colspan="7" rowspan="1">DESCRIPCIÓN DEL AUTOMÓVIL</th>
@@ -524,7 +524,7 @@
     <td colspan="2">MARCA: {{ conductor.marca }}</td>
     <td colspan="2">MODELO: {{ conductor.modelo }}</td>
     <td>CLASE:</td>
-    <td colspan="2">TIPO: {{ extra_cliente.tipo }}</td>
+    <td colspan="2">TIPO: {{ extra_cliente.tipo.descrip }}</td>
   </tr>
   <tr>
     <td colspan="2">SERIAL MOTOR: {{ extra_cliente.motor }}</td>
@@ -535,11 +535,11 @@
   <tr>
     <td colspan="2">COLOR:</td>
     <td colspan="2">AÑO: {{ conductor.anio }}</td>
-    <td>USO:</td>
+    <td>USO: Particular</td>
     <td colspan="2">PUESTOS:</td>
   </tr>
   <tr>
-    <td colspan="7">SUMA ASEGURADA:</td>
+    <td colspan="7">SUMA ASEGURADA: {{ solicitud.cotizacion.total }}</td>
   </tr>
   <tr style="height: 100%; ">
     <th colspan="2">RIESGOS CUBIERTOS</th>

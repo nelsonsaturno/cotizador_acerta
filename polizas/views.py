@@ -99,7 +99,10 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 corredor = DatosCorredor.objects.get(user=vendedor.corredor)
         else:
             corredor = ''
+
+        
         if form.is_valid():
+
             extra_cliente = form.save()
 
             if request.POST.get('nom_ref_personal', '') != '':
@@ -128,6 +131,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 extra_cliente.ref_bancaria = ref2
                 extra_cliente.ref_comercial = ref3
             extra_cliente.conductor = cotizacion.conductor
+            extra_cliente.tipo = TipoVehiculo.objects.get(descrip=request.POST['tipo_vehiculo'])
             extra_cliente.save()
             conductor = [request.POST.get('nombre_conductor','n/a'),
                          request.POST.get('id_conductor','n/a')]
@@ -496,18 +500,11 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
         solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
         cotizacion = solicitud.cotizacion
-        corredor = ''
-        if (request.user.groups.first().name != "super_admin")\
-           and (request.user.groups.first().name != "admin"): 
-           corredor = DatosCorredor.objects.get(user=request.user)
+        corredor = DatosCorredor.objects.get(user=request.user)
         inicial = request.user.first_name[0]
         etiqueta_corredor = str(inicial) + str(request.user.last_name)
         etiqueta_corredor = etiqueta_corredor.upper()
         extra_cliente = ExtraDatosCliente.objects.filter(conductor=cotizacion.conductor)
-        if extra_cliente.first():
-            extra_cliente = extra_cliente.first()
-        else:
-            extra_cliente = ''
 
         subtotal = cotizacion.subtotal - cotizacion.descuento
         lesiones_corporales = cotizacion.lesiones_corporales.split('/')
@@ -525,7 +522,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'muerte_accidental': muerte_accidental,
                            'fecha':fecha,
                            'corredor': corredor,
-                           'etiqueta_corredor': etiqueta_corredor})
+                           'etiqueta_corredor': etiqueta_corredor,
+                           'extra_cliente': extra_cliente})
         template = get_template('polizas/prueba_pdf.html')
         html = template.render(context)
 

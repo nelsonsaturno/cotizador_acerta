@@ -1,7 +1,7 @@
 from django.db import models
 from cotizar.models import *
 from datetime import datetime
-from administrador.models import Acreedores
+from administrador.models import Acreedores, TipoVehiculo
 
 
 # Modelo para la solicitud de la poliza.
@@ -112,7 +112,7 @@ class ExtraDatosCliente(models.Model):
     placa = models.CharField(max_length=40, blank=False, null=True)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
-    tipo = models.CharField(max_length=40, blank=False, null=True)
+    tipo = models.ForeignKey(TipoVehiculo, blank=True, null=True)
     nombre2 = models.CharField(max_length=20, blank=False)
     apellido_mat = models.CharField(max_length=20, blank=False)
     apellido_cas = models.CharField(max_length=20, blank=True)
