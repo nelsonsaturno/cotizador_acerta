@@ -27,6 +27,12 @@ def get_acreedores_choices():
         acreedor_leasing.append((i.nombre_acreedor,i.nombre_acreedor))
     return acreedor_leasing
 
+def get_tipo_choices():
+    choices = TipoVehiculo.objects.all()
+    tipos = []
+    for i in choices:
+        tipos.append((i.descrip, i.descrip))
+    return tipos
 
 class SolicitudClienteForm(forms.ModelForm):
     aseguradoConductor = forms.BooleanField(label='Asegurado es Conductor', required=False)
@@ -172,6 +178,7 @@ class SolicitudClienteForm(forms.ModelForm):
     otra_area = forms.CharField(label='Otra area', required=False)
 
     placa = forms.CharField(label='Placa No.', required=False)
+    tipo_vehiculo = forms.ChoiceField(choices=get_tipo_choices(), required=False)
 
     nombre2 = forms.CharField(label='Segundo Nombre', required=False)
 

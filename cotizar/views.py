@@ -104,7 +104,7 @@ def CargarTipoVehiculo(request):
         print nline
         new_tipo_vehiculo = TipoVehiculo(tipolval=nline[0],
                                          codlval=int(nline[1]),
-                                         descrip=nline[2][:2])
+                                         descrip=nline[2][:-1])
         new_tipo_vehiculo.save()
 
 
