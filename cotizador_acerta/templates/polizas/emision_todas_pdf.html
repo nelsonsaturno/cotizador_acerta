@@ -81,15 +81,20 @@
     <td colspan="3"><b>FECHA:</b> {{ fecha }}</td>
   </tr>
   <tr>
-    <td colspan="4"><b>CONTRATANTE:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    {% if extra_cliente.es_juridico %}
+    <td colspan="4"><b>CONTRATANTE:</b> {{ extra_cliente.juridico_razon_social }}</td>
+    <td colspan="3"><b>CÉDULA/RUC:</b> {{ extra_cliente.juridico_RUC }}</td>
+    {% else %}
+    <td colspan="4" style="border-top: 1px white;"><b>CONTRATANTE:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
+    {% endif %}
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
   </tr>
   <tr>
-    <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor }}</td>
+    <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor_leasing.nombre_acreedor }}</td>
   </tr>
   <tr>
     <td colspan="4"><b>INFORMACIÓN DE CONTACTO DEL CONTRATANTE:</b></td>
@@ -283,15 +288,20 @@
     <td colspan="3"><b>FECHA:</b> {{ fecha }}</td>
   </tr>
   <tr>
-    <td colspan="4"><b>CONTRATANTE:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    {% if extra_cliente.es_juridico %}
+    <td colspan="4"><b>CONTRATANTE:</b> {{ extra_cliente.juridico_razon_social }}</td>
+    <td colspan="3"><b>CÉDULA/RUC:</b> {{ extra_cliente.juridico_RUC }}</td>
+    {% else %}
+    <td colspan="4" style="border-top: 1px white;"><b>CONTRATANTE:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
+    {% endif %}
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
   </tr>
   <tr>
-    <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor }}</td>
+    <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor_leasing.nombre_acreedor }}</td>
   </tr>
   <tr>
     <td colspan="4"><b>INFORMACIÓN DE CONTACTO DEL CONTRATANTE:</b></td>
@@ -480,15 +490,20 @@
     <td colspan="3"><b>FECHA:</b> {{ fecha }}</td>
   </tr>
   <tr>
-    <td colspan="4"><b>CONTRATANTE:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    {% if extra_cliente.es_juridico %}
+    <td colspan="4"><b>CONTRATANTE:</b> {{ extra_cliente.juridico_razon_social }}</td>
+    <td colspan="3"><b>CÉDULA/RUC:</b> {{ extra_cliente.juridico_RUC }}</td>
+    {% else %}
+    <td colspan="4" style="border-top: 1px white;"><b>CONTRATANTE:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
+    {% endif %}
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
   </tr>
   <tr>
-    <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor }}</td>
+    <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor_leasing.nombre_acreedor }}</td>
   </tr>
   <tr>
     <td colspan="4"><b>INFORMACIÓN DE CONTACTO DEL CONTRATANTE:</b></td>
