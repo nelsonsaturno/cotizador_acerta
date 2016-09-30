@@ -107,15 +107,11 @@ class ExtraDatosCliente(models.Model):
                                              blank=True, default='')
     juridico_pais_procedencia = models.CharField(max_length=30,
                                                  blank=True, default='')
-    juridico_fecha_constitucion = models.CharField(max_length=30,
-                                                   blank=True, default='')
-    juridico_fecha_const = models.CharField(max_length=30,
-                                                   blank=True, default='')
-    juridico_f_constitucion = models.DateField(default=date.today())
+    #juridico_f_constitucion = models.DateField(default=date.today())
     placa = models.CharField(max_length=40, blank=False, null=True)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
-    tipo = models.ForeignKey(TipoVehiculo, blank=True, null=True)
+    #tipo = models.ForeignKey(TipoVehiculo, blank=True, null=True)
     nombre2 = models.CharField(max_length=20, blank=False)
     apellido_mat = models.CharField(max_length=20, blank=False)
     apellido_cas = models.CharField(max_length=20, blank=True)
