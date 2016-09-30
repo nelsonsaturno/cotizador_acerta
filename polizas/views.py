@@ -505,9 +505,9 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         cotizacion = solicitud.cotizacion
         corredor = ''
 
-        if (request.user.groups.first().name != "super_admin")\
+        if ((request.user.groups.first().name != "super_admin")\
 
-           and (request.user.groups.first().name != "admin"):
+           and (request.user.groups.first().name != "admin")):
             if request.user.groups.first().name == 'corredor':
                 corredor = DatosCorredor.objects.get(user=request.user)
             else:
