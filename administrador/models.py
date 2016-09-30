@@ -321,3 +321,9 @@ class Acreedores(models.Model):
     serie_id = models.IntegerField(blank=False)
     num_id = models.IntegerField(blank=False)
     dvid = models.CharField(max_length=2, blank=False)
+
+class TipoVehiculo(models.Model):
+
+      tipolval = models.CharField(max_length=30, blank=False)
+      codlval = models.IntegerField(blank=False)
+      descrip = models.CharField(max_length=256, blank=False)

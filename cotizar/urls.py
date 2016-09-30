@@ -25,4 +25,7 @@ urlpatterns = patterns(
     url(r'^cargar-acreedores/$',
         'cotizar.views.CargarAcreedores',
         name='cargar-acreedores'),
+    url(r'^cargar-tipo-vehiculo/$',
+        'cotizar.views.CargarTipoVehiculo',
+        name='cargar-tipo-vehiculo'),
 )
