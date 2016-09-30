@@ -6,6 +6,7 @@ from bootstrap3_datetime.widgets import DateTimePicker
 from polizas.models import *
 from datetime import datetime as dt
 import datetime
+from django.conf import settings
 
 def default_desde():
     if len(str(dt.now().month)) == 1:
@@ -31,7 +32,7 @@ class SolicitudClienteForm(forms.ModelForm):
     aseguradoConductor = forms.BooleanField(label='Asegurado es Conductor', required=False)
     valido_desde = forms.DateField(label='Vigencia Desde', required=True, initial=default_desde)
     valido_hasta = forms.DateField(label='Vigencia Hasta', required=True, initial=default_hasta)
-    
+
     nombre_conductor = forms.CharField(label='Nombre', required=False)
     id_conductor = forms.CharField(label='Identificacion', required=False)
     nombre_conductor2 = forms.CharField(label='Nombre', required=False)
@@ -180,6 +181,10 @@ class SolicitudClienteForm(forms.ModelForm):
     actividad_empresa = forms.CharField(label='Actividad de Empresa', required=False)
     direccion_empresa = forms.CharField(label='Dirección Empresa', required=False)
 
+    juridico_f_constitucion = forms.DateField(
+        label='Fecha de constitución',
+        input_formats=settings.DATE_INPUT_FORMATS)
+
     class Meta:
         model = ExtraDatosCliente
         exclude = ['conductor', 'ref_personal', 'ref_bancaria', 'ref_comercial', ]
@@ -189,7 +194,7 @@ class SolicitudClienteForm(forms.ModelForm):
             'juridico_RUC': 'RUC',
             'juridico_razon_social': 'Razón Social',
             'juridico_pais_procedencia': 'País de procedencia',
-            'juridico_fecha_constitucion': 'Fecha de constitución',
+            'juridico_f_constitucion': 'Fecha de constitución',
             'placa': 'Placa No.',
             'motor': 'Motor',
             'chasis': 'Chasis',

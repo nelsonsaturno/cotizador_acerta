@@ -109,6 +109,9 @@ class ExtraDatosCliente(models.Model):
                                                  blank=True, default='')
     juridico_fecha_constitucion = models.CharField(max_length=30,
                                                    blank=True, default='')
+    juridico_fecha_const = models.CharField(max_length=30,
+                                                   blank=True, default='')
+    juridico_f_constitucion = models.DateField(default=date.today())
     placa = models.CharField(max_length=40, blank=False, null=True)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
