@@ -188,9 +188,9 @@ class SolicitudClienteForm(forms.ModelForm):
     actividad_empresa = forms.CharField(label='Actividad de Empresa', required=False)
     direccion_empresa = forms.CharField(label='Dirección Empresa', required=False)
 
-    juridico_f_constitucion = forms.DateField(
+    juridico_fecha_constitucion = forms.DateField(
         label='Fecha de constitución',
-        input_formats=settings.DATE_INPUT_FORMATS)
+        input_formats=settings.DATE_INPUT_FORMATS, required=False)
 
     class Meta:
         model = ExtraDatosCliente
@@ -201,7 +201,7 @@ class SolicitudClienteForm(forms.ModelForm):
             'juridico_RUC': 'RUC',
             'juridico_razon_social': 'Razón Social',
             'juridico_pais_procedencia': 'País de procedencia',
-            'juridico_f_constitucion': 'Fecha de constitución',
+            'juridico_fecha_constitucion': 'Fecha de constitución',
             'placa': 'Placa No.',
             'motor': 'Motor',
             'chasis': 'Chasis',

@@ -187,7 +187,7 @@
                                                 {% bootstrap_field form.juridico_pais_procedencia layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                             <div class="col-md-3 j_fc" hidden="True">
-                                                {% bootstrap_field form.juridico_f_constitucion layout='horizontal' show_label=False field_class='form-field' %}
+                                                {% bootstrap_field form.juridico_fecha_constitucion layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -850,12 +850,14 @@
     //     }
     // });
 
-    $('#id_juridico_f_constitucion').datepicker({
+    $('#id_juridico_fecha_constitucion').datepicker({
             format:'dd-mm-yyyy',
             language: 'es',
             todayHighlight: true,
             autoclose: true,
         });
+
+    $("#id_juridico_fecha_constitucion").attr('required',false);
 
     $("#id_es_juridico").on("change", function(event) {
         if( $(this).is(':checked') ){
@@ -866,7 +868,7 @@
             $("#id_juridico_RUC").attr('required',true);
             $("#id_juridico_razon_social").attr('required',true);
             $("#id_juridico_pais_procedencia").attr('required',true);
-            $("#id_juridico_f_constitucion").attr('required',true);
+            $("#id_juridico_fecha_constitucion").attr('required',true);
         }
         else{
             $(".j_RUC").hide();
@@ -876,7 +878,7 @@
             $("#id_juridico_RUC").attr('required',false);
             $("#id_juridico_razon_social").attr('required',false);
             $("#id_juridico_pais_procedencia").attr('required',false);
-            $("#id_juridico_f_constitucion").attr('required',false);
+            $("#id_juridico_fecha_constitucion").attr('required',false);
         }
     });
 
