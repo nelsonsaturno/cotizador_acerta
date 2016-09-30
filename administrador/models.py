@@ -313,3 +313,11 @@ class GastosHistory(models.Model):
     factor = models.FloatField(blank=False, default=0.0)
     user = models.ForeignKey(User)
     modified_at = models.DateTimeField(auto_now_add=True)
+
+class Acreedores(models.Model):
+
+    nombre_acreedor = models.CharField(max_length=256, blank=False)
+    tipo_id = models.CharField(max_length=20, blank=False)
+    serie_id = models.IntegerField(blank=False)
+    num_id = models.IntegerField(blank=False)
+    dvid = models.CharField(max_length=2, blank=False)

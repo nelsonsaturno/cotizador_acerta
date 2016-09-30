@@ -22,4 +22,7 @@ urlpatterns = patterns(
     # url(r'^cargar-ahora/$',
     #     'cotizar.views.CargarCarros',
     #     name='cargar-ahora'),
+    url(r'^cargar-acreedores/$',
+        'cotizar.views.CargarAcreedores',
+        name='cargar-acreedores'),
 )

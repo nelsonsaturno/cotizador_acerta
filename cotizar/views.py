@@ -75,6 +75,31 @@ def CargarCarros(request):
         reverse_lazy('login'))
 
 
+def CargarAcreedores(request):
+    file = open("acreedores.csv")
+    for line in file:
+        if line[0] == "\"":
+            nline = line.split("\"")
+            tail = nline[2].split(',')
+            new_acreedor = Acreedores(nombre_acreedor=nline[1],
+                                      tipo_id=tail[1],
+                                      serie_id=tail[2],
+                                      num_id=tail[3],
+                                      dvid=tail[4][:2])
+            new_acreedor.save()
+        else:
+            nline = line.split(',')
+            new_acreedor = Acreedores(nombre_acreedor=nline[0],
+                                      tipo_id=nline[1],
+                                      serie_id=nline[2],
+                                      num_id=nline[3],
+                                      dvid=nline[4][:2])
+            new_acreedor.save()
+            
+
+
+
+
 class CotizarAhora(LoginRequiredMixin, generic.TemplateView):
     template_name = "cotizar/cotiza_ahora.html"
 

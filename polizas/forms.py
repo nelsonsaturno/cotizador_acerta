@@ -19,6 +19,13 @@ def default_hasta():
     else:
         return str(dt.now().year + 1) +  str(dt.now().month) + str(dt.now().day)
 
+def get_acreedores_choices():
+    choices = Acreedores.objects.all()
+    acreedor_leasing = []
+    for i in choices:
+        acreedor_leasing.append((i.nombre_acreedor,i.nombre_acreedor))
+    return acreedor_leasing
+
 
 class SolicitudClienteForm(forms.ModelForm):
     aseguradoConductor = forms.BooleanField(label='Asegurado es Conductor', required=False)
@@ -125,11 +132,7 @@ class SolicitudClienteForm(forms.ModelForm):
                                 widget=forms.Select(), label="", required=False)
     tipo_id_responsable = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
                                 widget=forms.Select(), label="", required=False)
-    acreedor_leasing_id = forms.ChoiceField(choices=[(0,'Acreedor'),
-                                            (1,'Leasing'),
-                                            (2,'Ninguno')])
-    #acreedor = forms.CharField(label='Acreedor Hipotecario', required=False)
-    #leasing = forms.CharField(label='Leasing', required=False)
+    acreedor_leasing = forms.ChoiceField(choices=get_acreedores_choices())
     observaciones = forms.CharField(label='Observaciones', widget=forms.Textarea(), required=False)
     tipo_tdc = forms.ChoiceField(choices=[(0, 'Visa'), (1, 'Master Card')],
                                 widget=forms.RadioSelect(), label="", required=False)

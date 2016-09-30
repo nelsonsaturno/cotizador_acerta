@@ -1,6 +1,7 @@
 from django.db import models
 from cotizar.models import *
 from datetime import datetime
+from administrador.models import Acreedores
 
 
 # Modelo para la solicitud de la poliza.
@@ -17,11 +18,7 @@ class SolicitudPoliza(models.Model):
     id_conductor3 = models.CharField(max_length=20, null=True)
     vigencia_desde = models.DateField()
     vigencia_hasta = models.DateField()
-    acreedor_leasing_id = models.IntegerField(max_length=30, blank=False,
-                                   default=0,
-                                   choices=[(0,'Ninguno'),
-                                            (1,'Acreedor'),
-                                            (2,'Leasing')])
+    acreedor_leasing = models.ForeignKey(Acreedores, default=0, blank=True, null=True)
     firmador = models.CharField(max_length=40, blank=False)
     observaciones = models.CharField(max_length=100, blank=False, default='')
     responsable = models.CharField(max_length=30, blank=False,
