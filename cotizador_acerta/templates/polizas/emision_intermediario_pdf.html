@@ -77,7 +77,7 @@
 <br>
 <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
   <tr>
-    <td colspan="2"><b>PÓLIZA:</b></td>
+    <td  colspan="2"><b>PÓLIZA:</b> {{solicitud.num}}</td>
     <td colspan="2"><b>AGENCIA:</b>WEB</td> 
     <td colspan="3"><b>FECHA:</b> {{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }} </td>
   </tr>
@@ -117,7 +117,7 @@
       <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS:</b> {{ solicitud.cotizacion.cuota }} PAGOS MENSUALES</td>
     {% endif %}
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:</b> {{ conductor.telefono1 }}</td>
+    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono2 }}</td>
     <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
   <tr>
