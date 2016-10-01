@@ -435,7 +435,10 @@
                                         <div class="col-md-12">
                                             <label>Acreedor o Leasing</label>
                                         </div>
-                                        <div class="col-md-12">
+                                         <div class="col-md-12">
+                                                {% bootstrap_field form.tipo_acreedor_leasing layout='horizontal' show_label=False field_class='form-field' %}
+                                        </div>
+                                        <div class="col-md-12 tipo_ac_le">
                                                 {% bootstrap_field form.acreedor_leasing layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
                                     </div>

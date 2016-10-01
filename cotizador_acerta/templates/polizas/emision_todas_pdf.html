@@ -45,7 +45,7 @@
 
 <body>
 
-  <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
+  <table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
     <td style="border: none;" colspan="1" ><img src="{% static 'img/AcertaSeguros.png' %}" width="150" height="53"></td>
     <td style="border: none;" colspan="3" align="center">
@@ -63,7 +63,7 @@
     </tr>
   </table>
 <br>  
-<table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
+<table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
   <tr>
     <td  colspan="3"><b>PÓLIZA:</b> {{solicitud.num}}</td>
     <td colspan="2"><b>AGENCIA:</b> WEB</td> 
@@ -141,8 +141,9 @@
     <td colspan="2">USO: Particular</td>
     <td colspan="2">PUESTOS:</td>
   </tr>
-  <tr>
-    <td colspan="8">SUMA ASEGURADA: {{ conductor.valor }}</td>
+   <tr>
+    <td colspan="2">SUMA ASEGURADA: {{ conductor.valor }}</td>
+    <td colspan="6" style="font-size:8px; margin-left: 10px;">Cualquier pérdida Total bajo los riesgos D, E, F y G serán pagados de acuerdo al interés que resulte tener el asegurado y acreedor hipotecario.</td>
   </tr>
   <tr style="height: 100%; ">
     <th colspan="3">RIESGOS CUBIERTOS</th>
@@ -250,14 +251,14 @@
     <td style="text-align: center;" colspan="4"><img src="{% static 'img/firma-acerta-ok.png' %}" width="150" height="53"><br>_____________________________ <br>Acerta Seguros S.A.<br>{{fecha.month}}/{{fecha.year}}/{{solicitud.num}}/WEB</td>
   </tr>
  </table>
- <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
+ <table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
     <td style="text-align: right; border: none;" colspan="7"><br>ACREEDOR </td>
     </tr>
   </table>
  
 
-<table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
+<table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
     <td style="border: none;" colspan="1" ><img src="{% static 'img/AcertaSeguros.png' %}" width="150" height="53"></td>
     <td style="border: none;" colspan="3" align="center">
@@ -275,7 +276,7 @@
     </tr>
   </table>
 <br>  
-<table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
+<table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
   <tr>
     <td  colspan="3"><b>PÓLIZA:</b> {{solicitud.num}}</td>
     <td colspan="2"><b>AGENCIA:</b> WEB</td> 
@@ -353,8 +354,9 @@
     <td colspan="2">USO: Particular</td>
     <td colspan="2">PUESTOS:</td>
   </tr>
-  <tr>
-    <td colspan="8">SUMA ASEGURADA: {{ conductor.valor }}</td>
+   <tr>
+    <td colspan="2">SUMA ASEGURADA: {{ conductor.valor }}</td>
+    <td colspan="6" style="font-size:8px; margin-left: 10px;">Cualquier pérdida Total bajo los riesgos D, E, F y G serán pagados de acuerdo al interés que resulte tener el asegurado y acreedor hipotecario.</td>
   </tr>
   <tr style="height: 100%; ">
     <th colspan="3">RIESGOS CUBIERTOS</th>
@@ -462,13 +464,13 @@
     <td style="text-align: center;" colspan="4"><img src="{% static 'img/firma-acerta-ok.png' %}" width="150" height="53"><br>_____________________________ <br>Acerta Seguros S.A.<br>{{fecha.month}}/{{fecha.year}}/{{solicitud.num}}/WEB</td>
   </tr>
  </table>
- <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
+ <table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
     <td style="text-align: right; border: none;" colspan="7"><br>CONTRATANTE </td>
     </tr>
   </table>
 
-<table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
+<table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
     <td style="border: none;" colspan="1" ><img src="{% static 'img/AcertaSeguros.png' %}" width="150" height="53"></td>
     <td style="border: none;" colspan="3" align="center">
@@ -486,7 +488,7 @@
     </tr>
   </table>
 <br>  
-<table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
+<table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
   <tr>
     <td  colspan="3"><b>PÓLIZA:</b> {{solicitud.num}}</td>
     <td colspan="2"><b>AGENCIA:</b> WEB</td> 
@@ -565,7 +567,8 @@
     <td colspan="2">PUESTOS:</td>
   </tr>
   <tr>
-    <td colspan="8">SUMA ASEGURADA: {{ conductor.valor }}</td>
+    <td colspan="2">SUMA ASEGURADA: {{ conductor.valor }}</td>
+    <td colspan="6" style="font-size:8px; margin-left: 10px;">Cualquier pérdida Total bajo los riesgos D, E, F y G serán pagados de acuerdo al interés que resulte tener el asegurado y acreedor hipotecario.</td>
   </tr>
   <tr style="height: 100%; ">
     <th colspan="3">RIESGOS CUBIERTOS</th>
@@ -673,7 +676,7 @@
     <td style="text-align: center;" colspan="4"><img src="{% static 'img/firma-acerta-ok.png' %}" width="150" height="53"><br>_____________________________ <br>Acerta Seguros S.A.<br>{{fecha.month}}/{{fecha.year}}/{{solicitud.num}}/WEB</td>
   </tr>
  </table>
- <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
+ <table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
     <td style="text-align: right; border: none;" colspan="7"><br>INTERMEDIARIO </td>
     </tr>

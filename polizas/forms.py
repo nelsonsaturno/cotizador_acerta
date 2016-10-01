@@ -140,6 +140,8 @@ class SolicitudClienteForm(forms.ModelForm):
     tipo_id_responsable = forms.ChoiceField(choices=[(0, 'Cédula'), (1, 'Pasaporte')],
                                 widget=forms.Select(), label="", required=False)
     acreedor_leasing = forms.ChoiceField(choices=get_acreedores_choices())
+
+    tipo_acreedor_leasing = forms.ChoiceField(choices=[(1,'Acreedor'),(2,'Leasing')], required=False)
     observaciones = forms.CharField(label='Observaciones', widget=forms.Textarea(), required=False)
     tipo_tdc = forms.ChoiceField(choices=[(0, 'Visa'), (1, 'Master Card')],
                                 widget=forms.RadioSelect(), label="", required=False)
