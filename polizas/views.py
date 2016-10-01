@@ -228,6 +228,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             )
 
             solicitud.acreedor_leasing = Acreedores.objects.filter(nombre_acreedor=request.POST['acreedor_leasing'])[0]
+            solicitud.tipo_acreedor_leasing = request.POST.get('tipo_acreedor_leasing')
             solicitud.save()
             cotizacion.status = "Aprobada"
             cotizacion.save()
@@ -693,7 +694,7 @@ def SendEmailSolicitud(request, pk):
     msg.attach("solicitud.pdf",
                pdf,
                'application/pdf')
-    msg.send()
+    #msg.send()
     return HttpResponseRedirect(
         reverse_lazy('polizas_list'))
 
