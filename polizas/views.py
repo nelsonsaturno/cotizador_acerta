@@ -571,7 +571,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         else:
             conducto = 'OTRO'
 
-        print corredor
+        endoso = solicitud.cotizacion.endoso.endoso.upper()
+
         context = Context({'pagesize': 'letter',
                            'solicitud': solicitud,
                            'extra_cliente': extra_cliente,
@@ -585,7 +586,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'etiqueta_corredor': etiqueta_corredor,
                            'extra_cliente': extra_cliente,
                            'conducto': conducto,
-                           'mes': mes})
+                           'mes': mes,
+                           'endoso': endoso})
 
         template = get_template('polizas/emision_todas_pdf.html')
         html = template.render(context)
