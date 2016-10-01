@@ -528,6 +528,13 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         muerte_accidental = cotizacion.muerte_accidental.split('/')
         fecha = datetime.now()
 
+        if solicitud.cotizacion.tipo_pago == 'Contado':
+            conducto = 'CONTADO'
+        elif solicitud.cotizacion.tipo_pago == 'Visa':
+            conducto = 'TARJETAS DE CREDITO'
+        else:
+            conducto = 'OTRO'
+
         print corredor
         context = Context({'pagesize': 'letter',
                            'solicitud': solicitud,
@@ -540,7 +547,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'fecha':fecha,
                            'corredor': corredor,
                            'etiqueta_corredor': etiqueta_corredor,
-                           'extra_cliente': extra_cliente})
+                           'extra_cliente': extra_cliente,
+                           'conducto': conducto})
 
         template = get_template('polizas/emision_todas_pdf.html')
         html = template.render(context)

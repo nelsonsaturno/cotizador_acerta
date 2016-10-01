@@ -43,9 +43,7 @@
       margin-left: 15px;
       width: 31.6%;
     }
-
-
-    </style>
+   </style>
 
   <style type="text/css">
     @media screen {
@@ -121,11 +119,15 @@
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>EMAIL:</b> {{ conductor.correo }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b> {{ solicitud.cotizacion.cuota }}</td>
+    {% if solicitud.cotizacion.cuota == NULL %}
+      <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS:</b> UN (1) PAGO</td>
+    {% else %}
+      <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS:</b> {{ solicitud.cotizacion.cuota }} PAGOS MENSUALES</td>
+    {% endif %}
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:</b> {{ conductor.telefono1 }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGOS</b></td>
+    <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
   <tr>
     <td colspan="3"><b>CORREDOR:</b> {{ corredor.user.first_name }} {{ corredor.user.last_name }} </td>
@@ -328,11 +330,14 @@
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>EMAIL:</b> {{ conductor.correo }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b> {{ solicitud.cotizacion.cuota }}</td>
-  </tr>
+    {% if solicitud.cotizacion.cuota == NULL %}
+      <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS:</b> UN (1) PAGO</td>
+    {% else %}
+      <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS:</b> {{ solicitud.cotizacion.cuota }} PAGOS MENSUALES</td>
+    {% endif %}
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:</b> {{ conductor.telefono1 }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGOS</b></td>
+    <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
   <tr>
     <td colspan="3"><b>CORREDOR:</b> {{ corredor.user.first_name }} {{ corredor.user.last_name }} </td>
@@ -530,11 +535,14 @@
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>EMAIL:</b> {{ conductor.correo }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b> {{ solicitud.cotizacion.cuota }}</td>
-  </tr>
+    {% if solicitud.cotizacion.cuota == NULL %}
+      <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS:</b> UN (1) PAGO</td>
+    {% else %}
+      <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS:</b> {{ solicitud.cotizacion.cuota }} PAGOS MENSUALES</td>
+    {% endif %}
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:</b> {{ conductor.telefono1 }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGOS</b></td>
+    <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
   <tr>
     <td colspan="3"><b>CORREDOR:</b> {{ corredor.user.first_name }} {{ corredor.user.last_name }} </td>
