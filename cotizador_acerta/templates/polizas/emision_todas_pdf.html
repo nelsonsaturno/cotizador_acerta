@@ -79,7 +79,7 @@
       polifact<br>
       {{ etiqueta_corredor }}<br>
       Fecha de impresión<br>
-      <font size="2">{{ fecha }}</font><br>
+      <font size="2">{{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }} {{fecha.time}}</font><br>
       <b>EMISIÓN</b>
     </td>
     </tr>
@@ -89,7 +89,7 @@
   <tr>
     <td  colspan="2"><b>PÓLIZA:</b> {{solicitud.num}}</td>
     <td colspan="2"><b>AGENCIA:</b> WEB</td> 
-    <td colspan="3"><b>FECHA:</b> {{ fecha }}</td>
+    <td colspan="3"><b>FECHA:</b> {{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }} </td>
   </tr>
   <tr>
     {% if extra_cliente.es_juridico %}
@@ -286,7 +286,7 @@
       polifact<br>
       {{ etiqueta_corredor }}<br>
       Fecha de impresión<br>
-      <font size="2">{{ fecha }}</font><br>
+      <font size="2">{{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }} {{fecha.time}}</font><br>
       <b>EMISIÓN</b>
     </td>
     </tr>
@@ -296,7 +296,7 @@
   <tr>
     <td colspan="2"><b>PÓLIZA:</b></td>
     <td colspan="2"><b>AGENCIA:</b>WEB</td> 
-    <td colspan="3"><b>FECHA:</b> {{ fecha }}</td>
+    <td colspan="3"><b>FECHA:</b> {{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }} </td>
   </tr>
   <tr>
     {% if extra_cliente.es_juridico %}
@@ -488,7 +488,7 @@
       polifact<br>
       {{ etiqueta_corredor }}<br>
       Fecha de impresión<br>
-      <font size="2">{{ fecha }}</font><br>
+      <font size="2">{{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }} {{fecha.time}}</font><br>
       <b>EMISIÓN</b>
     </td>
     </tr>
@@ -498,7 +498,7 @@
   <tr>
     <td colspan="2"><b>PÓLIZA:</b></td>
     <td colspan="2"><b>AGENCIA:</b>WEB</td> 
-    <td colspan="3"><b>FECHA:</b> {{ fecha }}</td>
+    <td colspan="3"><b>FECHA:</b> {{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }} </td>
   </tr>
   <tr>
     {% if extra_cliente.es_juridico %}
