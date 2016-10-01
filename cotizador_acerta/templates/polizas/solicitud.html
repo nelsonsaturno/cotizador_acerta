@@ -315,7 +315,7 @@
                                 <fieldset title="3">
                                     <legend class="text-semibold">Datos Políticos y Financieros</legend>
 
-                                    <div class="row">
+                                    <div class="row datos-politicos-financieros">
                                         <div class="col-md-12">
                                             <div class="col-md-12">
                                                 <label>Es o ha sido objeto de investigacion, indagacion o condena por actividades ilicitas, o delitos de lavado o blanqueo de dinero o financiamiento de terrorismo</label>
@@ -444,6 +444,17 @@
                                     <legend class="text-semibold">Datos Adicionales</legend>
 
                                     <div class="row">
+                                        <div class="col-md-12">
+                                            Contratante:
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="datosnombre-contratante"  readonly>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control" id="datosid-contratante" readonly>
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             Asegurado:
                                         </div>
@@ -850,7 +861,7 @@
     //     }
     // });
 
-    $('#id_juridico_fecha_constitucion').mask('00-00-0000', {placeholder: "F. Nacimiento (dd-mm-aaaa)"});
+    $('#id_juridico_fecha_constitucion').mask('00-00-0000', {placeholder: "F. Constitución (dd-mm-aaaa)"});
     $('#id_juridico_fecha_constitucion').datepicker({
             format:'dd-mm-yyyy',
             language: 'es',
@@ -880,6 +891,21 @@
             $("#id_juridico_razon_social").attr('required',false);
             $("#id_juridico_pais_procedencia").attr('required',false);
             $("#id_juridico_fecha_constitucion").attr('required',false);
+        }
+    });
+
+    $('.datos-politicos-financieros').mouseover(function(){
+        if( $("#id_es_juridico").is(':checked') ){
+            var nombre = $("#id_juridico_razon_social").val();
+            $('#datosnombre-contratante').val(nombre);
+            var id = $("#id_juridico_RUC").val();
+            $('#datosid-contratante').val(id);
+        }
+        else{
+            var nombre = $('#nombre-conductor').val();
+            $('#datosnombre-contratante').val(nombre);
+            var id = $('#id-conductor').val();
+            $('#datosid-contratante').val(id);
         }
     });
 
@@ -1146,14 +1172,31 @@
         // $( '#id_forma_facturacion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Forma de facturacion</option>');
         // $( '#id_area_funcionario' ).prepend('<option class="placeholder" value="" selected=selected disabled>Area</option>');
     });
+
+    //**********************************************
+    // CODIGO PARA PASO COBRANZA: RESPONSABLE DE PAGO
+    //***********************************************
+
     var element = document.querySelector("#id_responsable_0");
     element.onclick = function () {
         var element = document.querySelector("#id_tipo_id_responsable");
-        element.classList.remove("hidden");
-        var val1 = $("#nombre-conductor").val();
-        var val2 = $("#id-conductor").val();
-        $("#id_nombre_responsable").val(val1);
-        $("#id_id_responsable").val(val2);
+
+        if( $("#id_es_juridico").is(':checked') ){
+            element.classList.add("hidden");
+            var nombre = $("#id_juridico_razon_social").val();
+            $("#id_nombre_responsable").val(nombre);
+            var id = $("#id_juridico_RUC").val();
+            $("#id_id_responsable").val(id);
+        }
+        else{
+            element.classList.remove("hidden");
+            var val1 = $("#nombre-conductor").val();
+            var val2 = $("#id-conductor").val();
+            $("#id_nombre_responsable").val(val1);
+            $("#id_id_responsable").val(val2);
+        }
+
+
     }
     var element = document.querySelector("#id_responsable_1");
     element.onclick = function () {
@@ -1173,6 +1216,11 @@
         $("#id_id_responsable").val('');
         $("#id_id_responsable").prop("disabled", false);
     }
+
+    //***************************************************
+    // FIN CODIGO PARA PASO COBRANZA: RESPONSABLE DE PAGO
+    //***************************************************
+
     $(document).on("change", "#id_valido_desde", function(){
         var fecha = $(this).val();
         var valido = new Date(fecha);
