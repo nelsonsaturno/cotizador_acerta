@@ -74,7 +74,7 @@ class SolicitudPoliza(models.Model):
                                              'Otro')])
     otra_area = models.CharField(max_length=20, blank=True)
     tipo_tdc = models.CharField(max_length=30, blank=False, null=True,
-                                   default='Visa',
+                                   default='',
                                    choices=[('Visa',
                                              'Visa'),
                                             ('Mastercard',
@@ -107,7 +107,7 @@ class ExtraDatosCliente(models.Model):
                                              blank=True, default='')
     juridico_pais_procedencia = models.CharField(max_length=30,
                                                  blank=True, default='')
-    juridico_fecha_constitucion = models.DateField(default=date.today())
+    juridico_fecha_constitucion = models.DateField(null=True)
     placa = models.CharField(max_length=40, blank=False, null=True)
     motor = models.CharField(max_length=40, blank=False)
     chasis = models.CharField(max_length=40, blank=False)
