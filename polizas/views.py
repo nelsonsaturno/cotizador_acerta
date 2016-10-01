@@ -468,6 +468,8 @@ class GeneracionPDFPolizas(LoginRequiredMixin, generic.CreateView):
         today = date.today()
         mylist.append(today)
         context = Context({'pagesize': 'letter'})
+        convert_date =  datetime.strptime(datos_extra.juridico_fecha_constitucion,'%Y-%m-%d')
+        context['convert_fecha_const'] = convert_date.strftime('%d %b, %Y')
         context['solicitud'] = solicitud
         context['cotizacion'] = solicitud.cotizacion
         context['conductor1'] = solicitud.cotizacion.conductor
@@ -552,7 +554,7 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         elif fecha.month == 6:
             mes = 'junio'
         elif fecha.month == 7:
-            mes = 'julio'   
+            mes = 'julio'
         elif fecha.month == 8:
             mes = 'agosto'
         elif fecha.month == 9:

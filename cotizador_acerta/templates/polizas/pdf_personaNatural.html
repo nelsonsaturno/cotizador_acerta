@@ -55,7 +55,7 @@
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D.V. </span><span></span>
 						</p>
 						<p style="padding-bottom: -6px;">
-							<span>Fecha de nacimiento: </span>{{conductor1.fecha_nacimiento}}<span></span><span></span>
+							<span>Fecha de nacimiento: </span>{{conductor1.fecha_nacimiento|date:"d M Y"}}<span></span><span></span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;País de Nacimiento: </span><span>{{conductor2.pais_nacimiento}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Género: </span><span>{{conductor1.sexo}}</span>
 						</p>
@@ -441,8 +441,8 @@
 						</p>
 						<p style="padding-bottom: -6px;">
 							<span>Vigencia: </span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde: </span><span>{{solicitud.vigencia_desde}}</span><span></span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hasta: </span><span>{{solicitud.vigencia_hasta}}</span><span></span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde: </span><span>{{solicitud.vigencia_desde|date:"d M Y"}}</span><span></span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hasta: </span><span>{{solicitud.vigencia_hasta|date:"d M Y"}}</span><span></span>
 						</p>
 						<p style="padding-bottom: -6px;">
 							<span>Acreedor Hipotecario: </span><span>{{solicitud.acreedor}}</span>
@@ -641,7 +641,7 @@
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">* <span></span><span>Pagos mensuales</span></td>
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;">{{cotizacion.cuota}}</td>
 													{% endif %}
-													<td style="padding-left: -25px;"><span>{{solicitud.dia_pago}}</span></td>
+													<td style="padding-left: -25px;"><span>{{solicitud.dia_pago|date:"d M Y"}}</span></td>
 												</tr>
 											</table>
 										</p>
@@ -697,7 +697,7 @@
 								<tr>
 									<td colspan="2" style="padding-right: -10px;">Firma del corredor o colaborador autorizado: </td>
 									<td></td>
-									<td><span>Fecha: </span><span>{{time}}</span></td>
+									<td><span>Fecha: </span><span>{{time|date:"d M Y"}}</span></td>
 								</tr>
 							</table>
 						</p>
@@ -925,7 +925,7 @@
 									<td colspan="2"><span>País de procedencia:</span>&nbsp;<span>{{conductor2.juridico_pais_procedencia}}</span> </td>
 								</tr>
 								<tr style="border: 2px solid #999; padding-top: 2px; padding-bottom: -1px;">
-									<td colspan="2"><span>Fecha de constitución:</span>&nbsp;<span>{{conductor2.juridico_f_constitucion}}</span> </td>
+									<td colspan="2"><span>Fecha de constitución:</span>&nbsp;<span>{{convert_fecha_const}}</span> </td>
 								</tr>
 							</table>
 						</p>
