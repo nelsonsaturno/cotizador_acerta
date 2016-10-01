@@ -539,6 +539,31 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         muerte_accidental = cotizacion.muerte_accidental.split('/')
         fecha = datetime.now()
 
+        if fecha.month == 1:
+            mes = 'enero'
+        elif fecha.month == 2:
+            mes = 'febrero'
+        elif fecha.month == 3:
+            mes = 'marzo'
+        elif fecha.month == 4:
+            mes = 'abril'
+        elif fecha.month == 5:
+            mes = 'mayo'
+        elif fecha.month == 6:
+            mes = 'junio'
+        elif fecha.month == 7:
+            mes = 'julio'   
+        elif fecha.month == 8:
+            mes = 'agosto'
+        elif fecha.month == 9:
+            mes = 'septiembre'
+        elif fecha.month == 10:
+            mes = 'octubre'
+        elif fecha.month == 11:
+            mes = 'noviembre'
+        elif fecha.month == 12:
+            mes = 'diciembre'
+
         if solicitud.cotizacion.tipo_pago == 'Contado':
             conducto = 'CONTADO'
         elif solicitud.cotizacion.tipo_pago == 'Visa':
@@ -546,7 +571,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         else:
             conducto = 'OTRO'
 
-        print corredor
+        endoso = solicitud.cotizacion.endoso.endoso.upper()
+
         context = Context({'pagesize': 'letter',
                            'solicitud': solicitud,
                            'extra_cliente': extra_cliente,
@@ -559,7 +585,9 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'corredor': corredor,
                            'etiqueta_corredor': etiqueta_corredor,
                            'extra_cliente': extra_cliente,
-                           'conducto': conducto})
+                           'conducto': conducto,
+                           'mes': mes,
+                           'endoso': endoso})
 
         template = get_template('polizas/emision_todas_pdf.html')
         html = template.render(context)
