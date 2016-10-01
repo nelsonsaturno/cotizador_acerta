@@ -632,9 +632,15 @@
 												</tr>
 												<tr>
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">* Un pago anual</td>
-													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
+													{% if cotizacion.tipo_pago == 'Contado' %}
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%; text-decoration: underline">_X_</td>
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">* <span></span><span>Pagos mensuales</span></td>
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
+													{% else %}
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">* <span></span><span>Pagos mensuales</span></td>
+													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;">{{cotizacion.cuota}}</td>
+													{% endif %}
 													<td style="padding-left: -25px;"><span>{{solicitud.dia_pago}}</span></td>
 												</tr>
 											</table>
@@ -673,17 +679,25 @@
 							<table>
 								<tr style="padding-bottom: -6px;">
 									<td style="text-decoration: underline; font-weight: bold; padding-right: -40px;">Datos del corredor: </td>
-									<td colspan="2">Nombre o Razón Social: <span>{{cotizacion.corredor.first_name}} {{cotizacion.corredor.last_name}}</span></td>
-									<td>Licencia: </td>
+									<td colspan="2">Nombre o Razón Social:
+									{% if corredor.razon_social == '' %}
+									<span>{{corredor.user.first_name}} {{corredor.user.last_name}}</span>
+									{% elif corredor.razon_social == '-' %}
+									<span>{{corredor.user.first_name}} {{corredor.user.last_name}}</span>
+									{% else %}
+									<span>{{corredor.razon_social}}</span>
+									{% endif %}
+									</td>
+									<td>Licencia: {{corredor.licencia}}</td>
 								</tr>
 								<tr style="padding-bottom: -6px;">
 									<td>Nombre de quien firma: </td>
-									<td><span>{{solicitud.cotizacion.corredor}}</span></td>
+									<td><span>{{corredor.user.first_name}} {{corredor.user.last_name}}</span></td>
 								</tr>
 								<tr>
 									<td colspan="2" style="padding-right: -10px;">Firma del corredor o colaborador autorizado: </td>
 									<td></td>
-									<td><span>Fecha: </span><span></span><span>(dd/mm/aaaa)</span></td>
+									<td><span>Fecha: </span><span>{{time}}</span></td>
 								</tr>
 							</table>
 						</p>

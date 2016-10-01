@@ -422,11 +422,15 @@ class GeneracionPDFPolizas(LoginRequiredMixin, generic.CreateView):
         solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
         datos_extra = ExtraDatosCliente.objects.get(
             conductor=solicitud.cotizacion.conductor)
+        corredor = DatosCorredor.objects.get(
+            user=solicitud.cotizacion.corredor)
         context = Context({'pagesize': 'letter'})
         context['solicitud'] = solicitud
         context['cotizacion'] = solicitud.cotizacion
         context['conductor1'] = solicitud.cotizacion.conductor
         context['conductor2'] = datos_extra
+        context['corredor'] = corredor
+        context['time'] = datetime.now()
         template = get_template('polizas/pdf_personaNatural.html')
         html = template.render(context)
 
@@ -458,11 +462,18 @@ class GeneracionPDFPolizas(LoginRequiredMixin, generic.CreateView):
         datos_extras = ExtraDatosCliente.objects.filter(
             conductor=solicitud.cotizacion.conductor)
         datos_extra = datos_extras.last()
+        corredor = DatosCorredor.objects.get(
+            user=solicitud.cotizacion.corredor)
+        mylist = []
+        today = date.today()
+        mylist.append(today)
         context = Context({'pagesize': 'letter'})
         context['solicitud'] = solicitud
         context['cotizacion'] = solicitud.cotizacion
         context['conductor1'] = solicitud.cotizacion.conductor
         context['conductor2'] = datos_extra
+        context['corredor'] = corredor
+        context['time'] = mylist[0]
         template = get_template('polizas/pdf_personaNatural.html')
         html = template.render(context)
 
