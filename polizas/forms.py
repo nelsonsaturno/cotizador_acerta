@@ -192,6 +192,13 @@ class SolicitudClienteForm(forms.ModelForm):
         label='Fecha de constitución',
         input_formats=settings.DATE_INPUT_FORMATS, required=False)
 
+    tipo_tdc = forms.ChoiceField(label="Tipo tarjeta de crédito",
+                                 required=False,
+                                 choices=[('Visa', 'Visa'),
+                                    ('Mastercard', 'Mastercad')])
+    banco_tdc = forms.CharField(label='Banco', required=False)
+    expiracion_tdc = forms.CharField(label='Fecha expiración', required=False)
+
     class Meta:
         model = ExtraDatosCliente
         exclude = ['conductor', 'ref_personal', 'ref_bancaria', 'ref_comercial', ]

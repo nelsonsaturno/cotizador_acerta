@@ -612,7 +612,7 @@
                                 </fieldset>
                                 <fieldset title="6">
                                     <legend class="text-semibold">Cobranza</legend>
-                                    <div class="row">
+                                    <div class="row cobranza">
                                         <div class="col-md-12">
                                             Responsable de pago:
                                         </div>
@@ -635,28 +635,12 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-12">
-                                                <input type="text" class="form-control form-disabled" value="{{ cotizacion.tipo_pago }}" disabled>
+                                                <input type="text" id="forma_pago" class="form-control form-disabled" value="{{ cotizacion.tipo_pago }}" disabled>
                                             </div>
                                         </div>
                                         {% if cotizacion.tipo_pago == 'Visa' %}
                                             <div class="col-md-12">
                                                 Tarjeta de Credito:
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-4">
-                                                    {% bootstrap_field form.tipo_tdc layout='horizontal' show_label=False field_class='form-field' %}
-                                                </div>
-                                                <div class="col-md-8">
-                                                    {% bootstrap_field form.num_tdc layout='horizontal' show_label=False field_class='form-field' %}
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-6">
-                                                    {% bootstrap_field form.banco_tdc layout='horizontal' show_label=False field_class='form-field' %}
-                                                </div>
-                                                <div class="col-md-6">
-                                                    {% bootstrap_field form.expiracion_tdc layout='horizontal' show_label=False field_class='form-field' %}
-                                                </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="col-md-8">
@@ -696,6 +680,24 @@
                                                 </div>
                                             </div>
                                         {% endif %}
+                                            <div class="col-md-12">
+                                                Datos tarjeta de crédito:
+                                            </div>
+                                            <br>
+                                            <div class="col-md-12">
+                                                <div class="col-md-12">
+                                                    {% bootstrap_field form.tipo_tdc layout='horizontal' show_label=True field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-12">
+                                                    {% bootstrap_field form.num_tdc layout='horizontal' show_label=True field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-12">
+                                                    {% bootstrap_field form.banco_tdc layout='horizontal' show_label=True field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-12">
+                                                    {% bootstrap_field form.expiracion_tdc layout='horizontal' show_label=True field_class='form-field' %}
+                                                </div>
+                                            </div>
                                         <div class="col-md-12" style="padding-top:20px;">
                                             <p><span><h3 class="text-center"><font color="gray"><strong>&nbsp;¡Ya estás listo para solicitar la póliza!</strong></font></h3></span></p>
                                         </div>
@@ -906,6 +908,21 @@
             $('#datosnombre-contratante').val(nombre);
             var id = $('#id-conductor').val();
             $('#datosid-contratante').val(id);
+        }
+    });
+
+    $('.cobranza').mouseover(function(){
+        if( $("#forma_pago").val() == 'Visa' ){
+            $('#id_tipo_tdc').attr('required',true);
+            $('#id_num_tdc').attr('required',true);
+            $('#id_banco_tdc').attr('required',true);
+            $('#id_expiracion_tdc').attr('required',true);
+        }
+        else{
+            $('#id_tipo_tdc').attr('required',false);
+            $('#id_num_tdc').attr('required',false);
+            $('#id_banco_tdc').attr('required',false);
+            $('#id_expiracion_tdc').attr('required',false);
         }
     });
 
