@@ -184,14 +184,6 @@
     <td style="text-align: center;">{{ solicitud.cotizacion.prima_gastosMedicos }}</td>
   </tr>
   <tr style="height: 40; ">
-    <td colspan="2">MUERTE ACCIDENTAL</td>
-    <td style="text-align: center;">{{ muerte_accidental.0 }}</td>
-    <td style="text-align: center;">{{ muerte_accidental.1 }}</td>
-    <td colspan="1" style="text-align: center;"> </td>
-    <td colspan="1" style="text-align: center;"> </td>
-    <td colspan="1" style="text-align: center;"> </td>
-  </tr>
-  <tr style="height: 40; ">
     <td colspan="2">OTROS RIESGOS</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
@@ -213,7 +205,7 @@
     <td colspan="1" style="text-align: center;"> </td>
     <td style="text-align: center;">{{ solicitud.cotizacion.incendio_rayo }}</td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;">.00</td>
   </tr>
   <tr style="height: 40; ">
     <td colspan="2">ROBO O HURTO</td>
@@ -221,20 +213,28 @@
     <td colspan="1" style="text-align: center;"> </td>
     <td style="text-align: center;">{{ solicitud.cotizacion.robo_hurto }}</td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;">.00</td>
   </tr>
   <tr style="height: 40; ">
-    <td colspan="4">ASISTENCIA LEGAL</td>
-    <td style="text-align: center;">{{ solicitud.cotizacion.asistencia_legal }}</td>
+    <td colspan="2">MUERTE ACCIDENTAL</td>
+    <td style="text-align: center;">{{ muerte_accidental.0 }}</td>
+    <td style="text-align: center;">{{ muerte_accidental.1 }}</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="1" style="text-align: center;">.00</td>
   </tr>
+  {% if solicitud.cotizacion.asistencia_legal %}
   <tr style="height: 40; ">
-    <td colspan="4">ACERTA PREFERENCIAL PLUS</td>
-    <td style="text-align: center;">{{ solicitud.cotizacion.referencial_plus }}</td>
-    <td colspan="1" style="text-align: center;"> </td>
-    <td colspan="1" style="text-align: center;"> </td>
+    <td colspan="6">ASISTENCIA LEGAL</td>
+    <td colspan="1" style="text-align: center;">.00</td>
   </tr>
+  {% endif %}
+  {% if solicitud.cotizacion.preferencial_plus %}
+  <tr style="height: 40; ">
+    <td colspan="6">ACERTA PREFERENCIAL PLUS </td>
+    <td style="text-align: center;">{{solicitud.cotizacion.prima_preferencialPlus}}</td>
+  </tr>
+  {% endif %}
   <tr>
     <td colspan="3">EMISIÓN PÓLIZA NUEVA<br><br><br><br></td>
     <td colspan="2" style="margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %:<br><b>TOTAL A PAGAR:</b></td>
