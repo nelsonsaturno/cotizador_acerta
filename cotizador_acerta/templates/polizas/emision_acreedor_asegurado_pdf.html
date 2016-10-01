@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load static %}
+{% load bootstrap3 %}
 {% block content %}
 
 <head style="height: 100%;">
@@ -58,7 +60,8 @@
 
   <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
-    <td colspan="5" align="center" style="border: none; margin-left: 120px;">
+    <td style="border: none;" colspan="1" ><img src="{% static 'img/AcertaSeguros.png' %}" width="150" height="53"></td>
+    <td style="border: none;" colspan="3" align="center">
       <h1><b>AUTOMOVIL</b><br>
       <b>CONDICIONES PARTICULARES</b> <br>
       <b>COBERTURA COMPLETA PARTICULAR</b></h1>
@@ -67,7 +70,7 @@
       polifact<br>
       {{ etiqueta_corredor }}<br>
       Fecha de impresión<br>
-      <font size="2">{{ fecha }}</font><br>
+      <font size="2">{{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }} {{fecha.time}}</font><br>
       <b>EMISIÓN</b>
     </td>
     </tr>
@@ -75,41 +78,48 @@
 <br>
 <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
   <tr>
-    <td><b>PÓLIZA:</b> {{solicitud.num}}</td>
-    <td><b>FACTURA:</b></td>
-    <td colspan="2"><b>AGENCIA:</b></td> 
-    <td colspan="3"><b>FECHA:</b> {{ fecha }}</td>
+    <td  colspan="2"><b>PÓLIZA:</b> {{solicitud.num}}</td>
+    <td colspan="2"><b>AGENCIA:</b>WEB</td> 
+    <td colspan="3"><b>FECHA:</b> {{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }} </td>
   </tr>
   <tr>
-    <td colspan="4"><b>CONTRATANTE:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    {% if extra_cliente.es_juridico %}
+    <td colspan="4"><b>CONTRATANTE:</b> {{ extra_cliente.juridico_razon_social }}</td>
+    <td colspan="3"><b>CÉDULA/RUC:</b> {{ extra_cliente.juridico_RUC }}</td>
+    {% else %}
+    <td colspan="4" style="border-top: 1px white;"><b>CONTRATANTE:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
+    {% endif %}
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
   </tr>
   <tr>
-    <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor }}</td>
+    <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor_leasing.nombre_acreedor }}</td>
   </tr>
   <tr>
     <td colspan="4"><b>INFORMACIÓN DE CONTACTO DEL CONTRATANTE:</b></td>
-    <td colspan="3" rowspan="1"><font size="2"><div align="right">AL MEDIODÍA HORA OFICIAL (dd/mm/aaaa)</div></font> <b>VIGENCIA DESDE(*)</b>  {{ solicitud.vigencia_desde }} <b> HASTA(*)</b> {{ solicitud.vigencia_hasta }}</td>
+    <td colspan="3" rowspan="1"><font size="2"><div align="right">AL MEDIODÍA HORA OFICIAL (dd/mm/aaaa)</div></font> <b>VIGENCIA DESDE(*)</b>  {{ solicitud.vigencia_desde.day }}/{{ solicitud.vigencia_desde.month }}/{{ solicitud.vigencia_desde.year }} <b> &nbsp;&nbsp;HASTA(*)</b> {{ solicitud.vigencia_hasta.day }}/{{ solicitud.vigencia_hasta.month }}/{{ solicitud.vigencia_hasta.year }}</td>
   </tr> 
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>DIRECCIÓN DE COBRO:</b> {{ extra_cliente.provincia }} {{ extra_cliente.distrito }} {{ extra_cliente.corregimiento }} {{ extra_cliente.urbanizacion }} {{ extra_cliente.edificio }} {{ extra_cliente.piso }} {{ extra_cliente.apto }} {{ extra_cliente.calle_ave }} {{ extra_cliente.no_casa }} </td>
-    <td colspan="3" style="border-top: 1px white;"><b>MONEDA</b></td>
+    <td colspan="3" style="border-top: 1px white;"><b>MONEDA: BALBOA</b></td>
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>DIRECCIÓN PRINCIPAL:</b> {{ extra_cliente.provincia }} {{ extra_cliente.distrito }} {{ extra_cliente.corregimiento }} {{ extra_cliente.urbanizacion }} {{ extra_cliente.edificio }} {{ extra_cliente.piso }} {{ extra_cliente.apto }} {{ extra_cliente.calle_ave }} {{ extra_cliente.no_casa }} </td>
-    <td colspan="3"><b>FRECUENCIA DE FACTURACIÓN</b></td>
+    <td colspan="3"><b>FRECUENCIA DE FACTURACIÓN:</b> ANUAL</td>
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>EMAIL:</b> {{ conductor.correo }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b> {{ solicitud.cotizacion.cuota }}</td>
-  </tr>
+    {% if solicitud.cotizacion.cuota == NULL %}
+      <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS:</b> UN (1) PAGO</td>
+    {% else %}
+      <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS:</b> {{ solicitud.cotizacion.cuota }} PAGOS MENSUALES</td>
+    {% endif %}
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:</b> {{ conductor.telefono1 }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGOS</b></td>
+    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono2 }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
   <tr>
     <td colspan="3"><b>CORREDOR:</b> {{ corredor.user.first_name }} {{ corredor.user.last_name }} </td>
@@ -119,7 +129,7 @@
     <th colspan="7" rowspan="1">DESCRIPCIÓN DEL AUTOMÓVIL</th>
   </tr>
   <tr>
-    <td colspan="7">Unidad No.</td>
+    <td colspan="7">Unidad No: 1</td>
   </tr>
   <tr>
     <td colspan="2">MARCA: {{ conductor.marca }}</td>
@@ -144,7 +154,7 @@
     <td colspan="2">PUESTOS:</td>
   </tr>
   <tr>
-    <td colspan="7">SUMA ASEGURADA: {{ solicitud.cotizacion.total }}</td>
+    <td colspan="7">SUMA ASEGURADA: {{ conductor.valor }}</td>
   </tr>
   <tr style="height: 100%; ">
     <th colspan="2">RIESGOS CUBIERTOS</th>
@@ -256,11 +266,11 @@
     <td style="text-align: right; border: none;" colspan="7"><br>ACREEDOR </td>
     </tr>
   </table>
-  <br>
 
   <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
-    <td colspan="5" align="center" style="border: none; margin-left: 120px;">
+    <td style="border: none;" colspan="1" ><img src="{% static 'img/AcertaSeguros.png' %}" width="150" height="53"></td>
+    <td style="border: none;" colspan="3" align="center">
       <h1><b>AUTOMOVIL</b><br>
       <b>CONDICIONES PARTICULARES</b> <br>
       <b>COBERTURA COMPLETA PARTICULAR</b></h1>
@@ -269,7 +279,7 @@
       polifact<br>
       {{ etiqueta_corredor }}<br>
       Fecha de impresión<br>
-      <font size="2">{{ fecha }}</font><br>
+      <font size="2">{{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }} {{fecha.time}}</font><br>
       <b>EMISIÓN</b>
     </td>
     </tr>
@@ -277,41 +287,48 @@
 <br>
 <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
   <tr>
-    <td><b>PÓLIZA:</b></td>
-    <td><b>FACTURA:</b></td>
-    <td colspan="2"><b>AGENCIA:</b></td> 
-    <td colspan="3"><b>FECHA:</b> {{ fecha }}</td>
+    <td  colspan="2"><b>PÓLIZA:</b> {{solicitud.num}}</td>
+    <td colspan="2"><b>AGENCIA:</b>WEB</td> 
+    <td colspan="3"><b>FECHA:</b> {{ fecha.day }}/{{ fecha.month }}/{{ fecha.year }} </td>
   </tr>
   <tr>
-    <td colspan="4"><b>CONTRATANTE:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    {% if extra_cliente.es_juridico %}
+    <td colspan="4"><b>CONTRATANTE:</b> {{ extra_cliente.juridico_razon_social }}</td>
+    <td colspan="3"><b>CÉDULA/RUC:</b> {{ extra_cliente.juridico_RUC }}</td>
+    {% else %}
+    <td colspan="4" style="border-top: 1px white;"><b>CONTRATANTE:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
+    {% endif %}
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
   </tr>
   <tr>
-    <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor }}</td>
+    <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor_leasing.nombre_acreedor }}</td>
   </tr>
   <tr>
     <td colspan="4"><b>INFORMACIÓN DE CONTACTO DEL CONTRATANTE:</b></td>
-    <td colspan="3" rowspan="1"><font size="2"><div align="right">AL MEDIODÍA HORA OFICIAL (dd/mm/aaaa)</div></font> <b>VIGENCIA DESDE(*)</b>  {{ solicitud.vigencia_desde }} <b> HASTA(*)</b> {{ solicitud.vigencia_hasta }}</td>
+    <td colspan="3" rowspan="1"><font size="2"><div align="right">AL MEDIODÍA HORA OFICIAL (dd/mm/aaaa)</div></font> <b>VIGENCIA DESDE(*)</b>  {{ solicitud.vigencia_desde.day }}/{{ solicitud.vigencia_desde.month }}/{{ solicitud.vigencia_desde.year }} <b> &nbsp;&nbsp;HASTA(*)</b> {{ solicitud.vigencia_hasta.day }}/{{ solicitud.vigencia_hasta.month }}/{{ solicitud.vigencia_hasta.year }}</td>
   </tr> 
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>DIRECCIÓN DE COBRO:</b> {{ extra_cliente.provincia }} {{ extra_cliente.distrito }} {{ extra_cliente.corregimiento }} {{ extra_cliente.urbanizacion }} {{ extra_cliente.edificio }} {{ extra_cliente.piso }} {{ extra_cliente.apto }} {{ extra_cliente.calle_ave }} {{ extra_cliente.no_casa }} </td>
-    <td colspan="3" style="border-top: 1px white;"><b>MONEDA</b></td>
+    <td colspan="3" style="border-top: 1px white;"><b>MONEDA: BALBOA</b></td>
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>DIRECCIÓN PRINCIPAL:</b> {{ extra_cliente.provincia }} {{ extra_cliente.distrito }} {{ extra_cliente.corregimiento }} {{ extra_cliente.urbanizacion }} {{ extra_cliente.edificio }} {{ extra_cliente.piso }} {{ extra_cliente.apto }} {{ extra_cliente.calle_ave }} {{ extra_cliente.no_casa }} </td>
-    <td colspan="3"><b>FRECUENCIA DE FACTURACIÓN</b></td>
+    <td colspan="3"><b>FRECUENCIA DE FACTURACIÓN:</b> ANUAL</td>
   </tr>
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>EMAIL:</b> {{ conductor.correo }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS</b> {{ solicitud.cotizacion.cuota }}</td>
-  </tr>
+    {% if solicitud.cotizacion.cuota == NULL %}
+      <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS:</b> UN (1) PAGO</td>
+    {% else %}
+      <td colspan="3" style="border-top: 1px white;"><b>CANTIDAD DE PAGOS:</b> {{ solicitud.cotizacion.cuota }} PAGOS MENSUALES</td>
+    {% endif %}
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:</b> {{ conductor.telefono1 }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGOS</b></td>
+    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono2 }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
   <tr>
     <td colspan="3"><b>CORREDOR:</b> {{ corredor.user.first_name }} {{ corredor.user.last_name }} </td>
@@ -321,7 +338,7 @@
     <th colspan="7" rowspan="1">DESCRIPCIÓN DEL AUTOMÓVIL</th>
   </tr>
   <tr>
-    <td colspan="7">Unidad No.</td>
+    <td colspan="7">Unidad No: 1</td>
   </tr>
   <tr>
     <td colspan="2">MARCA: {{ conductor.marca }}</td>
@@ -342,7 +359,7 @@
     <td colspan="2">PUESTOS:</td>
   </tr>
   <tr>
-    <td colspan="7">SUMA ASEGURADA: {{ solicitud.cotizacion.total }}</td>
+    <td colspan="7">SUMA ASEGURADA: {{ conductor.valor }}</td>
   </tr>
   <tr style="height: 100%; ">
     <th colspan="2">RIESGOS CUBIERTOS</th>

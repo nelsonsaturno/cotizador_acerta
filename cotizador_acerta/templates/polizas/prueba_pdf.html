@@ -85,8 +85,8 @@
     <td colspan="3"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
   </tr>
   <tr>
     <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor }}</td>
@@ -287,8 +287,8 @@
     <td colspan="3"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
   </tr>
   <tr>
     <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor }}</td>
@@ -484,8 +484,8 @@
     <td colspan="3"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.nombre_conductor }}</td>
-    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.id_conductor }}</td>
+    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
+    <td colspan="3" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
   </tr>
   <tr>
     <td colspan="7"><b>ACREEDOR:</b> {{ solicitud.acreedor }}</td>
