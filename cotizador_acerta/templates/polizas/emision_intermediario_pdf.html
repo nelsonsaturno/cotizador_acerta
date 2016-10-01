@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load static %}
+{% load bootstrap3 %}
 {% block content %}
 
 <head style="height: 100%;">
@@ -55,9 +57,10 @@
 </head>
 <body>
 
-<table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
+  <table height="100000%" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
-    <td colspan="5" align="center" style="border: none; margin-left: 120px;">
+    <td style="border: none;" colspan="1" ><img src="{% static 'img/AcertaSeguros.png' %}" width="150" height="53"></td>
+    <td style="border: none;" colspan="3" align="center">
       <h1><b>AUTOMOVIL</b><br>
       <b>CONDICIONES PARTICULARES</b> <br>
       <b>COBERTURA COMPLETA PARTICULAR</b></h1>
