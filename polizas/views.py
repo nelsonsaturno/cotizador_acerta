@@ -173,6 +173,9 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 campo_id_2_1 = form.cleaned_data['campo_id_2_1']
                 cedula = str(provincia_1) + '-' + str(tipo_1) + '-' + str(campo_id_1_1) + '-' + str(campo_id_2_1)
                 conductor[1] = cedula
+            else:
+                conductor[1] = form.cleaned_data['id_conductor']
+
 
             tipo_id_conductor2 = form.cleaned_data['tipo_id_conductor2']
             if tipo_id_conductor2 == '0':
@@ -182,6 +185,8 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 campo_id_2_2 = form.cleaned_data['campo_id_2_2']
                 cedula = str(provincia_2) + '-' + str(tipo_2) + '-' + str(campo_id_1_2) + '-' + str(campo_id_2_2)
                 conductor2[1] = cedula
+            else:
+                conductor2[1] = form.cleaned_data['id_conductor2']
 
             tipo_id_conductor3 = form.cleaned_data['tipo_id_conductor3']
             if tipo_id_conductor3 == '0':
@@ -191,6 +196,8 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 campo_id_2_3 = form.cleaned_data['campo_id_2_3']
                 cedula = str(provincia_3) + '-' + str(tipo_3) + '-' + str(campo_id_1_3) + '-' + str(campo_id_2_3)
                 conductor3[1] = cedula
+            else:
+                conductor3[1] = form.cleaned_data['id_conductor3']
 
             solicitud = SolicitudPoliza(
                 cotizacion=cotizacion,
@@ -227,9 +234,17 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 tipo='Solicitada'
             )
 
+            if request.POST.get('aseguradoConductor') <> None:
+                conductor[0] = solicitud.cotizacion.conductor.nombre + ' ' + solicitud.cotizacion.conductor.apellido
+                conductor[1] = solicitud.cotizacion.conductor.identificacion
+                
             solicitud.acreedor_leasing = Acreedores.objects.filter(nombre_acreedor=request.POST['acreedor_leasing'])[0]
             solicitud.tipo_acreedor_leasing = request.POST.get('tipo_acreedor_leasing')
+            solicitud.id_conductor = conductor[1]
+            solicitud.id_conductor2 = conductor2[1]
+            solicitud.id_conductor3 = conductor3[1]
             solicitud.save()
+
             cotizacion.status = "Aprobada"
             cotizacion.save()
             subject = "Acerta Seguros - Aprobada la Cotizacion de Vehiculo"
