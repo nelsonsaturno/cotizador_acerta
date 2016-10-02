@@ -790,10 +790,10 @@
         $(".passp2").addClass("hidden");
         $(".passp3").addClass("hidden");
 
-        $('#id_valido_desde').mask('0000-00-00', {placeholder: "Valido desde (aaaa/mm/dd)"});
-        $('#id_valido_hasta').mask('0000-00-00', {placeholder: "Hasta (aaaa/mm/dd)"});
+        $('#id_valido_desde').mask('00-00-0000', {placeholder: "Valido desde (dd/mm/aaaa)"});
+        $('#id_valido_hasta').mask('00-00-0000', {placeholder: "Hasta (dd/mm/aaaa)"});
         $('#id_dia_pago').mask('0000-00-00', {placeholder: "Día Pago (aaaa/mm/dd)"});
-        $('#id_expiracion_tdc').mask('00-00', {placeholder: "Expiracion (mm-aa)"});
+        $('#id_expiracion_tdc').mask('00/00', {placeholder: "Expiracion (mm/aa)"});
         $('#id_num_tdc').mask('0000-0000-0000-0000', {placeholder: "Numero TDC"});
         $( document ).on('change', '#id_area_funcionario', function(e) {
             e.preventDefault();
@@ -1163,17 +1163,18 @@
             }
         });
         $('#id_valido_desde').datepicker({
-            format: 'yyyy-mm-dd',
+            format: 'dd-mm-yyyy',
             language: 'es',
             todayHighlight: true,
             autoclose: true,
         });
         $('#id_valido_hasta').datepicker({
-            format: 'yyyy-mm-dd',
+            format: 'dd-mm-yyyy',
             language: 'es',
             todayHighlight: true,
             autoclose: true,
         });
+        $('#id_valido_hasta').prop('readonly',true);
         $('#id_dia_pago').datepicker({
             format: 'yyyy-mm-dd',
             language: 'es',
@@ -1191,6 +1192,13 @@
         // $( '#id_tipo_suscripcion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Suscripcion</option>');
         // $( '#id_forma_facturacion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Forma de facturacion</option>');
         // $( '#id_area_funcionario' ).prepend('<option class="placeholder" value="" selected=selected disabled>Area</option>');
+    var fecha = $("#id_valido_desde").val();
+    var fecha_array = [];
+    fecha_array = fecha.split('-');
+    anio_hasta = parseInt(fecha_array[2])+1;
+    mes_hasta = parseInt(fecha_array[1])-1;
+    dia_hasta = parseInt(fecha_array[0]);
+    $('#id_valido_hasta').datepicker("setDate", new Date(anio_hasta,mes_hasta,dia_hasta));
     });
 
     //**********************************************
@@ -1241,21 +1249,106 @@
     // FIN CODIGO PARA PASO COBRANZA: RESPONSABLE DE PAGO
     //***************************************************
 
+
+    //***********************************
+    // CODIGO DEMENTE PARA VALIDAR FECHAS
+    //***********************************
+
+
     $(document).on("change", "#id_valido_desde", function(){
         var fecha = $(this).val();
-        var valido = new Date(fecha);
         var today = new Date();
-        if (valido < today) {
+        var fecha_array = [];
+        fecha_array = fecha.split('-');
+        if (fecha_array[2] < today.getFullYear()){
             $(".valor-validacion-valido").remove();
             $('#id_submit').prop('disabled', true);
             $('.button-next').attr('disabled', true);
             $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>No puede introducir una fecha menor a la de hoy.</div>");
-        } else {
+        }
+        else{
+            $('#id_submit').prop('disabled', false);
+            $('.button-next').attr('disabled', false);
+            $(".valor-validacion-valido").remove();
+        }
+
+        if (fecha_array[1] < (today.getMonth()+1)){
+            $(".valor-validacion-valido").remove();
+            $('#id_submit').prop('disabled', true);
+            $('.button-next').attr('disabled', true);
+            $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>No puede introducir una fecha menor a la de hoy.</div>");
+        }
+        else{
+            $('#id_submit').prop('disabled', false);
+            $('.button-next').attr('disabled', false);
+            $(".valor-validacion-valido").remove();
+        }
+        if (fecha_array[0] < today.getDate()){
+            if (fecha_array[1] == (today.getMonth()+1)){
+                $(".valor-validacion-valido").remove();
+                $('#id_submit').prop('disabled', true);
+                $('.button-next').attr('disabled', true);
+                $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>No puede introducir una fecha menor a la de hoy.</div>");
+            }
+            else{
+            $('#id_submit').prop('disabled', false);
+            $('.button-next').attr('disabled', false);
+            $(".valor-validacion-valido").remove();
+        }
+        }
+        else{
+            $('#id_submit').prop('disabled', false);
+            $('.button-next').attr('disabled', false);
+            $(".valor-validacion-valido").remove();
+        }
+        var fecha = $(this).val();
+        var today = new Date();
+        var fecha_array = [];
+        var fecha_array = fecha.split('-');
+        var anio_hasta = 0;
+        var anio_hasta = parseInt(fecha_array[2])+1;
+        var mes_hasta = 0;
+        var mes_hasta = parseInt(fecha_array[1])-1;
+        var dia_hasta = 0;
+        var dia_hasta = parseInt(fecha_array[0]);
+        $('#id_valido_hasta').datepicker("setDate", new Date(anio_hasta,mes_hasta,dia_hasta));
+    });
+
+
+    //***************************************
+    // FIN CODIGO DEMENTE PARA VALIDAR FECHAS
+    //***************************************
+
+    $(document).on("change", "#id_expiracion_tdc", function(){
+        var fecha = $(this).val();
+        var today = new Date();
+        var fecha_array = [];
+        fecha_array = fecha.split('/');
+        if (fecha_array[1] < today.getFullYear()){
+            $(".valor-validacion-valido").remove();
+            $('#id_submit').prop('disabled', true);
+            $('.button-next').attr('disabled', true);
+            $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>No puede introducir una tarjeta de crédito vencida.</div>");
+        }
+        else{
+            $('#id_submit').prop('disabled', false);
+            $('.button-next').attr('disabled', false);
+            $(".valor-validacion-valido").remove();
+        }
+
+        if (fecha_array[0] < (today.getMonth()+1)){
+            $(".valor-validacion-valido").remove();
+            $('#id_submit').prop('disabled', true);
+            $('.button-next').attr('disabled', true);
+            $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>No puede introducir una tarjeta de crédito vencida.</div>");
+        }
+        else{
             $('#id_submit').prop('disabled', false);
             $('.button-next').attr('disabled', false);
             $(".valor-validacion-valido").remove();
         }
     });
+
 </script>
 
 {% endblock custom_script %}

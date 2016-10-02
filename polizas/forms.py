@@ -36,8 +36,8 @@ def get_tipo_choices():
 
 class SolicitudClienteForm(forms.ModelForm):
     aseguradoConductor = forms.BooleanField(label='Asegurado es Conductor', required=False)
-    valido_desde = forms.DateField(label='Vigencia Desde', required=True, initial=default_desde)
-    valido_hasta = forms.DateField(label='Vigencia Hasta', required=True, initial=default_hasta)
+    valido_desde = forms.DateField(label='Vigencia Desde', required=True, initial=date.today(), input_formats=settings.DATE_INPUT_FORMATS)
+    valido_hasta = forms.DateField(label='Vigencia Hasta', required=True, input_formats=settings.DATE_INPUT_FORMATS)
 
     nombre_conductor = forms.CharField(label='Nombre', required=False)
     id_conductor = forms.CharField(label='Identificacion', required=False)
@@ -199,7 +199,6 @@ class SolicitudClienteForm(forms.ModelForm):
                                  choices=[('Visa', 'Visa'),
                                     ('Mastercard', 'Mastercad')])
     banco_tdc = forms.CharField(label='Banco', required=False)
-    expiracion_tdc = forms.CharField(label='Fecha expiración', required=False)
 
     class Meta:
         model = ExtraDatosCliente
