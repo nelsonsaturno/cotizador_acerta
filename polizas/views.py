@@ -103,7 +103,6 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
         else:
             corredor = ''
 
-        print request.POST['valido_hasta']
         if form.is_valid():
 
             extra_cliente = form.save()
@@ -199,6 +198,11 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             else:
                 conductor3[1] = form.cleaned_data['id_conductor3']
 
+            date_desde = request.POST['valido_desde'].split('-')
+            new_date_desde = str(date_desde[2]) +'-'+str(date_desde[1]) +'-'+ str(date_desde[0])
+            date_hasta = request.POST['valido_hasta'].split('-')
+            new_date_hasta = str(date_hasta[2]) +'-'+str(date_hasta[1]) +'-'+ str(date_hasta[0])
+
             solicitud = SolicitudPoliza(
                 cotizacion=cotizacion,
                 nombre_conductor=conductor[0],
@@ -207,8 +211,8 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 id_conductor2=conductor2[1],
                 nombre_conductor3=conductor3[0],
                 id_conductor3=conductor3[1],
-                vigencia_desde=request.POST['valido_desde'],
-                vigencia_hasta=request.POST['valido_hasta'],
+                vigencia_desde=new_date_desde,
+                vigencia_hasta=new_date_hasta,
                 firmador=cotizacion.conductor.nombre+' '+cotizacion.conductor.apellido+ '/ WEB',
                 observaciones=request.POST.get('observaciones','N/A'),
                 responsable=request.POST['responsable'],
@@ -234,6 +238,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 tipo='Solicitada'
             )
 
+            
             if request.POST.get('aseguradoConductor') <> None:
                 conductor[0] = solicitud.cotizacion.conductor.nombre + ' ' + solicitud.cotizacion.conductor.apellido
                 conductor[1] = solicitud.cotizacion.conductor.identificacion
@@ -709,7 +714,7 @@ def SendEmailSolicitud(request, pk):
     msg.attach("solicitud.pdf",
                pdf,
                'application/pdf')
-    #msg.send()
+    msg.send()
     return HttpResponseRedirect(
         reverse_lazy('polizas_list'))
 
