@@ -75,7 +75,7 @@ class SolicitudPoliza(models.Model):
                                              'Otro')])
     otra_area = models.CharField(max_length=20, blank=True)
     tipo_tdc = models.CharField(max_length=30, blank=False, null=True,
-                                   default='Visa',
+                                   default='',
                                    choices=[('Visa',
                                              'Visa'),
                                             ('Mastercard',
