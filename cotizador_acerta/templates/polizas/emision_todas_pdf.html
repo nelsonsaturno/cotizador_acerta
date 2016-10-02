@@ -7,11 +7,9 @@
   <style type="text/css">
     table {
         font-family: arial, sans-serif;
-        border: none;
         width: 100%;
     }
-
-    table td {
+    td {
         border: 1px solid #dddddd;
         text-align: left;
         white-space: nowrap;
@@ -40,8 +38,6 @@
   </style>
 
 </head>
-
-
 
 <body>
 
@@ -90,7 +86,7 @@
     <td colspan="4" rowspan="1"><font size="2"><div align="right">AL MEDIODÍA HORA OFICIAL (dd/mm/aaaa)</div></font> <b>VIGENCIA DESDE(*)</b>  {{ solicitud.vigencia_desde.day }}/{{ solicitud.vigencia_desde.month }}/{{ solicitud.vigencia_desde.year }} <b> &nbsp;&nbsp;HASTA(*)</b> {{ solicitud.vigencia_hasta.day }}/{{ solicitud.vigencia_hasta.month }}/{{ solicitud.vigencia_hasta.year }}</td>
   </tr> 
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>DIRECCIÓN DE COBRO:</b> {{ extra_cliente.provincia }} {{ extra_cliente.distrito }} {{ extra_cliente.corregimiento }} {{ extra_cliente.urbanizacion }} {{ extra_cliente.edificio }} {{ extra_cliente.piso }} {{ extra_cliente.apto }} {{ extra_cliente.calle_ave }} {{ extra_cliente.no_casa }} </td>
+    <td colspan="4" style="border-top: 1px white;"><b>DIRECCIÓN DE COBRO:</b> {{ extra_cliente.provincia }} {{ extra_cliente.distrito }} {{ extra_cliente.corregimiento }} {{ extra_cliente.urbanizacion }} {{ extra_cliente.edificio }} {{ extra_cliente.piso }} {{ extra_cliente.apto }} {{ extra_cliente.calle_ave }} {{ extra_cliente.no_casa }}  </td>
     <td colspan="4" style="border-top: 1px white;"><b>MONEDA: BALBOA</b></td>
   </tr>
   <tr>
@@ -228,7 +224,7 @@
   </tr>
   {% endif %}
   <tr style="height: 40; ">
-    <td colspan="8"><br><br><br></td>
+    <td colspan="8"><br></td>
   </tr>
   <tr>
     <td colspan="4">EMISIÓN PÓLIZA NUEVA<br><br><br><br></td>
@@ -441,7 +437,7 @@
   </tr>
   {% endif %}
   <tr style="height: 40; ">
-    <td colspan="8"><br><br><br></td>
+    <td colspan="8"><br></td>
   </tr>
   <tr>
     <td colspan="4">EMISIÓN PÓLIZA NUEVA<br><br><br><br></td>
@@ -653,7 +649,7 @@
   </tr>
   {% endif %}
   <tr style="height: 40; ">
-    <td colspan="8"><br><br><br></td>
+    <td colspan="8"><br></td>
   </tr>
   <tr>
     <td colspan="4">EMISIÓN PÓLIZA NUEVA<br><br><br><br></td>
