@@ -535,7 +535,9 @@ class CotizacionesGeneralDetailView(LoginRequiredMixin, TemplateView):
 
 def changeStatus(request, id, status):
     cotizacion = Cotizacion.objects.get(pk=id)
-    if request.user.email == 'lhernandez@acertaseguros.com':
+    if ((request.user.email == 'lhernandez@acertaseguros.com') or
+            (request.user.groups.first().name == "super_admin") or
+            (request.user.groups.first().name == "admin")):
         if int(status) != 0:
             cotizacion.status = "Rechazada"
             cotizacion.save()
