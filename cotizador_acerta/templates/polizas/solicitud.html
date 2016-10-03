@@ -1324,7 +1324,8 @@
         var today = new Date();
         var fecha_array = [];
         fecha_array = fecha.split('/');
-        if (fecha_array[1] < today.getFullYear()){
+        if (fecha_array[1] < today.getFullYear().toString().substr(2,2)){
+            alert("Año menor");
             $(".valor-validacion-valido").remove();
             $('#id_submit').prop('disabled', true);
             $('.button-next').attr('disabled', true);
@@ -1337,15 +1338,17 @@
         }
 
         if (fecha_array[0] < (today.getMonth()+1)){
-            $(".valor-validacion-valido").remove();
-            $('#id_submit').prop('disabled', true);
-            $('.button-next').attr('disabled', true);
-            $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>No puede introducir una tarjeta de crédito vencida.</div>");
-        }
-        else{
-            $('#id_submit').prop('disabled', false);
-            $('.button-next').attr('disabled', false);
-            $(".valor-validacion-valido").remove();
+            if (fecha_array[1] <= today.getFullYear().toString().substr(2,2)){
+                $(".valor-validacion-valido").remove();
+                $('#id_submit').prop('disabled', true);
+                $('.button-next').attr('disabled', true);
+                $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>No puede introducir una tarjeta de crédito vencida.</div>");
+            }
+            else{
+                $('#id_submit').prop('disabled', false);
+                $('.button-next').attr('disabled', false);
+                $(".valor-validacion-valido").remove();
+            }
         }
     });
 
