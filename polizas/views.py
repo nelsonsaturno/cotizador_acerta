@@ -18,7 +18,7 @@ from easy_pdf.views import PDFTemplateView
 from django.views.defaults import page_not_found
 
 from django.template import RequestContext
-#import ho.pisa as pisa
+import ho.pisa as pisa
 # from django.template.loader import render_to_string
 # from django.template import RequestContext
 # import ho.pisa as pisa
@@ -238,11 +238,11 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 tipo='Solicitada'
             )
 
-            
+
             if request.POST.get('aseguradoConductor') <> None:
                 conductor[0] = solicitud.cotizacion.conductor.nombre + ' ' + solicitud.cotizacion.conductor.apellido
                 conductor[1] = solicitud.cotizacion.conductor.identificacion
-                
+
             solicitud.acreedor_leasing = Acreedores.objects.filter(nombre_acreedor=request.POST['acreedor_leasing'])[0]
             solicitud.tipo_acreedor_leasing = request.POST.get('tipo_acreedor_leasing')
             solicitud.id_conductor = conductor[1]
