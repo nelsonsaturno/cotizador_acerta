@@ -8,20 +8,10 @@ urlpatterns = patterns(
         SolicitudPolizaView.as_view(),
         name='solicitar'
     ),
-     url(
+    url(
         r'^emitirPoliza/(?P<pk>\d+)/$',
         EmitirPoliza.as_view(),
         name='emitir'
-    ),
-    url(
-        r'^prueba/$',
-        Test.as_view(),
-        name='prueba'
-    ),
-    url(
-        r'^prueba/generacion$',
-        GeneracionPDF.as_view(),
-        name='generacion'
     ),
     url(
         r'^generarPDFPolizas/(?P<pk>\d+)/$',

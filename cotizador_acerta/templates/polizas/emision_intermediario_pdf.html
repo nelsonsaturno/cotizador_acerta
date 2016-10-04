@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load static %}
+{% load humanize %}
 {% load bootstrap3 %}
 {% block content %}
 
@@ -165,7 +166,7 @@
     <td colspan="1" style="text-align: center;">{{ lesiones_corporales.1 }}</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td style="text-align: center;">{{ solicitud.cotizacion.prima_lesiones }}</td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_lesiones|floatformat:2|intcomma }}</td>
   </tr>
   <tr style="height: 40; ">
     <td colspan="3">COBERTURA B - DAÑOS A LA PROPIEDAD AJENA</td>
@@ -173,7 +174,7 @@
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.danios_propiedad }}</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td style="text-align: center;">{{ solicitud.cotizacion.prima_daniosProp }}</td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_daniosProp|floatformat:2|intcomma }}</td>
   </tr>
   <tr style="height: 40; ">
     <td colspan="3">COBERTURA C - GASTOS MÉDICOS POR ACCIDENTE</td>
@@ -181,30 +182,30 @@
     <td colspan="1" style="text-align: center;">{{ gastos_medicos.1 }}</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td style="text-align: center;">{{ solicitud.cotizacion.prima_gastosMedicos }}</td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_gastosMedicos|floatformat:2|intcomma }}</td>
   </tr>
   <tr style="height: 40; ">
     <td colspan="3">COBERTURA D - OTROS RIESGOS</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;">{{ conductor.valor }}</td>
-    <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.otros_danios }}</td>
-    <td style="text-align: center;">{{ solicitud.cotizacion.prima_otrosDanios }}</td>
+    <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.otros_danios|floatformat:0|intcomma }}</td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_otrosDanios|floatformat:2|intcomma }}</td>
   </tr>
   <tr style="height: 40; ">
     <td colspan="3">COBERTURA E - COLISIÓN O VUELCO</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;">{{ conductor.valor }}</td>
-    <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.colision_vuelco }}</td>
-    <td style="text-align: center;">{{ solicitud.cotizacion.prima_colisionVuelco }}</td>
+    <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.colision_vuelco|floatformat:0|intcomma }}</td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_colisionVuelco|floatformat:2|intcomma }}</td>
   </tr>
   <tr style="height: 40; ">
     <td colspan="3">COBERTURA F - INCENDIO Y RAYO</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
     <td style="text-align: center;">{{ conductor.valor }}</td>
-    <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.incendio_rayo }}</td>
+    <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.incendio_rayo|floatformat:0|intcomma }}</td>
     <td colspan="1" style="text-align: center;">.00</td>
   </tr>
   <tr style="height: 40; ">
@@ -212,7 +213,7 @@
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
     <td style="text-align: center;">{{ conductor.valor }}</td>
-    <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.robo_hurto }}</td>
+    <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.robo_hurto|floatformat:0|intcomma }}</td>
     <td colspan="1" style="text-align: center;">.00</td>
   </tr>
   <tr style="height: 40; ">
@@ -238,9 +239,9 @@
   </tr>
   <tr>
     <td colspan="4">EMISIÓN PÓLIZA NUEVA<br><br><br><br></td>
-    <td colspan="2" style="margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %:<br><b>TOTAL A PAGAR:</b></td>
-    <td colspan="1" style="text-align: right;">B/.<br>B/.<br>B/.<br>B/.<br>6.00&nbsp; B/.<br>B/.</td>
-    <td colspan="1" style="text-align: right;">{{ solicitud.cotizacion.subtotal }}<br>{{ solicitud.cotizacion.descuento }}<br>.00<br>{{ subtotal }}<br>{{ solicitud.cotizacion.impuestos }}<br>{{ solicitud.cotizacion.total }}</td>
+    <td colspan="2" style="margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %: &nbsp;&nbsp;6.00<br><b>TOTAL A PAGAR:</b></td>
+    <td colspan="1" style="text-align: right;">B/.<br>B/.<br>B/.<br>B/.<br>&nbsp; B/.<br>B/.</td>
+    <td colspan="1" style="text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ solicitud.cotizacion.descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ solicitud.cotizacion.impuestos }}<br>{{ solicitud.cotizacion.total }}</td>
   </tr>
 
 
