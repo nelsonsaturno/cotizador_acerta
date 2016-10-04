@@ -823,6 +823,31 @@
             $("#id_nombre_conductor").prop('required',true);
             $("#id_id_conductor").prop('required',true);
             $("#id_tipo_id_conductor").prop('required',true);
+            if ($("#id_aseguradoConductor").is(":checked")) {
+                var element = document.querySelector("#id_tipo_id_conductor");
+                element.classList.remove("hidden");
+                $("#id_tipo_id_conductor_1").prop("checked",true);
+                $("#id_aseguradoConductor").prop("checked",false);
+
+                if ($("#id_tipo_id_conductor").val()=="0"){
+                    $("#id_nombre_conductor").val('');
+                    $("#id_nombre_conductor").prop("disabled", false);
+                    $("#id_provicia_1").val('');
+                    $("#id_tipo_1").val('');
+                    $("#id_campo_1_1").val('');
+                    $("#id_campo_2_1").val('');
+                    $("#id_id_conductor").prop("disabled", false);
+                    $(".passp1").addClass("hidden");
+                    $(".ced1").removeClass("hidden");
+
+                }
+                else{
+                    $("#id_nombre_conductor").val('');
+                    $("#id_nombre_conductor").prop("disabled", false);
+                    $("#id_id_conductor").val('');
+                    $("#id_id_conductor").prop("disabled", false);
+                }
+            }
             var element = document.querySelector(".asegurado-conductor");
             element.classList.add("hidden");
             var element = document.querySelector("#id_id_asegurado");
@@ -839,6 +864,59 @@
             $("#id_nombre_conductor").prop('required',false);
             $("#id_id_conductor").prop('required',false);
             $("#id_tipo_id_conductor").prop('required',false);
+
+        }
+    });
+    $("#id_tipo_acreedor_leasing").on("change", function(event) {
+        var $index = $("#id_acreedor_leasing").children('option:selected').index();
+        if (($('#id_tipo_acreedor_leasing').val() == 1) && ($index >= 1)) {
+            $("#id_asegurado").val('{{ cotizacion.conductor.nombre}} {{ cotizacion.conductor.apellido}}');
+            $("#id_id_asegurado").val('{{ cotizacion.conductor.identificacion}}');
+            var element = document.querySelector(".asegurado-conductor");
+            element.classList.remove("hidden");
+            var element = document.querySelector("#id_id_asegurado");
+            element.classList.remove("hidden");
+            $("#id_nombre_conductor").prop('required',false);
+            $("#id_id_conductor").prop('required',false);
+            $("#id_tipo_id_conductor").prop('required',false);
+        } else if (($('#id_tipo_acreedor_leasing').val() == 2) && ($index >= 1)) {
+            var asegurado = $("#id_acreedor_leasing").val();
+            $("#id_asegurado").val(asegurado);
+            $("#id_id_asegurado").val('N/A');
+            $("#id_nombre_conductor").prop('required',true);
+            $("#id_id_conductor").prop('required',true);
+            $("#id_tipo_id_conductor").prop('required',true);
+            if ($("#id_aseguradoConductor").is(":checked")) {
+                var element = document.querySelector("#id_tipo_id_conductor");
+                element.classList.remove("hidden");
+                $("#id_tipo_id_conductor_1").prop("checked",true);
+                $("#id_aseguradoConductor").prop("checked",false);
+
+                if ($("#id_tipo_id_conductor").val()=="0"){
+                    $("#id_nombre_conductor").val('');
+                    $("#id_nombre_conductor").prop("disabled", false);
+                    $("#id_provicia_1").val('');
+                    $("#id_tipo_1").val('');
+                    $("#id_campo_1_1").val('');
+                    $("#id_campo_2_1").val('');
+                    $("#id_id_conductor").prop("disabled", false);
+                    $(".passp1").addClass("hidden");
+                    $(".ced1").removeClass("hidden");
+
+                }
+                else{
+                    $("#id_nombre_conductor").val('');
+                    $("#id_nombre_conductor").prop("disabled", false);
+                    $("#id_id_conductor").val('');
+                    $("#id_id_conductor").prop("disabled", false);
+                }
+            }
+            var element = document.querySelector(".asegurado-conductor");
+            element.classList.add("hidden");
+            var element = document.querySelector("#id_id_asegurado");
+            element.classList.add("hidden");
+            var element = document.querySelector("#id_id_asegurado");
+            element.classList.add("hidden");
 
         }
     });
