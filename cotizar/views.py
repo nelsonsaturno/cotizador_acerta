@@ -1166,11 +1166,14 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 if kwargs['pk'] > kwargs['pk4']:
                     opcion += 1
 
-                corredor = DatosCorredor.objects.get(user=cotizacion.corredor)
-                if (corredor.razon_social == '' or corredor.razon_social == '-'):
-                    cotizado_por = 'el corredor ' + cotizacion.corredor.first_name +' '+cotizacion.corredor.last_name
-                else:
-                    cotizado_por = corredor.razon_social
+                try:
+                    corredor = DatosCorredor.objects.get(user=cotizacion.corredor)
+                    if (corredor.razon_social == '' or corredor.razon_social == '-'):
+                        cotizado_por = 'el corredor ' + cotizacion.corredor.first_name +' '+cotizacion.corredor.last_name
+                    else:
+                        cotizado_por = corredor.razon_social
+                except:
+                    cotizado_por = request.user.first_name +' '+request.user.last_name
 
                 ctx = {
                     'opcion': opcion,
