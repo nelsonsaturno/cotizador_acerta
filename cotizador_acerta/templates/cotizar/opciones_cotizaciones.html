@@ -253,3 +253,12 @@
 <br>
 
 {% endblock content %}
+{% block custom_script %}
+<script type="text/javascript">
+    document.getElementsByTagName("BODY")[0].setAttribute("onload", "noBack();");
+    document.getElementsByTagName("BODY")[0].setAttribute("onpageshow", "if (event.persisted) noBack();");
+    document.getElementsByTagName("BODY")[0].setAttribute("onunload", "");
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+</script>
+{% endblock custom_script %}
