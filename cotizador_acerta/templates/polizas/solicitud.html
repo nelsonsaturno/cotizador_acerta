@@ -446,7 +446,7 @@
                                 <fieldset title="4">
                                     <legend class="text-semibold">Datos Adicionales</legend>
 
-                                    <div class="row">
+                                    <div class="row datos-adicionales">
                                         <div class="col-md-12">
                                             Contratante:
                                         </div>
@@ -954,6 +954,53 @@
         }
     });
 
+    $('.datos-adicionales').mouseover(function(){
+        if ($("#id_nombre_conductor2").val()=='') {
+                $('#id_tipo_id_conductor2').prop('required',false);
+                $('#id__id_conductor2').prop('required',false);
+                $('#id_provincia_2').prop('required',false);
+                $('#id_campo_id_1_2').prop('required',false);
+                $('#id_campo_id_2_2').prop('required',false);
+        }
+        else{
+            if ($('#tipo_id_conductor').val()=='0'){
+                $('#id_tipo_id_conductor2').prop('required',true);
+                $('#id_provincia_2').prop('required',true);
+                $('#id_campo_id_1_2').prop('required',true);
+                $('#id_campo_id_2_2').prop('required',true);
+            }
+            else{
+                $('#id_id_conductor2').prop('required',true);
+                $('#id_tipo_id_conductor2').prop('required',true);
+                $('#id_provincia_2').prop('required',false);
+                $('#id_campo_id_1_2').prop('required',false);
+                $('#id_campo_id_2_2').prop('required',false);
+            }
+        }
+
+        if ($("#id_nombre_conductor3").val()=='') {
+                $('#id_id_conductor3').prop('required',false);
+                $('#id_tipo_id_conductor3').prop('required',false);
+                $('#id_provincia_3').prop('required',false);
+                $('#id_campo_id_1_3').prop('required',false);
+                $('#id_campo_id_2_3').prop('required',false);
+        }
+        else{
+            if ($('#tipo_id_conductor').val()=='0'){
+                $('#id_tipo_id_conductor3').prop('required',true);
+                $('#id_provincia_3').prop('required',true);
+                $('#id_campo_id_1_3').prop('required',true);
+                $('#id_campo_id_2_3').prop('required',true);
+            }
+            else{
+                $('#id_tipo_id_conductor3').prop('required',true);
+                $('#id_provincia_3').prop('required',false);
+                $('#id_campo_id_1_3').prop('required',false);
+                $('#id_campo_id_2_3').prop('required',false);
+            }
+        }
+    });
+
     $('.cobranza').mouseover(function(){
         if( $("#forma_pago").val() == 'Visa' ){
             $('#id_tipo_tdc').attr('required',true);
@@ -1068,36 +1115,6 @@
     //         element.classList.remove("hidden");
     //     }
     // } );
-
-    $("#id_nombre_conductor2").on("change", function(event) {
-        if ($(this).val() == ''){
-            $('#id_tipo_id_conductor2').prop('required',false);
-            $('#id_provincia_2').prop('required',false);
-            $('#id_campo_id_1_2').prop('required',false);
-            $('#id_campo_id_2_2').prop('required',false);
-        }
-        else{
-            $('#id_tipo_id_conductor2').prop('required',true);
-            $('#id_provincia_2').prop('required',true);
-            $('#id_campo_id_1_2').prop('required',true);
-            $('#id_campo_id_2_2').prop('required',true);
-        }
-    });
-
-    $("#id_nombre_conductor3").on("change", function(event) {
-        if ($(this).val() == ''){
-            $('#id_tipo_id_conductor3').prop('required',false);
-            $('#id_provincia_3').prop('required',false);
-            $('#id_campo_id_1_3').prop('required',false);
-            $('#id_campo_id_2_3').prop('required',false);
-        }
-        else{
-            $('#id_tipo_id_conductor3').prop('required',true);
-            $('#id_provincia_3').prop('required',true);
-            $('#id_campo_id_1_3').prop('required',true);
-            $('#id_campo_id_2_3').prop('required',true);
-        }
-    });
 
     $("#id_declaracion_prima").on("change", function(event) {
         var select = ($("#id_politico_expuesto").val()=="Si");
