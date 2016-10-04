@@ -31,7 +31,7 @@
 				    	<th>Correo</th>
 				    	<th>Marca</th>
 				    	<th>Modelo</th>
-				    	<th>Ilicito o Politico</th>
+				    	<th>Ilicito - Politico - D. Prima</th>
 				    	<th>Corredor</th>
 				    	<th>Detalles</th>
 				    </tr>
@@ -44,7 +44,7 @@
 				      <td>{{ solicitud.cotizacion.conductor.correo }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.marca.nombre }}</td>
 				      <td>{{ solicitud.cotizacion.conductor.modelo.nombre }}</td>
-				      {% if solicitud.cotizacion.conductor.datos.first.ilicito == 'Si' or solicitud.cotizacion.conductor.datos.first.politico_expuesto == 'Si' %}
+				      {% if solicitud.cotizacion.conductor.datos.first.ilicito == 'Si' or solicitud.cotizacion.conductor.datos.first.politico_expuesto == 'Si' or solicitud.cotizacion.conductor.datos.first.declaracion_prima == 'Si' %}
 				      	<td><span class="badge bg-red">Si</span></td>
 				      {% else %}
 				      	<td><span class="badge bg-green">No</span></td>
@@ -61,7 +61,7 @@
 		                    <li><a href=""><i class="fa fa-edit">  Editar</i></a></li>
 		                    <li class="divider"></li>
 		                    <li><a href="{% url 'send-solicitud' solicitud.pk %}"><i class="fa fa-send"> Enviar</i></a></li>
-		                    {% if solicitud.cotizacion.conductor.datos.first.ilicito == 'No' and solicitud.cotizacion.conductor.datos.first.politico_expuesto == 'No' %}
+		                    {% if solicitud.cotizacion.conductor.datos.first.ilicito == 'No' and solicitud.cotizacion.conductor.datos.first.politico_expuesto == 'No' and solicitud.cotizacion.conductor.datos.first.declaracion_prima == 'No' %}
 		                    	<li><a href="{% url 'emitir-poliza' solicitud.pk %}"><i class="fa fa-check" onclick="window.open('{% url 'emitir' solicitud.pk %}')">  Emitir</i></a></li>
 		                    {% endif %}
 		                    <li><a href="" onclick="window.open('{% url 'generacion-pdf-polizas' solicitud.pk %}');"><i class="fa fa-eye">  Ver</i></a></li>
@@ -78,7 +78,7 @@
 				    	<th>Correo</th>
 				    	<th>Marca</th>
 				    	<th>Modelo</th>
-				    	<th>Ilicito o Politico</th>
+				    	<th>Ilicito - Politico - D. Prima</th>
 				    	<th>Corredor</th>
 				    	<th>Detalles</th>
 				    </tr>
