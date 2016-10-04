@@ -197,14 +197,24 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 conductor3[1] = cedula
             else:
                 conductor3[1] = form.cleaned_data['id_conductor3']
-
             date_desde = request.POST['valido_desde'].split('-')
             new_date_desde = str(date_desde[2]) +'-'+str(date_desde[1]) +'-'+ str(date_desde[0])
-            date_hasta = request.POST['valido_hasta'].split('-')
-            new_date_hasta = str(date_hasta[2]) +'-'+str(date_hasta[1]) +'-'+ str(date_hasta[0])
+            anio_date_hasta = int(str(date_desde[2])) + 1
+            new_date_hasta = str(anio_date_hasta) +'-'+str(date_desde[1]) +'-'+ str(date_desde[0])
+
+            # Asegurado
+            tipo_acreedor = form.cleaned_data['tipo_acreedor_leasing']
+            if tipo_acreedor == 1:
+                asegurado = cotizacion.conductor.nombre + ' ' + cotizacion.conductor.apellido
+                id_asegurado = cotizacion.conductor.identificacion
+            else:
+                asegurado = form.cleaned_data['acreedor_leasing']
+                id_asegurado = 'N/A'
 
             solicitud = SolicitudPoliza(
                 cotizacion=cotizacion,
+                asegurado=asegurado,
+                id_asegurado=id_asegurado,
                 nombre_conductor=conductor[0],
                 id_conductor=conductor[1],
                 nombre_conductor2=conductor2[0],

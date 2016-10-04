@@ -463,13 +463,13 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control" id="nombre-conductor" value="{{ cotizacion.conductor.nombre }} {{ cotizacion.conductor.apellido }}" >
+                                                {% bootstrap_field form.asegurado layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                             <div class="col-md-4">
-                                                <input type="text" class="form-control" id="id-conductor" value="{{ cotizacion.conductor.identificacion }}">
+                                                {% bootstrap_field form.id_asegurado layout='horizontal' show_label=False field_class='form-field' %}
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 asegurado-conductor">
                                             {% bootstrap_field form.aseguradoConductor layout='horizontal' show_label=False field_class='form-field' %}
                                         </div>
                                         <div class="col-md-12">
@@ -715,7 +715,7 @@
         </div>
     </div>
 </div>
-<!--{% if form.errors %}
+{% if form.errors %}
     {% for field in form %}
         {% for error in field.errors %}
             <div class="alert alert-danger">
@@ -728,7 +728,7 @@
             <strong>{{ error|escape }}</strong>
         </div>
     {% endfor %}
-{% endif %}-->
+{% endif %}
 {% endblock content %}
 
 {% block custom_script %}
@@ -807,6 +807,44 @@
             }
         });
     });
+
+    /////////////////////////// ASEGURADO ///////////////////
+    /////////////////////////////////////////////////////////
+    var asegurado = '{{ cotizacion.conductor.nombre}} {{ cotizacion.conductor.apellido}}';
+    $("#id_asegurado").val(asegurado);
+    $("#id_id_asegurado").val('{{cotizacion.conductor.identificacion}}');
+    $("#id_asegurado").prop('disabled',true);
+    $("#id_id_asegurado").prop('disabled',true);
+    $("#id_acreedor_leasing").on("change", function(event) {
+        if ($('#id_tipo_acreedor_leasing').val() == 2) {
+            var asegurado = $("#id_acreedor_leasing").val();
+            $("#id_asegurado").val(asegurado);
+            $("#id_id_asegurado").val('N/A');
+            $("#id_nombre_conductor").prop('required',true);
+            $("#id_id_conductor").prop('required',true);
+            $("#id_tipo_id_conductor").prop('required',true);
+            var element = document.querySelector(".asegurado-conductor");
+            element.classList.add("hidden");
+            var element = document.querySelector("#id_id_asegurado");
+            element.classList.add("hidden");
+            var element = document.querySelector("#id_id_asegurado");
+            element.classList.add("hidden");
+        } else {
+            $("#id_asegurado").val('{{ cotizacion.conductor.nombre}} {{ cotizacion.conductor.apellido}}');
+            $("#id_id_asegurado").val('{{ cotizacion.conductor.identificacion}}');
+            var element = document.querySelector(".asegurado-conductor");
+            element.classList.remove("hidden");
+            var element = document.querySelector("#id_id_asegurado");
+            element.classList.remove("hidden");
+            $("#id_nombre_conductor").prop('required',false);
+            $("#id_id_conductor").prop('required',false);
+            $("#id_tipo_id_conductor").prop('required',false);
+
+        }
+    });
+
+    ///////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////
     var element = document.querySelector(".politico");
     element.classList.add("hidden");
     var element = document.querySelector(".politico2");
@@ -875,6 +913,8 @@
         });
 
     $("#id_juridico_fecha_constitucion").attr('required',false);
+    $("#id_tipo_acreedor_leasing_id").attr('required',true);
+    $("#id_acreedor_leasing").attr('required',true);
 
     $("#id_es_juridico").on("change", function(event) {
         if( $(this).is(':checked') ){
@@ -907,9 +947,9 @@
             $('#datosid-contratante').val(id);
         }
         else{
-            var nombre = $('#nombre-conductor').val();
+            var nombre = '{{cotizacion.conductor.nombre}} {{cotizacion.conductor.apellido}}';
             $('#datosnombre-contratante').val(nombre);
-            var id = $('#id-conductor').val();
+            var id = '{{cotizacion.conductor.identificacion}}';
             $('#datosid-contratante').val(id);
         }
     });
@@ -985,8 +1025,8 @@
             element.classList.add("hidden");
             $(".ced1").addClass("hidden");
             $(".passp1").removeClass("hidden");
-            var val1 = $("#nombre-conductor").val();
-            var val2 = $("#id-conductor").val();
+            var val1 = '{{cotizacion.conductor.nombre}} {{cotizacion.conductor.apellido}}';
+            var val2 = '{{cotizacion.conductor.identificacion}}';
             $("#id_nombre_conductor").val(val1);
             $("#id_nombre_conductor").prop("disabled", true);
             $("#id_id_conductor").val(val2);
@@ -1186,7 +1226,8 @@
         $( '#id_ilicito' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
         $( '#id_politico_expuesto' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
         $( '#id_declaracion_prima' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
-        $( '#id_acreedor_leasing_id' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
+        $( '#id_tipo_acreedor_leasing' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
+        $( '#id_acreedor_leasing' ).prepend('<option class="placeholder" value="" selected=selected disabled>Seleccione un acreedor o leasing</option>');
 
         // $( '#id_tipo_produccion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Produccion</option>');
         // $( '#id_tipo_suscripcion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Suscripcion</option>');
@@ -1218,8 +1259,8 @@
         }
         else{
             element.classList.remove("hidden");
-            var val1 = $("#nombre-conductor").val();
-            var val2 = $("#id-conductor").val();
+            var val1 = '{{cotizacion.conductor.nombre}} {{cotizacion.conductor.apellido}}';
+            var val2 = '{{cotizacion.conductor.identificacion}}';
             $("#id_nombre_responsable").val(val1);
             $("#id_id_responsable").val(val2);
         }
@@ -1228,10 +1269,13 @@
     }
     var element = document.querySelector("#id_responsable_1");
     element.onclick = function () {
-        var element = document.querySelector("#id_tipo_id_responsable");
-        element.classList.remove("hidden");
-        var val1 = $("#nombre-conductor").val();
-        var val2 = $("#id-conductor").val();
+
+        if ($('#id_tipo_acreedor_leasing').val() != 2) {
+            var element = document.querySelector("#id_tipo_id_responsable");
+            element.classList.remove("hidden");
+        }
+        var val1 = $("#id_asegurado").val();
+        var val2 = $("#id_id_asegurado").val();
         $("#id_nombre_responsable").val(val1);
         $("#id_id_responsable").val(val2);
     }

@@ -10,6 +10,8 @@ class SolicitudPoliza(models.Model):
     cotizacion = models.ForeignKey(Cotizacion, null=True)
     num = models.CharField(max_length=20, null=True)
     # Extra fields.
+    asegurado = models.CharField(max_length=100, blank=False)
+    id_asegurado = models.CharField(max_length=20, blank=False)
     nombre_conductor = models.CharField(max_length=20, blank=False)
     id_conductor = models.CharField(max_length=20, blank=False)
     nombre_conductor2 = models.CharField(max_length=20, null=True)

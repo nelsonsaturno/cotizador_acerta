@@ -74,6 +74,7 @@
     <td colspan="4" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
     {% endif %}
   </tr>
+  {% if solicitud.tipo_acreedor_leasing == 1 %}
   <tr>
     <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</td>
     <td colspan="4" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> {{ solicitud.cotizacion.conductor.identificacion }}</td>
@@ -81,6 +82,15 @@
   <tr>
     <td colspan="8"><b>ACREEDOR:</b> {{ solicitud.acreedor_leasing.nombre_acreedor }}</td>
   </tr>
+  {% else %}
+  <tr>
+    <td colspan="4" style="border-top: 1px white;"><b>ASEGURADO:</b> {{ solicitud.acreedor_leasing.nombre_acreedor }}</td>
+    <td colspan="4" style="border-top: 1px white;"><b>CÉDULA/RUC:</b> N/A</td>
+  </tr>
+  <tr>
+    <td colspan="8"><b>LEASING:</b> {{ solicitud.acreedor_leasing.nombre_acreedor }}</td>
+  </tr>
+  {% endif %}
   <tr>
     <td colspan="4"><b>INFORMACIÓN DE CONTACTO DEL CONTRATANTE:</b></td>
     <td colspan="4" rowspan="1"><font size="2"><div align="right">AL MEDIODÍA HORA OFICIAL (dd/mm/aaaa)</div></font> <b>VIGENCIA DESDE(*)</b>  {{ solicitud.vigencia_desde.day }}/{{ solicitud.vigencia_desde.month }}/{{ solicitud.vigencia_desde.year }} <b> &nbsp;&nbsp;HASTA(*)</b> {{ solicitud.vigencia_hasta.day }}/{{ solicitud.vigencia_hasta.month }}/{{ solicitud.vigencia_hasta.year }}</td>

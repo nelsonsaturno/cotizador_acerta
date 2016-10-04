@@ -407,12 +407,21 @@
 							<span style="text-decoration: underline; font-weight: bold;">Datos generales: </span>
 							<span>Si el asegurado es distinto al cliente contratante deberá completar un Formulario Único de Datos del Cliente.</span>
 						</p>
+						{% if solicitud.tipo_acreedor_leasing == 1 %}
 						<p style="padding-bottom: -6px;">
 							<span style="font-weight: bold; text-decoration: underline">Asegurado:</span><span>{{conductor1.nombre}} {{conductor1.apellido}}</span>
 							<span></span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte/RUC:</span><span>{{conductor1.identificacion}}</span>
 							<span></span>
 						</p>
+						{% else %}
+						<p style="padding-bottom: -6px;">
+							<span style="font-weight: bold; text-decoration: underline">Asegurado:</span><span>{{solicitud.acreedor_leasing.nombre_acreedor}}</span>
+							<span></span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte/RUC:</span><span>N/A</span>
+							<span></span>
+						</p>
+						{% endif %}
 						{% if conductor1.identificacion == solicitud.id_conductor %}
 							<p style="padding-bottom: -6px;">
 								<span style="font-weight: bold; text-decoration: underline">Conductor Adicional: </span>
@@ -449,10 +458,17 @@
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde: </span><span>{{solicitud.vigencia_desde|date:"d M Y"}}</span><span></span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hasta: </span><span>{{solicitud.vigencia_hasta|date:"d M Y"}}</span><span></span>
 						</p>
+						{% if solicitud.tipo_acreedor_leasing == 1 %}
 						<p style="padding-bottom: -6px;">
-							<span>Acreedor Hipotecario: </span><span>{{solicitud.acreedor}}</span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Leasing: </span><span>{{solicitud.leasing}}</span>
+							<span>Acreedor Hipotecario: </span><span>{{solicitud.acreedor_leasing.nombre_acreedor}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Leasing: </span><span>N/A</span>
 						</p>
+						{% else %}
+						<p style="padding-bottom: -6px;">
+							<span>Acreedor Hipotecario: </span><span>N/A</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Leasing: </span><span>{{solicitud.acreedor_leasing.nombre_acreedor}}</span>
+						</p>
+						{% endif %}
 						<p style="padding-bottom: -6px;">
 							<span>Valor actual de la unidad: </span><span>{{conductor1.valor}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Placa No.: </span><span>{{conductor2.placa}}</span><span style="font-size:7px;">&nbsp;(Obligatorio en auto usado)</span>
@@ -466,7 +482,7 @@
 						<p>
 							<span>Motor: </span><span>{{conductor2.motor}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chasis: </span><span>{{conductor2.chasis}}</span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo: </span><span>{{conductor2.tipo}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo: </span><span>{{conductor2.tipo.descrip}}</span>
 						</p>
 					</td>
 				</tr>

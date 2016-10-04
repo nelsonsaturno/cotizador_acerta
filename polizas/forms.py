@@ -36,8 +36,10 @@ def get_tipo_choices():
 
 class SolicitudClienteForm(forms.ModelForm):
     aseguradoConductor = forms.BooleanField(label='Asegurado es Conductor', required=False)
+    asegurado = forms.CharField(label='Nombre', required=False)
+    id_asegurado = forms.CharField(label='Identificacion', required=False)
     valido_desde = forms.DateField(label='Vigencia Desde', required=True, initial=date.today(), input_formats=settings.DATE_INPUT_FORMATS)
-    valido_hasta = forms.DateField(label='Vigencia Hasta', required=True, input_formats=settings.DATE_INPUT_FORMATS)
+    valido_hasta = forms.DateField(label='Vigencia Hasta', required=False, input_formats=settings.DATE_INPUT_FORMATS)
 
     nombre_conductor = forms.CharField(label='Nombre', required=False)
     id_conductor = forms.CharField(label='Identificacion', required=False)
@@ -254,15 +256,6 @@ class SolicitudClienteForm(forms.ModelForm):
         self.fields['piso'].initial = ''
         self.fields['apto'].initial = ''
         self.fields['no_casa'].initial = ''
-
-    def clean(self):
-        valido_desde = str(self.cleaned_data['valido_desde'])
-        valido_hasta = str(self.cleaned_data['valido_hasta'])
-        desde = dt.strptime(valido_desde, '%Y-%m-%d')
-        hasta = dt.strptime(valido_hasta, '%Y-%m-%d')
-        if hasta < desde:
-            raise forms.ValidationError(u'Las fechas de validez son incorrectas.')
-        return self.cleaned_data
 
 
 
