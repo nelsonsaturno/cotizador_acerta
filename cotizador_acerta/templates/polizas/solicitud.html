@@ -806,6 +806,9 @@
                 element.classList.add("hidden");
             }
         });
+
+        $('#id_telefono_empresa').val('{{cotizacion.conductor.telefono2}}');
+        $('#id_acreedor_leasing').prop('disabled',true);
     });
 
     /////////////////////////// ASEGURADO ///////////////////
@@ -919,6 +922,9 @@
             element.classList.add("hidden");
 
         }
+
+        $('#id_acreedor_leasing').prop('disabled',false);
+
     });
 
     ///////////////////////////////////////////////////////////
