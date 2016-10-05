@@ -278,7 +278,7 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             plan1 = request.POST['planes']
         else:
             print "No hay planes"
-            plan1 = "Básico"
+            plan1 = endoso
 
         cotizacion = Cotizacion(
             conductor=conductor,
@@ -346,9 +346,9 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 plan4 = request.POST['planes']
             else:
                 print "No hay planes"
-                plan2 = "Premium"
-                plan3 ="Gold"
-                plan4 = "Silver"
+                plan2 = cotizacion1.endoso
+                plan3 =cotizacion1.endoso
+                plan4 = cotizacion1.endoso
 
             cotizacion2 = Cotizacion(
                 conductor=vehiculo,
