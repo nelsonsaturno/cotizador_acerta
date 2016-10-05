@@ -518,7 +518,6 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         else:
             extra_cliente = ''
 
-        subtotal = cotizacion.subtotal - cotizacion.descuento
         lesiones_corporales = cotizacion.lesiones_corporales.split('/')
         gastos_medicos = cotizacion.gastos_medicos.split('/')
         muerte_accidental = cotizacion.muerte_accidental.split('/')
@@ -551,10 +550,16 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
         if solicitud.cotizacion.tipo_pago == 'Contado':
             conducto = 'CONTADO'
+            subtotal = cotizacion.subtotal / 0.9
+            descuento =  subtotal - cotizacion.subtotal
         elif solicitud.cotizacion.tipo_pago == 'Visa':
             conducto = 'TARJETAS DE CREDITO'
+            subtotal = cotizacion.subtotal / 0.95
+            descuento =  subtotal - cotizacion.subtotal
         else:
-            conducto = 'OTRO'
+            conducto = 'ACH'
+            subtotal = cotizacion.subtotal / 0.95
+            descuento =  subtotal - cotizacion.subtotal
 
         endoso = solicitud.cotizacion.endoso.endoso.upper()
 
@@ -572,7 +577,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'extra_cliente': extra_cliente,
                            'conducto': conducto,
                            'mes': mes,
-                           'endoso': endoso})
+                           'endoso': endoso,
+                           'descuento': descuento})
 
         template = get_template('polizas/emision_todas_pdf.html')
         html = template.render(context)

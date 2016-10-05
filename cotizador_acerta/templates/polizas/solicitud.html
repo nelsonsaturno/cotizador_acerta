@@ -446,7 +446,7 @@
                                 <fieldset title="4">
                                     <legend class="text-semibold">Datos Adicionales</legend>
 
-                                    <div class="row">
+                                    <div class="row datos-adicionales">
                                         <div class="col-md-12">
                                             Contratante:
                                         </div>
@@ -806,6 +806,9 @@
                 element.classList.add("hidden");
             }
         });
+
+        $('#id_telefono_empresa').val('{{cotizacion.conductor.telefono2}}');
+        $('#id_acreedor_leasing').prop('disabled',true);
     });
 
     /////////////////////////// ASEGURADO ///////////////////
@@ -919,6 +922,9 @@
             element.classList.add("hidden");
 
         }
+
+        $('#id_acreedor_leasing').prop('disabled',false);
+
     });
 
     ///////////////////////////////////////////////////////////
@@ -1029,6 +1035,52 @@
             $('#datosnombre-contratante').val(nombre);
             var id = '{{cotizacion.conductor.identificacion}}';
             $('#datosid-contratante').val(id);
+        }
+    });
+
+    $('.datos-adicionales').mouseover(function(){
+        if ($("#id_nombre_conductor2").val()=='') {
+            $('#id_nombre_conductor2').prop('required',false);
+            $('#id_tipo_id_conductor2').prop('required',false);
+            $('#id_id_conductor2').prop('required',false);
+            $('#id_provincia_2').prop('required',false);
+            $('#id_campo_id_1_2').prop('required',false);
+            $('#id_campo_id_2_2').prop('required',false);
+        }
+        else{
+            if ($('#id_tipo_id_conductor2').val()=="0"){
+                $('#id_provincia_2').prop('required',true);
+                $('#id_campo_id_1_2').prop('required',true);
+                $('#id_campo_id_2_2').prop('required',true);
+            }
+            else{
+                $('#id_id_conductor2').prop('required',true);
+                $('#id_provincia_2').prop('required',false);
+                $('#id_campo_id_1_2').prop('required',false);
+                $('#id_campo_id_2_2').prop('required',false);
+            }
+        }
+
+        if ($("#id_nombre_conductor3").val()=='') {
+            $('#id_nombre_conductor3').prop('required',false);
+            $('#id_id_conductor3').prop('required',false);
+            $('#id_tipo_id_conductor3').prop('required',false);
+            $('#id_provincia_3').prop('required',false);
+            $('#id_campo_id_1_3').prop('required',false);
+            $('#id_campo_id_2_3').prop('required',false);
+        }
+        else{
+            if ($('#id_tipo_id_conductor3').val()=="0"){
+                $('#id_provincia_3').prop('required',true);
+                $('#id_campo_id_1_3').prop('required',true);
+                $('#id_campo_id_2_3').prop('required',true);
+            }
+            else{
+                $('#id_id_conductor3').prop('required',true);
+                $('#id_provincia_3').prop('required',false);
+                $('#id_campo_id_1_3').prop('required',false);
+                $('#id_campo_id_2_3').prop('required',false);
+            }
         }
     });
 
@@ -1146,36 +1198,6 @@
     //         element.classList.remove("hidden");
     //     }
     // } );
-
-    $("#id_nombre_conductor2").on("change", function(event) {
-        if ($(this).val() == ''){
-            $('#id_tipo_id_conductor2').prop('required',false);
-            $('#id_provincia_2').prop('required',false);
-            $('#id_campo_id_1_2').prop('required',false);
-            $('#id_campo_id_2_2').prop('required',false);
-        }
-        else{
-            $('#id_tipo_id_conductor2').prop('required',true);
-            $('#id_provincia_2').prop('required',true);
-            $('#id_campo_id_1_2').prop('required',true);
-            $('#id_campo_id_2_2').prop('required',true);
-        }
-    });
-
-    $("#id_nombre_conductor3").on("change", function(event) {
-        if ($(this).val() == ''){
-            $('#id_tipo_id_conductor3').prop('required',false);
-            $('#id_provincia_3').prop('required',false);
-            $('#id_campo_id_1_3').prop('required',false);
-            $('#id_campo_id_2_3').prop('required',false);
-        }
-        else{
-            $('#id_tipo_id_conductor3').prop('required',true);
-            $('#id_provincia_3').prop('required',true);
-            $('#id_campo_id_1_3').prop('required',true);
-            $('#id_campo_id_2_3').prop('required',true);
-        }
-    });
 
     $("#id_declaracion_prima").on("change", function(event) {
         var select = ($("#id_politico_expuesto").val()=="Si");

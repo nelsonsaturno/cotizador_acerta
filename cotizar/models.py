@@ -220,7 +220,7 @@ class Cotizacion(models.Model):
     total = models.FloatField(blank=False, default=0.00)
     impuestos = models.FloatField(blank=False, default=0.00)
     prima_importacion = models.FloatField(blank=False, default=0.00)
-    plan = models.CharField(max_length=10, default="Básico")
+    plan = models.CharField(max_length=100, default="Básico")
     cuota = models.PositiveSmallIntegerField(
         blank=True, null=True,
         validators=[MaxValueValidator(10)])

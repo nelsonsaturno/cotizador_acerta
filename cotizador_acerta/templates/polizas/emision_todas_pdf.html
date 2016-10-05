@@ -113,7 +113,11 @@
     {% endif %}
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono2 }}</td>
+   {% if extra_cliente.telefono_empresa %}
+    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono_empresa }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   {% elif conductor.telefono2 %} 
+   <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono2 }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   {% endif %}
     <td colspan="4" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
   <tr>
@@ -234,14 +238,22 @@
     <td style="text-align: center;">{{solicitud.cotizacion.endoso.precio}}</td>
   </tr>
   {% endif %}
+  {% if solicitud.cotizacion.importacion_piezas %}
+  <tr style="height: 40; ">
+    <td colspan="7">IMPORTACIÓN DE PIEZAS </td>
+    <td style="text-align: center;">{{solicitud.cotizacion.prima_importacion }}</td>
+  </tr>
+  {% endif %}
+  {% if not solicitud.cotizacion.importacion_piezas %}
   <tr style="height: 40; ">
     <td colspan="8"><br></td>
   </tr>
+  {% endif %}
   <tr>
-    <td colspan="4">EMISIÓN PÓLIZA NUEVA<br><br><br><br></td>
+    <td colspan="4">EMISIÓN PÓLIZA NUEVA<br>{{solicitud.nombre_conductor}}<br>{{solicitud.nombre_conductor2}}<br>{{solicitud.nombre_conductor3}}<br></td>
     <td colspan="2" style="margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %: &nbsp;&nbsp;6.00<br><b>TOTAL A PAGAR:</b></td>
     <td colspan="1" style="text-align: right;">B/.<br>B/.<br>B/.<br>B/.<br>&nbsp; B/.<br>B/.</td>
-    <td colspan="1" style="text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ solicitud.cotizacion.descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ solicitud.cotizacion.impuestos }}<br>{{ solicitud.cotizacion.total }}</td>
+    <td colspan="1" style="text-align: right;">{{ subtotal|floatformat:2|intcomma }}<br>{{ descuento|floatformat:2|intcomma }}<br>.00<br>{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ solicitud.cotizacion.impuestos }}<br>{{ solicitud.cotizacion.total }}</td>
   </tr>
 
 
@@ -336,7 +348,11 @@
     {% endif %}
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono2 }}</td>
+    {% if extra_cliente.telefono_empresa %}
+    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono_empresa }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   {% elif conductor.telefono2 %} 
+   <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono2 }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   {% endif %}
     <td colspan="4" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
   <tr>
@@ -457,14 +473,22 @@
     <td style="text-align: center;">{{solicitud.cotizacion.endoso.precio}}</td>
   </tr>
   {% endif %}
+  {% if solicitud.cotizacion.importacion_piezas %}
+  <tr style="height: 40; ">
+    <td colspan="7">IMPORTACIÓN DE PIEZAS </td>
+    <td style="text-align: center;">{{solicitud.cotizacion.prima_importacion }}</td>
+  </tr>
+  {% endif %}
+  {% if not solicitud.cotizacion.importacion_piezas %}
   <tr style="height: 40; ">
     <td colspan="8"><br></td>
   </tr>
+  {% endif %}
   <tr>
-    <td colspan="4">EMISIÓN PÓLIZA NUEVA<br><br><br><br></td>
+    <td colspan="4">EMISIÓN PÓLIZA NUEVA<br>{{solicitud.nombre_conductor}}<br>{{solicitud.nombre_conductor2}}<br>{{solicitud.nombre_conductor3}}<br></td>
     <td colspan="2" style="margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %: &nbsp;&nbsp;6.00<br>TOTAL A PAGAR:</b></td>
     <td colspan="1" style="text-align: right;">B/.<br>B/.<br>B/.<br>B/.<br>&nbsp; B/.<br>B/.</td>
-    <td colspan="1" style="text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ solicitud.cotizacion.descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ solicitud.cotizacion.impuestos }}<br>{{ solicitud.cotizacion.total }}</td>
+    <td colspan="1" style="text-align: right;">{{ subtotal|floatformat:2|intcomma }}<br>{{ descuento|floatformat:2|intcomma }}<br>.00<br>{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ solicitud.cotizacion.impuestos }}<br>{{ solicitud.cotizacion.total }}</td>
   </tr>
 
 
@@ -558,7 +582,11 @@
     {% endif %}
   </tr>
   <tr>
-    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono2 }}</td>
+    {% if extra_cliente.telefono_empresa %}
+    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono_empresa }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   {% elif conductor.telefono2 %} 
+   <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono2 }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   {% endif %}
     <td colspan="4" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
   <tr>
@@ -679,14 +707,22 @@
     <td style="text-align: center;">{{solicitud.cotizacion.endoso.precio}}</td>
   </tr>
   {% endif %}
+  {% if solicitud.cotizacion.importacion_piezas %}
+  <tr style="height: 40; ">
+    <td colspan="7">IMPORTACIÓN DE PIEZAS </td>
+    <td style="text-align: center;">{{solicitud.cotizacion.prima_importacion }}</td>
+  </tr>
+  {% endif %}
+  {% if not solicitud.cotizacion.importacion_piezas %}
   <tr style="height: 40; ">
     <td colspan="8"><br></td>
   </tr>
-  <tr>
-    <td colspan="4">EMISIÓN PÓLIZA NUEVA<br><br><br><br></td>
+  {% endif %} 
+   <tr>
+    <td colspan="4">EMISIÓN PÓLIZA NUEVA<br>{{solicitud.nombre_conductor}}<br>{{solicitud.nombre_conductor2}}<br>{{solicitud.nombre_conductor3}}<br></td>
     <td colspan="2" style="margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %: &nbsp;&nbsp;6.00<br>TOTAL A PAGAR:</b></td>
     <td colspan="1" style="text-align: right;">B/.<br>B/.<br>B/.<br>B/.<br>&nbsp; B/.<br>B/.</td>
-    <td colspan="1" style="text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ solicitud.cotizacion.descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ solicitud.cotizacion.impuestos }}<br>{{ solicitud.cotizacion.total }}</td>
+    <td colspan="1" style="text-align: right;">{{ subtotal|floatformat:2|intcomma }}<br>{{ descuento|floatformat:2|intcomma }}<br>.00<br>{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ solicitud.cotizacion.impuestos }}<br>{{ solicitud.cotizacion.total }}</td>
   </tr>
 
 
