@@ -12,7 +12,7 @@ from django.conf import settings
 
 class ConductorVehiculoForm(forms.ModelForm):
 
-    tipo_id = forms.Select(choices=[("0", 'Cédula'), ("1", 'Pasaporte')])
+    tipo = forms.Select(choices=[("0", 'Cédula'), ("1", 'Pasaporte')])
     valor_text = forms.CharField(label="Valor", help_text='Ex: 99,999.99')
 
     mail_corredor = forms.CharField(widget=forms.HiddenInput())
@@ -70,7 +70,7 @@ class ConductorVehiculoForm(forms.ModelForm):
             'cero_km': '0 Kms',
             'valor': 'Valor',
             'provincia': 'Provincia',
-            'tipo': 'tipo',
+            'tipo_id': 'tipo',
         }
         widgets = {
             'marca': forms.Select(attrs={'class': 'select2'}),
