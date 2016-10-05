@@ -98,7 +98,7 @@
 						<p style="padding-bottom: -6px;">
 							<span>Teléfono residencial: </span>{{conductor2.telefono_res}}<span></span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Teléfono celular: </span><span>{{conductor1.telefono1}}</span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Correo electrónico personal: </span><span></span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Correo electrónico personal: </span><span>{{conductor1.correo}}</span>
 						</p>
 						<p style="padding-bottom: -6px;">
 						<span style="text-decoration: underline; font-weight: bold;">
@@ -419,6 +419,21 @@
 							<span style="font-weight: bold; text-decoration: underline">Asegurado:</span><span>{{solicitud.acreedor_leasing.nombre_acreedor}}</span>
 							<span></span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte/RUC:</span><span>N/A</span>
+							<span></span>
+						</p>
+						{% endif %}
+						{% if conductor2.es_juridico == True %}
+						<p style="padding-bottom: -6px;">
+							<span style="font-weight: bold; text-decoration: underline">Contratante:</span><span>{{conductor2.juridico_razon_social}}</span>
+							<span></span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte/RUC:</span><span>{{conductor2.juridico_RUC}}</span>
+							<span></span>
+						</p>
+						{% else %}
+						<p style="padding-bottom: -6px;">
+							<span style="font-weight: bold; text-decoration: underline">Contratante:</span><span>{{conductor1.nombre}} {{conductor1.apellido}}</span>
+							<span></span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cédula/Pasaporte/RUC:</span><span>{{conductor1.identificacion}}</span>
 							<span></span>
 						</p>
 						{% endif %}
