@@ -1034,22 +1034,21 @@
 
     $('.datos-adicionales').mouseover(function(){
         if ($("#id_nombre_conductor2").val()=='') {
-                $('#id_tipo_id_conductor2').prop('required',false);
-                $('#id__id_conductor2').prop('required',false);
-                $('#id_provincia_2').prop('required',false);
-                $('#id_campo_id_1_2').prop('required',false);
-                $('#id_campo_id_2_2').prop('required',false);
+            $('#id_nombre_conductor2').prop('required',false);
+            $('#id_tipo_id_conductor2').prop('required',false);
+            $('#id_id_conductor2').prop('required',false);
+            $('#id_provincia_2').prop('required',false);
+            $('#id_campo_id_1_2').prop('required',false);
+            $('#id_campo_id_2_2').prop('required',false);
         }
         else{
-            if ($('#tipo_id_conductor').val()=='0'){
-                $('#id_tipo_id_conductor2').prop('required',true);
+            if ($('#id_tipo_id_conductor2').val()=="0"){
                 $('#id_provincia_2').prop('required',true);
                 $('#id_campo_id_1_2').prop('required',true);
                 $('#id_campo_id_2_2').prop('required',true);
             }
             else{
                 $('#id_id_conductor2').prop('required',true);
-                $('#id_tipo_id_conductor2').prop('required',true);
                 $('#id_provincia_2').prop('required',false);
                 $('#id_campo_id_1_2').prop('required',false);
                 $('#id_campo_id_2_2').prop('required',false);
@@ -1057,21 +1056,21 @@
         }
 
         if ($("#id_nombre_conductor3").val()=='') {
-                $('#id_id_conductor3').prop('required',false);
-                $('#id_tipo_id_conductor3').prop('required',false);
-                $('#id_provincia_3').prop('required',false);
-                $('#id_campo_id_1_3').prop('required',false);
-                $('#id_campo_id_2_3').prop('required',false);
+            $('#id_nombre_conductor3').prop('required',false);
+            $('#id_id_conductor3').prop('required',false);
+            $('#id_tipo_id_conductor3').prop('required',false);
+            $('#id_provincia_3').prop('required',false);
+            $('#id_campo_id_1_3').prop('required',false);
+            $('#id_campo_id_2_3').prop('required',false);
         }
         else{
-            if ($('#tipo_id_conductor').val()=='0'){
-                $('#id_tipo_id_conductor3').prop('required',true);
+            if ($('#id_tipo_id_conductor3').val()=="0"){
                 $('#id_provincia_3').prop('required',true);
                 $('#id_campo_id_1_3').prop('required',true);
                 $('#id_campo_id_2_3').prop('required',true);
             }
             else{
-                $('#id_tipo_id_conductor3').prop('required',true);
+                $('#id_id_conductor3').prop('required',true);
                 $('#id_provincia_3').prop('required',false);
                 $('#id_campo_id_1_3').prop('required',false);
                 $('#id_campo_id_2_3').prop('required',false);
