@@ -238,9 +238,17 @@
     <td style="text-align: center;">{{solicitud.cotizacion.endoso.precio}}</td>
   </tr>
   {% endif %}
+  {% if solicitud.cotizacion.importacion_piezas %}
+  <tr style="height: 40; ">
+    <td colspan="7">IMPORTACIÓN DE PIEZAS </td>
+    <td style="text-align: center;">{{solicitud.cotizacion.prima_importacion }}</td>
+  </tr>
+  {% endif %}
+  {% if not solicitud.cotizacion.importacion_piezas %}
   <tr style="height: 40; ">
     <td colspan="8"><br></td>
   </tr>
+  {% endif %} 
   <tr>
     <td colspan="4">EMISIÓN PÓLIZA NUEVA<br>{{solicitud.nombre_conductor}}<br>{{solicitud.nombre_conductor2}}<br>{{solicitud.nombre_conductor3}}<br></td>
     <td colspan="2" style="margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %: &nbsp;&nbsp;6.00<br><b>TOTAL A PAGAR:</b></td>
