@@ -554,7 +554,7 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         elif solicitud.cotizacion.tipo_pago == 'Visa':
             conducto = 'TARJETAS DE CREDITO'
         else:
-            conducto = 'OTRO'
+            conducto = 'ACH'
 
         endoso = solicitud.cotizacion.endoso.endoso.upper()
 
