@@ -352,11 +352,11 @@
     $(document).ready(function(){
 
     $('#id_tipo_id').on('change',function(){
-        if ($(this).val()=="0"){
+        if ($(this).val()=="Cedula"){
             $(".ced").removeClass("hidden");
             $(".passp").addClass("hidden");
         }
-        if ($(this).val()=="1"){
+        if ($(this).val()=="Pasaporte"){
             $(".ced").addClass("hidden");
             $(".passp").removeClass("hidden");
         }
@@ -421,10 +421,35 @@
                 $(".km-field > div > label > .icheckbox_square-grey").removeClass("checked");
                 $('#id_cero_km').prop('checked', false);
             }
-            {% if vehiculo.tipo_id == 'Cédula' %}
+            {% if vehiculo.tipo_id == 'Cedula' %}
                 $('#id_tipo_id_0').iCheck('check');
-            {% else %}
+                $(".ced").removeClass("hidden");
+                var id = $('#id_identificacion').val();
+                var result = id.split('-');
+                $("#id_provincia").val(result[0]);
+                $("#id_tipo").val(result[1]);
+                $('#id_campo_id_1').val(result[2]);
+                $('#id_campo_id_2').val(result[3]);
+            {% elif vehiculo.tipo_id == 'Pasaporte' %}
                 $('#id_tipo_id_1').iCheck('check');
+                $(".passp").removeClass("hidden");
+            {% else %}
+                var id = $('#id_identificacion').val();
+                if (~id.indexOf("-")){
+                    $('#id_tipo_id').val('Cedula');
+                    $('#id_tipo_id_0').iCheck('check');
+                    $(".ced").removeClass("hidden");
+                    var result = id.split('-');
+                    $("#id_provincia").val(result[0]);
+                    $("#id_tipo").val(result[1]);
+                    $('#id_campo_id_1').val(result[2]);
+                    $('#id_campo_id_2').val(result[3]);
+                }
+                else {
+                    $('#id_tipo_id').val('Pasaporte');
+                    $('#id_tipo_id_1').iCheck('check');
+                    $(".passp").removeClass("hidden");
+                }
             {% endif %}
         {% endif %}
     });
@@ -439,7 +464,7 @@
             } else {
                 $(".cedula-validacion").remove();
                 $('#id_submit').prop('disabled', true);
-                $(this).parent().after("<div class='form-field cedula-validacion' style='color:red; margin-top: 5%; margin-bottom: -4%;'>Introduzca una cédula válida</div>");
+                $(this).parent().after("<div class='form-field cedula-validacion' style='color:red; margin-top: 5%; margin-bottom: -4%;'>Introduzca una Cedula válida</div>");
             }
        } else {
             $(".cedula-validacion").remove();
@@ -451,7 +476,7 @@
         e.preventDefault();
        if( $("#id_tipo_id_0").is(':checked') ){
             $(".cedula-help").remove();
-            $("#id_identificacion").parent().after("<div class='form-field cedula-help' style='color: #727270; margin-top: 5%; margin-bottom: -4%;'>Cédula. Ej: 12-123-1234 ó 121231234</div>");
+            $("#id_identificacion").parent().after("<div class='form-field cedula-help' style='color: #727270; margin-top: 5%; margin-bottom: -4%;'>Cedula. Ej: 12-123-1234 ó 121231234</div>");
        } else {
             $(".cedula-help").remove();
        }
