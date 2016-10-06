@@ -685,7 +685,8 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
     def post(self, request, *args, **kwargs):
         form = ConductorVehiculoForm(request.POST)
         if form.is_valid():
-
+            self.object = form.save()
+            vehiculo = self.object
             tipo_id = form.cleaned_data['tipo_id']
             if tipo_id == 'Cedula':
                 provincia = form.cleaned_data['provincia']
@@ -695,8 +696,6 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
                 cedula = str(provincia) + '-' + str(tipo) + '-' + str(campo_id_1) + '-' + str(campo_id_2)
                 vehiculo.identificacion = cedula
                 
-            self.object = form.save()
-            vehiculo = self.object
             user = User.objects.get(pk=request.user.id)
             vehiculo.corredor = user
             vehiculo.save()
