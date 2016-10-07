@@ -476,12 +476,12 @@
 						{% if solicitud.tipo_acreedor_leasing == 1 %}
 						<p style="padding-bottom: -6px;">
 							<span>Acreedor Hipotecario: </span><span>{{solicitud.acreedor_leasing.nombre_acreedor}}</span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Leasing: </span><span>N/A</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Leasing: </span><span>N/A</span>
 						</p>
 						{% else %}
 						<p style="padding-bottom: -6px;">
 							<span>Acreedor Hipotecario: </span><span>N/A</span>
-							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o Leasing: </span><span>{{solicitud.acreedor_leasing.nombre_acreedor}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Leasing: </span><span>{{solicitud.acreedor_leasing.nombre_acreedor}}</span>
 						</p>
 						{% endif %}
 						<p style="padding-bottom: -6px;">
@@ -498,6 +498,13 @@
 							<span>Motor: </span><span>{{conductor2.motor}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chasis: </span><span>{{conductor2.chasis}}</span>
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo: </span><span>{{conductor2.tipo.descrip}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color: </span><span>{{conductor2.color}}</span>
+							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Número de puestos: </span>
+							{% if conductor2.num_puestos == None %}
+								<span>&nbsp;</span>
+							{% else %}
+								<span>{{conductor2.num_puestos}}</span>
+							{% endif %}
 						</p>
 					</td>
 				</tr>
@@ -612,15 +619,15 @@
 										<p>
 											<table>
 												<tr>
-													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">
+													<td colspan="4" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">
 														{% if cotizacion.tipo_pago == 'Visa' %}
-															<p style="padding-bottom: -10px;">a) Descuento por tarjeta de crédito</p>
+															<p style="padding-bottom: -10px;">* Descuento por tarjeta de crédito</p>
 															{% if solicitud.tipo_tdc == 'Visa' %}
 																<p style="padding-bottom: -10px;">
 																<span>Visa</span>_X_<span></span>
 																<span>Master Card</span><span>__</span>
 																</p>
-															{% else %}
+															{% elif solicitud.tipo_tdc == 'Mastercard' %}
 																<p style="padding-bottom: -10px;">
 																<span>Visa</span>__<span></span>
 																<span>Master Card</span><span>_X_</span>
@@ -633,38 +640,23 @@
 															<span>Banco: </span><span>{{solicitud.banco_tdc}}</span>
 															<span>Fecha de expiración: </span><span>{{solicitud.expiracion_tdc}}</span></span>
 															</p>
+														{% elif cotizacion.tipo_pago == 'ACH' %}
+															<p style="padding-bottom: -10px;">* Débito a cuenta de ahorros o cuenta corriente (hasta 10 pagos mensuales) (adjuntar formulario)</p>
+															<p style="padding-bottom: 10px;">
+															<span>Nro. Cuenta: </span><span>{{solicitud.cuenta_banco_num}}</span>
+															<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Banco: </span><span>{{solicitud.cuenta_banco_nombre}}</span>
+															<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tipo de cuenta: </span><span>{{solicitud.cuenta_tipo}}</span></span>
+															</p>
 														{% else %}
-														<p style="padding-bottom: -10px;">a) Descuento por tarjeta de crédito</p>
-															<p style="padding-bottom: -10px;">
-															<span>Visa</span>__<span></span>
-															<span>Master Card</span><span>__</span>
-															</p>
-															<p style="padding-bottom: -10px;">
-															<span>Nro. Tarjeta: </span><span>N/A</span>
-															</p>
-															<p>
-															<span>Banco: </span><span>N/A</span>
-															<span>Fecha de expiración: </span><span>N/A</span>
-															</p>
+															<p>* Remesa (solo corredor autorizado)</p>
+															<p>* Directo en caja (hasta 6 pagos mensuales)</p>
 														{% endif %}
 													</td>
-													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
 												</tr>
-												<tr>
-													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;"><p>b) Débito a cuenta de ahorros o cuenta corriente (hasta 10 pagos mensuales) (adjuntar formulario)</p></td>
-													<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
-												</tr>
-												<tr>
-													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;"><p>c) Remesa (solo corredor autorizado)</p></td>
-													<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
-												</tr>
-												<tr>
-													<td colspan="3" style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;"><p>d) Directo en caja (hasta 6 pagos mensuales)</p></td>
-													<td style="border: 2px solid #999; width: 170px; padding-right: -60px; padding-left: -25px; width: 15%;"></td>
-												</tr>
+
 												<tr>
 													<td colspan="3" style="text-decoration: underline;">Cantidad de pago: </td>
-													<td colspan="2">Día de pago: </td>
+													<td colspan="2">Día de cobro: </td>
 												</tr>
 												<tr>
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">* Un pago anual</td>
@@ -677,7 +669,7 @@
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px;">* <span></span><span>Pagos mensuales</span></td>
 													<td style="border: 2px solid #999; padding-right: -60px; padding-left: -25px; width: 15%;">{{cotizacion.cuota}}</td>
 													{% endif %}
-													<td style="padding-left: -25px;"><span>{{solicitud.dia_pago|date:"d M Y"}}</span></td>
+													<td style="padding-left: -25px;"><span>&nbsp;&nbsp;&nbsp;&nbsp;{{solicitud.dia_cobro}}</span></td>
 												</tr>
 											</table>
 										</p>

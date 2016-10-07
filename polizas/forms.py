@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from django import forms
+from django.forms import ModelForm, CharField, TextInput
 from datetime import *
 from bootstrap3_datetime.widgets import DateTimePicker
 from polizas.models import *
@@ -150,7 +151,14 @@ class SolicitudClienteForm(forms.ModelForm):
     num_tdc = forms.CharField(label='Numero de Tarjeta',required=False)
     banco_tdc = forms.CharField(label='Banco',required=False)
     expiracion_tdc = forms.CharField(label='Expiracion',required=False)
-    dia_pago = forms.DateField(label='Dia de pago (aaaa/mm/dd)', required=True, initial=default_desde)
+    dia_cobro = forms.ChoiceField(required=False,
+                                  choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),
+                                            ('6','6'),('7','7'),('8','8'),('9','9'),('10','10'),
+                                            ('11','11'),('12','12'),('13','13'),('14','14'),
+                                            ('15','15'),('16','16'),('17','17'),('18','18'),('19','19'),
+                                            ('20','20'),('21','21'),('22','22'),('23','23'),('24','24'),
+                                            ('25','25'),('26','26'),('27','27'),('28','28'),('29','29'),
+                                            ('30','30')])
     nom_ref_personal = forms.CharField(label='Nombre o Razon Social', required=False)
     actividad_ref_personal = forms.CharField(label='Actividad', required=False)
     relacion_ref_personal = forms.CharField(label='Relacion con el cliente', required=False)
@@ -202,9 +210,24 @@ class SolicitudClienteForm(forms.ModelForm):
                                     ('Mastercard', 'Mastercad')])
     banco_tdc = forms.CharField(label='Banco', required=False)
 
+    cuenta_banco_num = forms.CharField(label='Número de cuenta', required=False)
+
+    cuenta_banco_nombre = forms.CharField(label='Nombre del banco', required=False)
+
+    cuenta_tipo = forms.ChoiceField(label="Tipo de cuenta",
+                                 required=False,
+                                 choices=[('Ahorro', 'Ahorro'),
+                                    ('Corriente', 'Corriente')])
+
+    color = forms.CharField(label='Color', required=True)
+
     class Meta:
         model = ExtraDatosCliente
         exclude = ['conductor', 'ref_personal', 'ref_bancaria', 'ref_comercial', ]
+
+        widgets = {
+            'num_puestos': TextInput(attrs={'type':'number','min': 0})
+        }
 
         labels = {
             'es_juridico': 'Contratante es persona juridica',
@@ -215,6 +238,8 @@ class SolicitudClienteForm(forms.ModelForm):
             'placa': 'Placa No.',
             'motor': 'Motor',
             'chasis': 'Chasis',
+            'color': 'Color',
+            'num_puestos': 'Número de puestos',
             'tipo': 'Tipo',
             'nombre2': 'Segundo Nombre',
             'apellido_mat': 'Apellido Materno',

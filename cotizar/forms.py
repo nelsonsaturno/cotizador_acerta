@@ -12,7 +12,6 @@ from django.conf import settings
 
 class ConductorVehiculoForm(forms.ModelForm):
 
-    tipo_id = forms.Select(choices=[("0", 'Cédula'), ("1", 'Pasaporte')])
     valor_text = forms.CharField(label="Valor", help_text='Ex: 99,999.99')
 
     mail_corredor = forms.CharField(widget=forms.HiddenInput())
@@ -70,7 +69,7 @@ class ConductorVehiculoForm(forms.ModelForm):
             'cero_km': '0 Kms',
             'valor': 'Valor',
             'provincia': 'Provincia',
-            'tipo': 'tipo',
+            'tipo_id': 'tipo',
         }
         widgets = {
             'marca': forms.Select(attrs={'class': 'select2'}),
@@ -106,7 +105,7 @@ class ConductorVehiculoForm(forms.ModelForm):
         tipo_id = self.cleaned_data['tipo_id']
         campo_id_1 = self.cleaned_data['campo_id_1']
         campo_id_2 = self.cleaned_data['campo_id_2']
-        if tipo_id == '0':
+        if tipo_id == 'Cedula':
             if campo_id_1 == '':
                 raise forms.ValidationError(u'Debe completar su identificación.')
             elif campo_id_2 == '':
@@ -126,10 +125,10 @@ class ConductorVehiculoForm(forms.ModelForm):
 
     def save(self, commit=True):
         conductor = super(ConductorVehiculoForm, self).save(commit=False)
-        if self.cleaned_data['tipo_id'] == 0:
-            conductor.tipo_id = 'cedula'
+        if self.cleaned_data['tipo_id'] == 'Cedula':
+            conductor.tipo_id = 'Cedula'
         else:
-            conductor.tipo_id = 'pasaporte'
+            conductor.tipo_id = 'Pasaporte'
         if commit:
             conductor.save()
             return conductor

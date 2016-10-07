@@ -316,14 +316,13 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
             vehiculo = form.save()
 
             tipo_id = form.cleaned_data['tipo_id']
-            if tipo_id == '0':
+            if tipo_id == 'Cedula':
                 provincia = form.cleaned_data['provincia']
                 tipo = form.cleaned_data['tipo']
                 campo_id_1 = form.cleaned_data['campo_id_1']
                 campo_id_2 = form.cleaned_data['campo_id_2']
                 cedula = str(provincia) + '-' + str(tipo) + '-' + str(campo_id_1) + '-' + str(campo_id_2)
                 vehiculo.identificacion = cedula
-                vehiculo.tipo_id = 'cedula'
 
             user = User.objects.get(pk=request.user.id)
             vehiculo.corredor = user
@@ -688,6 +687,15 @@ class VolverVehiculo(LoginRequiredMixin, generic.UpdateView):
         if form.is_valid():
             self.object = form.save()
             vehiculo = self.object
+            tipo_id = form.cleaned_data['tipo_id']
+            if tipo_id == 'Cedula':
+                provincia = form.cleaned_data['provincia']
+                tipo = form.cleaned_data['tipo']
+                campo_id_1 = form.cleaned_data['campo_id_1']
+                campo_id_2 = form.cleaned_data['campo_id_2']
+                cedula = str(provincia) + '-' + str(tipo) + '-' + str(campo_id_1) + '-' + str(campo_id_2)
+                vehiculo.identificacion = cedula
+                
             user = User.objects.get(pk=request.user.id)
             vehiculo.corredor = user
             vehiculo.save()
