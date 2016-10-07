@@ -753,6 +753,15 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
+        $('#id_provincia').on('change',function(){
+            if ($(this).val()=="E"){
+                $("#id_campo_id_1").attr('maxlength','6');
+            }
+            else{
+                $("#id_campo_id_1").attr('maxlength','3');
+            }
+        });
+
         $('#id_tipo_id_conductor').on('change',function(){
             if ($(this).val()=="0"){
                 $(".ced1").removeClass("hidden");
@@ -786,6 +795,7 @@
             }
         });
 
+        $("#id_campo_id_1").attr('maxlength','3');
         $(".passp1").addClass("hidden");
         $(".passp2").addClass("hidden");
         $(".passp3").addClass("hidden");

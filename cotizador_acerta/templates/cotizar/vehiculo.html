@@ -19,6 +19,7 @@
 <link href="{% static 'plugins/iCheck/square/grey.css' %}" rel="stylesheet">
 <!-- Select2 -->
 <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+
 <style type="text/css">
     select:invalid { color: gray; }
     .select2 .select2-selection {
@@ -322,6 +323,7 @@
 
 {% block custom_script %}
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
+<script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
 <!-- Select2 -->
 <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
 <script src="{% static 'js/jquery.mask.min.js' %}"></script>
@@ -329,7 +331,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <script src="{% static 'plugins/datepicker/locales/bootstrap-datepicker.es.js' %}"></script>
 <script type="text/javascript">
-    $('#id_marca').select2({
+   $('#id_marca').select2({
         placeholder: "Marca",
         allowClear: true
     });
@@ -351,7 +353,17 @@
 
     $(document).ready(function(){
 
-    $('#id_tipo_id').on('change',function(){
+
+    $('#id_provincia').on('change',function(){
+        if ($(this).val()=="E"){
+            $("#id_campo_id_1").attr('maxlength','6');
+        }
+        else{
+            $("#id_campo_id_1").attr('maxlength','3');
+        }
+    });
+
+   $('#id_tipo_id').on('change',function(){
         if ($(this).val()=="0"){
             $(".ced").removeClass("hidden");
             $(".passp").addClass("hidden");
@@ -362,6 +374,7 @@
         }
     });
 
+        $("#id_campo_id_1").attr('maxlength','3');
         $(".ced").addClass("hidden");
         $(".passp").addClass("hidden");
         $('#id_fecha_nacimiento').datepicker({

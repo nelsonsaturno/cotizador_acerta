@@ -66,7 +66,7 @@ class SolicitudClienteForm(forms.ModelForm):
 
     campo_id_1_1 = forms.CharField(
         label="Campo 1", required=False,
-        localize=True, max_length=3
+        localize=True, max_length=6
     )
 
     campo_id_2_1 = forms.CharField(
@@ -92,7 +92,7 @@ class SolicitudClienteForm(forms.ModelForm):
 
     campo_id_1_2 = forms.CharField(
         label="Campo 1", required=False,
-        localize=True, max_length=3
+        localize=True, max_length=6
     )
 
     campo_id_2_2 = forms.CharField(
@@ -118,7 +118,7 @@ class SolicitudClienteForm(forms.ModelForm):
 
     campo_id_1_3 = forms.CharField(
         label="Campo 1", required=False,
-        localize=True, max_length=3
+        localize=True, max_length=6
     )
 
     campo_id_2_3 = forms.CharField(
