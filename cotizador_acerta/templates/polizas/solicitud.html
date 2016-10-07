@@ -488,8 +488,8 @@
                                             <div class="col-md-2 ced1">
                                                 {% bootstrap_field form.provincia_1 layout='horizontal' show_label=False field_class='form-field ced1' %}
                                             </div>
-                                            <div class="col-md-2 ced1">
-                                                {% bootstrap_field form.tipo_1 layout='horizontal' show_label=False field_class='form-field ced1' %}
+                                            <div class="col-md-2 ced1 ced-hid1">
+                                                {% bootstrap_field form.tipo_1 layout='horizontal' show_label=False field_class='form-field ced ced-hid1' %} 
                                             </div>
                                             <div class="col-md-2 ced1">
                                                 {% bootstrap_field form.campo_id_1_1 layout='horizontal' show_label=False field_class='form-field ced1' %}
@@ -511,8 +511,8 @@
                                             <div class="col-md-2 ced2">
                                                 {% bootstrap_field form.provincia_2 layout='horizontal' show_label=False field_class='form-field ced2' %}
                                             </div>
-                                            <div class="col-md-2 ced2">
-                                                {% bootstrap_field form.tipo_2 layout='horizontal' show_label=False field_class='form-field ced2' %}
+                                            <div class="col-md-2 ced2 ced-hid2">
+                                                {% bootstrap_field form.tipo_2 layout='horizontal' show_label=False field_class='form-field ced2 ced-hid2' %}
                                             </div>
                                             <div class="col-md-2 ced2">
                                                 {% bootstrap_field form.campo_id_1_2 layout='horizontal' show_label=False field_class='form-field ced2' %}
@@ -534,8 +534,8 @@
                                             <div class="col-md-2 ced3">
                                                 {% bootstrap_field form.provincia_3 layout='horizontal' show_label=False field_class='form-field ced3' %}
                                             </div>
-                                            <div class="col-md-2 ced3">
-                                                {% bootstrap_field form.tipo_3 layout='horizontal' show_label=False field_class='form-field ced3' %}
+                                            <div class="col-md-2 ced3 ced-hid3">
+                                                {% bootstrap_field form.tipo_3 layout='horizontal' show_label=False field_class='form-field ced3 ced-hid3' %}
                                             </div>
                                             <div class="col-md-2 ced3">
                                                 {% bootstrap_field form.campo_id_1_3 layout='horizontal' show_label=False field_class='form-field ced3' %}
@@ -631,19 +631,31 @@
                                         <div class="col-md-12">
                                             Responsable de pago:
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="col-md-4">
+                                        <div class="col-md-12" style="display: inline-block;">
                                                {% bootstrap_field form.responsable layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-4">
-                                                {% bootstrap_field form.nombre_responsable layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.tipo_id_responsable layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
-                                            <div class="col-md-2">
-                                                {% bootstrap_field form.id_responsable layout='horizontal' show_label=False field_class='form-field' %}
-                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="display: flex;">
+                                               <div class="col-md-4 ">
+                                                    {% bootstrap_field form.nombre_responsable layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-2">
+                                                    {% bootstrap_field form.tipo_id_responsable layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-4 passp_resp">
+                                                    {% bootstrap_field form.id_responsable layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-2 ced_resp">
+                                                    {% bootstrap_field form.provincia_resp layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-2 ced_resp ced-hid-resp">
+                                                    {% bootstrap_field form.tipo_resp layout='horizontal' show_label=False field_class='form-field ced-hid-resp' %}
+                                                </div>
+                                                <div class="col-md-2 ced_resp">
+                                                    {% bootstrap_field form.campo_id_1_resp layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
+                                                <div class="col-md-2 ced_resp">
+                                                    {% bootstrap_field form.campo_id_2_resp layout='horizontal' show_label=False field_class='form-field' %}
+                                                </div>
                                         </div>
                                         <div class="col-md-12">
                                             Forma de pago:
@@ -798,12 +810,55 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
-        $('#id_provincia').on('change',function(){
+        $('#id_provincia_1').on('change',function(){
             if ($(this).val()=="E"){
-                $("#id_campo_id_1").attr('maxlength','6');
+                $("#id_campo_id_1_1").attr('maxlength','1');
+                $("#id_campo_id_2_1").attr('maxlength','6');
+                $(".ced-hid1").addClass("hidden");
             }
             else{
-                $("#id_campo_id_1").attr('maxlength','3');
+                $("#id_campo_id_1_1").attr('maxlength','3');
+                $("#id_campo_id_2_1").attr('maxlength','4');
+                $(".ced-hid1").removeClass("hidden");
+            }
+        });
+
+         $('#id_provincia_2').on('change',function(){
+            if ($(this).val()=="E"){
+                $("#id_campo_id_1_2").attr('maxlength','1');
+                $("#id_campo_id_2_2").attr('maxlength','6');
+                $(".ced-hid2").addClass("hidden");
+            }
+            else{
+                $("#id_campo_id_1_2").attr('maxlength','3');
+                $("#id_campo_id_2_1").attr('maxlength','4');
+                $(".ced-hid2").removeClass("hidden");
+            }
+        });
+
+          $('#id_provincia_3').on('change',function(){
+            if ($(this).val()=="E"){
+                $("#id_campo_id_1_3").attr('maxlength','1');
+                $("#id_campo_id_2_3").attr('maxlength','6');
+                $(".ced-hid3").addClass("hidden");
+            }
+            else{
+                $("#id_campo_id_1_3").attr('maxlength','3');
+                $("#id_campo_id_2_3").attr('maxlength','4');
+                $(".ced-hid3").removeClass("hidden");
+            }
+        });
+
+          $('#id_provincia_resp').on('change',function(){
+            if ($(this).val()=="E"){
+                $("#id_campo_id_1_resp").attr('maxlength','1');
+                $("#id_campo_id_2_resp").attr('maxlength','6');
+                $(".ced-hid-resp").addClass("hidden");
+            }
+            else{
+                $("#id_campo_id_1_resp").attr('maxlength','3');
+                $("#id_campo_id_2_resp").attr('maxlength','4');
+                $(".ced-hid-resp").removeClass("hidden");
             }
         });
 
@@ -840,10 +895,26 @@
             }
         });
 
-        $("#id_campo_id_1").attr('maxlength','3');
+        $('#id_tipo_id_responsable').on('change',function(){
+            if ($(this).val()=="0"){
+                $(".ced_resp").removeClass("hidden");
+                $(".passp_resp").addClass("hidden");
+            }
+            if ($(this).val()=="1"){
+                $(".ced_resp").addClass("hidden");
+                $(".passp_resp").removeClass("hidden");
+            }
+        });
+
+        
+        $("#id_campo_id_1_1").attr('maxlength','3');
+        $("#id_campo_id_1_2").attr('maxlength','3');
+        $("#id_campo_id_1_3").attr('maxlength','3');
+        $("#id_campo_id_1_resp").attr('maxlength','3');
         $(".passp1").addClass("hidden");
         $(".passp2").addClass("hidden");
         $(".passp3").addClass("hidden");
+        $(".passp_resp").addClass("hidden");
 
         $('#id_valido_desde').mask('00-00-0000', {placeholder: "Valido desde (dd/mm/aaaa)"});
         $('#id_valido_hasta').mask('00-00-0000', {placeholder: "Hasta (dd/mm/aaaa)"});
@@ -896,6 +967,12 @@
                     $("#id_id_conductor").prop("disabled", false);
                     $(".passp1").addClass("hidden");
                     $(".ced1").removeClass("hidden");
+                    if ($("#id_provincia_1")=='E'){
+                        $(".ced-hid1").addClass("hidden");
+                    }
+                    else{
+                        $(".ced-hid1").removeClass("hidden");
+                    }
 
                 }
                 else{
@@ -903,6 +980,12 @@
                     $("#id_nombre_conductor").prop("disabled", false);
                     $("#id_id_conductor").val('');
                     $("#id_id_conductor").prop("disabled", false);
+                    if ($("#id_provincia_1")=='E'){
+                        $(".ced-hid1").addClass("hidden");
+                    }
+                    else{
+                        $(".ced-hid1").removeClass("hidden");
+                    }
                 }
             }
             var element = document.querySelector(".asegurado-conductor");
@@ -921,6 +1004,12 @@
             $("#id_nombre_conductor").prop('required',false);
             $("#id_id_conductor").prop('required',false);
             $("#id_tipo_id_conductor").prop('required',false);
+            if ($("#id_provincia_1")=='E'){
+                $(".ced-hid1").addClass("hidden");
+            }
+            else{
+                $(".ced-hid1").removeClass("hidden");
+            }
 
         }
     });
@@ -1397,6 +1486,9 @@
     var element = document.querySelector("#id_responsable_0");
     element.onclick = function () {
         var element = document.querySelector("#id_tipo_id_responsable");
+        $(".ced_resp").addClass("hidden");
+        $(".passp_resp").removeClass("hidden");
+        $("#id_tipo_id_responsable").prop("disabled", true);
 
         if( $("#id_es_juridico").is(':checked') ){
             element.classList.add("hidden");
@@ -1417,6 +1509,8 @@
     }
     var element = document.querySelector("#id_responsable_1");
     element.onclick = function () {
+        $(".ced_resp").addClass("hidden");
+        $(".passp_resp").removeClass("hidden");
 
         if ($('#id_tipo_acreedor_leasing').val() != 2) {
             var element = document.querySelector("#id_tipo_id_responsable");
@@ -1435,6 +1529,14 @@
         $("#id_nombre_responsable").prop("disabled", false);
         $("#id_id_responsable").val('');
         $("#id_id_responsable").prop("disabled", false);
+        $("#id_tipo_id_responsable").prop("disabled", false);
+        $(".ced_resp").removeClass("hidden");
+        if ($('#id_tipo_id_responsable').val() == 0){
+            $(".passp_resp").addClass("hidden");
+        }
+        else{
+            $(".ced_resp").addClass("hidden");
+        }
     }
 
     //***************************************************

@@ -72,7 +72,7 @@ class SolicitudClienteForm(forms.ModelForm):
 
     campo_id_2_1 = forms.CharField(
         label="Campo 2", required=False,
-        localize=True, max_length=4
+        localize=True, max_length=6
     )
 
     provincia_2 = forms.ChoiceField(
@@ -98,7 +98,7 @@ class SolicitudClienteForm(forms.ModelForm):
 
     campo_id_2_2 = forms.CharField(
         label="Campo 2", required=False,
-        localize=True, max_length=4
+        localize=True, max_length=6
     )
 
     provincia_3 = forms.ChoiceField(
@@ -124,10 +124,35 @@ class SolicitudClienteForm(forms.ModelForm):
 
     campo_id_2_3 = forms.CharField(
         label="Campo 2", required=False,
-        localize=True, max_length=4
+        localize=True, max_length=6
     )
 
 
+    provincia_resp = forms.ChoiceField(
+        choices=[
+            ('',''),
+            (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5'),
+            (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10'),
+            (11, '11'), (12, '12'), (13, '13'), ('PE', 'PE'),
+            ('N', 'N'), ('E', 'E')
+        ],
+        required=False
+    )
+
+    tipo_resp = forms.ChoiceField(
+        choices=[('',''), ('PI', 'PI'), ('AV', 'AV')],
+        required=False
+    )
+
+    campo_id_1_resp = forms.CharField(
+        label="Campo 1", required=False,
+        localize=True, max_length=6
+    )
+
+    campo_id_2_resp = forms.CharField(
+        label="Campo 2", required=False,
+        localize=True, max_length=6
+    )
 
 
     responsable = forms.ChoiceField(choices=[(0, 'Contratante'), (1, 'Asegurado'), (2, 'Otro')],

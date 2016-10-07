@@ -320,8 +320,12 @@ class Vehiculo(LoginRequiredMixin, generic.CreateView):
                 provincia = form.cleaned_data['provincia']
                 tipo = form.cleaned_data['tipo']
                 campo_id_1 = form.cleaned_data['campo_id_1']
+                cedula = str(provincia) + '-' + str(tipo) + '-' + str(campo_id_1)
                 campo_id_2 = form.cleaned_data['campo_id_2']
-                cedula = str(provincia) + '-' + str(tipo) + '-' + str(campo_id_1) + '-' + str(campo_id_2)
+                if tipo <> 'E':
+                    cedula = cedula + '-' + str(campo_id_2)
+                else:
+                    cedula = str(provincia) + '-' + str(campo_id_1) + '-' + str(campo_id_2)
                 vehiculo.identificacion = cedula
 
             user = User.objects.get(pk=request.user.id)

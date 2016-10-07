@@ -38,7 +38,7 @@ class ConductorVehiculoForm(forms.ModelForm):
 
     campo_id_2 = forms.CharField(
         label="Campo 2", required=False,
-        localize=True, max_length=4
+        localize=True, max_length=6
     )
 
     identificacion = forms.CharField(

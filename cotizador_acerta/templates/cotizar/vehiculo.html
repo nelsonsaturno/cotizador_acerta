@@ -213,8 +213,11 @@
                             <div class="col-md-6 ced">
                             {% bootstrap_field form.provincia layout='horizontal' show_label=False field_class='form-field ced' %}
                             </div>
-                            <div class="col-md-6 ced">
-                            {% bootstrap_field form.tipo layout='horizontal' show_label=False field_class='form-field ced' %}</div>
+                            <div class="col-md-6 ced ced-hid">
+                            {% bootstrap_field form.tipo layout='horizontal' show_label=False field_class='form-field ced ced-hid' %}
+                            </div>
+                            <div class="col-md-6 extra">
+                            </div>
                             <div class="col-md-6 ced">
                             {% bootstrap_field form.campo_id_1 layout='horizontal' show_label=False field_class='form-field ced' %}
                             </div>
@@ -350,17 +353,27 @@
       $(".passp").removeClass("hidden");
     });
 
+    $(".extra").addClass("hidden"); 
 
     $(document).ready(function(){
 
+    $(".extra").addClass("hidden"); 
+
     $('#id_provincia').on('change',function(){
         if ($(this).val()=="E"){
-            $("#id_campo_id_1").attr('maxlength','6');
+            $("#id_campo_id_1").attr('maxlength','1');
+            $("#id_campo_id_2").attr('maxlength','6');
+            $(".ced-hid").addClass("hidden");
+            $(".extra").removeClass("hidden"); 
         }
         else{
             $("#id_campo_id_1").attr('maxlength','3');
+            $("#id_campo_id_2").attr('maxlength','4');
+            $(".ced-hid").removeClass("hidden");
+            $(".extra").addClass("hidden"); 
         }
     });
+
 
     $('#id_tipo_id').on('change',function(){
         if ($(this).val()=="Cedula"){
@@ -376,6 +389,7 @@
         $("#id_campo_id_1").attr('maxlength','3');
         $(".ced").addClass("hidden");
         $(".passp").addClass("hidden");
+        $(".extra").addClass("hidden"); 
         $('#id_fecha_nacimiento').datepicker({
             format:'dd-mm-yyyy',
             language: 'es',
