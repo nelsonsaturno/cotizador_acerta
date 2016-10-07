@@ -244,7 +244,11 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 num_tdc=request.POST.get('num_tdc','N/A'),
                 banco_tdc=request.POST.get('banco_tdc','N/A'),
                 expiracion_tdc=request.POST.get('expiracion_tdc',date.today()),
-                dia_pago=request.POST.get('dia_pago',date.today()),
+                dia_cobro=request.POST.get('dia_cobro',''),
+                cuenta_banco_num=request.POST.get('cuenta_banco_num',''),
+                cuenta_banco_nombre=request.POST.get('cuenta_banco_nombre',''),
+                cuenta_tipo=request.POST.get('cuenta_tipo',''),
+
                 tipo='Solicitada'
             )
 
@@ -327,7 +331,7 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             if subtotal[-2] == '.':
                 subtotal = subtotal + '0'
             if impuestos[-2] == '.':
-                impuestos = impuestos + '0'
+                im = impuestos + '0'
             if total[-2] == '.':
                 total = total + '0'
             if prima_pagoVisa[-2] == '.':
