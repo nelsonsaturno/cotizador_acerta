@@ -147,10 +147,10 @@
     <td colspan="2" >CARGA:</td>
   </tr>
   <tr>
-    <td colspan="2">COLOR:</td>
+    <td colspan="2">COLOR: {{ extra_cliente.color }}</td>
     <td colspan="2">AÑO: {{ conductor.anio }}</td>
     <td colspan="2">USO: Particular</td>
-    <td colspan="2">PUESTOS:</td>
+    <td colspan="2">PUESTOS: {{ extra_cliente.num_puestos }}</td>
   </tr>
    <tr>
     <td colspan="2">SUMA ASEGURADA: {{ conductor.valor }}</td>
@@ -382,10 +382,10 @@
     <td colspan="2" >CARGA:</td>
   </tr>
   <tr>
-    <td colspan="2">COLOR:</td>
+    <td colspan="2">COLOR: {{ extra_cliente.color }}</td>
     <td colspan="2">AÑO: {{ conductor.anio }}</td>
     <td colspan="2">USO: Particular</td>
-    <td colspan="2">PUESTOS:</td>
+    <td colspan="2">PUESTOS: {{ extra_cliente.num_puestos }}</td>
   </tr>
    <tr>
     <td colspan="2">SUMA ASEGURADA: {{ conductor.valor }}</td>
@@ -615,11 +615,11 @@
     {% endif %}
     <td colspan="2" >CARGA:</td>
   </tr>
-  <tr>
-    <td colspan="2">COLOR:</td>
+<tr>
+    <td colspan="2">COLOR: {{ extra_cliente.color }}</td>
     <td colspan="2">AÑO: {{ conductor.anio }}</td>
     <td colspan="2">USO: Particular</td>
-    <td colspan="2">PUESTOS:</td>
+    <td colspan="2">PUESTOS: {{ extra_cliente.num_puestos }}</td>
   </tr>
   <tr>
     <td colspan="2">SUMA ASEGURADA: {{ conductor.valor }}</td>
