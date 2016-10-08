@@ -232,6 +232,7 @@ class Cotizacion(models.Model):
                                        ('Rechazada', 'Rechazada')])
     tipo_pago = models.CharField(max_length=30, default='Contado',
                                  choices=[('Contado', 'Contado'),
+                                          ('ACH', 'ACH'),
                                           ('Visa', 'Visa'),
                                           ('Otro', 'Otro')])
     created_at = models.DateTimeField(auto_now_add=True)

@@ -45,7 +45,13 @@
 				      <td>{{ cotizacion.conductor.correo }}</td>
 				      <td>{{ cotizacion.conductor.marca.nombre }}</td>
 				      <td>{{ cotizacion.conductor.modelo.nombre }}</td>
-				      <td> B/. {{ cotizacion.total|intcomma }}</td>
+				      {% if cotizacion.tipo_pago != 'Contado' %}
+                      <td>B/.{{ cotizacion.prima_pagoContado|floatformat:2|intcomma }}</td>
+                      {% elif cotizacion.tipo_pago == 'Visa' or cotizacion.tipo_pago == 'ACH'%}
+                      <td>B/.{{ cotizacion.prima_pagoVisa|floatformat:2|intcomma }}</td>
+                      {% else %}
+                      <td>B/.{{ cotizacion.total|floatformat:2|intcomma }}</td>
+                      {% endif %}
 			            {% if cotizacion.status == 'Enviada' or cotizacion.status == 'Guardada' %}
 			            	<td><span class="badge bg-orange">{{ cotizacion.status }}</span></td>
 			      	  {% elif cotizacion.status == 'Aprobada' %}

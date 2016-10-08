@@ -581,18 +581,32 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         elif fecha.month == 12:
             mes = 'diciembre'
 
+        subtotal = cotizacion.subtotal
+        impuestos = float("{0:.2f}".format(subtotal * 0.06))
         if solicitud.cotizacion.tipo_pago == 'Contado':
             conducto = 'CONTADO'
-            subtotal = cotizacion.subtotal / 0.9
-            descuento =  subtotal - cotizacion.subtotal
+            subtotal = float("{0:.2f}".format(subtotal - (subtotal * 0.10)))
+            impuestos = float("{0:.2f}".format(subtotal * 0.06))
+            descuento =  cotizacion.subtotal - subtotal
+            total = cotizacion.prima_pagoContado
         elif solicitud.cotizacion.tipo_pago == 'Visa':
             conducto = 'TARJETAS DE CREDITO'
-            subtotal = cotizacion.subtotal / 0.95
-            descuento =  subtotal - cotizacion.subtotal
-        else:
+            subtotal = float("{0:.2f}".format(subtotal - (subtotal * 0.05)))
+            impuestos = float("{0:.2f}".format(subtotal * 0.06))
+            descuento =  cotizacion.subtotal - subtotal
+            total = cotizacion.prima_pagoVisa
+        elif solicitud.cotizacion.tipo_pago == 'ACH':
             conducto = 'ACH'
-            subtotal = cotizacion.subtotal / 0.95
-            descuento =  subtotal - cotizacion.subtotal
+            subtotal = float("{0:.2f}".format(subtotal - (subtotal * 0.05)))
+            impuestos = float("{0:.2f}".format(subtotal * 0.06))
+            descuento =  cotizacion.subtotal - subtotal
+            total = cotizacion.prima_pagoVisa
+        else:
+            conducto = 'Otro'
+            subtotal = cotizacion.subtotal
+            descuento =  cotizacion.subtotal - subtotal
+            impuestos = float("{0:.2f}".format(subtotal * 0.06))
+            total = cotizacion.total
 
         endoso = solicitud.cotizacion.endoso.endoso.upper()
 
@@ -601,6 +615,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'extra_cliente': extra_cliente,
                            'conductor': cotizacion.conductor,
                            'subtotal': subtotal,
+                           'impuestos': impuestos,
+                           'total': total,
                            'lesiones_corporales': lesiones_corporales,
                            'gastos_medicos': gastos_medicos,
                            'muerte_accidental': muerte_accidental,

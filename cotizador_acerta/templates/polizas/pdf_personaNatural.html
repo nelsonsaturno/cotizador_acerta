@@ -533,6 +533,13 @@
 					<td colspan="2">
 						<p style="padding-bottom: -6px;">
 							<span>Prima anual: </span><span>{{cotizacion.total}}</span>
+							{% if cotizacion.tipo_pago != 'Contado' %}
+		                      <span>Prima anual: </span><span>{{cotizacion.prima_pagoContado|floatformat:2|intcomma }}</span>
+		                      {% elif cotizacion.tipo_pago == 'Visa' or cotizacion.tipo_pago == 'ACH'%}
+		                      <span>Prima anual: </span><span>{{cotizacion.prima_pagoVisa|floatformat:2|intcomma }}</span>
+		                      {% else %}
+		                      <span>Prima anual: </span><span>{{cotizacion.total|floatformat:2|intcomma }}</span>
+		                      {% endif %}
 							<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Plan: </span><span>{{cotizacion.plan}}</span>
 						</p>
 						<p style="padding-bottom: -6px;">

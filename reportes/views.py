@@ -111,6 +111,16 @@ class CotizacionesDetailView(LoginRequiredMixin, TemplateView):
                     return page_not_found(request)
         context['cotizacion'] = cotizacion
         context['active_user'] = user
+        subtotal = cotizacion.subtotal
+        impuestos = cotizacion.impuestos
+        if cotizacion.tipo_pago == 'Visa' or cotizacion.tipo_pago == 'ACH':
+            subtotal = float("{0:.2f}".format(subtotal - (subtotal * 0.05)))
+            impuestos = float("{0:.2f}".format(subtotal * 0.06))
+        elif cotizacion.tipo_pago == 'Contado':
+            subtotal = float("{0:.2f}".format(subtotal - (subtotal * 0.10)))
+            impuestos = float("{0:.2f}".format(subtotal * 0.06))
+        context['subtotal'] = subtotal
+        context['impuestos'] = impuestos
         return self.render_to_response(context)
 
 
