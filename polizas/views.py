@@ -752,3 +752,44 @@ def changeEmitida(request, pk):
         solicitud.save()
     return HttpResponseRedirect(
         reverse_lazy('polizas_list'))
+
+
+########################################################
+# Vistas de prueba
+########################################################
+
+class Test(generic.TemplateView):
+    template_name = "polizas/generacion_PDF.html"
+
+
+class GeneracionPDF(LoginRequiredMixin, generic.CreateView):
+    model = SolicitudPoliza
+    template_name = 'polizas/prueba_pdf.html'
+
+    def get(self, request, *args, **kwargs):
+
+        context = Context({'pagesize': 'letter'})
+        template = get_template('polizas/prueba_pdf.html')
+        html = template.render(context)
+
+        file = open("polizas/" + 'prueba.pdf', "w+b")
+        # pisa.CreatePDF(
+        #     html.encode('utf-8'),
+        #     dest=file,
+        #     encoding='utf-8',
+        #     base_url=request.build_absolute_uri(),
+        # )
+        
+
+        #html  = render_to_string('polizas/prueba_pdf.html', { 'pagesize' : 'letter', }, context_instance=RequestContext(request))
+        result = StringIO.StringIO()
+        links = lambda uri, rel: os.path.join(settings.STATIC_ROOT2, uri.replace(settings.STATIC_URL, ""))
+        pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("UTF-8")), dest=result, encoding='UTF-8', link_callback=links)
+
+ 
+        if not pdf.err:
+            return HttpResponse(result.getvalue(), 'application/pdf')
+        return HttpResponse('Gremlins ate your pdf! %s' % cgi.escape(html))
+
+
+        #return HttpResponse(pdf, 'application/pdf')
