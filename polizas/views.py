@@ -26,6 +26,8 @@ import cStringIO as StringIO
 import cgi
 import os
 
+from num2words import num2words
+
 class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
     template_name = "polizas/solicitud.html"
     form_class = SolicitudClienteForm
@@ -610,6 +612,13 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
         endoso = solicitud.cotizacion.endoso.endoso.upper()
 
+        monto_letras = num2words(solicitud.cotizacion.prima_mensual, lang='es')
+        monto_letras = monto_letras.replace('punto','con')
+        monto_letras = monto_letras.upper()
+
+        tipo_cuenta = solicitud.cuenta_tipo
+        tipo_cuenta = tipo_cuenta.upper()
+
         context = Context({'pagesize': 'letter',
                            'solicitud': solicitud,
                            'extra_cliente': extra_cliente,
@@ -627,7 +636,9 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'conducto': conducto,
                            'mes': mes,
                            'endoso': endoso,
-                           'descuento': descuento})
+                           'descuento': descuento,
+                           'monto_letras': monto_letras,
+                           'tipo_cuenta': tipo_cuenta})
 
         template = get_template('polizas/emision_todas_pdf.html')
         html = template.render(context)
@@ -635,10 +646,13 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         html1 = template1.render(context)
         template2 = get_template('polizas/emision_intermediario_pdf.html')
         html2 = template2.render(context)
+        template3 = get_template('polizas/prueba_pdf.html')
+        html3 = template3.render(context)
 
         file = open("polizas/" + 'emision_todas.pdf', "w+b")
         file1 = open("polizas/" + 'emision_intermediario.pdf', "w+b")
         file2 = open("polizas/" + 'emision_acreedor_asegurado.pdf', "w+b")
+        file3 = open("polizas/" + 'emision_ACH.pdf', "w+b")
         result = StringIO.StringIO()
         links = lambda uri, rel: os.path.join(settings.STATIC_ROOT2, uri.replace(settings.STATIC_URL, ""))
         pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=result, encoding='UTF-8', link_callback=links)
@@ -646,6 +660,7 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=file, encoding='UTF-8', link_callback=links)
         pdf1 = pisa.pisaDocument(StringIO.StringIO(html1.encode("utf-8")), dest=file1, encoding='UTF-8', link_callback=links)
         pdf2 = pisa.pisaDocument(StringIO.StringIO(html2.encode("utf-8")), dest=file2, encoding='UTF-8', link_callback=links)
+        pdf3 = pisa.pisaDocument(StringIO.StringIO(html3.encode("utf-8")), dest=file3, encoding='UTF-8', link_callback=links)
 
         file.seek(0)
         pdf = file.read()
@@ -659,6 +674,10 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         pdf2 = file2.read()
         file2.close()
 
+        file3.seek(0)
+        pdf3 = file3.read()
+        file3.close()
+
         # Email enviado al cliente (asegurado)
         to = [solicitud.cotizacion.conductor.correo]
         from_email = request.user.email
@@ -669,6 +688,10 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         msg.attach("polizas/emision_acreedor_asegurado.pdf",
                     pdf2,
                     'application/pdf')
+        if solicitud.cotizacion.tipo_pago == 'ACH':
+            msg.attach("polizas/emision_ACH.pdf",
+                        pdf3,
+                        'application/pdf')
         msg.send()
 
         # Email enviado al corredor
@@ -679,6 +702,10 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         msg.attach("polizas/emision_intermediario.pdf",
                     pdf1,
                     'application/pdf')
+        if solicitud.cotizacion.tipo_pago == 'ACH':
+            msg.attach("polizas/emision_ACH.pdf",
+                        pdf3,
+                        'application/pdf')
         msg.send()
 
         # Email enviado para notificacion de aprobacion

@@ -3,53 +3,26 @@
 
 <head style="height: 100%;">
   <style>
-    table {
-        font-family: arial, sans-serif;
-        
-        border: none;
-        width: 100%;
-        height: 100%;
-    }
-    table1 {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        border: none;
-        width: 100%;
-        height: 100%;
-    }
-
-    td {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 2px;
-    }
-    th {
-      border: 1px solid #dddddd;
-        text-align: center;
-        padding: 2px;
-        background-color: #dddddd;
-    }
-    footer {
-        clear: both;
-        position: relative;
-        z-index: 10;
-        height: 3em;
-        margin-top: -3em;
-    }
   </style>
 
   <style type="text/css">
-    @media screen {
-        div.divFooter {
-            display: none;
+    div{
+       border: 1px solid black ;
+      }
+
+      h3{
+       display: inline;   
+      }
+      td {
+        vertical-align: middle;
+      }
+
+      .inner {
+         border: 1px solid #000000;
+         padding:0px;margin:0px;
+         display: inline;
         }
-    }
-    @media print {
-        div.divFooter {
-            position: fixed;
-            bottom: 0;
-        }
-    }
+
   </style>
 
 </head>
@@ -57,127 +30,118 @@
 
  <table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
-    <td style="border: none;" colspan="1" ><img src="{% static 'img/AcertaSeguros.png' %}" width="150" height="53"></td>
-    <td style="border: none;" colspan="1" align="center">
-      <br><br>
-      Fecha de Emisión
+    <td style="border: none;" colspan="2" ><img src="{% static 'img/AcertaSeguros.png' %}" width="150" height="53"></td>
+    <td></td>
+    <td style="border: none;" colspan="3" align="center">
+    <br>
+      <table bordercolor="#FF6900" border="1" cellpadding="1" cellspacing="1">
+       <tr>
+         <td style="padding: 2px; width:50px; height: 300px;vertical-align: text-bottom;"><span style="font-size:15px;">{{fecha.day}}</span><br><span style="font-size:11px;">día</span></td>
+         <td style="padding: 2px; width:50px; height: 300px;vertical-align: text-bottom;"><span style="font-size:15px;">{{fecha.month}}</span><br><span style="font-size:11px;">mes</span></td>
+         <td style="padding: 2px; width:50px; height: 300px;vertical-align: text-bottom;"><span style="font-size:15px;">{{fecha.year}}</span><br><span style="font-size:11px;">año</span></td>
+       </tr>
+     </table>
+     <br>Fecha de Emisión
     </td>
-    <td style="border: none;" align="left">
-     Autorización de Débitos Informáticos ACH<br>
-     <br><br>
-     Número de Empresa<br>
+    <td style="border: none;" colspan="4" align="center">
+     <h2 style="color: #FF6900;">Autorización de Débitos Informáticos ACH</h2>
+     <table bordercolor="#FF6900" style="font-size:16px;" border="1" cellpadding="1" cellspacing="1">
+       <tr style="vertical-align: middle">
+         <td style=" padding: 8px 0em 1px 0em;">0</td>
+         <td style=" padding: 8px 0em 1px 0em;">0</td>
+         <td style=" padding: 8px 0em 1px 0em;">7</td>
+         <td style=" padding: 8px 0em 1px 0em;">0</td>
+         <td style=" padding: 8px 0em 1px 0em;">3</td>
+         <td style=" padding: 8px 0em 1px 0em;">0</td>
+         <td style=" padding: 8px 0em 1px 0em;">8</td>
+         <td style=" padding: 8px 0em 1px 0em;">8</td>
+         <td style=" padding: 8px 0em 1px 0em;">0</td>
+         <td style=" padding: 8px 0em 1px 0em;">4</td>
+       </tr>
+     </table>
+     <br>Número de Empresa<br>
      <br>
     </td>
     </tr>
-  </table>
-<br>
+</table>
   <table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
     <tr>
-      <td style="text-align: justify; border: none;" colspan="3"> Por este medio autorizo (amos) a <b>ACERTA COMAPAÑÍA DE SEGUROS S.A.</b> (en lo sucesivo LA EMPRESA), para que mi (nuestro) nombre y representación solicite al banco cuyo nombre aparece abajo (en lo sucesivo EL BANCO), que realice débitos de mi(nuestra) cuenta: CORRIENTE AHORROS indicada a continuación por los montos también inidicados a continuación, y, a la vez, autorizo a EL BANCO para debitar de la referida cuenta, la suma que la EMPRESA solicite según lo antes indicado. Queda entendido que dichas sumas serán debitadas siempre y cuando en la cuenta indicada se mantenga la suficiente provisión de fondos. No obstante, en caso de que por cualquier razón EL BANCO llegare pagar las sumas solicitadas por la EMPRESA sin haber la suficiente provisión de fondos en la cuenta, declaro(amos) y convengo(imos) que me(nos) hago(cemos) responsable(s) de cualquier sobregiro que resulte y acepto(amos) como final, definitiva y exigible la liquidación que haga EL BANCO en cuanto al importe adeudado, obligándome(nos) a pagar a EL BANCO todos los cargos (incluyendo intereses), que resulten por motivo de sobregiro y convengo(imos) en depositar inmediatamente en EL BANCO las sumas de dinero necesarias para cancelar el sobregiro.
+      <td style="text-align: justify; border: none; font-size:12px;" colspan="3"> Por este medio autorizo(amos) a <b>ACERTA COMAPAÑÍA DE SEGUROS S.A.</b> (en lo sucesivo LA EMPRESA), para que mi (nuestro) nombre y representación solicite al banco cuyo nombre aparece abajo (en lo sucesivo EL BANCO), que realice débitos de mi(nuestra) cuenta {{tipo_cuenta}} indicada a continuación por los montos también inidicados a continuación, y, a la vez, autorizo a EL BANCO para debitar de la referida cuenta, la suma que la EMPRESA solicite según lo antes indicado. Queda entendido que dichas sumas serán debitadas siempre y cuando en la cuenta indicada se mantenga la suficiente provisión de fondos. No obstante, en caso de que por cualquier razón EL BANCO llegare pagar las sumas solicitadas por la EMPRESA sin haber la suficiente provisión de fondos en la cuenta, declaro(amos) y convengo(imos) que me(nos) hago(cemos) responsable(s) de cualquier sobregiro que resulte y acepto(amos) como final, definitiva y exigible la liquidación que haga EL BANCO en cuanto al importe adeudado, obligándome(nos) a pagar a EL BANCO todos los cargos (incluyendo intereses), que resulten por motivo de sobregiro y convengo(imos) en depositar inmediatamente en EL BANCO las sumas de dinero necesarias para cancelar el sobregiro.
       </td>
     </tr>
     <tr>
-      <td style="text-align: justify; border: none;"></td>
+      <td style="text-align: justify; border: none;" colspan="1">
+        <br><br><br>
+        <b>Banco Recibidor:</b> {{solicitud.cuenta_banco_nombre}}
+      </td>
+      <td style="text-align: right; border: none;">
+      <br><br><br>
+       <b>Ruta y Tránsito:</b>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+       <td><table bordercolor="#FF6900" style="font-size:16px;" border="1" cellpadding="1" cellspacing="1">
+       <tr>
+         <td style=" padding: 5px 0em 1px 0em;">&nbsp;</td>
+         <td style=" padding: 5px 0em 1px 0em;">&nbsp;</td>
+         <td style=" padding: 5px 0em 1px 0em;">&nbsp;</td>
+         <td style=" padding: 5px 0em 1px 0em;">&nbsp;</td>
+         <td style=" padding: 5px 0em 1px 0em;">&nbsp;</td>
+         <td style=" padding: 5px 0em 1px 0em;">&nbsp;</td>
+         <td style=" padding: 5px 0em 1px 0em;">&nbsp;</td>
+         <td style=" padding: 5px 0em 1px 0em;">&nbsp;</td>
+         <td style=" padding: 5px 0em 1px 0em;">&nbsp;</td>
+       </tr>
+     </table>
+      </td>
     </tr>
     <tr>
-      <td style="text-align: justify; border: none;" colspan="2">
-        Banco Recibidor
+      <td style="text-align: justify; border: none;" colspan="1">
+        <b>Número de cuenta:</b> {{solicitud.cuenta_banco_num}}
+      </td>
+      <td style="text-align: right; border: none;">
+       <b>Por la suma de B/.:</b>&nbsp;&nbsp;&nbsp;&nbsp;
       </td>
       <td style="text-align: justify; border: none;">
-       Ruta y Tránsito
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align: justify; border: none;" colspan="2">
-        Número de cuenta
-      </td>
-      <td style="text-align: justify; border: none;">
-       Por la suma de B/.
+       {{solicitud.cotizacion.prima_mensual}}
       </td>
     </tr>
     <tr>
       <td style="text-align: justify; border: none;" colspan="3">
-        Monto Autorizado en Letras
+        <b>Monto Autorizado en Letras:</b> {{monto_letras}}
       </td>
     </tr>
      <tr>
-      <td style="text-align: justify; border: none;">
-        Número de Póliza
+      <td style="text-align: justify; border: none; font-size:12px;">
+        <b>Número de Póliza:</b>
       </td>
-      <td style="text-align: justify; border: none;">
-       Monto Mensual
+      <td style="text-align: justify; border: none; font-size:12px;">
+       <b>Monto Mensual:</b>
       </td>
-      <td style="text-align: justify; border: none;">
-       Fecha de pago
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align: justify; border: none;">
-        ______________________________
-      </td>
-      <td style="text-align: justify; border: none;">
-       ______________________________
-      </td>
-      <td style="text-align: justify; border: none;">
-       01&nbsp;16&nbsp;25
+      <td style="text-align: justify; border: none; font-size:12px;">
+       <b>Fecha de pago:</b>
       </td>
     </tr>
     <tr>
       <td style="text-align: justify; border: none;">
-        ______________________________
+         {{solicitud.num}}
       </td>
       <td style="text-align: justify; border: none;">
-       ______________________________
+       {{solicitud.cotizacion.prima_mensual}}
       </td>
       <td style="text-align: justify; border: none;">
-       01&nbsp;16&nbsp;25
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align: justify; border: none;">
-        ______________________________
-      </td>
-      <td style="text-align: justify; border: none;">
-       ______________________________
-      </td>
-      <td style="text-align: justify; border: none;">
-       01&nbsp;16&nbsp;25
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align: justify; border: none;">
-        ______________________________
-      </td>
-      <td style="text-align: justify; border: none;">
-       ______________________________
-      </td>
-      <td style="text-align: justify; border: none;">
-       01&nbsp;16&nbsp;25
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align: justify; border: none;">
-        ______________________________
-      </td>
-      <td style="text-align: justify; border: none;">
-       ______________________________
-      </td>
-      <td style="text-align: justify; border: none;">
-       01&nbsp;16&nbsp;25
+       El {{solicitud.dia_cobro}} de cada mes.
       </td>
     </tr>
     <tr><td style="border: none;"></td></tr>
      <tr>
-      <td style="text-align: justify; border: none;" colspan="3"> En consideración a los servicios de débito de la cuenta que proveerá EL BANCO conforme a la presente autorización, por este medio revelo (amos) a EL BANCO de toda responsabilidad en relación con cualquier acto que realice conforme a la presente autorización o en caso de que, por cualquier causa, no se hiciere en débito, o no se efectuare el pago, de la suma solicitada por LA EMPRESA.<br> Esta autorización permanecerá vigente hasta la fecha de expiración especificada a continuación o hasta que EL BANCO reciba notificación escrita sobre la terminación de la misma, firmada por la(s) persona(s) autorizada(s) para el manejo de la cuenta.
+      <td style="text-align: justify; font-size:12px; border: none;" colspan="3"> En consideración a los servicios de débito de la cuenta que proveerá EL BANCO conforme a la presente autorización, por este medio revelo (amos) a EL BANCO de toda responsabilidad en relación con cualquier acto que realice conforme a la presente autorización o en caso de que, por cualquier causa, no se hiciere en débito, o no se efectuare el pago, de la suma solicitada por LA EMPRESA.<br> Esta autorización permanecerá vigente hasta la fecha de expiración especificada a continuación o hasta que EL BANCO reciba notificación escrita sobre la terminación de la misma, firmada por la(s) persona(s) autorizada(s) para el manejo de la cuenta.
       </td>
     </tr>
     <tr><td style="border: none;"></td></tr>
     <tr>
-      <td style="border: none;" colspan="2">Nombre:</td>
-      <td style="border: none;">Cédula o RUC</td>
+      <td style="border: none; font-size:12px;" colspan="2"><b>Nombre:</b> <font size="8"> {{solicitud.cotizacion.conductor.nombre}} {{ solicitud.cotizacion.conductor.apellido }} </font></td>
+      <td style="border: none; font-size:12px;"><b>Cédula o RUC:</b> <font size="8"> {{ solicitud.cotizacion.conductor.identificacion }} </font></td>
     </tr>
     <tr>
-      <td style="border: none;" colspan="3">Firma</td>
+      <td style="border: none; font-size:12px;" colspan="3"><br><b>Firma:</b>  <font size="8">___________________________________________________________</font></td>
     </tr>
   </table>
 
