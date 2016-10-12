@@ -610,6 +610,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
             impuestos = float("{0:.2f}".format(subtotal * 0.06))
             total = cotizacion.total
 
+        tipo_pago = solicitud.cotizacion.tipo_pago
+
         endoso = solicitud.cotizacion.endoso.endoso.upper()
 
         monto_letras = num2words(solicitud.cotizacion.prima_mensual, lang='es')
@@ -638,8 +640,11 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'endoso': endoso,
                            'descuento': descuento,
                            'monto_letras': monto_letras,
-                           'tipo_cuenta': tipo_cuenta})
+                           'tipo_cuenta': tipo_cuenta,
+                           'tipo_pago': tipo_pago})
 
+        template_result = get_template('polizas/result_todas_pdf.html')
+        html_result = template_result.render(context)
         template = get_template('polizas/emision_todas_pdf.html')
         html = template.render(context)
         template1 = get_template('polizas/emision_acreedor_asegurado_pdf.html')
@@ -655,7 +660,7 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         file3 = open("polizas/" + 'emision_ACH.pdf', "w+b")
         result = StringIO.StringIO()
         links = lambda uri, rel: os.path.join(settings.STATIC_ROOT2, uri.replace(settings.STATIC_URL, ""))
-        pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=result, encoding='UTF-8', link_callback=links)
+        pdf = pisa.pisaDocument(StringIO.StringIO(html_result.encode("utf-8")), dest=result, encoding='UTF-8', link_callback=links)
 
         pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("utf-8")), dest=file, encoding='UTF-8', link_callback=links)
         pdf1 = pisa.pisaDocument(StringIO.StringIO(html1.encode("utf-8")), dest=file1, encoding='UTF-8', link_callback=links)
