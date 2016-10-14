@@ -135,7 +135,7 @@ class ExtraDatosCliente(models.Model):
     color = models.CharField(max_length=20, blank=False, default='')
     num_puestos = models.IntegerField(blank=True, null=True)
     nombre2 = models.CharField(max_length=20, blank=False)
-    apellido_mat = models.CharField(max_length=20, blank=False)
+    apellido_mat = models.CharField(max_length=20, blank=True)
     apellido_cas = models.CharField(max_length=20, blank=True)
     nacionalidad = models.CharField(max_length=30, blank=False)
     pais_nacimiento = models.CharField(max_length=30, blank=False)

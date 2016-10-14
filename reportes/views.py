@@ -766,6 +766,23 @@ def sendCotization(request, id):
     if prima_endoso[-2] == '.':
         prima_endoso = prima_endoso + '0'
 
+    try:
+        corredor = DatosCorredor.objects.get(user=cotizacion.corredor)
+        if (corredor.razon_social == '' or corredor.razon_social == '-'):
+            cotizado_por = 'el corredor ' + cotizacion.corredor.first_name +' '+cotizacion.corredor.last_name
+        else:
+            cotizado_por = corredor.razon_social
+    except:
+        try:
+            corredor_v = CorredorVendedor.objects.get(vendedor=cotizacion.corredor)
+            corredor = DatosCorredor.objects.get(user=corredor_v.corredor)
+            if (corredor.razon_social == '' or corredor.razon_social == '-'):
+                cotizado_por = 'el corredor ' + cotizacion.corredor.first_name +' '+cotizacion.corredor.last_name
+            else:
+                cotizado_por = corredor.razon_social
+        except:
+            cotizado_por = request.user.first_name +' '+request.user.last_name
+
     ctx = {
         'cotizacion': cotizacion,
         'valor_vehiculo': valor_vehiculo,
@@ -786,6 +803,7 @@ def sendCotization(request, id):
         'prima_contado': prima_contado,
         'tipo_pago': pago,
         'prima_endoso': prima_endoso,
+        'cotizado_por': cotizado_por,
     }
 
     # Correo Cliente
