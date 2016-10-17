@@ -58,8 +58,6 @@
 			                    <span class="sr-only">Toggle Dropdown</span>
 			                  </button>
 		                  <ul class="dropdown-menu" role="menu">
-		                    <li><a href=""><i class="fa fa-edit">  Editar</i></a></li>
-		                    <li class="divider"></li>
 		                    <li><a href="{% url 'send-solicitud' solicitud.pk %}"><i class="fa fa-send"> Enviar</i></a></li>
 		                    {% if solicitud.cotizacion.conductor.datos.first.ilicito == 'No' and solicitud.cotizacion.conductor.datos.first.politico_expuesto == 'No' and solicitud.cotizacion.conductor.datos.first.declaracion_prima == 'No' %}
 		                    	<li><a href="{% url 'emitir-poliza' solicitud.pk %}"><i class="fa fa-check" onclick="window.open('{% url 'emitir' solicitud.pk %}')">  Emitir</i></a></li>

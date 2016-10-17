@@ -221,9 +221,6 @@
                             <button class="btn btn-lg calculate2" onclick="location.href='{% url 'send-solicitud' solicitud.pk %}'">
                                 <i class="fa fa-send-o"></i>&nbsp;Enviar
                             </button>
-                            <button class="btn btn-lg calculate2">
-                                <i class="fa fa-edit"></i>&nbsp;Editar
-                            </button>
                         </div>
                             {% if solicitud.cotizacion.conductor.datos.first.ilicito == 'Si' or solicitud.cotizacion.conductor.datos.first.politico_expuesto == 'Si' or  solicitud.cotizacion.conductor.datos.first.declaracion_prima == 'Si' %}
                                 <div class="col-md-12" style="padding-top:20px;">
