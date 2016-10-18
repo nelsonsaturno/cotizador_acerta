@@ -171,12 +171,11 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 provincia_1 = form.cleaned_data['provincia_1']
                 tipo_1 = form.cleaned_data['tipo_1']
                 campo_id_1_1 = form.cleaned_data['campo_id_1_1']
-                cedula = str(provincia_1) + '-' + str(tipo_1) + '-' + str(campo_id_1_1)
                 campo_id_2_1 = form.cleaned_data['campo_id_2_1']
-                if provincia_1 <> 'E':
-                    cedula = cedula + '-' + str(campo_id_2_1)
-                else:
+                if str(provincia_1) == 'E':
                     cedula = str(provincia_1) + '-' + str(campo_id_1_1) + '-' + str(campo_id_2_1)
+                else:
+                    cedula = str(provincia_1) + '-' + str(tipo_1) + '-' + str(campo_id_1_1) + '-' + str(campo_id_2_1)
                 conductor[1] = cedula
             else:
                 conductor[1] = form.cleaned_data['id_conductor']
@@ -187,12 +186,11 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 provincia_2 = form.cleaned_data['provincia_2']
                 tipo_2 = form.cleaned_data['tipo_2']
                 campo_id_1_2 = form.cleaned_data['campo_id_1_2']
-                cedula = str(provincia_2) + '-' + str(tipo_2) + '-' + str(campo_id_1_2)
                 campo_id_2_2 = form.cleaned_data['campo_id_2_2']
-                if provincia_2 <> 'E':
-                    cedula = cedula + '-' + str(campo_id_2_2)
+                if str(provincia_2) == 'E':
+                    cedula = str(provincia_2) + '-' + str(campo_id_1_2) + '-' + str(campo_id_2_2)
                 else:
-                    cedula = str(provincia_1) + '-' + str(campo_id_1_2) + '-' + str(campo_id_2_2)
+                    cedula = str(provincia_2) + '-' + str(tipo_2) + '-' + str(campo_id_1_2) + '-' + str(campo_id_2_2)
                 conductor2[1] = cedula
             else:
                 conductor2[1] = form.cleaned_data['id_conductor2']
@@ -202,12 +200,11 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
                 provincia_3 = form.cleaned_data['provincia_3']
                 tipo_3 = form.cleaned_data['tipo_3']
                 campo_id_1_3 = form.cleaned_data['campo_id_1_3']
-                cedula = str(provincia_3) + '-' + str(tipo_3) + '-' + str(campo_id_1_3)
                 campo_id_2_3 = form.cleaned_data['campo_id_2_3']
-                if provincia_3 <> 'E':
-                    cedula = cedula + '-' + str(campo_id_2_3)
+                if str(provincia_3) == 'E':
+                    cedula = str(provincia_3) + '-' + str(campo_id_1_3) + '-' + str(campo_id_2_3)
                 else:
-                    cedula = str(provincia_1) + '-' + str(campo_id_1_3) + '-' + str(campo_id_2_3)
+                    cedula = str(provincia_3) + '-' + str(tipo_3) + '-' + str(campo_id_1_3) + '-' + str(campo_id_2_3)
                 conductor3[1] = cedula
             else:
                 conductor3[1] = form.cleaned_data['id_conductor3']

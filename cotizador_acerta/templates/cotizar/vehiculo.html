@@ -453,20 +453,22 @@
                 var id = $('#id_identificacion').val();
                 var result = id.split('-');
                 $("#id_provincia").val(result[0]);
-                $("#id_tipo").val(result[1]);
-                $('#id_campo_id_1').val(result[2]);
-                $('#id_campo_id_2').val(result[3]);
                 if ($('#id_provincia').val()=="E"){
                     $("#id_campo_id_1").attr('maxlength','1');
                     $("#id_campo_id_2").attr('maxlength','6');
                     $(".ced-hid").addClass("hidden");
-                    $(".extra").removeClass("hidden"); 
+                    $(".extra").removeClass("hidden");
+                    $('#id_campo_id_1').val(result[1]);
+                    $('#id_campo_id_2').val(result[2]); 
                 }
                 else{
                     $("#id_campo_id_1").attr('maxlength','3');
                     $("#id_campo_id_2").attr('maxlength','4');
                     $(".ced-hid").removeClass("hidden");
-                    $(".extra").addClass("hidden"); 
+                    $(".extra").addClass("hidden");
+                    $("#id_tipo").val(result[1]);
+                    $('#id_campo_id_1').val(result[2]);
+                    $('#id_campo_id_2').val(result[3]); 
                 }
             {% elif vehiculo.tipo_id == 'Pasaporte' %}
                 $('#id_tipo_id_1').iCheck('check');
