@@ -546,7 +546,7 @@ class CotizacionesGeneralDetailView(LoginRequiredMixin, TemplateView):
 def changeStatus(request, id, status):
     cotizacion = Cotizacion.objects.get(pk=id)
     if ((request.user.email == 'lhernandez@acertaseguros.com') or
-        (request.user.email == 'mv@darient.com') or
+        (request.user.email == 'og@darient.com') or
         (request.user.email == 'vcamargo@acertaseguros.com') or
             (request.user.groups.first().name == "super_admin") or
             (request.user.groups.first().name == "admin")):
