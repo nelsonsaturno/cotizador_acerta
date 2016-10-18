@@ -457,7 +457,7 @@
 					                              <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</strong></h5>
 					                              <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
 					                              <h5 style="text-align: right;"> Puedes pagar con tu ACH/Visa por: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }} en 10 cuotas.</h5>
-												  {% elif tipo_pago == 'Visa' %}
+												  {% elif tipo_pago == 'Visa' or tipo_pago == 'ACH' %}
 					                              <h5 style="text-align: right;"><strong>Total a Pagar: B/. {{ cotizacion.prima_pagoVisa|floatformat:2 }}</strong></h5>
 					                              <h5 style="text-align: right;"> Prima Mensual: B/. {{ cotizacion.prima_mensual|floatformat:2 }}</h5>
 					                              <h5 style="text-align: right;">Puedes pagar de Contado por: B/. {{ cotizacion.prima_pagoContado|floatformat:2 }}</h5>
