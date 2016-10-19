@@ -531,6 +531,11 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
         solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
         cotizacion = solicitud.cotizacion
+        user = User.objects.get(username=solicitud.cotizacion.corredor)
+        poliza_corredor = PolizasCorredor.objects.filter(user=user)
+        poliza_corredor = poliza_corredor.first()
+        if not poliza_corredor:
+            return page_not_found(request)
         corredor = ''
 
         if ((request.user.groups.first().name != "super_admin")\
