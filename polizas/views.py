@@ -711,7 +711,7 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         msg.send()
 
         # Email enviado para notificacion de aprobacion
-        #to = ['']
+        to = ['jgutierrez@acertaseguros.com', 'ylezcano@acertaseguros.com']
         message = get_template('polizas/email_emision_poliza_notificacion.html').render(context)
         msg = EmailMessage(subject, message, to=to, from_email=from_email)
         msg.content_subtype = 'html'
