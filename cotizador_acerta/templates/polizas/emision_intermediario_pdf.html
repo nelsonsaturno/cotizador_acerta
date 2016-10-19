@@ -117,6 +117,8 @@
     <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono_empresa }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
    {% elif conductor.telefono2 %} 
    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono2 }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   {% else %}
+   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
    {% endif %}
     <td colspan="4" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>

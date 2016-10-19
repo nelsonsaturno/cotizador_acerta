@@ -117,6 +117,8 @@
     <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono_empresa }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
    {% elif conductor.telefono2 %} 
    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono2 }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   {% else %}
+   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
    {% endif %}
     <td colspan="4" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
@@ -270,7 +272,7 @@
     <td style="text-align: center;" colspan="4"><img src="{% static 'img/firma-acerta-ok.png' %}" width="150" height="53"><br>_____________________________ <br>Acerta Seguros S.A.<br>{{fecha.month}}/{{fecha.year}}/{{solicitud.num}}/WEB</td>
   </tr>
  </table>
- <table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
+ <table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; page-break-after: always;" cellspacing="0" cellpadding="0">
     <tr>
     <td style="text-align: right; border: none;" colspan="7"><br>ACREEDOR </td>
     </tr>
@@ -352,6 +354,8 @@
     <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono_empresa }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
    {% elif conductor.telefono2 %} 
    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono2 }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   {% else %}
+   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
    {% endif %}
     <td colspan="4" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
@@ -505,7 +509,7 @@
     <td style="text-align: center;" colspan="4"><img src="{% static 'img/firma-acerta-ok.png' %}" width="150" height="53"><br>_____________________________ <br>Acerta Seguros S.A.<br>{{fecha.month}}/{{fecha.year}}/{{solicitud.num}}/WEB</td>
   </tr>
  </table>
- <table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;" cellspacing="0" cellpadding="0">
+ <table  style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; page-break-after: always;" cellspacing="0" cellpadding="0">
     <tr>
     <td style="text-align: right; border: none;" colspan="7"><br>CONTRATANTE </td>
     </tr>
@@ -586,6 +590,8 @@
     <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono_empresa }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
    {% elif conductor.telefono2 %} 
    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono2 }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   {% else %}
+   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
    {% endif %}
     <td colspan="4" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
