@@ -685,45 +685,46 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         pdf3 = file3.read()
         file3.close()
 
-        # Email enviado al cliente (asegurado)
-        to = [solicitud.cotizacion.conductor.correo]
-        from_email = request.user.email
-        subject = 'Acerta Seguros - Emision Poliza'
-        message = get_template('polizas/email_emision_poliza_cliente.html').render(context)
-        msg = EmailMessage(subject, message, to=to, from_email=from_email)
-        msg.content_subtype = 'html'
-        msg.attach("polizas/emision_acreedor_asegurado.pdf",
-                    pdf2,
-                    'application/pdf')
-        if solicitud.cotizacion.tipo_pago == 'ACH':
-            msg.attach("polizas/emision_ACH.pdf",
-                        pdf3,
+        if solicitud.tipo != 'Emitida':
+            # Email enviado al cliente (asegurado)
+            to = [solicitud.cotizacion.conductor.correo]
+            from_email = request.user.email
+            subject = 'Acerta Seguros - Emision Poliza'
+            message = get_template('polizas/email_emision_poliza_cliente.html').render(context)
+            msg = EmailMessage(subject, message, to=to, from_email=from_email)
+            msg.content_subtype = 'html'
+            msg.attach("polizas/emision_acreedor_asegurado.pdf",
+                        pdf2,
                         'application/pdf')
-        msg.send()
+            if solicitud.cotizacion.tipo_pago == 'ACH':
+                msg.attach("polizas/emision_ACH.pdf",
+                            pdf3,
+                            'application/pdf')
+            msg.send()
 
-        # Email enviado al corredor
-        to = [request.user.email]
-        message = get_template('polizas/email_emision_poliza_corredor.html').render(context)
-        msg = EmailMessage(subject, message, to=to, from_email=from_email)
-        msg.content_subtype = 'html'
-        msg.attach("polizas/emision_intermediario.pdf",
-                    pdf1,
-                    'application/pdf')
-        if solicitud.cotizacion.tipo_pago == 'ACH':
-            msg.attach("polizas/emision_ACH.pdf",
-                        pdf3,
+            # Email enviado al corredor
+            to = [request.user.email]
+            message = get_template('polizas/email_emision_poliza_corredor.html').render(context)
+            msg = EmailMessage(subject, message, to=to, from_email=from_email)
+            msg.content_subtype = 'html'
+            msg.attach("polizas/emision_intermediario.pdf",
+                        pdf1,
                         'application/pdf')
-        msg.send()
+            if solicitud.cotizacion.tipo_pago == 'ACH':
+                msg.attach("polizas/emision_ACH.pdf",
+                            pdf3,
+                            'application/pdf')
+            msg.send()
 
-        # Email enviado para notificacion de aprobacion
-        to = ['jgutierrez@acertaseguros.com', 'ylezcano@acertaseguros.com']
-        message = get_template('polizas/email_emision_poliza_notificacion.html').render(context)
-        msg = EmailMessage(subject, message, to=to, from_email=from_email)
-        msg.content_subtype = 'html'
-        msg.attach("polizas/emision.pdf",
-                    pdf,
-                    'application/pdf')
-        msg.send()
+            # Email enviado para notificacion de aprobacion
+            to = ['jgutierrez@acertaseguros.com', 'ylezcano@acertaseguros.com']
+            message = get_template('polizas/email_emision_poliza_notificacion.html').render(context)
+            msg = EmailMessage(subject, message, to=to, from_email=from_email)
+            msg.content_subtype = 'html'
+            msg.attach("polizas/emision.pdf",
+                        pdf,
+                        'application/pdf')
+            msg.send()
 
 
         return HttpResponse(result.getvalue(), 'application/pdf')
