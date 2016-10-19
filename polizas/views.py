@@ -611,7 +611,7 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
         endoso = solicitud.cotizacion.endoso.endoso.upper()
 
-        monto_letras = num2words(solicitud.cotizacion.prima_mensual, lang='es')
+        monto_letras = num2words(total, lang='es')
         monto_letras = monto_letras.replace('punto','con')
         monto_letras = monto_letras.upper()
 
