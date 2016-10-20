@@ -118,23 +118,27 @@
                         <td><strong>Colisión y Vuelco</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.0.colision_vuelco|floatformat:0|intcomma }}</strong></td>
                         <td><strong>Subtotal:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.0.subtotal }}<strong></td>
+                        <td><strong>B/. {{ subtotal.0 }}<strong></td>
                     </tr>
                     <tr>
                         <td><strong>Incendio y Rayo</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.0.incendio_rayo|floatformat:0|intcomma }}</strong></td>
                         <td><strong>Impuestos:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.0.impuestos }}<strong></td>
+                        <td><strong>B/. {{ impuestos.0 }}<strong></td>
                     </tr>
                     <tr>
                         <td><strong>Robo y Hurto</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.0.robo_hurto|floatformat:0|intcomma }}</strong></td>
-                        {% if tipo_pago == 'Otro'%}
+                        {% if tipo_pago == 'Contado'%}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.0.prima_pagoContado }}<strong></td>
+                        {% elif tipo_pago == 'Visa' or tipo_pago == 'ACH' %}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.0.prima_pagoVisa }}<strong></td>
+                        {% else %}
                         <td><strong>Total a Pagar:<strong></td>
                         <td><strong>B/. {{ cotizaciones.0.total }}<strong></td>
-                        {% else %}
-                        <td><strong>Total:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.0.total }}<strong></td>                   {% endif %}
+                        {% endif %}
                     </tr>
                 </table>
                 <br>
@@ -192,23 +196,27 @@
                         <td><strong>Colisión y Vuelco</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.1.colision_vuelco|floatformat:0|intcomma }}</strong></td>
                         <td><strong>Subtotal:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.1.subtotal }}<strong></td>
+                        <td><strong>B/. {{ subtotal.1 }}<strong></td>
                     </tr>
                     <tr>
                         <td><strong>Incendio y Rayo</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.1.incendio_rayo|floatformat:0|intcomma }}</strong></td>
                         <td><strong>Impuestos:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.1.impuestos }}<strong></td>
+                        <td><strong>B/. {{ impuestos.1 }}<strong></td>
                     </tr>
                     <tr>
                         <td><strong>Robo y Hurto</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.1.robo_hurto|floatformat:0|intcomma }}</strong></td>
-                        {% if tipo_pago == 'Otro'%}
+                        {% if tipo_pago == 'Contado'%}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.1.prima_pagoContado }}<strong></td>
+                        {% elif tipo_pago == 'Visa' or tipo_pago == 'ACH' %}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.1.prima_pagoVisa }}<strong></td>
+                        {% else %}
                         <td><strong>Total a Pagar:<strong></td>
                         <td><strong>B/. {{ cotizaciones.1.total }}<strong></td>
-                        {% else %}
-                        <td><strong>Total:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.1.total }}<strong></td>                   {% endif %}
+                        {% endif %}
                     </tr>
                 </table>
                 <br>
@@ -268,23 +276,27 @@
                         <td><strong>Colisión y Vuelco</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.2.colision_vuelco|floatformat:0|intcomma }}</strong></td>
                         <td><strong>Subtotal:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.2.subtotal }}<strong></td>
+                        <td><strong>B/. {{ subtotal.2 }}<strong></td>
                     </tr>
                     <tr>
                         <td><strong>Incendio y Rayo</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.2.incendio_rayo|floatformat:0|intcomma }}</strong></td>
                         <td><strong>Impuestos:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.2.mpuestos }}<strong></td>
+                        <td><strong>B/. {{ impuestos.2 }}<strong></td>
                     </tr>
                     <tr>
                         <td><strong>Robo y Hurto</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.2.robo_hurto|floatformat:0|intcomma }}</strong></td>
-                        {% if tipo_pago == 'Otro'%}
+                        {% if tipo_pago == 'Contado'%}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.2.prima_pagoContado }}<strong></td>
+                        {% elif tipo_pago == 'Visa' or tipo_pago == 'ACH' %}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.2.prima_pagoVisa }}<strong></td>
+                        {% else %}
                         <td><strong>Total a Pagar:<strong></td>
                         <td><strong>B/. {{ cotizaciones.2.total }}<strong></td>
-                        {% else %}
-                        <td><strong>Total:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.2.total }}<strong></td>                   {% endif %}
+                        {% endif %}
                     </tr>
                 </table>
                 <br>
@@ -342,23 +354,27 @@
                         <td><strong>Colisión y Vuelco</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.3.colision_vuelco|floatformat:0|intcomma }}</strong></td>
                         <td><strong>Subtotal:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.3.subtotal }}<strong></td>
+                        <td><strong>B/. {{ subtotal.3 }}<strong></td>
                     </tr>
                     <tr>
                         <td><strong>Incendio y Rayo</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.3.incendio_rayo|floatformat:0|intcomma }}</strong></td>
                         <td><strong>Impuestos:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.3.impuestos }}<strong></td>
+                        <td><strong>B/. {{ impuestos.3 }}<strong></td>
                     </tr>
                     <tr>
                         <td><strong>Robo y Hurto</strong></td>
                         <td class='text-right'><strong>B/. {{ cotizaciones.3.robo_hurto|floatformat:0|intcomma }}</strong></td>
-                        {% if tipo_pago == 'Otro'%}
+                        {% if tipo_pago == 'Contado'%}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.3.prima_pagoContado }}<strong></td>
+                        {% elif tipo_pago == 'Visa' or tipo_pago == 'ACH' %}
+                        <td><strong>Total a Pagar:<strong></td>
+                        <td><strong>B/. {{ cotizaciones.3.prima_pagoVisa }}<strong></td>
+                        {% else %}
                         <td><strong>Total a Pagar:<strong></td>
                         <td><strong>B/. {{ cotizaciones.3.total }}<strong></td>
-                        {% else %}
-                        <td><strong>Total:<strong></td>
-                        <td><strong>B/. {{ cotizaciones.3.total }}<strong></td>                   {% endif %}
+                        {% endif %}
                     </tr>
                 </table>
                 <br>

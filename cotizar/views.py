@@ -1054,9 +1054,22 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 prima_endoso = prima_endoso + '0'
 
             cot = []
+            subtotal = []
+            impuesto = []
             for cotiz in cotizaciones:
                 cotizac = Cotizacion.objects.get(pk=cotiz)
+                if cotizac.tipo_pago == 'Contado':
+                    s = float("{0:.2f}".format(cotizac.subtotal - (cotizac.subtotal * 0.10)))
+                    i = float("{0:.2f}".format(cotizac.impuestos - (cotizac.impuestos * 0.10)))
+                elif cotizac.tipo_pago == 'Visa' or cotizac.tipo_pago == 'ACH':
+                    s = float("{0:.2f}".format(cotizac.subtotal - (cotizac.subtotal * 0.05)))
+                    i = float("{0:.2f}".format(cotizac.impuestos - (cotizac.impuestos * 0.05)))
+                else:
+                    s = cotizac.subtotal
+                    i = cotizac.impuestos
                 cot.append(cotizac)
+                subtotal.append(s)
+                impuesto.append(i)
             elegida = 1
             for cotiz in cotizaciones:
                 if kwargs['pk'] > cotiz:
@@ -1072,7 +1085,7 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                                'tipo_pago': cotizacion.tipo_pago,
                                'total': total,
                                'subtotal': subtotal,
-                               'impuestos': impuestos,
+                               'impuestos': impuesto,
                                'cuotas': cuotas})
             template = get_template('cotizar/opciones_cotizaciones_pdf.html')
             html = template.render(context)
