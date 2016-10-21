@@ -1255,6 +1255,9 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                                    message_corredor,
                                    to=to_corredor)
                 msg.content_subtype = 'html'
+                msg.attach("opciones.pdf",
+                           pdf,
+                           'application/pdf')
                 msg.send()
 
                 # Correo Admins
