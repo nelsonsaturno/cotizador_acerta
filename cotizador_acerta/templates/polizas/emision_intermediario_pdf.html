@@ -251,11 +251,11 @@
     <td colspan="8"><br></td>
   </tr>
   {% endif %} 
-  <tr>
-    <td colspan="4">EMISIÓN PÓLIZA NUEVA<br>Conductor(es):<br>{{solicitud.nombre_conductor}}<br>{{solicitud.nombre_conductor2}}<br>{{solicitud.nombre_conductor3}}<br></td>
-    <td colspan="2" style="margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %: &nbsp;&nbsp;6.00<br><b>TOTAL A PAGAR:</b></td>
-    <td colspan="1" style="text-align: right;">B/.<br>B/.<br>B/.<br>B/.<br>&nbsp; B/.<br>B/.</td>
-    <td colspan="1" style="text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ impuestos }}<br>{{ total }}</td>
+ <tr>
+    <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px;">EMISIÓN PÓLIZA NUEVA<br>Conductor(es):<br>{{solicitud.nombre_conductor}}&nbsp;{{solicitud.id_conductor}}<br>{{solicitud.nombre_conductor2}}&nbsp;{{solicitud.id_conductor2}}<br>{{solicitud.nombre_conductor3}}&nbsp;{{solicitud.id_conductor3}}<br></td>
+    <td colspan="2" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %: &nbsp;&nbsp;6.00<br><b>TOTAL A PAGAR:</b></td>
+    <td colspan="1" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; text-align: right;">B/.<br>B/.<br>B/.<br>B/.<br>&nbsp; B/.<br>B/.</td>
+    <td colspan="1" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ impuestos }}<br>{{ total }}</td>
   </tr>
 
 
