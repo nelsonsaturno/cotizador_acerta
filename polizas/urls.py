@@ -48,13 +48,18 @@ urlpatterns = patterns(
         'polizas.views.changeEmitida',
         name='emitir-poliza'
     ),
-     url(
-         r'^prueba/$',
-         Test.as_view(),
+    url(
+        r'^prueba/$',
+        Test.as_view(),
     ),
-     url(
-         r'^prueba/generacion$',
-         GeneracionPDF.as_view(),
-         name='generacion'
+    url(
+        r'^prueba/generacion$',
+        GeneracionPDF.as_view(),
+        name='generacion'
     ),
+    url(
+        r'^solicitud/actualizar/(?P<pk>\d+)/$',
+        EditarSolicitudPoliza.as_view(),
+        name='editar-solicitud'
+    )
 )

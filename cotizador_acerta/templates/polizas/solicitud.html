@@ -810,6 +810,264 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
+        $("#id_campo_id_1_1").attr('maxlength','3');
+        $("#id_campo_id_1_2").attr('maxlength','3');
+        $("#id_campo_id_1_3").attr('maxlength','3');
+        $("#id_campo_id_1_resp").attr('maxlength','3');
+        $(".passp1").addClass("hidden");
+        $(".passp2").addClass("hidden");
+        $(".passp3").addClass("hidden");
+        $(".passp_resp").addClass("hidden");
+        /////////////////////////// ASEGURADO ///////////////////
+        /////////////////////////////////////////////////////////
+        var asegurado = '{{ cotizacion.conductor.nombre}} {{ cotizacion.conductor.apellido}}';
+        $("#id_asegurado").val(asegurado);
+        $("#id_id_asegurado").val('{{cotizacion.conductor.identificacion}}');
+        $("#id_asegurado").prop('disabled',true);
+        $("#id_id_asegurado").prop('disabled',true);
+        ///////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////
+        var element = document.querySelector(".politico");
+        element.classList.add("hidden");
+        var element = document.querySelector(".politico2");
+        element.classList.add("hidden");
+        var element = document.querySelector(".politico3");
+        element.classList.add("hidden");
+        var element = document.querySelector(".datos-financieros");
+        element.classList.add("hidden");
+        {% if not update %}
+            $('#id_valido_hasta').prop('readonly',true);
+            $( '#id_ingreso_principal' ).prepend('<option class="placeholder" value="" selected=selected disabled>Ingreso Anual</option>');
+            $( '#id_otro_ingreso' ).prepend('<option class="placeholder" value="" selected=selected disabled>Ingreso Anual</option>');
+            $( '#id_ilicito' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
+            $( '#id_politico_expuesto' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
+            $( '#id_declaracion_prima' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
+            $( '#id_tipo_acreedor_leasing' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
+            $( '#id_acreedor_leasing' ).prepend('<option class="placeholder" value="" selected=selected disabled>Seleccione un acreedor o leasing</option>');
+            $('#id_acreedor_leasing').prop('disabled',true);
+        {% else %}
+            $('#id_valido_hasta').prop('readonly',true);
+            $( '#id_ingreso_principal' ).prepend('<option class="placeholder" value="" disabled>Ingreso Anual</option>');
+            $( '#id_otro_ingreso' ).prepend('<option class="placeholder" value="" disabled>Ingreso Anual</option>');
+            $( '#id_ilicito' ).prepend('<option class="placeholder" value="" disabled>----</option>');
+            $( '#id_politico_expuesto' ).prepend('<option class="placeholder" value="" disabled>----</option>');
+            $( '#id_declaracion_prima' ).prepend('<option class="placeholder" value="" disabled>----</option>');
+            $( '#id_tipo_acreedor_leasing' ).prepend('<option class="placeholder" value="" disabled>----</option>');
+            $( '#id_acreedor_leasing' ).prepend('<option class="placeholder" value="" disabled>Seleccione un acreedor o leasing</option>');
+            {% if datos.es_juridico %}
+                $(".j_RUC").show();
+                $(".j_rs").show();
+                $(".j_pp").show();
+                $(".j_fc").show();
+                $("#id_juridico_RUC").attr('required',true);
+                $("#id_juridico_razon_social").attr('required',true);
+                $("#id_juridico_pais_procedencia").attr('required',true);
+                $("#id_juridico_fecha_constitucion").attr('required',true);
+                var fecha = "{{datos.juridico_fecha_constitucion}}";
+                $('#id_juridico_fecha_constitucion').datepicker("setDate", new Date(fecha));
+            {% endif %}
+            {% if datos.ref_personal %}
+                $("#id_nom_ref_personal").val("{{datos.ref_personal.nombre}}");
+                $("#id_nom_ref_comercial").val("{{datos.ref_comercial.nombre}}");
+                $("#id_nom_ref_bancaria").val("{{datos.ref_bancaria.nombre}}");
+                $("#id_telefono_ref_personal").val("{{datos.ref_personal.telefono}}");
+                $("#id_telefono_ref_comercial").val("{{datos.ref_comercial.telefono}}");
+                $("#id_telefono_ref_bancaria").val("{{datos.ref_bancaria.telefono}}");
+                $("#id_actividad_ref_personal").val("{{datos.ref_personal.actividad}}");
+                $("#id_actividad_ref_comercial").val("{{datos.ref_comercial.actividad}}");
+                $("#id_actividad_ref_bancaria").val("{{datos.ref_bancaria.actividad}}");
+                $("#id_relacion_ref_personal").val("{{datos.ref_personal.relacion}}");
+                $("#id_relacion_ref_comercial").val("{{datos.ref_comercial.relacion}}");
+                $("#id_relacion_ref_bancaria").val("{{datos.ref_bancaria.relacion}}");
+                $("#id_actividad_ref_personal").attr('required',true);
+                $("#id_relacion_ref_personal").attr('required',true);
+                $("#id_telefono_ref_personal").attr('required',true);
+                $("#id_nom_ref_bancaria").attr('required',true);
+                $("#id_actividad_ref_bancaria").attr('required',true);
+                $("#id_relacion_ref_bancaria").attr('required',true);
+                $("#id_telefono_ref_bancaria").attr('required',true);
+                $("#id_nom_ref_comercial").attr('required',true);
+                $("#id_actividad_ref_comercial").attr('required',true);
+                $("#id_relacion_ref_comercial").attr('required',true);
+                $("#id_telefono_ref_comercial").attr('required',true);
+            {% endif %}
+            {% if solicitud.tipo_acreedor_leasing == 1 %}
+                $("#id_tipo_acreedor_leasing option:selected").prop('selected', false);
+                $('#id_tipo_acreedor_leasing option[value="1"]').prop('selected', 'selected');
+                $("#id_acreedor_leasing option:selected").prop('selected', false);
+                $('#id_acreedor_leasing option[value="{{solicitud.acreedor_leasing.nombre_acreedor}}"]').prop('selected', 'selected');
+            {% else %}
+                $("#id_tipo_acreedor_leasing option:selected").prop('selected', false);
+                $('#id_tipo_acreedor_leasing option[value="2"]').prop('selected', 'selected');
+                $("#id_acreedor_leasing option:selected").prop('selected', false);
+                $('#id_acreedor_leasing option[value="{{solicitud.acreedor_leasing.nombre_acreedor}}"]').prop('selected', 'selected');
+            {% endif %}
+            if ($('#id_tipo_acreedor_leasing').val() == 2) {
+                var asegurado = $("#id_acreedor_leasing").val();
+                $("#id_asegurado").val(asegurado);
+                $("#id_id_asegurado").val('N/A');
+                $("#id_nombre_conductor").prop('required',true);
+                $("#id_id_conductor").prop('required',false);
+                $("#id_tipo_id_conductor").prop('required',true);
+                if ($("#id_aseguradoConductor").is(":checked")) {
+                    var element = document.querySelector("#id_tipo_id_conductor");
+                    element.classList.remove("hidden");
+                    $("#id_tipo_id_conductor_1").prop("checked",true);
+                    $("#id_aseguradoConductor").prop("checked",false);
+
+                    if ($("#id_tipo_id_conductor").val()=="0"){
+                        $("#id_nombre_conductor").val('');
+                        $("#id_nombre_conductor").prop("disabled", false);
+                        $("#id_provicia_1").val('');
+                        $("#id_tipo_1").val('');
+                        $("#id_campo_1_1").val('');
+                        $("#id_campo_2_1").val('');
+                        $("#id_id_conductor").prop("disabled", false);
+                        $(".passp1").addClass("hidden");
+                        $(".ced1").removeClass("hidden");
+                        if ($("#id_provincia_1")=='E'){
+                            $(".ced-hid1").addClass("hidden");
+                        }
+                        else{
+                            $(".ced-hid1").removeClass("hidden");
+                        }
+
+                    }
+                    else{
+                        $("#id_nombre_conductor").val('');
+                        $("#id_nombre_conductor").prop("disabled", false);
+                        $("#id_id_conductor").val('');
+                        $("#id_id_conductor").prop("disabled", false);
+                        if ($("#id_provincia_1")=='E'){
+                            $(".ced-hid1").addClass("hidden");
+                        }
+                        else{
+                            $(".ced-hid1").removeClass("hidden");
+                        }
+                    }
+                }
+                var element = document.querySelector(".asegurado-conductor");
+                element.classList.add("hidden");
+                var element = document.querySelector("#id_id_asegurado");
+                element.classList.add("hidden");
+                var element = document.querySelector("#id_id_asegurado");
+                element.classList.add("hidden");
+            } else {
+                $("#id_asegurado").val('{{ cotizacion.conductor.nombre}} {{ cotizacion.conductor.apellido}}');
+                $("#id_id_asegurado").val('{{ cotizacion.conductor.identificacion}}');
+                var element = document.querySelector(".asegurado-conductor");
+                element.classList.remove("hidden");
+                var element = document.querySelector("#id_id_asegurado");
+                element.classList.remove("hidden");
+                $("#id_nombre_conductor").prop('required',false);
+                $("#id_id_conductor").prop('required',false);
+                $("#id_tipo_id_conductor").prop('required',false);
+                if ($("#id_provincia_1")=='E'){
+                    $(".ced-hid1").addClass("hidden");
+                }
+                else{
+                    $(".ced-hid1").removeClass("hidden");
+                }
+
+            }
+            $("#id_nombre_conductor").val("{{solicitud.nombre_conductor}}");
+            var id = "{{solicitud.id_conductor}}";
+            if (~id.indexOf("-")){
+                $('#id_tipo_id_conductor option[value="0"]').prop('selected', 'selected');
+                $(".ced1").removeClass("hidden");
+                $(".ced-hid1").removeClass("hidden");
+                $(".passp1").addClass("hidden");
+                var result = id.split('-');
+                $("#id_provincia_1").val(result[0]);
+                if (result[0] == 'E') {
+                    $("#id_campo_id_1_1").attr('maxlength','1');
+                    $("#id_campo_id_2_1").attr('maxlength','6');
+                    $(".ced-hid1").addClass("hidden");
+                    $(".ced").removeClass("hidden");
+                    $('#id_campo_id_1_1').val(result[1]);
+                    $('#id_campo_id_2_1').val(result[2]);
+                }
+                else {
+                    $("#id_tipo_1").val(result[1]);
+                    $('#id_campo_id_1_1').val(result[2]);
+                    $('#id_campo_id_2_1').val(result[3]);
+                }
+            }
+            else {
+                $('#id_tipo_id_conductor option[value="1"]').prop('selected', 'selected');
+                $("#id_id_conductor").val("{{solicitud.id_conductor}}");
+                $(".passp1").removeClass("hidden");
+                $(".ced1").addClass("hidden");
+                $(".ced-hid1").addClass("hidden");
+            }
+            {% if solicitud.nombre_conductor2 %}
+                $("#id_nombre_conductor2").val("{{solicitud.nombre_conductor2}}");
+                id = "{{solicitud.id_conductor2}}";
+                if (~id.indexOf("-")){
+                    $('#id_tipo_id_conductor2 option[value="0"]').prop('selected', 'selected');
+                    $(".ced2").removeClass("hidden");
+                    $(".ced-hid2").removeClass("hidden");
+                    $(".passp2").addClass("hidden");
+                    var result = id.split('-');
+                    $("#id_provincia_2").val(result[0]);
+                    if (result[0] == 'E') {
+                        $("#id_campo_id_1_2").attr('maxlength','1');
+                        $("#id_campo_id_2_2").attr('maxlength','6');
+                        $(".ced-hid2").addClass("hidden");
+                        $(".ced2").removeClass("hidden");
+                        $('#id_campo_id_1_2').val(result[1]);
+                        $('#id_campo_id_2_2').val(result[2]);
+                    }
+                    else {
+                        $("#id_tipo_2").val(result[1]);
+                        $('#id_campo_id_1_2').val(result[2]);
+                        $('#id_campo_id_2_2').val(result[3]);
+                    }
+                }
+                else {
+                    $('#id_tipo_id_conductor2 option[value="1"]').prop('selected', 'selected');
+                    $("#id_id_conductor2").val("{{solicitud.id_conductor2}}");
+                    $(".passp2").removeClass("hidden");
+                    $(".ced2").addClass("hidden");
+                    $(".ced-hid2").addClass("hidden");
+                }
+            {% endif %}
+            {% if solicitud.nombre_conductor3 %}
+                $("#id_nombre_conductor3").val("{{solicitud.nombre_conductor3}}");
+                id = "{{solicitud.id_conductor3}}";
+                if (~id.indexOf("-")){
+                    $('#id_tipo_id_conductor3 option[value="0"]').prop('selected', 'selected');
+                    $(".ced3").removeClass("hidden");
+                    $(".ced-hid3").removeClass("hidden");
+                    $(".passp3").addClass("hidden");
+                    var result = id.split('-');
+                    $("#id_provincia_3").val(result[0]);
+                    if (result[0] == 'E') {
+                        $("#id_campo_id_1_3").attr('maxlength','1');
+                        $("#id_campo_id_2_3").attr('maxlength','6');
+                        $(".ced-hid3").addClass("hidden");
+                        $(".ced3").removeClass("hidden");
+                        $('#id_campo_id_1_3').val(result[1]);
+                        $('#id_campo_id_2_3').val(result[2]);
+                    }
+                    else {
+                        $("#id_tipo_3").val(result[1]);
+                        $('#id_campo_id_1_3').val(result[2]);
+                        $('#id_campo_id_2_3').val(result[3]);
+                    }
+                }
+                else {
+                    $('#id_tipo_id_conductor3 option[value="1"]').prop('selected', 'selected');
+                    $("#id_id_conductor3").val("{{solicitud.id_conductor3}}");
+                    $(".passp3").removeClass("hidden");
+                    $(".ced3").addClass("hidden");
+                    $(".ced-hid3").addClass("hidden");
+                }
+                $('#id_tipo_vehiculo option:selected').prop('selected', false);
+                $('#id_tipo_vehiculo option[value="{{datos.tipo.descrip}}"]').prop('selected', 'selected');
+            {% endif %}
+        {% endif %}
+
         $('#id_provincia_1').on('change',function(){
             if ($(this).val()=="E"){
                 $("#id_campo_id_1_1").attr('maxlength','1');
@@ -906,16 +1164,6 @@
             }
         });
 
-        
-        $("#id_campo_id_1_1").attr('maxlength','3');
-        $("#id_campo_id_1_2").attr('maxlength','3');
-        $("#id_campo_id_1_3").attr('maxlength','3');
-        $("#id_campo_id_1_resp").attr('maxlength','3');
-        $(".passp1").addClass("hidden");
-        $(".passp2").addClass("hidden");
-        $(".passp3").addClass("hidden");
-        $(".passp_resp").addClass("hidden");
-
         $('#id_valido_desde').mask('00-00-0000', {placeholder: "Valido desde (dd/mm/aaaa)"});
         $('#id_valido_hasta').mask('00-00-0000', {placeholder: "Hasta (dd/mm/aaaa)"});
         $('#id_expiracion_tdc').mask('00/00', {placeholder: "Expiracion (mm/aa)"});
@@ -933,16 +1181,7 @@
         });
 
         $('#id_telefono_empresa').val('{{cotizacion.conductor.telefono2}}');
-        $('#id_acreedor_leasing').prop('disabled',true);
     });
-
-    /////////////////////////// ASEGURADO ///////////////////
-    /////////////////////////////////////////////////////////
-    var asegurado = '{{ cotizacion.conductor.nombre}} {{ cotizacion.conductor.apellido}}';
-    $("#id_asegurado").val(asegurado);
-    $("#id_id_asegurado").val('{{cotizacion.conductor.identificacion}}');
-    $("#id_asegurado").prop('disabled',true);
-    $("#id_id_asegurado").prop('disabled',true);
     $("#id_acreedor_leasing").on("change", function(event) {
         if ($('#id_tipo_acreedor_leasing').val() == 2) {
             var asegurado = $("#id_acreedor_leasing").val();
@@ -1069,17 +1308,6 @@
         $('#id_acreedor_leasing').prop('disabled',false);
 
     });
-
-    ///////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////
-    var element = document.querySelector(".politico");
-    element.classList.add("hidden");
-    var element = document.querySelector(".politico2");
-    element.classList.add("hidden");
-    var element = document.querySelector(".politico3");
-    element.classList.add("hidden");
-    var element = document.querySelector(".datos-financieros");
-    element.classList.add("hidden");
     var select = ($("#id_politico_expuesto").val()=="Si");
     var select2 = ($("#id_declaracion_prima").val()=="Si");
     if (select || select2) {
@@ -1457,19 +1685,6 @@
             todayHighlight: true,
             autoclose: true,
         });
-        $('#id_valido_hasta').prop('readonly',true);
-        $( '#id_ingreso_principal' ).prepend('<option class="placeholder" value="" selected=selected disabled>Ingreso Anual</option>');
-        $( '#id_otro_ingreso' ).prepend('<option class="placeholder" value="" selected=selected disabled>Ingreso Anual</option>');
-        $( '#id_ilicito' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
-        $( '#id_politico_expuesto' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
-        $( '#id_declaracion_prima' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
-        $( '#id_tipo_acreedor_leasing' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
-        $( '#id_acreedor_leasing' ).prepend('<option class="placeholder" value="" selected=selected disabled>Seleccione un acreedor o leasing</option>');
-
-        // $( '#id_tipo_produccion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Produccion</option>');
-        // $( '#id_tipo_suscripcion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Tipo de Suscripcion</option>');
-        // $( '#id_forma_facturacion' ).prepend('<option class="placeholder" value="" selected=selected disabled>Forma de facturacion</option>');
-        // $( '#id_area_funcionario' ).prepend('<option class="placeholder" value="" selected=selected disabled>Area</option>');
     var fecha = $("#id_valido_desde").val();
     var fecha_array = [];
     fecha_array = fecha.split('-');
@@ -1545,7 +1760,7 @@
 
 
     //***********************************
-    // CODIGO DEMENTE PARA VALIDAR FECHAS
+    // CODIGO PARA VALIDAR FECHAS
     //***********************************
 
 
@@ -1610,7 +1825,7 @@
 
 
     //***************************************
-    // FIN CODIGO DEMENTE PARA VALIDAR FECHAS
+    // FIN CODIGO PARA VALIDAR FECHAS
     //***************************************
 
     $(document).on("change", "#id_expiracion_tdc", function(){

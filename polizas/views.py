@@ -418,6 +418,403 @@ class SolicitudPolizaView(LoginRequiredMixin, generic.CreateView):
             )
 
 
+class EditarSolicitudPoliza(LoginRequiredMixin, generic.UpdateView):
+    template_name = "polizas/solicitud.html"
+    form_class = SolicitudClienteForm
+    context_object_name = "datos"
+
+    def get_object(self):
+        solicitud = SolicitudPoliza.objects.get(pk=self.kwargs['pk'])
+        return ExtraDatosCliente.objects.get(pk=solicitud.cotizacion.conductor.datos.first().pk)
+
+    def form_valid(self, form):
+
+        ########################################################
+        # Metodo a ejecutarse luego de que el formulario es
+        # completado y valido. Renderiza el PDF.
+        ########################################################
+
+        context = Context({'pagesize': 'letter'})
+        template = get_template('polizas/prueba_pdf.html')
+        html = template.render(context)
+
+        file = open("polizas/" + 'prueba.pdf', "w+b")
+        pisa.CreatePDF(
+            html.encode('utf-8'),
+            dest=file,
+            encoding='utf-8'
+        )
+
+        file.seek(0)
+        pdf = file.read()
+        file.close()
+        return HttpResponse(pdf, 'application/pdf')
+
+    def get(self, request, *args, **kwargs):
+
+        self.object = self.get_object()
+        print(self.object.pk)
+        context = self.get_context_data(**kwargs)
+        solicitudes = SolicitudPoliza.objects.all()
+        if solicitudes == []:
+            new_pk = 1
+        else:
+            if solicitudes.last() == None:
+                new_pk = 1
+            else:
+                new_pk = int(solicitudes.last().pk) + 1
+        context['new_pk'] = new_pk
+        solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
+        context['cotizacion'] = solicitud.cotizacion
+        context['solicitud'] = solicitud
+        user = User.objects.get(username=solicitud.cotizacion.corredor)
+        if user.groups.first().name != 'super_admin'\
+           and user.groups.first().name != 'admin':
+            if user.groups.first().name == 'corredor':
+                context['corredor_pol'] = DatosCorredor.objects.get(user=user)
+            else:
+                vendedor = CorredorVendedor.objects.get(vendedor=user)
+                context['corredor_pol'] = DatosCorredor.objects.get(user=vendedor.corredor)
+
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+        """
+        Insert the form into the context dict.
+        """
+        if 'form' not in kwargs:
+            kwargs['form'] = self.get_form()
+        kwargs['update'] = True
+        return super(EditarSolicitudPoliza, self).get_context_data(**kwargs)
+
+    def post(self, request, *args, **kwargs):
+
+        form = SolicitudClienteForm(request.POST)
+        solicitud = SolicitudPoliza.objects.get(pk=kwargs['pk'])
+        cotizacion = solicitud.cotizacion
+        user = User.objects.get(username=cotizacion.corredor)
+        if user.groups.first().name != 'super_admin'\
+           and user.groups.first().name != 'admin':
+            if user.groups.first().name == 'corredor':
+                corredor = DatosCorredor.objects.get(user=user)
+            else:
+                vendedor = CorredorVendedor.objects.get(vendedor=user)
+                corredor = DatosCorredor.objects.get(user=vendedor.corredor)
+        else:
+            corredor = ''
+
+        if form.is_valid():
+
+            extra_cliente = form.save()
+
+            if request.POST.get('nom_ref_personal', '') != '':
+                ref1 = Referencia(
+                    nombre=request.POST['nom_ref_personal'],
+                    actividad=request.POST['actividad_ref_personal'],
+                    relacion=request.POST['relacion_ref_personal'],
+                    telefono=request.POST['telefono_ref_personal']
+                )
+                ref2 = Referencia(
+                    nombre=request.POST['nom_ref_bancaria'],
+                    actividad=request.POST['actividad_ref_bancaria'],
+                    relacion=request.POST['relacion_ref_bancaria'],
+                    telefono=request.POST['telefono_ref_bancaria']
+                )
+                ref3 = Referencia(
+                    nombre=request.POST['nom_ref_comercial'],
+                    actividad=request.POST['actividad_ref_comercial'],
+                    relacion=request.POST['relacion_ref_comercial'],
+                    telefono=request.POST['telefono_ref_comercial']
+                )
+                ref1.save()
+                ref2.save()
+                ref3.save()
+                extra_cliente.ref_personal = ref1
+                extra_cliente.ref_bancaria = ref2
+                extra_cliente.ref_comercial = ref3
+            extra_cliente.conductor = cotizacion.conductor
+            extra_cliente.tipo = TipoVehiculo.objects.get(descrip=request.POST['tipo_vehiculo'])
+            extra_cliente.save()
+            conductor = [request.POST.get('nombre_conductor','n/a'),
+                         request.POST.get('id_conductor','n/a')]
+            if conductor[0] == 'n/a':
+                conductor[0] = cotizacion.conductor.nombre + ' ' + cotizacion.conductor.apellido
+            if conductor[1] == 'n/a':
+                conductor[1] = cotizacion.conductor.identificacion
+
+            conductor2 = [request.POST.get('nombre_conductor2','n/a'),
+                         request.POST.get('id_conductor2','n/a')]
+            if conductor2[0] == 'n/a':
+                conductor2[0] = cotizacion.conductor2.nombre + ' ' + cotizacion.conductor2.apellido
+            if conductor2[1] == 'n/a':
+                conductor2[1] = cotizacion.conductor2.identificacion
+
+            conductor3 = [request.POST.get('nombre_conductor3','n/a'),
+                         request.POST.get('id_conductor3','n/a')]
+            if conductor3[0] == 'n/a':
+                conductor3[0] = cotizacion.conductor3.nombre + ' ' + cotizacion.conductor3.apellido
+            if conductor3[1] == 'n/a':
+                conductor3[1] = cotizacion.conductor3.identificacion
+
+            responsable = [request.POST.get('nombre_responsable','n/a'),
+                         request.POST.get('id_responsable','n/a')]
+            if responsable[0] == 'n/a':
+                responsable[0] = cotizacion.conductor.nombre + ' ' + cotizacion.conductor.apellido
+            if responsable[1] == 'n/a':
+                responsable[1] = cotizacion.conductor.identificacion
+
+
+            tipo_id_conductor = form.cleaned_data['tipo_id_conductor']
+            if tipo_id_conductor == '0':
+                provincia_1 = form.cleaned_data['provincia_1']
+                tipo_1 = form.cleaned_data['tipo_1']
+                campo_id_1_1 = form.cleaned_data['campo_id_1_1']
+                campo_id_2_1 = form.cleaned_data['campo_id_2_1']
+                if str(provincia_1) == 'E':
+                    cedula = str(provincia_1) + '-' + str(campo_id_1_1) + '-' + str(campo_id_2_1)
+                else:
+                    cedula = str(provincia_1) + '-' + str(tipo_1) + '-' + str(campo_id_1_1) + '-' + str(campo_id_2_1)
+                conductor[1] = cedula
+            else:
+                conductor[1] = form.cleaned_data['id_conductor']
+
+
+            tipo_id_conductor2 = form.cleaned_data['tipo_id_conductor2']
+            if tipo_id_conductor2 == '0':
+                provincia_2 = form.cleaned_data['provincia_2']
+                tipo_2 = form.cleaned_data['tipo_2']
+                campo_id_1_2 = form.cleaned_data['campo_id_1_2']
+                campo_id_2_2 = form.cleaned_data['campo_id_2_2']
+                if str(provincia_2) == 'E':
+                    cedula = str(provincia_2) + '-' + str(campo_id_1_2) + '-' + str(campo_id_2_2)
+                else:
+                    cedula = str(provincia_2) + '-' + str(tipo_2) + '-' + str(campo_id_1_2) + '-' + str(campo_id_2_2)
+                conductor2[1] = cedula
+            else:
+                conductor2[1] = form.cleaned_data['id_conductor2']
+
+            tipo_id_conductor3 = form.cleaned_data['tipo_id_conductor3']
+            if tipo_id_conductor3 == '0':
+                provincia_3 = form.cleaned_data['provincia_3']
+                tipo_3 = form.cleaned_data['tipo_3']
+                campo_id_1_3 = form.cleaned_data['campo_id_1_3']
+                campo_id_2_3 = form.cleaned_data['campo_id_2_3']
+                if str(provincia_3) == 'E':
+                    cedula = str(provincia_3) + '-' + str(campo_id_1_3) + '-' + str(campo_id_2_3)
+                else:
+                    cedula = str(provincia_3) + '-' + str(tipo_3) + '-' + str(campo_id_1_3) + '-' + str(campo_id_2_3)
+                conductor3[1] = cedula
+            else:
+                conductor3[1] = form.cleaned_data['id_conductor3']
+
+            tipo_id_responsable = form.cleaned_data['tipo_id_responsable']
+            if tipo_id_responsable == '0':
+                provincia_resp = form.cleaned_data['provincia_resp']
+                tipo_resp = form.cleaned_data['tipo_resp']
+                campo_id_1_resp = form.cleaned_data['campo_id_1_resp']
+                cedula = str(provincia_resp) + '-' + str(tipo_resp) + '-' + str(campo_id_1_resp)
+                campo_id_2_resp = form.cleaned_data['campo_id_2_resp']
+                if provincia_resp <> 'E':
+                    cedula = cedula + '-' + str(campo_id_2_resp)
+                else:
+                    cedula = str(provincia_1) + '-' + str(campo_id_1_resp) + '-' + str(campo_id_2_resp)
+                responsable[1] = cedula
+            else:
+                responsable[1] = form.cleaned_data['id_responsable']
+
+
+            date_desde = request.POST['valido_desde'].split('-')
+            new_date_desde = str(date_desde[2]) +'-'+str(date_desde[1]) +'-'+ str(date_desde[0])
+            anio_date_hasta = int(str(date_desde[2])) + 1
+            new_date_hasta = str(anio_date_hasta) +'-'+str(date_desde[1]) +'-'+ str(date_desde[0])
+
+            # Asegurado
+            tipo_acreedor = form.cleaned_data['tipo_acreedor_leasing']
+            if tipo_acreedor == 1:
+                asegurado = cotizacion.conductor.nombre + ' ' + cotizacion.conductor.apellido
+                id_asegurado = cotizacion.conductor.identificacion
+            else:
+                asegurado = form.cleaned_data['acreedor_leasing']
+                id_asegurado = 'N/A'
+
+            solicitud = SolicitudPoliza(
+                cotizacion=cotizacion,
+                asegurado=asegurado,
+                id_asegurado=id_asegurado,
+                nombre_conductor=conductor[0],
+                id_conductor=conductor[1],
+                nombre_conductor2=conductor2[0],
+                id_conductor2=conductor2[1],
+                nombre_conductor3=conductor3[0],
+                id_conductor3=conductor3[1],
+                vigencia_desde=new_date_desde,
+                vigencia_hasta=new_date_hasta,
+                firmador=cotizacion.conductor.nombre+' '+cotizacion.conductor.apellido+ '/ WEB',
+                observaciones=request.POST.get('observaciones','N/A'),
+                responsable=request.POST['responsable'],
+                nombre_responsable=responsable[0],
+                id_responsable=responsable[1],
+                tipo_produccion=request.POST.get('tipo_produccion',''),
+                tipo_suscripcion=request.POST.get('tipo_suscripcion',''),
+                forma_facturacion=request.POST.get('forma_facturacion',''),
+                renovacion_automatica=request.POST.get('renovacion',False),
+                comision=request.POST.get('comision',False),
+                def_comision=request.POST.get('def_comision',''),
+                grupo_economico=request.POST.get('grupo_economico',''),
+                aprobaciones=request.POST.get('aprobaciones',''),
+                funcionario=request.POST.get('funcionario',''),
+                cargo_funcionario=request.POST.get('cargo_funcionario',''),
+                area_funcionario=request.POST.get('area_funcionario',''),
+                otra_area=request.POST.get('otra_area',''),
+                tipo_tdc=request.POST.get('tipo_tdc','N/A'),
+                num_tdc=request.POST.get('num_tdc','N/A'),
+                banco_tdc=request.POST.get('banco_tdc','N/A'),
+                expiracion_tdc=request.POST.get('expiracion_tdc',date.today()),
+                dia_cobro=request.POST.get('dia_cobro',''),
+                cuenta_banco_num=request.POST.get('cuenta_banco_num',''),
+                cuenta_banco_nombre=request.POST.get('cuenta_banco_nombre',''),
+                cuenta_tipo=request.POST.get('cuenta_tipo',''),
+
+                tipo='Solicitada'
+            )
+
+
+            if request.POST.get('aseguradoConductor') <> None:
+                conductor[0] = solicitud.cotizacion.conductor.nombre + ' ' + solicitud.cotizacion.conductor.apellido
+                conductor[1] = solicitud.cotizacion.conductor.identificacion
+
+            solicitud.acreedor_leasing = Acreedores.objects.filter(nombre_acreedor=request.POST['acreedor_leasing'])[0]
+            solicitud.tipo_acreedor_leasing = request.POST.get('tipo_acreedor_leasing')
+            solicitud.id_conductor = conductor[1]
+            solicitud.id_conductor2 = conductor2[1]
+            solicitud.id_conductor3 = conductor3[1]
+            solicitud.save()
+
+            cotizacion.status = "Aprobada"
+            cotizacion.save()
+            subject = "Acerta Seguros - Aprobada la Cotizacion de Vehiculo"
+
+            to_corredor = [request.user.email]
+            from_email = request.user.email
+            valor_vehiculo = intcomma(
+                float("{0:.2f}".format(cotizacion.conductor.valor + 0.001)))
+            prima_lesiones = intcomma(
+                float("{0:.2f}".format(cotizacion.prima_lesiones)))
+            prima_daniosProp = intcomma(
+                float("{0:.2f}".format(cotizacion.prima_daniosProp)))
+            prima_gastosMedicos = intcomma(
+                float("{0:.2f}".format(cotizacion.prima_gastosMedicos)))
+            colision_vuelco = intcomma(
+                float("{0:.2f}".format(cotizacion.colision_vuelco)))
+            prima_colisionVuelco = intcomma(
+                float("{0:.2f}".format(cotizacion.prima_colisionVuelco)))
+            otros_danios = intcomma(
+                float("{0:.2f}".format(cotizacion.otros_danios)))
+            prima_otrosDanios = intcomma(
+                float("{0:.2f}".format(cotizacion.prima_otrosDanios)))
+            incendio_rayo = intcomma(
+                float("{0:.2f}".format(cotizacion.incendio_rayo)))
+            robo_hurto = intcomma(
+                float("{0:.2f}".format(cotizacion.robo_hurto)))
+            prima_importacion = intcomma(
+                float("{0:.2f}".format(cotizacion.prima_importacion)))
+            subtotal = intcomma(
+                float("{0:.2f}".format(cotizacion.subtotal)))
+            impuestos = intcomma(
+                float("{0:.2f}".format(cotizacion.impuestos)))
+            total = intcomma(
+                float("{0:.2f}".format(cotizacion.total)))
+            prima_pagoVisa = intcomma(
+                float("{0:.2f}".format(cotizacion.prima_pagoVisa)))
+            prima_contado = intcomma(
+                float("{0:.2f}".format(cotizacion.prima_pagoContado)))
+            pago = cotizacion.tipo_pago
+            prima_endoso = intcomma(
+                float("{0:.2f}".format(cotizacion.prima_endoso)))
+
+            if valor_vehiculo[-2] == '.':
+                valor_vehiculo = valor_vehiculo + '0'
+            if prima_lesiones[-2] == '.':
+                prima_lesiones = prima_lesiones + '0'
+            if prima_daniosProp[-2] == '.':
+                prima_daniosProp = prima_daniosProp + '0'
+            if prima_gastosMedicos[-2] == '.':
+                prima_gastosMedicos = prima_gastosMedicos + '0'
+            if colision_vuelco[-2] == '.':
+                colision_vuelco = colision_vuelco + '0'
+            if prima_colisionVuelco[-2] == '.':
+                prima_colisionVuelco = prima_colisionVuelco + '0'
+            if otros_danios[-2] == '.':
+                otros_danios = otros_danios + '0'
+            if prima_otrosDanios[-2] == '.':
+                prima_otrosDanios = prima_otrosDanios + '0'
+            if incendio_rayo[-2] == '.':
+                incendio_rayo = incendio_rayo + '0'
+            if robo_hurto[-2] == '.':
+                robo_hurto = robo_hurto + '0'
+            if prima_importacion[-2] == '.':
+                prima_importacion = prima_importacion + '0'
+            if subtotal[-2] == '.':
+                subtotal = subtotal + '0'
+            if impuestos[-2] == '.':
+                im = impuestos + '0'
+            if total[-2] == '.':
+                total = total + '0'
+            if prima_pagoVisa[-2] == '.':
+                prima_pagoVisa = prima_pagoVisa + '0'
+            if prima_contado[-2] == '.':
+                prima_contado = prima_contado + '0'
+            if prima_endoso[-2] == '.':
+                prima_endoso = prima_endoso + '0'
+
+            ctx = {
+                'cotizacion': cotizacion,
+                'valor_vehiculo': valor_vehiculo,
+                'prima_lesiones': prima_lesiones,
+                'prima_daniosProp': prima_daniosProp,
+                'prima_gastosMedicos': prima_gastosMedicos,
+                'colision_vuelco': colision_vuelco,
+                'prima_colisionVuelco': prima_colisionVuelco,
+                'otros_danios': otros_danios,
+                'prima_otrosDanios': prima_otrosDanios,
+                'incendio_rayo': incendio_rayo,
+                'robo_hurto': robo_hurto,
+                'prima_importacion': prima_importacion,
+                'subtotal': subtotal,
+                'impuestos': impuestos,
+                'total': total,
+                'prima_pagoVisa': prima_pagoVisa,
+                'prima_contado': prima_contado,
+                'tipo_pago': pago,
+                'prima_endoso': prima_endoso,
+            }
+
+            # Correo Corredor
+            message_corredor = get_template('cotizar/email_corredores.html')\
+                .render(Context(ctx))
+            msg = EmailMessage(subject,
+                               message_corredor,
+                               to=to_corredor)
+            msg.content_subtype = 'html'
+            msg.send()
+            admins = ['jgutierrez@acertaseguros.com', 'ylezcano@acertaseguros.com']
+            msg = EmailMessage(subject,
+                               message_corredor,
+                               to=admins)
+            msg.content_subtype = 'html'
+            msg.send()
+            return HttpResponseRedirect(reverse_lazy('confirmar-solicitud', kwargs={'pk': solicitud.pk}))
+        else:
+            return render(
+                request,
+                self.template_name,
+                {
+                    'form': form,
+                    'cotizacion': cotizacion,
+                    'corredor_pol': corredor,
+                }
+            )
+
 class ConfirmacionPago(generic.TemplateView):
     template_name = "polizas/confirmacion_pago.html"
 
