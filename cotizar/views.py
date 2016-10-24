@@ -1209,7 +1209,17 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                             cotizado_por = corredor.razon_social
                     except:
                         cotizado_por = request.user.first_name +' '+request.user.last_name
-
+                subtotal=0.0
+                impuesto=0.0
+                if cotizacion.tipo_pago == 'Contado':
+                    subtotal = float("{0:.2f}".format(cotizacion.subtotal - (cotizacion.subtotal * 0.10)))
+                    impuesto = float("{0:.2f}".format(cotizacion.impuestos - (cotizacion.impuestos * 0.10)))
+                elif cotizacion.tipo_pago == 'Visa' or cotizacion.tipo_pago == 'ACH':
+                    subtotal = float("{0:.2f}".format(cotizacion.subtotal - (cotizacion.subtotal * 0.05)))
+                    impuesto = float("{0:.2f}".format(cotizacion.impuestos - (cotizacion.impuestos * 0.05)))
+                else:
+                    subtotal = cotizacion.subtotal
+                    impuesto = cotizacion.impuestos
                 ctx = {
                     'opcion': opcion,
                     'cotizacion': cotizacion,
@@ -1224,8 +1234,8 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                     'incendio_rayo': incendio_rayo,
                     'robo_hurto': robo_hurto,
                     'prima_importacion': prima_importacion,
-                    'subtotal': subtotal_s[elegida-1],
-                    'impuestos': impuesto_s[elegida-1],
+                    'subtotal': subtotal,
+                    'impuestos': impuesto,
                     'total': total,
                     'prima_pagoVisa': prima_pagoVisa,
                     'prima_contado': prima_contado,
