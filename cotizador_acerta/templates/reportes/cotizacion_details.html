@@ -162,15 +162,12 @@
                       <h5><strong>Endoso:</strong></h5>
                       <h5>Subtotal:</h5>
                       <h5>Impuestos:</h5>
-                      {% if cotizacion.tipo_pago == 'Otro' %}
-                      <h5><strong>Total a Pagar:</strong></h5>
-                      {% else %}
-                      <h5>Total:</h5>
-                      {% endif %}
                       {% if cotizacion.tipo_pago == 'Contado' %}
                       <h5><strong>Total de Contado:</strong></h5>
                       {% elif cotizacion.tipo_pago == 'Visa' or cotizacion.tipo_pago == 'ACH' %}
                       <h5><strong>Total con ACH/Visa:</strong></h5>
+                      {% else %}
+                      <h5><strong>Total a Pagar:</strong></h5>
                       {% endif %}
                       {% if cotizacion.tipo_pago != 'Contado' %}
                       <h5><strong>Cuotas:</strong></h5>
@@ -182,11 +179,12 @@
                       <h5><strong>{{ cotizacion.endoso }}</strong></h5>
                       <h5>B/.{{ subtotal|floatformat:2|intcomma }}</h5>
                       <h5>B/.{{ impuestos|floatformat:2|intcomma }}</h5>
-                      <h5>B/.{{ cotizacion.total|floatformat:2|intcomma }}</h5>
                       {% if cotizacion.tipo_pago == 'Contado' %}
                       <h5><strong>B/.{{ cotizacion.prima_pagoContado|floatformat:2|intcomma }}</strong></h5>
                       {% elif cotizacion.tipo_pago == 'Visa' or cotizacion.tipo_pago == 'ACH' %}
                       <h5><strong>B/.{{ cotizacion.prima_pagoVisa|floatformat:2|intcomma }}<strong></h5>
+                      {% else%}
+                      <h5><strong>B/.{{ cotizacion.total|floatformat:2|intcomma }}<strong></h5>
                       {% endif %}
                       {% if cotizacion.tipo_pago != 'Contado' %}
                       <h5><strong> {{ cotizacion.cuota }}</strong></h5>

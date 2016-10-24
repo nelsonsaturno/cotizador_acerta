@@ -782,7 +782,17 @@ def sendCotization(request, id):
                 cotizado_por = corredor.razon_social
         except:
             cotizado_por = request.user.first_name +' '+request.user.last_name
-
+    s=0.0
+    i=0.0
+    if cotizacion.tipo_pago == 'Contado':
+        s = float("{0:.2f}".format(cotizacion.subtotal - (cotizacion.subtotal * 0.10)))
+        i = float("{0:.2f}".format(cotizacion.impuestos - (cotizacion.impuestos * 0.10)))
+    elif cotizacion.tipo_pago == 'Visa' or cotizacion.tipo_pago == 'ACH':
+        s = float("{0:.2f}".format(cotizacion.subtotal - (cotizacion.subtotal * 0.05)))
+        i = float("{0:.2f}".format(cotizacion.impuestos - (cotizacion.impuestos * 0.05)))
+    else:
+        s = cotizacion.subtotal
+        i = cotizacion.impuestos
     ctx = {
         'cotizacion': cotizacion,
         'valor_vehiculo': valor_vehiculo,
@@ -796,8 +806,8 @@ def sendCotization(request, id):
         'incendio_rayo': incendio_rayo,
         'robo_hurto': robo_hurto,
         'prima_importacion': prima_importacion,
-        'subtotal': subtotal,
-        'impuestos': impuestos,
+        'subtotal': s,
+        'impuestos': i,
         'total': total,
         'prima_pagoVisa': prima_pagoVisa,
         'prima_contado': prima_contado,

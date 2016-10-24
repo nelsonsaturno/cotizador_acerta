@@ -1054,8 +1054,8 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                 prima_endoso = prima_endoso + '0'
 
             cot = []
-            subtotal = []
-            impuesto = []
+            subtotal_s = []
+            impuesto_s = []
             for cotiz in cotizaciones:
                 cotizac = Cotizacion.objects.get(pk=cotiz)
                 if cotizac.tipo_pago == 'Contado':
@@ -1068,8 +1068,8 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                     s = cotizac.subtotal
                     i = cotizac.impuestos
                 cot.append(cotizac)
-                subtotal.append(s)
-                impuesto.append(i)
+                subtotal_s.append(s)
+                impuesto_s.append(i)
             elegida = 1
             for cotiz in cotizaciones:
                 if kwargs['pk'] > cotiz:
@@ -1084,8 +1084,8 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                                'cotizacion4':cot[3],
                                'tipo_pago': cotizacion.tipo_pago,
                                'total': total,
-                               'subtotal': subtotal,
-                               'impuestos': impuesto,
+                               'subtotal': subtotal_s,
+                               'impuestos': impuesto_s,
                                'cuotas': cuotas})
             template = get_template('cotizar/opciones_cotizaciones_pdf.html')
             html = template.render(context)
@@ -1224,8 +1224,8 @@ class DetalleCotizacion(LoginRequiredMixin, generic.UpdateView):
                     'incendio_rayo': incendio_rayo,
                     'robo_hurto': robo_hurto,
                     'prima_importacion': prima_importacion,
-                    'subtotal': subtotal,
-                    'impuestos': impuestos,
+                    'subtotal': subtotal_s[elegida-1],
+                    'impuestos': impuesto_s[elegida-1],
                     'total': total,
                     'prima_pagoVisa': prima_pagoVisa,
                     'prima_contado': prima_contado,
