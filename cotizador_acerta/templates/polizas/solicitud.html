@@ -739,6 +739,7 @@
                                                 </div>
                                             </div>
                                         {% endif %}
+                                        {% if cotizacion.tipo_pago != 'ACH' %}
                                             <br>
                                             <div class="col-md-12">
                                                 Datos tarjeta de crédito:
@@ -758,6 +759,7 @@
                                                     {% bootstrap_field form.expiracion_tdc layout='horizontal' show_label=True field_class='form-field' %}
                                                 </div>
                                             </div>
+                                        {% endif %}
                                         <div class="col-md-12" style="padding-top:20px;">
                                             <p><span><h3 class="text-center"><font color="gray"><strong>&nbsp;¡Ya estás listo para solicitar la póliza!</strong></font></h3></span></p>
                                         </div>
@@ -810,10 +812,10 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
-        $("#id_campo_id_1_1").attr('maxlength','3');
-        $("#id_campo_id_1_2").attr('maxlength','3');
-        $("#id_campo_id_1_3").attr('maxlength','3');
-        $("#id_campo_id_1_resp").attr('maxlength','3');
+        $("#id_campo_id_1_1").attr('maxlength','4');
+        $("#id_campo_id_1_2").attr('maxlength','4');
+        $("#id_campo_id_1_3").attr('maxlength','4');
+        $("#id_campo_id_1_resp").attr('maxlength','4');
         $(".passp1").addClass("hidden");
         $(".passp2").addClass("hidden");
         $(".passp3").addClass("hidden");
@@ -845,6 +847,12 @@
             $( '#id_tipo_acreedor_leasing' ).prepend('<option class="placeholder" value="" selected=selected disabled>----</option>');
             $( '#id_acreedor_leasing' ).prepend('<option class="placeholder" value="" selected=selected disabled>Seleccione un acreedor o leasing</option>');
             $('#id_acreedor_leasing').prop('disabled',true);
+            $('#id_nombre_conductor').prop('required',true);
+            $('#id_tipo_id_conductor').prop('required',true);
+            $('#id_tipo_1').prop('required',true);
+            $('#id_provincia_1').prop('required',true);
+            $('#id_campo_id_1_1').prop('required',true);
+            $('#id_campo_id_2_1').prop('required',true);
         {% else %}
             $('#id_valido_hasta').prop('readonly',true);
             $( '#id_ingreso_principal' ).prepend('<option class="placeholder" value="" disabled>Ingreso Anual</option>');
@@ -988,6 +996,8 @@
                     $('#id_campo_id_2_1').val(result[2]);
                 }
                 else {
+                    $("#id_campo_id_1_1").attr('maxlength','4');
+                    $("#id_campo_id_2_1").attr('maxlength','6');
                     $("#id_tipo_1").val(result[1]);
                     $('#id_campo_id_1_1').val(result[2]);
                     $('#id_campo_id_2_1').val(result[3]);
@@ -1019,6 +1029,8 @@
                         $('#id_campo_id_2_2').val(result[2]);
                     }
                     else {
+                        $("#id_campo_id_1_2").attr('maxlength','4');
+                        $("#id_campo_id_2_2").attr('maxlength','6');
                         $("#id_tipo_2").val(result[1]);
                         $('#id_campo_id_1_2').val(result[2]);
                         $('#id_campo_id_2_2').val(result[3]);
@@ -1051,6 +1063,8 @@
                         $('#id_campo_id_2_3').val(result[2]);
                     }
                     else {
+                        $("#id_campo_id_1_3").attr('maxlength','4');
+                        $("#id_campo_id_2_3").attr('maxlength','6');
                         $("#id_tipo_3").val(result[1]);
                         $('#id_campo_id_1_3').val(result[2]);
                         $('#id_campo_id_2_3').val(result[3]);
@@ -1073,11 +1087,19 @@
                 $("#id_campo_id_1_1").attr('maxlength','1');
                 $("#id_campo_id_2_1").attr('maxlength','6');
                 $(".ced-hid1").addClass("hidden");
+                $('#id_tipo_1').prop('required',false);
+                $('#id_provincia_1').prop('required',true);
+                $('#id_campo_id_1_1').prop('required',true);
+                $('#id_campo_id_2_1').prop('required',true);
             }
             else{
-                $("#id_campo_id_1_1").attr('maxlength','3');
-                $("#id_campo_id_2_1").attr('maxlength','4');
+                $("#id_campo_id_1_1").attr('maxlength','4');
+                $("#id_campo_id_2_1").attr('maxlength','6');
                 $(".ced-hid1").removeClass("hidden");
+                $('#id_tipo_1').prop('required',true);
+                $('#id_provincia_1').prop('required',true);
+                $('#id_campo_id_1_1').prop('required',true);
+                $('#id_campo_id_2_1').prop('required',true);
             }
         });
 
@@ -1088,8 +1110,8 @@
                 $(".ced-hid2").addClass("hidden");
             }
             else{
-                $("#id_campo_id_1_2").attr('maxlength','3');
-                $("#id_campo_id_2_1").attr('maxlength','4');
+                $("#id_campo_id_1_2").attr('maxlength','4');
+                $("#id_campo_id_2_1").attr('maxlength','6');
                 $(".ced-hid2").removeClass("hidden");
             }
         });
@@ -1101,8 +1123,8 @@
                 $(".ced-hid3").addClass("hidden");
             }
             else{
-                $("#id_campo_id_1_3").attr('maxlength','3');
-                $("#id_campo_id_2_3").attr('maxlength','4');
+                $("#id_campo_id_1_3").attr('maxlength','4');
+                $("#id_campo_id_2_3").attr('maxlength','6');
                 $(".ced-hid3").removeClass("hidden");
             }
         });
@@ -1114,8 +1136,8 @@
                 $(".ced-hid-resp").addClass("hidden");
             }
             else{
-                $("#id_campo_id_1_resp").attr('maxlength','3');
-                $("#id_campo_id_2_resp").attr('maxlength','4');
+                $("#id_campo_id_1_resp").attr('maxlength','4');
+                $("#id_campo_id_2_resp").attr('maxlength','6');
                 $(".ced-hid-resp").removeClass("hidden");
             }
         });
@@ -1124,10 +1146,32 @@
             if ($(this).val()=="0"){
                 $(".ced1").removeClass("hidden");
                 $(".passp1").addClass("hidden");
+                $('#id_id_conductor').prop('required',false);
+                $('#id_tipo_1').prop('required',true);
+                $('#id_provincia_1').prop('required',true);
+                $('#id_campo_id_1_1').prop('required',true);
+                $('#id_campo_id_2_1').prop('required',true);
+                if ($("#id_provincia_1").val()=="E"){
+                    $("#id_campo_id_1_1").attr('maxlength','1');
+                    $("#id_campo_id_2_1").attr('maxlength','6');
+                    $(".ced-hid1").addClass("hidden");
+                    $('#id_tipo_1').prop('required',false);
+                }
+                else{
+                    $("#id_campo_id_1_1").attr('maxlength','4');
+                    $("#id_campo_id_2_1").attr('maxlength','6');
+                    $(".ced-hid1").removeClass("hidden");
+                    $('#id_tipo_1').prop('required',true);
+                }
             }
             if ($(this).val()=="1"){
                 $(".ced1").addClass("hidden");
                 $(".passp1").removeClass("hidden");
+                $('#id_id_conductor').prop('required',true);
+                $('#id_tipo_1').prop('required',false);
+                $('#id_provincia_1').prop('required',false);
+                $('#id_campo_id_1_1').prop('required',false);
+                $('#id_campo_id_2_1').prop('required',false);
             }
         });
 
@@ -1340,24 +1384,6 @@
         $("#id_relacion_ref_comercial").attr('required',false);
         $("#id_telefono_ref_comercial").attr('required',false);
     }
-    //var acreedor = document.querySelector(".acreedor");
-    //acreedor.classList.add("hidden");
-    //var leasing = document.querySelector(".leasing");
-    //leasing.classList.add("hidden");
-    // $("#id_acreedor_leasing").on("change", function(event) {
-    //     if ($(this).val() == "Acreedor"){
-    //         acreedor.classList.remove("hidden");
-    //         leasing.classList.add("hidden");
-    //     }
-    //     if ($(this).val() == "Leasing"){
-    //         acreedor.classList.add("hidden");
-    //         leasing.classList.remove("hidden");
-    //     }
-    //     if ($(this).val() == "Ninguno"){
-    //         acreedor.classList.add("hidden");
-    //         leasing.classList.add("hidden");
-    //     }
-    // });
 
     $('#id_juridico_fecha_constitucion').mask('00-00-0000', {placeholder: "F. Constitución (dd-mm-aaaa)"});
     $('#id_juridico_fecha_constitucion').datepicker({
@@ -1833,21 +1859,15 @@
         var today = new Date();
         var fecha_array = [];
         fecha_array = fecha.split('/');
-        if (fecha_array[1] < today.getFullYear().toString().substr(2,2)){
-            alert("Año menor");
+        if (fecha_array[0] > '12') {
             $(".valor-validacion-valido").remove();
             $('#id_submit').prop('disabled', true);
             $('.button-next').attr('disabled', true);
-            $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>No puede introducir una tarjeta de crédito vencida.</div>");
+            $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>Introduzca una fecha válida</div>");
         }
-        else{
-            $('#id_submit').prop('disabled', false);
-            $('.button-next').attr('disabled', false);
-            $(".valor-validacion-valido").remove();
-        }
-
-        if (fecha_array[0] < (today.getMonth()+1)){
-            if (fecha_array[1] <= today.getFullYear().toString().substr(2,2)){
+        else {
+            if (fecha_array[1] < today.getFullYear().toString().substr(2,2)){
+                alert("Año menor");
                 $(".valor-validacion-valido").remove();
                 $('#id_submit').prop('disabled', true);
                 $('.button-next').attr('disabled', true);
@@ -1858,9 +1878,33 @@
                 $('.button-next').attr('disabled', false);
                 $(".valor-validacion-valido").remove();
             }
+
+            if (fecha_array[0] < (today.getMonth()+1)){
+                if (fecha_array[1] <= today.getFullYear().toString().substr(2,2)){
+                    $(".valor-validacion-valido").remove();
+                    $('#id_submit').prop('disabled', true);
+                    $('.button-next').attr('disabled', true);
+                    $(this).parent().after("<div class='valor-validacion-valido' style='color:red; margin-bottom: 20px;'>No puede introducir una tarjeta de crédito vencida.</div>");
+                }
+                else{
+                    $('#id_submit').prop('disabled', false);
+                    $('.button-next').attr('disabled', false);
+                    $(".valor-validacion-valido").remove();
+                }
+            }
         }
+        
     });
 
+
+
+</script>
+<script type="text/javascript">
+    document.getElementsByTagName("BODY")[0].setAttribute("onload", "noBack();");
+    document.getElementsByTagName("BODY")[0].setAttribute("onpageshow", "if (event.persisted) noBack();");
+    document.getElementsByTagName("BODY")[0].setAttribute("onunload", "");
+    window.history.forward();
+    function noBack() { window.history.forward(); }
 </script>
 
 {% endblock custom_script %}

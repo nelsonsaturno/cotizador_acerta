@@ -143,7 +143,7 @@ class ExtraDatosCliente(models.Model):
     provincia = models.CharField(max_length=30, blank=False)
     distrito = models.CharField(max_length=30, blank=False)
     corregimiento = models.CharField(max_length=30, blank=False)
-    urbanizacion = models.CharField(max_length=30, blank=False)
+    urbanizacion = models.CharField(max_length=30, blank=True)
     edificio = models.CharField(max_length=30, blank=True, default='')
     piso = models.CharField(max_length=5, blank=True, default='')
     apto = models.CharField(max_length=5, blank=True, default='')
