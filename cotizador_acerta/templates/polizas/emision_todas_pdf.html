@@ -155,7 +155,7 @@
     <td colspan="2">PUESTOS: {{ extra_cliente.num_puestos }}</td>
   </tr>
    <tr>
-    <td colspan="2">SUMA ASEGURADA: {{ conductor.valor }}</td>
+    <td colspan="2">SUMA ASEGURADA: {{ valor_sum }}</td>
     <td colspan="6" style="font-size:8px; margin-left: 10px;">Cualquier pérdida Total bajo los riesgos D, E, F y G serán pagados de acuerdo al interés que resulte tener el asegurado y acreedor hipotecario.</td>
   </tr>
   <tr style="height: 100%; ">
@@ -194,7 +194,7 @@
     <td colspan="3">COBERTURA D - OTROS RIESGOS</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td colspan="1" style="text-align: center;">{{ conductor.valor }}</td>
+    <td colspan="1" style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.otros_danios|floatformat:0|intcomma}}</td>
     <td style="text-align: center;">{{ solicitud.cotizacion.prima_otrosDanios|floatformat:2|intcomma }}</td>
   </tr>
@@ -202,7 +202,7 @@
     <td colspan="3">COBERTURA E - COLISIÓN O VUELCO</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td colspan="1" style="text-align: center;">{{ conductor.valor }}</td>
+    <td colspan="1" style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.colision_vuelco|floatformat:0|intcomma }}</td>
     <td style="text-align: center;">{{ solicitud.cotizacion.prima_colisionVuelco|floatformat:2|intcomma }}</td>
   </tr>
@@ -210,7 +210,7 @@
     <td colspan="3">COBERTURA F - INCENDIO Y RAYO</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td style="text-align: center;">{{ conductor.valor }}</td>
+    <td style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.incendio_rayo|floatformat:0|intcomma }}</td>
     <td colspan="1" style="text-align: center;">.00</td>
   </tr>
@@ -218,7 +218,7 @@
     <td colspan="3">COBERTURA G - ROBO O HURTO</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td style="text-align: center;">{{ conductor.valor }}</td>
+    <td style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.robo_hurto|floatformat:0|intcomma }}</td>
     <td colspan="1" style="text-align: center;">.00</td>
   </tr>
@@ -237,13 +237,13 @@
   {% if solicitud.cotizacion.preferencial_plus %}
   <tr style="height: 40; ">
     <td colspan="7">{{ endoso }} </td>
-    <td style="text-align: center;">{{solicitud.cotizacion.endoso.precio}}</td>
+    <td style="text-align: center;">{{solicitud.cotizacion.endoso.precio|floatformat:2|intcomma}}</td>
   </tr>
   {% endif %}
   {% if solicitud.cotizacion.importacion_piezas %}
   <tr style="height: 40; ">
     <td colspan="7">IMPORTACIÓN DE PIEZAS </td>
-    <td style="text-align: center;">{{solicitud.cotizacion.prima_importacion }}</td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_importacion|floatformat:2|intcomma }}</td>
   </tr>
   {% endif %}
   {% if not solicitud.cotizacion.importacion_piezas %}
@@ -255,7 +255,7 @@
     <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px;">EMISIÓN PÓLIZA NUEVA<br>Conductor(es):<br>{{solicitud.nombre_conductor}}&nbsp;{{solicitud.id_conductor}}<br>{{solicitud.nombre_conductor2}}&nbsp;{{solicitud.id_conductor2}}<br>{{solicitud.nombre_conductor3}}&nbsp;{{solicitud.id_conductor3}}<br></td>
     <td colspan="2" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %: &nbsp;&nbsp;6.00<br><b>TOTAL A PAGAR:</b></td>
     <td colspan="1" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; text-align: right;">B/.<br>B/.<br>B/.<br>B/.<br>&nbsp; B/.<br>B/.</td>
-    <td colspan="1" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ impuestos }}<br>{{ total }}</td>
+    <td colspan="1" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ impuestos|floatformat:2|intcomma }}<br>{{ total|floatformat:2|intcomma }}</td>
   </tr>
 
 
@@ -392,7 +392,7 @@
     <td colspan="2">PUESTOS: {{ extra_cliente.num_puestos }}</td>
   </tr>
    <tr>
-    <td colspan="2">SUMA ASEGURADA: {{ conductor.valor }}</td>
+    <td colspan="2">SUMA ASEGURADA: {{ valor_sum }}</td>
     <td colspan="6" style="font-size:8px; margin-left: 10px;">Cualquier pérdida Total bajo los riesgos D, E, F y G serán pagados de acuerdo al interés que resulte tener el asegurado y acreedor hipotecario.</td>
   </tr>
   <tr style="height: 100%; ">
@@ -431,7 +431,7 @@
     <td colspan="3">COBERTURA D - OTROS RIESGOS</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td colspan="1" style="text-align: center;">{{ conductor.valor }}</td>
+    <td colspan="1" style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.otros_danios|floatformat:0|intcomma }}</td>
     <td style="text-align: center;">{{ solicitud.cotizacion.prima_otrosDanios|floatformat:2|intcomma }}</td>
   </tr>
@@ -439,7 +439,7 @@
     <td colspan="3">COBERTURA E - COLISIÓN O VUELCO</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td colspan="1" style="text-align: center;">{{ conductor.valor }}</td>
+    <td colspan="1" style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.colision_vuelco|floatformat:0|intcomma }}</td>
     <td style="text-align: center;">{{ solicitud.cotizacion.prima_colisionVuelco|floatformat:2|intcomma }}</td>
   </tr>
@@ -447,7 +447,7 @@
     <td colspan="3">COBERTURA F - INCENDIO Y RAYO</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td style="text-align: center;">{{ conductor.valor }}</td>
+    <td style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.incendio_rayo|floatformat:0|intcomma }}</td>
     <td colspan="1" style="text-align: center;">.00</td>
   </tr>
@@ -455,7 +455,7 @@
     <td colspan="3">COBERTURA G - ROBO O HURTO</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td style="text-align: center;">{{ conductor.valor }}</td>
+    <td style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.robo_hurto|floatformat:0|intcomma }}</td>
     <td colspan="1" style="text-align: center;">.00</td>
   </tr>
@@ -474,13 +474,13 @@
   {% if solicitud.cotizacion.preferencial_plus %}
   <tr style="height: 40; ">
     <td colspan="7">{{ endoso }} </td>
-    <td style="text-align: center;">{{solicitud.cotizacion.endoso.precio}}</td>
+    <td style="text-align: center;">{{solicitud.cotizacion.endoso.precio|floatformat:2|intcomma}}</td>
   </tr>
   {% endif %}
   {% if solicitud.cotizacion.importacion_piezas %}
   <tr style="height: 40; ">
     <td colspan="7">IMPORTACIÓN DE PIEZAS </td>
-    <td style="text-align: center;">{{solicitud.cotizacion.prima_importacion }}</td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_importacion|floatformat:2|intcomma }}</td>
   </tr>
   {% endif %}
   {% if not solicitud.cotizacion.importacion_piezas %}
@@ -492,7 +492,7 @@
     <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px;">EMISIÓN PÓLIZA NUEVA<br>Conductor(es):<br>{{solicitud.nombre_conductor}}&nbsp;{{solicitud.id_conductor}}<br>{{solicitud.nombre_conductor2}}&nbsp;{{solicitud.id_conductor2}}<br>{{solicitud.nombre_conductor3}}&nbsp;{{solicitud.id_conductor3}}<br></td>
     <td colspan="2" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %: &nbsp;&nbsp;6.00<br><b>TOTAL A PAGAR:</b></td>
     <td colspan="1" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; text-align: right;">B/.<br>B/.<br>B/.<br>B/.<br>&nbsp; B/.<br>B/.</td>
-    <td colspan="1" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ impuestos }}<br>{{ total }}</td>
+    <td colspan="1" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ impuestos|floatformat:2|intcomma }}<br>{{ total|floatformat:2|intcomma }}</td>
   </tr>
 
 
@@ -628,7 +628,7 @@
     <td colspan="2">PUESTOS: {{ extra_cliente.num_puestos }}</td>
   </tr>
   <tr>
-    <td colspan="2">SUMA ASEGURADA: {{ conductor.valor }}</td>
+    <td colspan="2">SUMA ASEGURADA: {{ valor_sum }}</td>
     <td colspan="6" style="font-size:8px; margin-left: 10px;">Cualquier pérdida Total bajo los riesgos D, E, F y G serán pagados de acuerdo al interés que resulte tener el asegurado y acreedor hipotecario.</td>
   </tr>
   <tr style="height: 100%; ">
@@ -667,7 +667,7 @@
     <td colspan="3">COBERTURA D - OTROS RIESGOS</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td colspan="1" style="text-align: center;">{{ conductor.valor }}</td>
+    <td colspan="1" style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.otros_danios|floatformat:0|intcomma }}</td>
     <td style="text-align: center;">{{ solicitud.cotizacion.prima_otrosDanios|floatformat:2|intcomma }}</td>
   </tr>
@@ -675,7 +675,7 @@
     <td colspan="3">COBERTURA E - COLISIÓN O VUELCO</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td colspan="1" style="text-align: center;">{{ conductor.valor }}</td>
+    <td colspan="1" style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.colision_vuelco|floatformat:0|intcomma }}</td>
     <td style="text-align: center;">{{ solicitud.cotizacion.prima_colisionVuelco|floatformat:2|intcomma }}</td>
   </tr>
@@ -683,7 +683,7 @@
     <td colspan="3">COBERTURA F - INCENDIO Y RAYO</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td style="text-align: center;">{{ conductor.valor }}</td>
+    <td style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.incendio_rayo|floatformat:0|intcomma }}</td>
     <td colspan="1" style="text-align: center;">.00</td>
   </tr>
@@ -691,7 +691,7 @@
     <td colspan="3">COBERTURA G - ROBO O HURTO</td>
     <td colspan="1" style="text-align: center;"> </td>
     <td colspan="1" style="text-align: center;"> </td>
-    <td style="text-align: center;">{{ conductor.valor }}</td>
+    <td style="text-align: center;">{{ valor_sum }}</td>
     <td colspan="1" style="text-align: center;">{{ solicitud.cotizacion.robo_hurto|floatformat:0|intcomma }}</td>
     <td colspan="1" style="text-align: center;">.00</td>
   </tr>
@@ -710,13 +710,13 @@
   {% if solicitud.cotizacion.preferencial_plus %}
   <tr style="height: 40; ">
     <td colspan="7">{{ endoso }} </td>
-    <td style="text-align: center;">{{solicitud.cotizacion.endoso.precio}}</td>
+    <td style="text-align: center;">{{solicitud.cotizacion.endoso.precio|floatformat:2|intcomma}}</td>
   </tr>
   {% endif %}
   {% if solicitud.cotizacion.importacion_piezas %}
   <tr style="height: 40; ">
     <td colspan="7">IMPORTACIÓN DE PIEZAS </td>
-    <td style="text-align: center;">{{solicitud.cotizacion.prima_importacion }}</td>
+    <td style="text-align: center;">{{ solicitud.cotizacion.prima_importacion|floatformat:2|intcomma }}</td>
   </tr>
   {% endif %}
   {% if not solicitud.cotizacion.importacion_piezas %}
@@ -728,7 +728,7 @@
     <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px;">EMISIÓN PÓLIZA NUEVA<br>Conductor(es):<br>{{solicitud.nombre_conductor}}&nbsp;{{solicitud.id_conductor}}<br>{{solicitud.nombre_conductor2}}&nbsp;{{solicitud.id_conductor2}}<br>{{solicitud.nombre_conductor3}}&nbsp;{{solicitud.id_conductor3}}<br></td>
     <td colspan="2" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; margin-left: 10px;"><b>SUB-TOTAL:</b><br><b>DESCUENTO ADICIONAL:</b><br>OTROS CARGOS:<br><b>SUB-TOTAL A PAGAR:</b><br>IMPUESTO %: &nbsp;&nbsp;6.00<br><b>TOTAL A PAGAR:</b></td>
     <td colspan="1" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; text-align: right;">B/.<br>B/.<br>B/.<br>B/.<br>&nbsp; B/.<br>B/.</td>
-    <td colspan="1" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ impuestos }}<br>{{ total }}</td>
+    <td colspan="1" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; text-align: right;">{{ solicitud.cotizacion.subtotal|floatformat:2|intcomma }}<br>{{ descuento|floatformat:2|intcomma }}<br>.00<br>{{ subtotal|floatformat:2|intcomma }}<br>{{ impuestos|floatformat:2|intcomma }}<br>{{ total|floatformat:2|intcomma }}</td>
   </tr>
 
 

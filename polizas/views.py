@@ -1020,6 +1020,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
         tipo_cuenta = solicitud.cuenta_tipo
         tipo_cuenta = tipo_cuenta.upper()
 
+        valor_sum = "{:,}".format(cotizacion.conductor.valor)
+
         context = Context({'pagesize': 'letter',
                            'solicitud': solicitud,
                            'extra_cliente': extra_cliente,
@@ -1040,7 +1042,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'descuento': descuento,
                            'monto_letras': monto_letras,
                            'tipo_cuenta': tipo_cuenta,
-                           'tipo_pago': tipo_pago})
+                           'tipo_pago': tipo_pago,
+                           'valor_sum': valor_sum})
 
         template_result = get_template('polizas/result_todas_pdf.html')
         html_result = template_result.render(context)
