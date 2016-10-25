@@ -84,7 +84,7 @@
        <b>Por la suma de B/.:</b>&nbsp;&nbsp;&nbsp;&nbsp;
       </td>
       <td style="text-align: justify; border: none;">
-       {{total}}
+       {{total_coma}}
       </td>
     </tr>
     <tr>
@@ -108,7 +108,7 @@
          {{solicitud.num}}
       </td>
       <td style="text-align: justify; border: none;">
-       {{total}}
+       {{total_coma}}
       </td>
       <td style="text-align: justify; border: none;">
        El {{solicitud.dia_cobro}} de cada mes.
@@ -120,10 +120,17 @@
       </td>
     </tr>
     <tr><td style="border: none;"></td></tr>
+    {% if solicitud.tipo_acreedor_leasing == 1 %}
     <tr>
-      <td style="border: none; font-size:12px;" colspan="2"><b>Nombre:</b> <font size="8"> {{solicitud.cotizacion.conductor.nombre}} {{ solicitud.cotizacion.conductor.apellido }} </font></td>
+      <td style="border: none; font-size:12px;" colspan="2"><b>Nombre:</b> <font size="8"> {{ solicitud.cotizacion.conductor.nombre }} {{ solicitud.cotizacion.conductor.apellido }}</font></td>
       <td style="border: none; font-size:12px;"><b>Cédula o RUC:</b> <font size="8"> {{ solicitud.cotizacion.conductor.identificacion }} </font></td>
     </tr>
+      {% else %}
+      <tr>
+        <td style="border: none; font-size:12px;" colspan="2"><b>Nombre:</b> <font size="8"> {{ solicitud.acreedor_leasing.nombre_acreedor }}</font></td>
+        <td style="border: none; font-size:12px;"><b>Cédula o RUC:</b> <font size="8">  N/A</font></td>
+      </tr>
+      {% endif %}
     <tr>
       <td style="border: none; font-size:12px;" colspan="3"><br><b>Firma:</b>  <font size="8">___________________________________________________________</font></td>
     </tr>

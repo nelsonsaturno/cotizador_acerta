@@ -1013,14 +1013,27 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
 
         endoso = solicitud.cotizacion.endoso.endoso.upper()
 
-        monto_letras = num2words(total, lang='es')
-        monto_letras = monto_letras.replace('punto','con')
+        lista_monto = str(total).split('.')
+        if lista_monto > 0:
+            monto_letras_unidades = num2words(int(lista_monto[0]), lang='es')
+            monto_letras_decimales = num2words(int(lista_monto[1]), lang='es')
+            monto_letras = str(monto_letras_unidades) + ' con ' + str(monto_letras_decimales)
+            if int(lista_monto[1]) < 10:
+                monto_letras = monto_letras + ' decimas'
+            else:
+                monto_letras = monto_letras + ' centesimas'
+        else:
+            monto_letras = num2words(total, lang='es')
+
         monto_letras = monto_letras.upper()
 
         tipo_cuenta = solicitud.cuenta_tipo
         tipo_cuenta = tipo_cuenta.upper()
 
         valor_sum = "{:,}".format(cotizacion.conductor.valor)
+        total_coma = "{:,}".format(total)
+
+
 
         context = Context({'pagesize': 'letter',
                            'solicitud': solicitud,
@@ -1043,7 +1056,8 @@ class EmitirPoliza(LoginRequiredMixin, generic.CreateView):
                            'monto_letras': monto_letras,
                            'tipo_cuenta': tipo_cuenta,
                            'tipo_pago': tipo_pago,
-                           'valor_sum': valor_sum})
+                           'valor_sum': valor_sum,
+                           'total_coma': total_coma})
 
         template_result = get_template('polizas/result_todas_pdf.html')
         html_result = template_result.render(context)
