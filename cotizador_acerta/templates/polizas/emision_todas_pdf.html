@@ -114,11 +114,62 @@
   </tr>
   <tr>
    {% if extra_cliente.telefono_empresa %}
-    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono_empresa }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+    <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;">
+     <table style="border:none;">
+       <tr>
+         <td><b>TELÉFONO:</b></td>
+         <td><b>RESIDENCIA</b></td>
+         <td><b>OFICINA</b></td>
+         <td><b>CELULAR</b></td>
+         <td></td>
+        </tr>
+        <tr>
+         <td></td>
+         <td>{{ extra_cliente.telefono_res }}</td>
+         <td>{{ extra_cliente.telefono_empresa }}</td>
+         <td>{{ conductor.telefono1 }}</td>
+         <td></td>
+       </tr>
+     </table>
+  </td>
    {% elif conductor.telefono2 %} 
-   <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono2 }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;">
+   <table style="border:none;">
+       <tr>
+         <td><b>TELÉFONO:</b></td>
+         <td><b>RESIDENCIA</b></td>
+         <td><b>OFICINA</b></td>
+         <td><b>CELULAR</b></td>
+         <td></td>
+        </tr>
+        <tr>
+         <td></td>
+         <td>{{ extra_cliente.telefono_res }}</td>
+         <td>{{ extra_cliente.telefono2 }}</td>
+         <td>{{ conductor.telefono1 }}</td>
+         <td></td>
+       </tr>
+     </table>
+     </td>
    {% else %}
-   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;">
+   <table style="border:none;">
+       <tr>
+         <td><b>TELÉFONO:</b></td>
+         <td><b>RESIDENCIA</b></td>
+         <td><b>OFICINA</b></td>
+         <td><b>CELULAR</b></td>
+         <td></td>
+        </tr>
+        <tr>
+         <td></td>
+         <td>{{ extra_cliente.telefono_res }}</td>
+         <td></td>
+         <td>{{ conductor.telefono1 }}</td>
+         <td></td>
+       </tr>
+     </table>
+   </td>
    {% endif %}
     <td colspan="4" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
@@ -351,11 +402,62 @@
   </tr>
   <tr>
     {% if extra_cliente.telefono_empresa %}
-    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono_empresa }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+    <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;">
+     <table style="border:none;">
+       <tr>
+         <td><b>TELÉFONO:</b></td>
+         <td><b>RESIDENCIA</b></td>
+         <td><b>OFICINA</b></td>
+         <td><b>CELULAR</b></td>
+         <td></td>
+        </tr>
+        <tr>
+         <td></td>
+         <td>{{ extra_cliente.telefono_res }}</td>
+         <td>{{ extra_cliente.telefono_empresa }}</td>
+         <td>{{ conductor.telefono1 }}</td>
+         <td></td>
+       </tr>
+     </table>
+  </td>
    {% elif conductor.telefono2 %} 
-   <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono2 }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;">
+   <table style="border:none;">
+       <tr>
+         <td><b>TELÉFONO:</b></td>
+         <td><b>RESIDENCIA</b></td>
+         <td><b>OFICINA</b></td>
+         <td><b>CELULAR</b></td>
+         <td></td>
+        </tr>
+        <tr>
+         <td></td>
+         <td>{{ extra_cliente.telefono_res }}</td>
+         <td>{{ extra_cliente.telefono2 }}</td>
+         <td>{{ conductor.telefono1 }}</td>
+         <td></td>
+       </tr>
+     </table>
+     </td>
    {% else %}
-   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;">
+   <table style="border:none;">
+       <tr>
+         <td><b>TELÉFONO:</b></td>
+         <td><b>RESIDENCIA</b></td>
+         <td><b>OFICINA</b></td>
+         <td><b>CELULAR</b></td>
+         <td></td>
+        </tr>
+        <tr>
+         <td></td>
+         <td>{{ extra_cliente.telefono_res }}</td>
+         <td></td>
+         <td>{{ conductor.telefono1 }}</td>
+         <td></td>
+       </tr>
+     </table>
+   </td>
    {% endif %}
     <td colspan="4" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
@@ -587,11 +689,62 @@
   </tr>
   <tr>
     {% if extra_cliente.telefono_empresa %}
-    <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono_empresa }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+    <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;">
+     <table style="border:none;">
+       <tr>
+         <td><b>TELÉFONO:</b></td>
+         <td><b>RESIDENCIA</b></td>
+         <td><b>OFICINA</b></td>
+         <td><b>CELULAR</b></td>
+         <td></td>
+        </tr>
+        <tr>
+         <td></td>
+         <td>{{ extra_cliente.telefono_res }}</td>
+         <td>{{ extra_cliente.telefono_empresa }}</td>
+         <td>{{ conductor.telefono1 }}</td>
+         <td></td>
+       </tr>
+     </table>
+  </td>
    {% elif conductor.telefono2 %} 
-   <td colspan="4" style="border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;{{ extra_cliente.telefono2 }}&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;">
+   <table style="border:none;">
+       <tr>
+         <td><b>TELÉFONO:</b></td>
+         <td><b>RESIDENCIA</b></td>
+         <td><b>OFICINA</b></td>
+         <td><b>CELULAR</b></td>
+         <td></td>
+        </tr>
+        <tr>
+         <td></td>
+         <td>{{ extra_cliente.telefono_res }}</td>
+         <td>{{ extra_cliente.telefono2 }}</td>
+         <td>{{ conductor.telefono1 }}</td>
+         <td></td>
+       </tr>
+     </table>
+     </td>
    {% else %}
-   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;"><b>TELÉFONO:&nbsp;&nbsp;&nbsp;RESIDENCIA&nbsp;&nbsp;&nbsp;OFICINA&nbsp;&nbsp;&nbsp;CELULAR</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ extra_cliente.telefono_res }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ conductor.telefono1 }}</td>
+   <td colspan="4" style="border: 1px solid #dddddd; text-align: left; white-space: nowrap; padding: 1px; border-top: 1px white;">
+   <table style="border:none;">
+       <tr>
+         <td><b>TELÉFONO:</b></td>
+         <td><b>RESIDENCIA</b></td>
+         <td><b>OFICINA</b></td>
+         <td><b>CELULAR</b></td>
+         <td></td>
+        </tr>
+        <tr>
+         <td></td>
+         <td>{{ extra_cliente.telefono_res }}</td>
+         <td></td>
+         <td>{{ conductor.telefono1 }}</td>
+         <td></td>
+       </tr>
+     </table>
+   </td>
    {% endif %}
     <td colspan="4" style="border-top: 1px white;"><b>CONDUCTO DE PAGO:</b> {{ conducto }}</td>
   </tr>
