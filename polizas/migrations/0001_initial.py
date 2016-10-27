@@ -8,8 +8,8 @@ import datetime
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('administrador', '0032_tipovehiculo'),
-        ('cotizar', '0046_merge'),
+        ('cotizar', '0001_initial'),
+        ('administrador', '0001_initial'),
     ]
 
     operations = [
@@ -21,12 +21,14 @@ class Migration(migrations.Migration):
                 ('juridico_RUC', models.CharField(default=b'', max_length=30, blank=True)),
                 ('juridico_razon_social', models.CharField(default=b'', max_length=30, blank=True)),
                 ('juridico_pais_procedencia', models.CharField(default=b'', max_length=30, blank=True)),
-                ('juridico_fecha_constitucion', models.DateField(default=datetime.date(2016, 10, 1))),
+                ('juridico_fecha_constitucion', models.DateField(default=datetime.date(2016, 10, 27))),
                 ('placa', models.CharField(max_length=40, null=True)),
                 ('motor', models.CharField(max_length=40)),
                 ('chasis', models.CharField(max_length=40)),
+                ('color', models.CharField(default=b'', max_length=20)),
+                ('num_puestos', models.IntegerField(null=True, blank=True)),
                 ('nombre2', models.CharField(max_length=20)),
-                ('apellido_mat', models.CharField(max_length=20)),
+                ('apellido_mat', models.CharField(max_length=20, blank=True)),
                 ('apellido_cas', models.CharField(max_length=20, blank=True)),
                 ('nacionalidad', models.CharField(max_length=30)),
                 ('pais_nacimiento', models.CharField(max_length=30)),
@@ -34,7 +36,7 @@ class Migration(migrations.Migration):
                 ('provincia', models.CharField(max_length=30)),
                 ('distrito', models.CharField(max_length=30)),
                 ('corregimiento', models.CharField(max_length=30)),
-                ('urbanizacion', models.CharField(max_length=30)),
+                ('urbanizacion', models.CharField(max_length=30, blank=True)),
                 ('edificio', models.CharField(default=b'', max_length=30, blank=True)),
                 ('piso', models.CharField(default=b'', max_length=5, blank=True)),
                 ('apto', models.CharField(default=b'', max_length=5, blank=True)),
@@ -79,6 +81,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('num', models.CharField(max_length=20, null=True)),
+                ('asegurado', models.CharField(max_length=100)),
+                ('id_asegurado', models.CharField(max_length=20)),
                 ('nombre_conductor', models.CharField(max_length=20)),
                 ('id_conductor', models.CharField(max_length=20)),
                 ('nombre_conductor2', models.CharField(max_length=20, null=True)),
@@ -87,6 +91,7 @@ class Migration(migrations.Migration):
                 ('id_conductor3', models.CharField(max_length=20, null=True)),
                 ('vigencia_desde', models.DateField()),
                 ('vigencia_hasta', models.DateField()),
+                ('tipo_acreedor_leasing', models.IntegerField(default=0, null=True, blank=True)),
                 ('firmador', models.CharField(max_length=40)),
                 ('observaciones', models.CharField(default=b'', max_length=100)),
                 ('responsable', models.CharField(default=b'Contratante', max_length=30, choices=[(b'Contratante', b'Contratante'), (b'Asegurado', b'Asegurado'), (b'Otro', b'Otro')])),
@@ -108,7 +113,10 @@ class Migration(migrations.Migration):
                 ('num_tdc', models.CharField(max_length=20, null=True)),
                 ('banco_tdc', models.CharField(max_length=20, null=True)),
                 ('expiracion_tdc', models.CharField(max_length=20, null=True)),
-                ('dia_pago', models.DateField()),
+                ('dia_cobro', models.CharField(default=b'Solicitada', max_length=30, choices=[(b'1', b'1'), (b'2', b'2'), (b'3', b'3'), (b'4', b'4'), (b'5', b'5'), (b'6', b'6'), (b'7', b'7'), (b'8', b'8'), (b'9', b'9'), (b'10', b'10'), (b'11', b'11'), (b'12', b'12'), (b'13', b'13'), (b'14', b'14'), (b'15', b'15'), (b'16', b'16'), (b'17', b'17'), (b'18', b'18'), (b'19', b'19'), (b'20', b'20'), (b'21', b'21'), (b'22', b'22'), (b'23', b'23'), (b'24', b'24'), (b'25', b'25'), (b'26', b'26'), (b'27', b'27'), (b'28', b'28'), (b'29', b'29'), (b'30', b'30')])),
+                ('cuenta_banco_num', models.CharField(max_length=100, null=True)),
+                ('cuenta_banco_nombre', models.CharField(max_length=50, null=True)),
+                ('cuenta_tipo', models.CharField(default=b'', max_length=30, null=True, choices=[(b'Ahorro', b'Ahorro'), (b'Corriente', b'Corriente')])),
                 ('tipo', models.CharField(default=b'Solicitada', max_length=30, choices=[(b'Solicitada', b'Solicitada'), (b'Emitida', b'Emitida')])),
                 ('acreedor_leasing', models.ForeignKey(default=0, blank=True, to='administrador.Acreedores', null=True)),
                 ('cotizacion', models.ForeignKey(to='cotizar.Cotizacion', null=True)),
@@ -128,5 +136,10 @@ class Migration(migrations.Migration):
             model_name='extradatoscliente',
             name='ref_personal',
             field=models.ForeignKey(related_name='personal', to='polizas.Referencia', null=True),
+        ),
+        migrations.AddField(
+            model_name='extradatoscliente',
+            name='tipo',
+            field=models.ForeignKey(blank=True, to='administrador.TipoVehiculo', null=True),
         ),
     ]
